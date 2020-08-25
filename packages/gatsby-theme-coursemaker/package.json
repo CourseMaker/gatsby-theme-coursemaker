@@ -1,0 +1,8 @@
+{
+  "name": "gatsby-theme-coursemaker",
+  "version": "0.1.0",
+  "description": "Make online courses",
+  "main": "index.js",
+  "author": "@ChristopherGS",
+  "license": "MIT"
+}
