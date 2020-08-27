@@ -11,7 +11,7 @@ module.exports = options => {
       {
         resolve: 'gatsby-source-filesystem',
         options: {
-          name: 'gatsby-theme-docs',
+          name: 'gatsby-theme-coursemaker',
           path: contentPath,
         },
       },

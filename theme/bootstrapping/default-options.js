@@ -1,6 +1,6 @@
 module.exports = ({
   basePath = '/',
-  contentPath = 'docs',
+  contentPath = 'lectures',
   useExternalMDX = false,
 }) => ({
   basePath,
