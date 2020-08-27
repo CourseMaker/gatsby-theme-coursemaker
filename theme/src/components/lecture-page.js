@@ -2,6 +2,7 @@
 import { jsx } from 'theme-ui';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import Layout from './layout';
+import Curriculum from "./curriculum";
 
 const LecturePage = ({ page }) => (
   <Layout>
@@ -19,6 +20,7 @@ const LecturePage = ({ page }) => (
     >
       This page was updated {page.updated}.
     </p>
+    <Curriculum />
   </Layout>
 );
 
