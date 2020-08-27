@@ -1,0 +1,33 @@
+
+{
+  "name": "gatsby-theme-coursemaker",
+  "author": "Chris Samiullah <https://github.com/christophergs/>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CourseMaker/gatsby-theme-coursemaker.git"
+  },
+  "version": "0.1.0",
+  "main": "index.js",
+  "license": "MIT",
+  "peerDependencies": {
+    "gatsby": "^2.13.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "devDependencies": {
+    "gatsby": "^2.13.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "dependencies": {
+    "@emotion/core": "^10.0.14",
+    "@mdx-js/react": "^1.0.21",
+    "gatsby-plugin-theme-ui": "^0.2.2",
+    "theme-ui": "^0.2.2"
+  },
+  "keywords": [
+    "gatsby",
+    "gatsby-theme",
+    "gatsby-plugin"
+  ]
+}
