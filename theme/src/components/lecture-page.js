@@ -6,6 +6,7 @@ import Layout from './layout';
 const LecturePage = ({ page }) => (
   <Layout>
     <h1>{page.title}</h1>
+    <h2>{page.youtubeId}</h2>
     <MDXRenderer>{page.body}</MDXRenderer>
     <p
       sx={{

@@ -8,6 +8,7 @@ export const query = graphql`
       title
       updated(fromNow: true)
       body
+      youtubeId
     }
   }
 `;

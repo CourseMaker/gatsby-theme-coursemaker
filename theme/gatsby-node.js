@@ -20,6 +20,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     type LecturePage implements Node @dontInfer {
       id: ID!
       title: String!
+      youtubeId: String!
       path: String!
       updated: Date! @dateformat
       body: String!
@@ -45,6 +46,7 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId }, options) => {
   actions.createNode({
     id: createNodeId(`LecturePage-${node.id}`),
     title: node.frontmatter.title || parent.name,
+    youtubeId: node.frontmatter.youtubeId || '',
     updated: parent.modifiedTime,
     path: path.join('/', basePath, parent.relativeDirectory, pageName),
     parent: node.id,
