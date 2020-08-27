@@ -9,6 +9,14 @@
   "version": "0.1.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "format": "prettier --write src/**/*.{js,jsx}",
+    "start": "npm run develop",
+    "serve": "gatsby serve",
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
+  },
   "peerDependencies": {
     "gatsby": "^2.13.1",
     "react": "^16.8.6",
@@ -21,10 +29,13 @@
   },
   "dependencies": {
     "@emotion/core": "^10.0.14",
-    "@mdx-js/react": "^1.0.21",
     "gatsby-plugin-theme-ui": "^0.2.2",
     "theme-ui": "^0.2.2",
-    "mkdirp": "^0.5.1"
+    "mkdirp": "^0.5.1",
+    "gatsby-source-filesystem": "^2.1.28",
+    "@mdx-js/mdx": "^1.5.0",
+    "@mdx-js/react": "^1.5.0",
+    "gatsby-plugin-mdx": "^1.0.46"
   },
   "keywords": [
     "gatsby",

@@ -1,36 +1,18 @@
-import React from "react"
-import { css, Global } from "@emotion/core"
-import { Layout as StyledLayout, Header, Main, Container } from "theme-ui"
-import { graphql, useStaticQuery } from "gatsby"
+/** @jsx jsx */
+import { Fragment } from 'react';
+import { jsx } from 'theme-ui';
+import { Global } from '@emotion/core';
 
-const Layout = ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
+const Layout = ({ children }) => (
+  <Fragment>
+    <Global styles={{ body: { margin: 0 } }} />
+    <header
+      sx={{ bg: 'primary', color: 'background', fontFamily: 'heading', p: 3 }}
+    >
+      gatsby-theme-coursemaker2
+    </header>
+    <main sx={{ mx: 'auto', maxWidth: 650, width: '90vw' }}>{children}</main>
+  </Fragment>
+);
 
-  return (
-    <StyledLayout>
-      <Global
-        styles={css`
-          body {
-            margin: 0;
-          }
-        `}
-      />
-      <Header>
-        <span>{data.site.siteMetadata.title}</span>
-      </Header>
-      <Main>
-        <Container>{children}</Container>
-      </Main>
-    </StyledLayout>
-  )
-}
-
-export default Layout
+export default Layout;
