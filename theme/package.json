@@ -37,6 +37,7 @@
     "mdx-utils": "^0.2.0",
     "mkdirp": "^0.5.1",
     "prism-react-renderer": "^1.0.1",
+    "react-live": "^2.2.1",
     "theme-ui": "^0.2.43"
   },
   "keywords": [
