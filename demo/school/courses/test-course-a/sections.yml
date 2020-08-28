@@ -1,0 +1,8 @@
+- name: Section 1
+  lectures:
+    - test_lecture2
+    - test_lecture3
+- name: Section 1
+  lectures:
+    - test_lecture4
+    - test_lecture5

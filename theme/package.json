@@ -52,6 +52,7 @@
     "gatsby-plugin-sharp": "^2.6.3",
     "gatsby-source-graphql": "^2.6.1",
     "gatsby-transformer-sharp": "^2.5.2",
+    "gatsby-remark-images": "^3.3.27",
     "graphql": "github:getcoursemaker/graphql-js#disable-validation-dist",
     "koa": "^2.12.1",
     "moment": "^2.25.3",

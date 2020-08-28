@@ -44,7 +44,7 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
   const { createTypes } = actions;
   createTypes(
     schema.buildObjectType({
-      name: `Lesson`,
+      name: `Lecture`,
       fields: {
         id: { type: `ID!` },
         slug: {
@@ -88,6 +88,41 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
     })
   );
   createTypes(
+      schema.buildObjectType({
+      name: `Section`,
+      fields: {
+        id: { type: `ID!` },
+        title: {
+          type: `String!`
+        },
+        description: {
+          type: `String!`
+        },
+        number: {
+          type: `Int`
+        },
+        body: {
+          type: `String!`,
+          resolve: mdxResolverPassthrough(`body`)
+        },
+        frontmatter: {
+          type: `MdxFrontmatter`,
+          resolve: mdxResolverPassthrough(`frontmatter`)
+        },
+        lectures: {
+          type: `[Lecture!]`,
+          resolve: source => {
+            const lessons = getNodesByType(`Lecture`);
+            if (lessons.every(lesson => !lesson.number))
+              return lessons.sort((a, b) => (a.slug > b.slug ? 1 : -1));
+            else return lessons.sort((a, b) => (a.number > b.number ? 1 : -1));
+          }
+        },
+      },
+      interfaces: [`Node`]
+    })
+  );
+  createTypes(
     schema.buildObjectType({
       name: `Course`,
       fields: {
@@ -126,13 +161,13 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
           type: `MdxFrontmatter`,
           resolve: mdxResolverPassthrough(`frontmatter`)
         },
-        lessons: {
-          type: `[Lesson!]`,
+        sections: {
+          type: `[Section!]`,
           resolve: source => {
-            const lessons = getNodesByType(`Lesson`);
-            if (lessons.every(lesson => !lesson.number))
-              return lessons.sort((a, b) => (a.slug > b.slug ? 1 : -1));
-            else return lessons.sort((a, b) => (a.number > b.number ? 1 : -1));
+            const sections = getNodesByType(`Section`);
+            if (sections.every(section => !section.number))
+              return sections.sort((a, b) => (a.slug > b.slug ? 1 : -1));
+            else return sections.sort((a, b) => (a.number > b.number ? 1 : -1));
           }
         },
         cover: {
@@ -159,6 +194,13 @@ exports.onCreateNode = async (
   // Create source field (according to coursesPath)
   const fileNode = getNode(node.parent);
   const source = fileNode.sourceInstanceName;
+  console.log(fileNode);
+  console.log(source);
+  // fileNode.relativeDirectory
+  // remove the content before the first /
+  // relativeDirectory: 'test-course-a/section1',
+  // regex on the remaining - if "section" found
+  // then we create a section node
 
   // Make sure the source is coursesPath
   if (source !== coursesPath) {
@@ -223,14 +265,14 @@ exports.onCreateNode = async (
     createNode({
       ...fieldData,
       // Required fields
-      id: createNodeId(`${node.id} >>> Lesson`),
+      id: createNodeId(`${node.id} >>> Lecture`),
       parent: node.id,
       children: [],
       internal: {
-        type: `Lesson`,
+        type: `Lecture`,
         contentDigest: createContentDigest(fieldData),
         content: JSON.stringify(fieldData),
-        description: `Lessons`
+        description: `Lectures`
       }
     });
     createParentChildLink({ parent: fileNode, child: node });
