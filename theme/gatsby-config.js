@@ -1,30 +1,53 @@
-const withDefaults = require('./bootstrapping/default-options');
+const withDefaults = require(`./bootstrapping/default-options`);
 
-module.exports = options => {
-  const { contentPath, useExternalMDX } = withDefaults(options);
+module.exports = themeOptions => {
+  const options = withDefaults(themeOptions);
+  let {
+    mdxOtherwiseConfigured = false,
+    mdx: legacyConfigureMdxFlag = true
+  } = themeOptions; // keep mdx flag so we don't introduce a breaking change
 
   return {
-    siteMetadata: {
-      title: "Gatsby Theme Coursemaker",
-    },
+    siteMetadata: {},
     plugins: [
+      !mdxOtherwiseConfigured &&
+        legacyConfigureMdxFlag && {
+          resolve: `gatsby-plugin-mdx`,
+          options: {
+            extensions: [`.mdx`, `.md`],
+            gatsbyRemarkPlugins: [
+              {
+                resolve: `gatsby-remark-images`,
+                options: {
+                  // should this be configurable by the end-user?
+                  maxWidth: 1380,
+                  linkImagesToOriginal: false
+                }
+              },
+              { resolve: `gatsby-remark-copy-linked-files` },
+              { resolve: `gatsby-remark-smartypants` }
+            ],
+            remarkPlugins: [require(`remark-slug`)]
+          }
+        },
+      `gatsby-plugin-theme-ui`,
+      `gatsby-transformer-yaml`,
       {
-        resolve: 'gatsby-source-filesystem',
+        resolve: `gatsby-source-filesystem`,
         options: {
-          name: 'gatsby-theme-coursemaker',
-          path: contentPath,
-        },
+          path: options.coursesPath,
+          name: options.coursesPath
+        }
       },
-      'gatsby-transformer-yaml',
-      !useExternalMDX && {
-        resolve: 'gatsby-plugin-mdx',
+      {
+        resolve: `gatsby-source-filesystem`,
         options: {
-          defaultLayouts: {
-            default: require.resolve('./src/components/layout.js'),
-          },
-        },
+          path: options.authorsPath,
+          name: options.authorsPath
+        }
       },
-      'gatsby-plugin-theme-ui',
-    ].filter(Boolean),
+      `gatsby-transformer-sharp`,
+      `gatsby-plugin-sharp`
+    ].filter(Boolean)
   };
 };
