@@ -267,7 +267,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
   // Create the courses page
   // createPage({
   //   path: basePath,
-  //   component: require.resolve('.src/templates/courses-template.js'),
+  //   component: require.resolve('.src/templates/course-landing-template.js'),
   //   context: {
   //     courses: courses
   //   }
