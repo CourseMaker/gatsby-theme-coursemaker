@@ -15,6 +15,7 @@ module.exports = options => {
           path: contentPath,
         },
       },
+      'gatsby-transformer-yaml',
       !useExternalMDX && {
         resolve: 'gatsby-plugin-mdx',
         options: {

@@ -1,17 +1,26 @@
+const Debug = require('debug');
 const path = require('path');
 const fs = require('fs');
 const mkdirp = require('mkdirp');
 const withDefaults = require('./bootstrapping/default-options');
+const debug = Debug('gatsby-theme-coursemaker');
+
 
 // Ensure that the content directory always exists to avoid errors.
-exports.onPreBootstrap = ({ store }, options) => {
+exports.onPreBootstrap = ({ store }, themeOptions) => {
   const { program } = store.getState();
-  const { contentPath } = withDefaults(options);
-  const dir = path.join(program.directory, contentPath);
+  const { contentPath, coursesPath, authorsPath } = withDefaults(themeOptions);
+  const dirs = [
+    path.join(program.directory, contentPath),
+    path.join(program.directory, coursesPath),
+    path.join(program.directory, authorsPath)
+  ];
 
-  if (!fs.existsSync(dir)) {
-    mkdirp.sync(dir);
-  }
+  dirs.forEach(dir => {
+    if (!fs.existsSync(dirs)) {
+      mkdirp.sync(dir);
+    }
+  });
 };
 
 // Define a custom type to avoid errors if no data is present.
@@ -94,6 +103,8 @@ exports.createResolvers = ({ createResolvers }) => {
 };
 
 exports.createPages = async ({ actions, graphql, reporter }, options) => {
+
+
   const result = await graphql(`
     query {
       allLecturePage {
@@ -109,14 +120,14 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
     reporter.panic('error loading docs', result.errors);
   }
 
-  const pages = result.data.allLecturePage.nodes;
+  const lectures = result.data.allLecturePage.nodes;
 
-  pages.forEach(page => {
+  lectures.forEach(page => {
     actions.createPage({
       path: page.path,
-      component: require.resolve('./src/templates/lecture-page-template.js'),
+      component: require.resolve('./src/templates/lecture-template.js'),
       context: {
-        pageID: page.id,
+        pageID: page.id
       },
     });
   });
