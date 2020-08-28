@@ -6,7 +6,7 @@ const withDefaults = require('./bootstrapping/default-options');
 const debug = Debug('gatsby-theme-coursemaker');
 
 
-// Ensure that the content directory always exists to avoid errors.
+// 1. Ensure that the content directory always exists to avoid errors.
 exports.onPreBootstrap = ({ store }, themeOptions) => {
   const { program } = store.getState();
   const { contentPath, coursesPath, authorsPath } = withDefaults(themeOptions);
@@ -23,7 +23,8 @@ exports.onPreBootstrap = ({ store }, themeOptions) => {
   });
 };
 
-// Define a custom type to avoid errors if no data is present.
+
+// 2. Define custom types to avoid errors if no data is present.
 exports.createSchemaCustomization = ({ actions }) => {
   actions.createTypes(`
     type LecturePage implements Node @dontInfer {
@@ -80,6 +81,8 @@ const mdxResolverPassthrough = fieldName => async (
   return result;
 };
 
+// 3. Create resolvers for any custom fields
+
 exports.createResolvers = ({ createResolvers }) => {
   createResolvers({
     LecturePage: {
@@ -101,6 +104,8 @@ exports.createResolvers = ({ createResolvers }) => {
     },
   });
 };
+
+// 4. Create pages
 
 exports.createPages = async ({ actions, graphql, reporter }, options) => {
 

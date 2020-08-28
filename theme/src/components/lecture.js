@@ -2,13 +2,13 @@ import React from "react";
 import { Link } from "gatsby";
 import { useLocation } from "@reach/router";
 
-const Lecture = ({ data, other }) => {
-	console.log(data);
-	console.log(other);
+const LecturePage = ({ page }) => {
+	console.log(page);
 	// temp
 	const size = "big";
+	const data = page;
 	const lecture = {"id": data.id};
-	const { title, id } = data;
+	const { title, id } = page;
 	function random(min, max) {
 		return Math.random() * (max - min) + min;
 	}
@@ -71,4 +71,4 @@ const Lecture = ({ data, other }) => {
 	);
 };
 
-export default Lecture;
+export default LecturePage;
