@@ -241,30 +241,36 @@ exports.onCreateNode = async (
 // 4. Create pages
 
 exports.createPages = async ({ actions, graphql, reporter }, options) => {
-  // const result = await graphql(`
-  //   query {
-  //     allCourse {
-  //       nodes {
-  //         id
-  //         slug
-  //       }
-  //     }
+  const result = await graphql(`
+    query {
+      allCourse {
+        edges {
+          node {
+            id
+            title
+            slug
+          }
+        }
+      }
+    }
+  `);
+
+  if (result.errors) {
+    reporter.panic('error loading docs', result.errors);
+  }
+
+  // Create courses and lessons pages.
+  const { allCourse } = result.data;
+  const courses = allCourse.edges;
+
+  // create landing page for each course
+  // Create the courses page
+  // createPage({
+  //   path: basePath,
+  //   component: require.resolve('.src/templates/courses-template.js'),
+  //   context: {
+  //     courses: courses
   //   }
-  // `);
-  //
-  // if (result.errors) {
-  //   reporter.panic('error loading docs', result.errors);
-  // }
-  //
-  // const courses = result.data.allCourse.nodes;
-  //
-  // courses.forEach(course => {
-  //   actions.createPage({
-  //     path: course.slug,
-  //     component: require.resolve('./src/templates/courses-page.js'),
-  //     context: {
-  //       courseID: course.id
-  //     },
-  //   });
   // });
+
 };

@@ -2,8 +2,10 @@ import React from "react";
 import { useStaticQuery, graphql } from "gatsby";
 import Layout from "../components/layout";
 import Button from "../components/button";
+import Courses from "../components/courses";
 
-const IndexPage = () => {
+const IndexPage = ( {data} ) => {
+	const courses = data.allCourse.edges;
 	const title_and_description = {"title": "yo"};
 	const cta_section = {"title": "yo"};
 	const owner = {"email": "yo"};
@@ -74,6 +76,7 @@ const IndexPage = () => {
 				</div>
 			</section>
 
+			<Courses courses={courses} />
 
 			<section
 				id="author"
@@ -129,3 +132,17 @@ const IndexPage = () => {
 };
 
 export default IndexPage;
+
+export const query = graphql`
+	query {
+		allCourse {
+			edges {
+				node {
+					id
+					title
+					slug
+				}
+			}
+		}
+	}
+`
