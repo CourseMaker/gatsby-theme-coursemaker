@@ -24,7 +24,7 @@ const Card = ({ course }) => {
 				<div className="p-6 md:px-10 md:py-8 md:w-1/2">
 					<h4 className="mb-1 text-xl font-semibold">{course.title}</h4>
 					<h4 className="mb-6 font-normal text-gray-900">
-						By {course.author_display.title}
+						By
 					</h4>
 					<p className="font-light leading-relaxed text-gray-700">
 						{course.description_overview}
