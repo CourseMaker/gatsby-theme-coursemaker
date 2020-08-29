@@ -8,7 +8,9 @@ module.exports = themeOptions => {
   } = themeOptions; // keep mdx flag so we don't introduce a breaking change
 
   return {
-    siteMetadata: {},
+    siteMetadata: {
+      title: "My Cool School (update in gatsby-config)"
+    },
     plugins: [
       !mdxOtherwiseConfigured &&
         legacyConfigureMdxFlag && {

@@ -13,10 +13,11 @@ const Course = ({ data }) => {
     "text": "test",
     "text_color": "black"
   };
-	const { cta_section } = { "title": "cta test", "description": "cta desc" };
-	const { author } = { "username": "joe", "email": "yoyo@gmail.com" };
-	const { photo } = { "url": "abc.com" };
-	const { author_display } = { "title": "joe", "subtitle": "bar", "photo": photo, "description": "foo"};
+	const cta_section = { "title": "cta test", "description": "cta desc" };
+	const author = { "username": "joe", "email": "yoyo@gmail.com" };
+	const photo = { "url": "abc.com" };
+	const author_display = { "title": "joe", "subtitle": "bar", "photo": photo, "description": "foo"};
+	console.log(author_display);
 
 	return (
 		<Layout>
@@ -109,7 +110,7 @@ const Course = ({ data }) => {
 					<div className="lg:items-center md:inline-flex lg:px-16 justify-content-center">
 						<img
 							className="block object-cover w-48 h-48 bg-gray-500 rounded-full author-photo lg:h-64 lg:w-64"
-							src={`http://cms.coursemaker.io${author_display.photo.url}`}
+							src={author_display.photo['url']}
 							alt={author_display.title}
 						/>
 						<div className="w-full mt-8 md:pl-12 lg:pl-16 md:mt-0">

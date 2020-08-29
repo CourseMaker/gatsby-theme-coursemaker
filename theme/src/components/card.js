@@ -12,7 +12,7 @@ const Card = ({ course }) => {
 
 	return (
 		<Link
-			to={`/courses/${course.title}`}
+			to={`courses${course.slug}`}
 			className="block overflow-hidden bg-white border-t border-gray-200 rounded-lg shadow md:shadow-md transition transition-shadow duration-300 hover:shadow-lg"
 		>
 			<div className="md:flex">

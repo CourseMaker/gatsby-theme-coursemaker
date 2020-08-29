@@ -198,10 +198,6 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId, createContentDig
   const fileNode = getNode(node.parent);
   const source = fileNode.sourceInstanceName;
 
-  console.log(fileNode);
-  console.log(source);
-  console.log(coursesPath);
-
   // Make sure the source is coursesPath
   if (source !== coursesPath) {
     return;
@@ -212,15 +208,17 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId, createContentDig
   // in this scenario we just create the course node
   relDir = fileNode.relativeDirectory.toLocaleLowerCase();
   if (!relDir.includes('section')) {
-    console.log('suspected course');
-    console.log(fileNode);
     if (fileNode.name === `index`) {
       // create course node
-      const slug = createFilePath({
-        node: fileNode,
-        getNode,
-        basePath: coursesPath,
-      });
+      console.log('Creating course node...');
+      const slug = node.frontmatter.slug
+      ? sanitizeSlug(node.frontmatter.slug)
+      : createFilePath({
+          node: fileNode,
+          getNode,
+          basePath: coursesPath
+        });
+      console.log('Slug: ', slug);
       const fieldData = {
         title: node.frontmatter.title,
         tags: node.frontmatter.tags,
@@ -317,11 +315,12 @@ const CourseLandingPageTemplate = require.resolve(`./src/templates/course-landin
 // 4. Create pages
 exports.createPages = async ({ actions, graphql, reporter }, options) => {
   const result = await graphql(`
-    site {
-      siteMetadata {
-        title
+    {
+      site {
+        siteMetadata {
+          title
+        }
       }
-    }
     allCourse {
       edges {
         node {
@@ -336,10 +335,12 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
           }
           slug
           title
+          id
         }
       }
     }
-  `);
+  }
+`);
 
   if (result.errors) {
     reporter.panic('error loading docs', result.errors);
@@ -356,8 +357,8 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
     const nextCourse = i === courses.length - 1 ? null : courses[i + 1];
     const previousCourse = i === 0 ? null : courses[i - 1];
     const { slug, sections } = course;
-    createPage({
-      path: slug,
+    actions.createPage({
+      path: '/courses' + slug,
       component: CourseLandingPageTemplate,
       context: {
         id: course.id,
@@ -366,11 +367,12 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
         nextCourse,
       },
     });
-    sections.forEach(({ node: section }, j) =>
-    {
-      const nextSection = j === sections.length - 1 ? null : sections[i + 1];
-      const previousSection = j === 0 ? null : sections[i - 1];
-      const {lectures} = section;
-    });
+    console.log(course);
+    // sections.forEach(({ node: section }, j) =>
+    // {
+    //   const nextSection = j === sections.length - 1 ? null : sections[i + 1];
+    //   const previousSection = j === 0 ? null : sections[i - 1];
+    //   const {lectures} = section;
+    // });
   });
 };
