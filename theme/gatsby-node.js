@@ -5,11 +5,16 @@ const { createFilePath } = require(`gatsby-source-filesystem`);
 const withDefaults = require(`./bootstrapping/default-options`);
 const sanitizeSlug = require("./bootstrapping/sanitize-slug");
 const { toSeconds, toHoursMinutes } = require("./bootstrapping/format-duration");
+const sortBy = require(`lodash/sortBy`);
+
+let basePath;
+let coursesPath;
 
 // Ensure that content directories exist at site-level
 exports.onPreBootstrap = ({ store }, themeOptions) => {
   const { program } = store.getState();
-  const { coursesPath, authorsPath } = withDefaults(themeOptions);
+  const { authorsPath } = withDefaults(themeOptions);
+  coursesPath = themeOptions.coursesPath || `school/courses`;
 
   const dirs = [
     path.join(program.directory, coursesPath),
@@ -44,82 +49,54 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
   const { createTypes } = actions;
   createTypes(
     schema.buildObjectType({
-      name: `Lecture`,
+      name: `Lesson`,
       fields: {
         id: { type: `ID!` },
-        slug: {
-          type: `String!`
-        },
         title: {
-          type: `String!`
+          type: `String!`,
         },
-        description: {
-          type: `String!`
+        slug: {
+          type: `String!`,
         },
-        number: {
-          type: `Int`
-        },
-        video: {
-          type: `String!`
+        youtubeId: {
+          type: `String`,
         },
         duration: {
-          type: `String!`
+          type: `Int`,
         },
         excerpt: {
           type: `String!`,
           args: {
             pruneLength: {
               type: `Int`,
-              defaultValue: 140
-            }
+              defaultValue: 140,
+            },
           },
-          resolve: mdxResolverPassthrough(`excerpt`)
+          resolve: mdxResolverPassthrough(`excerpt`),
         },
         body: {
           type: `String!`,
-          resolve: mdxResolverPassthrough(`body`)
+          resolve: mdxResolverPassthrough(`body`),
         },
         frontmatter: {
           type: `MdxFrontmatter`,
-          resolve: mdxResolverPassthrough(`frontmatter`)
-        }
-      },
-      interfaces: [`Node`]
-    })
-  );
-  createTypes(
-      schema.buildObjectType({
-      name: `Section`,
-      fields: {
-        id: { type: `ID!` },
-        title: {
-          type: `String!`
+          resolve: mdxResolverPassthrough(`frontmatter`),
         },
-        description: {
-          type: `String!`
-        },
-        number: {
-          type: `Int`
-        },
-        body: {
-          type: `String!`,
-          resolve: mdxResolverPassthrough(`body`)
-        },
-        frontmatter: {
-          type: `MdxFrontmatter`,
-          resolve: mdxResolverPassthrough(`frontmatter`)
-        },
-        lectures: {
-          type: `[Lecture!]`,
-          resolve: source => {
-            const lessons = getNodesByType(`Lecture`);
-            if (lessons.every(lesson => !lesson.number))
-              return lessons.sort((a, b) => (a.slug > b.slug ? 1 : -1));
-            else return lessons.sort((a, b) => (a.number > b.number ? 1 : -1));
-          }
+        premium: {
+          type: `String`,
+          resolve: (source, args, context) => {
+            const courses = context.nodeModel.getAllNodes({
+              type: 'Course',
+            });
+            const courseSlug = `/${
+              source.slug.split('/')[source.slug.split('/').length - 3]
+            }/`;
+            const course = courses.filter(c => c.slug === courseSlug)[0];
+            return course.premium;
+          },
         },
       },
-      interfaces: [`Node`]
+      interfaces: [`Node`],
     })
   );
   createTypes(
@@ -127,64 +104,56 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
       name: `Course`,
       fields: {
         id: { type: `ID!` },
-        slug: {
-          type: `String!`
-        },
         title: {
-          type: `String!`
+          type: `String!`,
         },
-        description: {
-          type: `String!`
+        slug: {
+          type: `String!`,
         },
-        author: {
-          type: `AuthorsYaml!`,
-          resolve: source =>
-            getNodesByType(`AuthorsYaml`).find(
-              author => author.name === source.author
-            )
+        lastUpdated: { type: `Date`, extensions: { dateformat: {} } },
+        tags: { type: `[String]!` },
+        premium: {
+          type: `String`,
         },
         excerpt: {
           type: `String!`,
           args: {
             pruneLength: {
               type: `Int`,
-              defaultValue: 140
-            }
+              defaultValue: 180,
+            },
           },
-          resolve: mdxResolverPassthrough(`excerpt`)
+          resolve: mdxResolverPassthrough(`excerpt`),
         },
         body: {
           type: `String!`,
-          resolve: mdxResolverPassthrough(`body`)
+          resolve: mdxResolverPassthrough(`body`),
         },
         frontmatter: {
           type: `MdxFrontmatter`,
-          resolve: mdxResolverPassthrough(`frontmatter`)
+          resolve: mdxResolverPassthrough(`frontmatter`),
         },
-        sections: {
-          type: `[Section!]`,
-          resolve: source => {
-            const sections = getNodesByType(`Section`);
-            if (sections.every(section => !section.number))
-              return sections.sort((a, b) => (a.slug > b.slug ? 1 : -1));
-            else return sections.sort((a, b) => (a.number > b.number ? 1 : -1));
-          }
+        lessons: {
+          type: `[Lesson!]`,
+          resolve: source =>
+            sortBy(
+              getNodesByType(`Lesson`).filter(lesson =>
+                lesson.slug.startsWith(source.slug)
+              ),
+              ['slug']
+            ),
         },
-        cover: {
-          type: `File!`
-        }
+        coverImage: {
+          type: `File`,
+        },
       },
-      interfaces: [`Node`]
+      interfaces: [`Node`],
     })
   );
 };
 
-exports.onCreateNode = async (
-  { node, actions, getNode, createNodeId, createContentDigest },
-  themeOptions
-) => {
+exports.onCreateNode = ({ node, actions, getNode, createNodeId, createContentDigest }) => {
   const { createNode, createParentChildLink } = actions;
-  const { coursesPath } = withDefaults(themeOptions);
 
   // Make sure it's an MDX node
   if (node.internal.type !== `Mdx`) {
@@ -194,13 +163,10 @@ exports.onCreateNode = async (
   // Create source field (according to coursesPath)
   const fileNode = getNode(node.parent);
   const source = fileNode.sourceInstanceName;
+
   console.log(fileNode);
   console.log(source);
-  // fileNode.relativeDirectory
-  // remove the content before the first /
-  // relativeDirectory: 'test-course-a/section1',
-  // regex on the remaining - if "section" found
-  // then we create a section node
+  console.log(coursesPath);
 
   // Make sure the source is coursesPath
   if (source !== coursesPath) {
@@ -208,28 +174,23 @@ exports.onCreateNode = async (
   }
 
   if (fileNode.name === `index`) {
-    // Create course node
-    const slug = node.frontmatter.slug
-      ? sanitizeSlug(node.frontmatter.slug)
-      : createFilePath({
-          node: fileNode,
-          getNode,
-          basePath: coursesPath
-        });
-
-    const { title, description, cover, author } = node.frontmatter;
-
+    // create course node
+    const slug = createFilePath({
+      node: fileNode,
+      getNode,
+      basePath: coursesPath,
+    });
     const fieldData = {
+      title: node.frontmatter.title,
+      tags: node.frontmatter.tags,
+      lastUpdated: node.frontmatter.lastUpdated,
+      coverImage: node.frontmatter.coverImage,
+      premium: node.frontmatter.premium,
       slug,
-      title,
-      description,
-      cover,
-      author
     };
-
     createNode({
       ...fieldData,
-      // Required fields
+      // Required fields.
       id: createNodeId(`${node.id} >>> Course`),
       parent: node.id,
       children: [],
@@ -237,43 +198,41 @@ exports.onCreateNode = async (
         type: `Course`,
         contentDigest: createContentDigest(fieldData),
         content: JSON.stringify(fieldData),
-        description: `Courses`
-      }
+        description: `Courses`,
+      },
     });
     createParentChildLink({ parent: fileNode, child: node });
   } else {
-    // Create lesson node
-    const slug = node.frontmatter.slug
-      ? `/${fileNode.relativeDirectory}${sanitizeSlug(node.frontmatter.slug)}`
-      : createFilePath({
-          node: fileNode,
-          getNode,
-          basePath: coursesPath
-        });
-
-    const { title, description, video, number, duration } = node.frontmatter;
-
+    // create lesson node
+    const slug = createFilePath({
+      node: fileNode,
+      getNode,
+      basePath: coursesPath,
+    });
+    const { title, youtubeId, duration } = node.frontmatter;
+    let videoDuration;
+    if (youtubeId && !duration) {
+      // TODO: get video duration
+      videoDuration = 1000;
+    }
     const fieldData = {
-      slug,
       title,
-      duration,
-      video,
-      number,
-      description
+      duration: duration || videoDuration,
+      youtubeId,
+      slug,
     };
-
     createNode({
       ...fieldData,
-      // Required fields
-      id: createNodeId(`${node.id} >>> Lecture`),
+      // Required fields.
+      id: createNodeId(`${node.id} >>> Lesson`),
       parent: node.id,
       children: [],
       internal: {
-        type: `Lecture`,
+        type: `Lesson`,
         contentDigest: createContentDigest(fieldData),
         content: JSON.stringify(fieldData),
-        description: `Lectures`
-      }
+        description: `Lessons`,
+      },
     });
     createParentChildLink({ parent: fileNode, child: node });
   }
