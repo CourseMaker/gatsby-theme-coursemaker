@@ -5,7 +5,7 @@ import Layout from "../components/layout";
 import Button from "../components/button";
 import Section from "../components/section";
 
-const Course = ({ data }) => {
+const Curriculum = ({ data }) => {
 	const course = data.currentCourse;
 
 	// TODO: add to data model
@@ -192,7 +192,7 @@ const Course = ({ data }) => {
 	);
 };
 
-export default Course;
+export default Curriculum;
 
 export const query = graphql`
 	query($id: String!) {
@@ -212,7 +212,4 @@ export const query = graphql`
       }
     }
   }
-	
-		
-
 `;

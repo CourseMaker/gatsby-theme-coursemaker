@@ -218,13 +218,15 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId, createContentDig
           getNode,
           basePath: coursesPath
         });
-      console.log('Slug: ', slug);
       const fieldData = {
         title: node.frontmatter.title,
         tags: node.frontmatter.tags,
         lastUpdated: node.frontmatter.lastUpdated,
         coverImage: node.frontmatter.coverImage,
         premium: node.frontmatter.premium,
+        subtitle: node.frontmatter.subtitle,
+        description_overview: node.frontmatter.description_overview,
+        description: node.frontmatter.description,
         slug,
       };
       createNode({
@@ -308,9 +310,9 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId, createContentDig
   }
 };
 
-
 // These templates are simply data-fetching wrappers that import components
 const CourseLandingPageTemplate = require.resolve(`./src/templates/course-landing-page-template.js`);
+const curriculumPageTemplate = require.resolve("./src/templates/course-curriculum-page-template.js");
 
 // 4. Create pages
 exports.createPages = async ({ actions, graphql, reporter }, options) => {
@@ -369,7 +371,15 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
         nextCourse,
       },
     });
-    console.log(course);
+    // create curriculum page for each course
+		actions.createPage({
+			path: `/courses${slug}curriculum`,
+			component: curriculumPageTemplate,
+			context: {
+			  id: course.id,
+				title: course.title,
+			},
+		});
     // sections.forEach(({ node: section }, j) =>
     // {
     //   const nextSection = j === sections.length - 1 ? null : sections[i + 1];
