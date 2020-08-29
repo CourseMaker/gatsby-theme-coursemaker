@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Section from "./section";
 import Header from "./header";
+import Footer from "./footer";
 
 const LayoutLecture = ({ children, lecture, sections, totalLectures }) => {
 	function random(min, max) {
@@ -19,6 +20,7 @@ const LayoutLecture = ({ children, lecture, sections, totalLectures }) => {
 					<div className="lg:w-9/12">
 						{children}
 						<div className="hidden lg:block">
+							<Footer />
 						</div>
 					</div>
 
@@ -51,6 +53,7 @@ const LayoutLecture = ({ children, lecture, sections, totalLectures }) => {
 				</div>
 			</section>
 			<div className="block lg:hidden">
+				<Footer />
 			</div>
 		</>
 	);
