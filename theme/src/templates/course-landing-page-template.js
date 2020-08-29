@@ -3,11 +3,12 @@ import { graphql } from "gatsby";
 import ReactMarkdown from "react-markdown";
 import Layout from "../components/layout";
 import Button from "../components/button";
+import Section from "../components/section";
 
 const Course = ({ data }) => {
 	const course = data.currentCourse;
 
-	// TODO: add tp data model
+	// TODO: add to data model
 	const { primary_button, cta_button } = {
 	  "color": "blue",
     "text": "test",
@@ -17,7 +18,6 @@ const Course = ({ data }) => {
 	const author = { "username": "joe", "email": "yoyo@gmail.com" };
 	const photo = { "url": "abc.com" };
 	const author_display = { "title": "joe", "subtitle": "bar", "photo": photo, "description": "foo"};
-	console.log(author_display);
 
 	return (
 		<Layout>
@@ -99,7 +99,9 @@ const Course = ({ data }) => {
 					<div className="mx-auto inner lg:w-8/12">
 						<h2 className="mt-12 mb-6 leading-tight">Curriculum</h2>
 						<div className="curriculum-list space-y-6">
-              TODO
+							{course.Sections.map((section) => (
+								<Section data={section} size="big" key={section.id} />
+							))}
 						</div>
 					</div>
 				</div>

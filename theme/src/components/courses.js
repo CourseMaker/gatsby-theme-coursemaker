@@ -2,7 +2,6 @@ import React from "react";
 import Card from "./card";
 
 const Courses = ({ courses }) => {
-	console.log(courses);
 	return (
 		<section id="courses" className="py-16 md:py-32">
 			<div className="container mx-auto">

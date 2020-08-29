@@ -326,10 +326,12 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
         node {
           Sections {
             Lectures {
+              id
               slug
               title
               youtubeId
             }
+            id
             title
             slug
           }
