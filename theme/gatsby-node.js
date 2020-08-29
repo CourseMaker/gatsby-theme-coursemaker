@@ -49,7 +49,7 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
   const { createTypes } = actions;
   createTypes(
     schema.buildObjectType({
-      name: `Lesson`,
+      name: `Lecture`,
       fields: {
         id: { type: `ID!` },
         title: {
@@ -101,6 +101,39 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
   );
   createTypes(
     schema.buildObjectType({
+      name: `Section`,
+      fields: {
+        id: { type: `ID!` },
+        title: {
+          type: `String!`,
+        },
+        slug: {
+          type: `String!`,
+        },
+        body: {
+          type: `String!`,
+          resolve: mdxResolverPassthrough(`body`),
+        },
+        frontmatter: {
+          type: `MdxFrontmatter`,
+          resolve: mdxResolverPassthrough(`frontmatter`),
+        },
+        Lectures: {
+          type: `[Lecture!]`,
+          resolve: source =>
+            sortBy(
+              getNodesByType(`Lecture`).filter(Lecture =>
+                Lecture.slug.startsWith(source.slug)
+              ),
+              ['slug']
+            ),
+        },
+      },
+      interfaces: [`Node`],
+    })
+  );
+  createTypes(
+    schema.buildObjectType({
       name: `Course`,
       fields: {
         id: { type: `ID!` },
@@ -133,12 +166,12 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
           type: `MdxFrontmatter`,
           resolve: mdxResolverPassthrough(`frontmatter`),
         },
-        lessons: {
-          type: `[Lesson!]`,
+        Sections: {
+          type: `[Section!]`,
           resolve: source =>
             sortBy(
-              getNodesByType(`Lesson`).filter(lesson =>
-                lesson.slug.startsWith(source.slug)
+              getNodesByType(`Section`).filter(Section =>
+                Section.slug.startsWith(source.slug)
               ),
               ['slug']
             ),
@@ -173,68 +206,106 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId, createContentDig
     return;
   }
 
-  if (fileNode.name === `index`) {
-    // create course node
-    const slug = createFilePath({
-      node: fileNode,
-      getNode,
-      basePath: coursesPath,
-    });
-    const fieldData = {
-      title: node.frontmatter.title,
-      tags: node.frontmatter.tags,
-      lastUpdated: node.frontmatter.lastUpdated,
-      coverImage: node.frontmatter.coverImage,
-      premium: node.frontmatter.premium,
-      slug,
-    };
-    createNode({
-      ...fieldData,
-      // Required fields.
-      id: createNodeId(`${node.id} >>> Course`),
-      parent: node.id,
-      children: [],
-      internal: {
-        type: `Course`,
-        contentDigest: createContentDigest(fieldData),
-        content: JSON.stringify(fieldData),
-        description: `Courses`,
-      },
-    });
-    createParentChildLink({ parent: fileNode, child: node });
-  } else {
-    // create lesson node
-    const slug = createFilePath({
-      node: fileNode,
-      getNode,
-      basePath: coursesPath,
-    });
-    const { title, youtubeId, duration } = node.frontmatter;
-    let videoDuration;
-    if (youtubeId && !duration) {
-      // TODO: get video duration
-      videoDuration = 1000;
+  // if the relativeDirectory does not contain "section"
+  // this means we are in the course root dir
+  // in this scenario we just create the course node
+  relDir = fileNode.relativeDirectory.toLocaleLowerCase();
+  if (!relDir.includes('section')) {
+    console.log('suspected course');
+    console.log(fileNode);
+    if (fileNode.name === `index`) {
+      // create course node
+      const slug = createFilePath({
+        node: fileNode,
+        getNode,
+        basePath: coursesPath,
+      });
+      const fieldData = {
+        title: node.frontmatter.title,
+        tags: node.frontmatter.tags,
+        lastUpdated: node.frontmatter.lastUpdated,
+        coverImage: node.frontmatter.coverImage,
+        premium: node.frontmatter.premium,
+        slug,
+      };
+      createNode({
+        ...fieldData,
+        // Required fields.
+        id: createNodeId(`${node.id} >>> Course`),
+        parent: node.id,
+        children: [],
+        internal: {
+          type: `Course`,
+          contentDigest: createContentDigest(fieldData),
+          content: JSON.stringify(fieldData),
+          description: `Courses`,
+        },
+      });
+      createParentChildLink({parent: fileNode, child: node});
     }
-    const fieldData = {
-      title,
-      duration: duration || videoDuration,
-      youtubeId,
-      slug,
-    };
-    createNode({
-      ...fieldData,
-      // Required fields.
-      id: createNodeId(`${node.id} >>> Lesson`),
-      parent: node.id,
-      children: [],
-      internal: {
-        type: `Lesson`,
-        contentDigest: createContentDigest(fieldData),
-        content: JSON.stringify(fieldData),
-        description: `Lessons`,
-      },
-    });
-    createParentChildLink({ parent: fileNode, child: node });
+  } else {
+    // Index with section means that this is the section
+    // description -> Create section
+    if (fileNode.name === `index`) {
+      // create Section node
+      const slug = createFilePath({
+        node: fileNode,
+        getNode,
+        basePath: coursesPath,
+      });
+      const { title } = node.frontmatter;
+      const fieldData = {
+        title,
+        slug,
+      };
+      createNode({
+        ...fieldData,
+        // Required fields.
+        id: createNodeId(`${node.id} >>> Section`),
+        parent: node.id,
+        children: [],
+        internal: {
+          type: `Section`,
+          contentDigest: createContentDigest(fieldData),
+          content: JSON.stringify(fieldData),
+          description: `Sections`,
+        },
+      });
+      createParentChildLink({ parent: fileNode, child: node });
+    } else {
+      // create lecture node
+      const slug = createFilePath({
+        node: fileNode,
+        getNode,
+        basePath: coursesPath,
+      });
+      const { title, youtubeId, duration } = node.frontmatter;
+      let videoDuration;
+      if (youtubeId && !duration) {
+        // TODO: get video duration
+        videoDuration = 1000;
+      }
+      const fieldData = {
+        title,
+        duration: duration || videoDuration,
+        youtubeId,
+        slug,
+      };
+      createNode({
+        ...fieldData,
+        // Required fields.
+        id: createNodeId(`${node.id} >>> Lecture`),
+        parent: node.id,
+        children: [],
+        internal: {
+          type: `Lecture`,
+          contentDigest: createContentDigest(fieldData),
+          content: JSON.stringify(fieldData),
+          description: `Lectures`,
+        },
+      });
+      createParentChildLink({ parent: fileNode, child: node });
+    }
   }
 };
 
@@ -260,7 +331,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
     reporter.panic('error loading docs', result.errors);
   }
 
-  // Create courses and lessons pages.
+  // Create courses and Lectures pages.
   const { allCourse } = result.data;
   const courses = allCourse.edges;
 
