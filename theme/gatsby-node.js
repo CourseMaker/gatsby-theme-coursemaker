@@ -137,9 +137,10 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
       name: `Course`,
       fields: {
         id: { type: `ID!` },
-        title: {
-          type: `String!`,
-        },
+        title: { type: `String!`},
+        subtitle: { type: `String!`},
+        description_overview: { type: `String!`},
+        description: { type: `String!`},
         slug: {
           type: `String!`,
         },
@@ -310,18 +311,31 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId, createContentDig
 };
 
 
-// 4. Create pages
+// These templates are simply data-fetching wrappers that import components
+const CourseLandingPageTemplate = require.resolve(`./src/templates/course-landing-page-template.js`);
 
+// 4. Create pages
 exports.createPages = async ({ actions, graphql, reporter }, options) => {
   const result = await graphql(`
-    query {
-      allCourse {
-        edges {
-          node {
-            id
+    site {
+      siteMetadata {
+        title
+      }
+    }
+    allCourse {
+      edges {
+        node {
+          Sections {
+            Lectures {
+              slug
+              title
+              youtubeId
+            }
             title
             slug
           }
+          slug
+          title
         }
       }
     }
@@ -331,18 +345,32 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
     reporter.panic('error loading docs', result.errors);
   }
 
-  // Create courses and Lectures pages.
-  const { allCourse } = result.data;
+  const {
+    allCourse,
+    site: { siteMetadata },
+  } = result.data;
+
   const courses = allCourse.edges;
-
   // create landing page for each course
-  // Create the courses page
-  // createPage({
-  //   path: basePath,
-  //   component: require.resolve('.src/templates/course-landing-template.js'),
-  //   context: {
-  //     courses: courses
-  //   }
-  // });
-
+  courses.forEach(({ node: course }, i) => {
+    const nextCourse = i === courses.length - 1 ? null : courses[i + 1];
+    const previousCourse = i === 0 ? null : courses[i - 1];
+    const { slug, sections } = course;
+    createPage({
+      path: slug,
+      component: CourseLandingPageTemplate,
+      context: {
+        id: course.id,
+        course,
+        previousCourse,
+        nextCourse,
+      },
+    });
+    sections.forEach(({ node: section }, j) =>
+    {
+      const nextSection = j === sections.length - 1 ? null : sections[i + 1];
+      const previousSection = j === 0 ? null : sections[i - 1];
+      const {lectures} = section;
+    });
+  });
 };
