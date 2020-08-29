@@ -312,7 +312,8 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId, createContentDig
 
 // These templates are simply data-fetching wrappers that import components
 const CourseLandingPageTemplate = require.resolve(`./src/templates/course-landing-page-template.js`);
-const curriculumPageTemplate = require.resolve("./src/templates/course-curriculum-page-template.js");
+const CurriculumPageTemplate = require.resolve("./src/templates/course-curriculum-page-template.js");
+const LecturePageTemplate = require.resolve("./src/templates/lecture-page-template.js");
 
 // 4. Create pages
 exports.createPages = async ({ actions, graphql, reporter }, options) => {
@@ -360,7 +361,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
   courses.forEach(({ node: course }, i) => {
     const nextCourse = i === courses.length - 1 ? null : courses[i + 1];
     const previousCourse = i === 0 ? null : courses[i - 1];
-    const { slug, sections } = course;
+    const {slug} = course;
     actions.createPage({
       path: '/courses' + slug,
       component: CourseLandingPageTemplate,
@@ -372,19 +373,28 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
       },
     });
     // create curriculum page for each course
-		actions.createPage({
-			path: `/courses${slug}curriculum`,
-			component: curriculumPageTemplate,
-			context: {
-			  id: course.id,
-				title: course.title,
-			},
-		});
-    // sections.forEach(({ node: section }, j) =>
-    // {
-    //   const nextSection = j === sections.length - 1 ? null : sections[i + 1];
-    //   const previousSection = j === 0 ? null : sections[i - 1];
-    //   const {lectures} = section;
-    // });
+    actions.createPage({
+      path: `/courses${slug}curriculum`,
+      component: CourseLandingPageTemplate,
+      context: {
+        id: course.id,
+        title: course.title,
+      },
+    });
+    // TODO: tidy up inefficient nested loops
+    // create page for each lecture
+    course.Sections.forEach(function (section, index) {
+      console.log(section);
+      section.Lectures.forEach(function (lecture, index) {
+        actions.createPage({
+          path: `/courses${slug}lectures/${lecture.id}`,
+          component: LecturePageTemplate,
+          context: {
+            title: course.title,
+            id: course.id,
+          },
+        });
+      });
+    });
   });
 };
