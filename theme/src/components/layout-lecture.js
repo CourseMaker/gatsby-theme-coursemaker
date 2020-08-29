@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Section from "./section";
+import Header from "./header";
 
 const LayoutLecture = ({ children, lecture, sections, totalLectures }) => {
 	function random(min, max) {
@@ -12,6 +13,7 @@ const LayoutLecture = ({ children, lecture, sections, totalLectures }) => {
 
 	return (
 		<>
+			<Header />
 			<section id="lecture">
 				<div className="flex-wrap lg:flex">
 					<div className="lg:w-9/12">

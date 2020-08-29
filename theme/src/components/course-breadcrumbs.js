@@ -19,7 +19,7 @@ const CourseBreadcumbs = ({ school, course, lecture }) => {
 			</Link>
 			<span className="mx-1">/</span>
 			{lecture ? (
-				<Link to={`../../../${course.title}/curriculum`} className="link">
+				<Link to={`../../../${course.slug}/curriculum`} className="link">
 					{course.title}
 				</Link>
 			) : (
