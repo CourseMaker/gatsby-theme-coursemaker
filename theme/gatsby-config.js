@@ -32,6 +32,34 @@ module.exports = themeOptions => {
             remarkPlugins: [require(`remark-slug`)]
           }
         },
+      {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+          // replace "UA-XXXXXXXXX-X" with your own Tracking ID
+          trackingId: themeOptions.gaTrackingId,
+        },
+      },
+      {
+      resolve: `gatsby-plugin-gdpr-cookies`,
+      options: {
+        googleAnalytics: {
+          trackingId: themeOptions.gaTrackingId, // leave empty if you want to disable the tracker
+          cookieName: 'gatsby-gdpr-google-analytics', // default
+          anonymize: true // default
+        },
+        googleTagManager: {
+          trackingId: 'YOUR_GOOGLE_TAG_MANAGER_TRACKING_ID', // leave empty if you want to disable the tracker
+          cookieName: 'gatsby-gdpr-google-tagmanager', // default
+          dataLayerName: 'dataLayer', // default
+        },
+        facebookPixel: {
+          pixelId: 'YOUR_FACEBOOK_PIXEL_ID', // leave empty if you want to disable the tracker
+          cookieName: 'gatsby-gdpr-facebook-pixel', // default
+        },
+        // defines the environments where the tracking should be available  - default is ["production"]
+        environments: ['production', 'development']
+      },
+    },
       `gatsby-plugin-theme-ui`,
       `gatsby-transformer-yaml`,
       {
