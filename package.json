@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "scripts": {
+    "clean": "yarn workspace demo gatsby clean && yarn workspace gatsby-theme-coursemaker gatsby clean",
+    "local": "yarn workspace demo gatsby develop"
+  },
+  "workspaces": [
+    "theme",
+    "demo",
+    "complex_demo"
+  ]
+}

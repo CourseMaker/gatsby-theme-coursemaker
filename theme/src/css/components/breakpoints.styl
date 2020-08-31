@@ -1,0 +1,51 @@
+// ******************** //
+// variables
+// ******************** //
+
+reducer = .02
+values = {
+	'xs': 0,
+	'sm': 640px,
+	'md': 768px,
+	'lg': 1024px,
+	'xl': 1180px
+}
+
+// ******************** //
+// breakpoints
+// ******************** //
+
+// these mixins require 2 arguments
+// first argument is whether using integer or breakpoints strings
+// second argument is boolean and required
+// if first argument is integer and second argument not set, it will return error
+
+above(val, int = false)
+	@media (min-width: int ? unit(val, px) : values[val])
+	{block}
+
+below(val, int = false)
+	if val != 'xs'
+		@media (max-width: int ? unit(val, px) - reducer : values[val] - reducer)
+			{block}
+
+only(val)
+	if val == 'xs'
+		@media (max-width: values[sm] - reducer)
+			{block}
+	else if val == 'sm'
+		@media (min-width: values[val]) and (max-width: values[md] - reducer)
+			{block}
+	else if val == 'md'
+		@media (min-width: values[val]) and (max-width: values[lg] - reducer)
+			{block}
+	else if val == 'lg'
+		@media (min-width: values[val]) and (max-width: values[xl] - reducer)
+			{block}
+	else
+		@media (min-width: values[xl])
+			{block}
+
+between(min, max, int = false)
+	@media (min-width: int ? unit(min, px) : values[min]) and (max-width: int ? unit(max, px) - reducer : values[max] - reducer)
+		{block}
