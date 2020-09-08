@@ -7,6 +7,6 @@
   "workspaces": [
     "theme",
     "demo",
-    "complex_demo"
+    "full_demo"
   ]
 }
