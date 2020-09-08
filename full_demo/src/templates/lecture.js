@@ -1,27 +1,22 @@
 import React from "react";
 import { Link, graphql } from "gatsby";
 import ReactMarkdown from "react-markdown";
+import { Stream } from "@cloudflare/stream-react";
 import LayoutLecture from "../components/layout-lecture";
 import Breadcrumbs from "../components/course-breadcrumbs";
 
 const Lecture = ({ data }) => {
-	const school = data.cms.siteBuilds[0].school;
-	const course = data.cms.siteBuilds[0].school.courses[0];
+	const school = data.cms.siteBuild.school;
+	const course = data.cms.siteBuild.school.courses[0];
+  const lecture = course.sections[0].lectures[0];
+  const videoID = lecture.video_id; //|| "e42f03212fba34c412243da007c521cf";
 
-	let lecture = false;
-	let totalLectures = 0;
-
-	// get lecture object
-	course.sections.forEach((section) => {
-		section.lectures.forEach((item) => {
-			if (!lecture) {
-				lecture = item;
-			}
-		});
-	});
+  console.log(videoID);
+	
+  let totalLectures = 0;
 
 	// get all courses to show on the sidebar
-	const allCourses = data.cms.siteBuilds[0].school.allcourses;
+	const allCourses = data.cms.siteBuild.school.allcourses;
 	let allSections = "";
 	let allLectures = [];
 
@@ -62,16 +57,8 @@ const Lecture = ({ data }) => {
 			totalLectures={totalLectures}
 		>
 			{/* video */}
-			<div className="bg-black video-wrapper">
-				<iframe
-					title="video"
-					width="560"
-					height="315"
-					src="https://www.youtube.com/embed/dXu_m1LVaYA"
-					frameBorder="0"
-					allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-					allowFullScreen
-				></iframe>
+			<div className="bg-black video-wrapper" style={{display: "contents"}}>
+        <Stream controls src={videoID} />
 			</div>
 
 			{/* course header */}
@@ -119,12 +106,12 @@ const Lecture = ({ data }) => {
 export default Lecture;
 
 export const query = graphql`
-	query LectureQuery($title: String!, $id: String!) {
+	query LectureQuery($build_id: ID!, $course_id: String!, $section_id: String!, $id: String!) {
 		cms {
-			siteBuilds {
+			siteBuild(id: $build_id) {
 				school {
 					name
-					courses(where: { title: $title }) {
+					courses(where: { id: $course_id }) {
 						id
 						title
 						subtitle
@@ -136,7 +123,7 @@ export const query = graphql`
 							id
 							username
 						}
-						sections {
+						sections(where: {id: $section_id}) {
 							id
 							title
 							description
@@ -144,6 +131,7 @@ export const query = graphql`
 								id
 								title
 								description
+                video_id
 							}
 						}
 					}

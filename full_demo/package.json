@@ -1,10 +1,11 @@
 {
-  "name": "complex_demo",
+  "name": "gatsby-starter-default",
   "private": true,
   "description": "A simple starter to get up and developing quickly with Gatsby",
   "version": "0.1.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
+    "@cloudflare/stream-react": "^0.1.5",
     "@stripe/react-stripe-js": "1.0.3",
     "@stripe/stripe-js": "1.0.2",
     "gatsby": "^2.21.28",

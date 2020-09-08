@@ -1,6 +1,9 @@
 const path = require('path');
 
 exports.createPages = async ({ graphql, actions }) => {
+  const indexTemplate = path.resolve("./src/templates/index.js");
+  const coursesTemplate = path.resolve("./src/templates/courses.js");
+
   const lectureTemplate = path.resolve("./src/templates/lecture.js");
   const courseTemplate = path.resolve("./src/templates/course.js");
   const curriculumTemplate = path.resolve("./src/templates/course-curriculum.js");
@@ -8,9 +11,9 @@ exports.createPages = async ({ graphql, actions }) => {
 	const { createPage } = actions;
 	const { errors, data } = await graphql(
 		`
-      query {
+      query RootQuery($build_id: ID!) {
 				cms {
-					siteBuilds {
+					siteBuild(id: $build_id) {
 						school {
 							courses {
 								id
@@ -28,33 +31,48 @@ exports.createPages = async ({ graphql, actions }) => {
 					}
 				}
 			}
-		`
-	);
+		`,
+	{ build_id: process.env.SITE_BUILD_ID});
 
 	if (errors) {
 		throw errors;
 	}
 
-	const courses = data.cms.siteBuilds[0].school.courses;
+  createPage({
+			path: `/`,
+      component: indexTemplate,
+			context: {
+				build_id: process.env.SITE_BUILD_ID,
+			},
+  });
 
+  createPage({
+			path: `/courses`,
+      component: coursesTemplate,
+			context: {
+				build_id: process.env.SITE_BUILD_ID,
+			},
+  });
+
+	const courses = data.cms.siteBuild.school.courses;
 	courses.forEach((course) => {
-		const courseTitle = course.title;
-
 		// courses
 		createPage({
-			path: `/courses/${courseTitle}`,
+			path: `/courses/${course.title}`,
       component: courseTemplate,
 			context: {
-				title: courseTitle,
+				id: course.id,
+				build_id: process.env.SITE_BUILD_ID,
 			},
 		});
 
 		// curriculums
 		createPage({
-			path: `/courses/${courseTitle}/curriculum`,
+			path: `/courses/${course.title}/curriculum`,
 			component: curriculumTemplate,
 			context: {
-				title: courseTitle,
+				id: course.id,
+				build_id: process.env.SITE_BUILD_ID,
 			},
 		});
 
@@ -62,11 +80,13 @@ exports.createPages = async ({ graphql, actions }) => {
 		course.sections.forEach((section) => {
 			section.lectures.forEach((lecture) => {
 				createPage({
-					path: `/courses/${courseTitle}/lectures/${lecture.id}`,
+					path: `/courses/${course.title}/lectures/${lecture.id}`,
 					component: lectureTemplate,
 					context: {
-						title: courseTitle,
+						course_id: course.id,
+            section_id: section.id,
 						id: lecture.id,
+				    build_id: process.env.SITE_BUILD_ID,
 					},
 				});
 			})

@@ -1,12 +1,11 @@
 import React from "react";
-import { useStaticQuery, graphql } from "gatsby";
+import { graphql } from "gatsby";
 import Layout from "../components/layout";
 import Courses from "../components/courses";
 import Button from "../components/button";
 
-const IndexPage = () => {
-	const { cms } = useStaticQuery(query);
-	const { school } = cms.siteBuilds[0];
+const IndexPage = ({data}) => {
+	const { school } = data.cms.siteBuild;
 	const owner = school.owner;
 	const {
 		title_and_description,
@@ -137,10 +136,10 @@ const IndexPage = () => {
 
 export default IndexPage;
 
-const query = graphql`
-	query IndexPage {
+export const query = graphql`
+	query IndexQuery($build_id: ID!) {
 		cms {
-			siteBuilds {
+			siteBuild(id: $build_id) {
 				school {
 					name
 					owner {

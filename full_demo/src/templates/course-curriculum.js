@@ -5,8 +5,8 @@ import Section from "../components/section";
 import Breadcrumbs from "../components/course-breadcrumbs";
 
 const Curriculum = ({ data }) => {
-	const school = data.cms.siteBuilds[0].school;
-	const course = data.cms.siteBuilds[0].school.courses[0];
+	const school = data.cms.siteBuild.school;
+	const course = data.cms.siteBuild.school.courses[0];
 	return (
 		<Layout>
 			<section className="pt-5">
@@ -41,12 +41,12 @@ const Curriculum = ({ data }) => {
 export default Curriculum;
 
 export const query = graphql`
-	query CurriculumQuery($title: String!) {
+	query CurriculumQuery($build_id: ID!, $id: String!) {
 		cms {
-			siteBuilds {
+			siteBuild(id: $build_id) {
 				school {
 					name
-					courses (where: {title: $title}) {
+					courses (where: {id: $id}) {
 						id
 						title
 						subtitle

@@ -1,11 +1,10 @@
 import React from "react";
-import { useStaticQuery, graphql } from "gatsby";
+import { graphql } from "gatsby";
 import Layout from "../components/layout";
 import Courses from "../components/courses";
 
-const CoursesPage = () => {
-	const { cms } = useStaticQuery(query);
-	const { school } = cms.siteBuilds[0];
+const CoursesPage = ({data}) => {
+	const { school } = data.cms.siteBuild;
 
 	return (
 		<Layout>
@@ -16,10 +15,10 @@ const CoursesPage = () => {
 
 export default CoursesPage;
 
-const query = graphql`
-	query CoursesPage {
+export const query = graphql`
+	query CoursesPage($build_id: ID!) {
 		cms {
-			siteBuilds {
+			siteBuild(id: $build_id) {
 				school {
 					courses {
 						id

@@ -6,13 +6,14 @@ import Section from "../components/section";
 import Button from "../components/button";
 
 const Course = ({ data }) => {
-	const course = data.cms.siteBuilds[0].school.courses[0];
+	const course = data.cms.siteBuild.school.courses[0];
 	const {
 		primary_button,
 		cta_section,
 		cta_button,
 		author,
 		author_display,
+    author_photo
 	} = course;
 
 	return (
@@ -108,7 +109,7 @@ const Course = ({ data }) => {
 					<div className="lg:items-center md:inline-flex lg:px-16 justify-content-center">
 						<img
 							className="block object-cover w-48 h-48 bg-gray-500 rounded-full author-photo lg:h-64 lg:w-64"
-							src={`http://cms.coursemaker.io${author_display.photo.url}`}
+							src={`author_photo.url}`}
 							alt={author_display.title}
 						/>
 						<div className="w-full mt-8 md:pl-12 lg:pl-16 md:mt-0">
@@ -191,11 +192,11 @@ const Course = ({ data }) => {
 export default Course;
 
 export const query = graphql`
-	query CourseQuery($title: String!) {
+	query CourseQuery($build_id: ID!, $id: String) {
 		cms {
-			siteBuilds {
+			siteBuild(id: $build_id) {
 				school {
-					courses(where: { title: $title }) {
+					courses(where: { id: $id }) {
 						title
 						subtitle
 						description_overview
@@ -214,12 +215,12 @@ export const query = graphql`
 							text
 							color
 						}
+            author_photo {
+						  url
+						}
 						author_display {
 							title
 							subtitle
-							photo {
-								url
-							}
 							description
 						}
 						description_overview
@@ -240,5 +241,5 @@ export const query = graphql`
 				}
 			}
 		}
-	}
+  }
 `;
