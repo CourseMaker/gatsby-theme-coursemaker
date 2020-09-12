@@ -4,6 +4,9 @@
     "clean": "yarn workspace demo gatsby clean && yarn workspace gatsby-theme-coursemaker gatsby clean",
     "local": "yarn workspace demo gatsby develop"
   },
+  "resolutions": {
+    "graphql": "github:getcoursemaker/graphql-js#disable-validation-dist"
+  },
   "workspaces": [
     "theme",
     "demo",

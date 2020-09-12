@@ -9,6 +9,11 @@ Strapi configuration is in `gatsby-config.js`.
 - I have a weird thing where localhost:8000 does a continuous refrest but 127.0.0.1:8000 is fine. Not sure why. A hard reload with ctl+shift+r also works. See [gh issue](https://github.com/gatsbyjs/gatsby/issues/18226)
 
 - At the moment we are using a patched version of graphql-js (coursemaker:graphql-js/disable-validation) because of some incompatibility with the way strapi implements the protocol. To be investigated. **NB This means your HAVE to use yarn (because npm won't resolve the transitive dependency properly)**
+If you see:
+```.env
+Missing onError handler for invocation 'extracting-queries', error was 'Error: Type CMS_createSubscriptionPayload must define one or more fields.
+```
+Then you are missing the resolutions field in the package.json
 
 # Gatsby Docs
 
