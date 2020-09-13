@@ -4,7 +4,10 @@ const mkdirp = require(`mkdirp`);
 const { createFilePath } = require(`gatsby-source-filesystem`);
 const withDefaults = require(`./bootstrapping/default-options`);
 const sanitizeSlug = require("./bootstrapping/sanitize-slug");
-const { toSeconds, toHoursMinutes } = require("./bootstrapping/format-duration");
+const {
+  toSeconds,
+  toHoursMinutes,
+} = require("./bootstrapping/format-duration");
 const sortBy = require(`lodash/sortBy`);
 
 let basePath;
@@ -13,22 +16,22 @@ let coursesPath;
 // Ensure that content directories exist at site-level
 exports.onPreBootstrap = ({ store }, themeOptions) => {
   const { program } = store.getState();
-  const { authorsPath } = withDefaults(themeOptions);
-  coursesPath = themeOptions.coursesPath || `school/courses`;
+
+  const { authorsPath, coursesPath } = withDefaults(themeOptions);
 
   const dirs = [
     path.join(program.directory, coursesPath),
-    path.join(program.directory, authorsPath)
+    path.join(program.directory, authorsPath),
   ];
 
-  dirs.forEach(dir => {
+  dirs.forEach((dir) => {
     if (!fs.existsSync(dir)) {
       mkdirp.sync(dir);
     }
   });
 };
 
-const mdxResolverPassthrough = fieldName => async (
+const mdxResolverPassthrough = (fieldName) => async (
   source,
   args,
   context,
@@ -36,11 +39,11 @@ const mdxResolverPassthrough = fieldName => async (
 ) => {
   const type = info.schema.getType(`Mdx`);
   const mdxNode = context.nodeModel.getNodeById({
-    id: source.parent
+    id: source.parent,
   });
   const resolver = type.getFields()[fieldName].resolve;
   const result = await resolver(mdxNode, args, context, {
-    fieldName
+    fieldName,
   });
   return result;
 };
@@ -86,12 +89,12 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
           type: `String`,
           resolve: (source, args, context) => {
             const courses = context.nodeModel.getAllNodes({
-              type: 'Course',
+              type: "Course",
             });
             const courseSlug = `/${
-              source.slug.split('/')[source.slug.split('/').length - 3]
+              source.slug.split("/")[source.slug.split("/").length - 3]
             }/`;
-            const course = courses.filter(c => c.slug === courseSlug)[0];
+            const course = courses.filter((c) => c.slug === courseSlug)[0];
             return course.premium;
           },
         },
@@ -120,12 +123,12 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
         },
         Lectures: {
           type: `[Lecture!]`,
-          resolve: source =>
+          resolve: (source) =>
             sortBy(
-              getNodesByType(`Lecture`).filter(Lecture =>
+              getNodesByType(`Lecture`).filter((Lecture) =>
                 Lecture.slug.startsWith(source.slug)
               ),
-              ['slug']
+              ["slug"]
             ),
         },
       },
@@ -137,10 +140,10 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
       name: `Course`,
       fields: {
         id: { type: `ID!` },
-        title: { type: `String!`},
-        subtitle: { type: `String!`},
-        description_overview: { type: `String!`},
-        description: { type: `String!`},
+        title: { type: `String!` },
+        subtitle: { type: `String!` },
+        description_overview: { type: `String!` },
+        description: { type: `String!` },
         slug: {
           type: `String!`,
         },
@@ -169,12 +172,12 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
         },
         Sections: {
           type: `[Section!]`,
-          resolve: source =>
+          resolve: (source) =>
             sortBy(
-              getNodesByType(`Section`).filter(Section =>
+              getNodesByType(`Section`).filter((Section) =>
                 Section.slug.startsWith(source.slug)
               ),
-              ['slug']
+              ["slug"]
             ),
         },
         coverImage: {
@@ -186,7 +189,13 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
   );
 };
 
-exports.onCreateNode = ({ node, actions, getNode, createNodeId, createContentDigest }) => {
+exports.onCreateNode = ({
+  node,
+  actions,
+  getNode,
+  createNodeId,
+  createContentDigest,
+}) => {
   const { createNode, createParentChildLink } = actions;
 
   // Make sure it's an MDX node
@@ -207,17 +216,17 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId, createContentDig
   // this means we are in the course root dir
   // in this scenario we just create the course node
   relDir = fileNode.relativeDirectory.toLocaleLowerCase();
-  if (!relDir.includes('section')) {
+  if (!relDir.includes("section")) {
     if (fileNode.name === `index`) {
       // create course node
-      console.log('Creating course node...');
+      console.log("Creating course node...");
       const slug = node.frontmatter.slug
-      ? sanitizeSlug(node.frontmatter.slug)
-      : createFilePath({
-          node: fileNode,
-          getNode,
-          basePath: coursesPath
-        });
+        ? sanitizeSlug(node.frontmatter.slug)
+        : createFilePath({
+            node: fileNode,
+            getNode,
+            basePath: coursesPath,
+          });
       const fieldData = {
         title: node.frontmatter.title,
         tags: node.frontmatter.tags,
@@ -242,7 +251,7 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId, createContentDig
           description: `Courses`,
         },
       });
-      createParentChildLink({parent: fileNode, child: node});
+      createParentChildLink({ parent: fileNode, child: node });
     }
   } else {
     // Index with section means that this is the section
@@ -311,9 +320,15 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId, createContentDig
 };
 
 // These templates are simply data-fetching wrappers that import components
-const CourseLandingPageTemplate = require.resolve(`./src/templates/course-landing-page-template.js`);
-const CurriculumPageTemplate = require.resolve("./src/templates/course-curriculum-page-template.js");
-const LecturePageTemplate = require.resolve("./src/templates/lecture-page-template.js");
+const CourseLandingPageTemplate = require.resolve(
+  `./src/templates/course-landing-page-template.js`
+);
+const CurriculumPageTemplate = require.resolve(
+  "./src/templates/course-curriculum-page-template.js"
+);
+const LecturePageTemplate = require.resolve(
+  "./src/templates/lecture-page-template.js"
+);
 
 // 4. Create pages
 exports.createPages = async ({ actions, graphql, reporter }, options) => {
@@ -324,31 +339,31 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
           title
         }
       }
-    allCourse {
-      edges {
-        node {
-          Sections {
-            Lectures {
+      allCourse {
+        edges {
+          node {
+            Sections {
+              Lectures {
+                id
+                slug
+                title
+                youtubeId
+              }
               id
-              slug
               title
-              youtubeId
+              slug
             }
-            id
-            title
             slug
+            title
+            id
           }
-          slug
-          title
-          id
         }
       }
     }
-  }
-`);
+  `);
 
   if (result.errors) {
-    reporter.panic('error loading docs', result.errors);
+    reporter.panic("error loading docs", result.errors);
   }
 
   const {
@@ -361,9 +376,9 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
   courses.forEach(({ node: course }, i) => {
     const nextCourse = i === courses.length - 1 ? null : courses[i + 1];
     const previousCourse = i === 0 ? null : courses[i - 1];
-    const {slug} = course;
+    const { slug } = course;
     actions.createPage({
-      path: '/courses' + slug,
+      path: "/courses" + slug,
       component: CourseLandingPageTemplate,
       context: {
         id: course.id,
