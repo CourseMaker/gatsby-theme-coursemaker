@@ -52,7 +52,7 @@ const createCoursesMDX = (courses, createPage) => {
   });
 };
 
-const createCoursesStrapi = (courses, createPage) => {
+const createCoursesStrapi = (courses, createPage, build_id) => {
   courses.forEach((course) => {
     // courses
     createPage({
@@ -60,7 +60,7 @@ const createCoursesStrapi = (courses, createPage) => {
       component: courseTemplate,
       context: {
         id: course.id,
-        build_id: process.env.SITE_BUILD_ID,
+        build_id,
       },
     });
 
@@ -70,7 +70,7 @@ const createCoursesStrapi = (courses, createPage) => {
       component: curriculumTemplate,
       context: {
         id: course.id,
-        build_id: process.env.SITE_BUILD_ID,
+        build_id,
       },
     });
 
@@ -84,7 +84,7 @@ const createCoursesStrapi = (courses, createPage) => {
             course_id: course.id,
             section_id: section.id,
             id: lecture.id,
-            build_id: process.env.SITE_BUILD_ID,
+            build_id,
           },
         });
       });

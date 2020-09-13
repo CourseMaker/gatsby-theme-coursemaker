@@ -329,6 +329,10 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
   // console.log("useStrapi");
   // console.log(useStrapi);
 
+  // TODO - Remove fallback ID
+  // TODO - Add "Skip" / "Include" directive into GraphQL
+  const build_id = process.env.SITE_BUILD_ID || 61;
+
   const { errors, data } = await graphql(
     `
       query RootQuery($build_id: ID!) {
@@ -373,8 +377,8 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
         }
       }
     `,
-    // TODO - Remove fallback ID
-    { build_id: process.env.SITE_BUILD_ID || 61 }
+
+    { build_id }
   );
 
   if (errors) {
@@ -383,5 +387,5 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
 
   // Programmatically create pages with templates and helper functions
   createCoursesMDX(data.allCourse.edges, createPage);
-  createCoursesStrapi(data.cms.siteBuild.school.courses, createPage);
+  createCoursesStrapi(data.cms.siteBuild.school.courses, createPage, build_id);
 };
