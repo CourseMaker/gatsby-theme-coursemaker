@@ -191,13 +191,12 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
   );
 };
 
-exports.onCreateNode = ({
-  node,
-  actions,
-  getNode,
-  createNodeId,
-  createContentDigest,
-}) => {
+exports.onCreateNode = (
+  { node, actions, getNode, createNodeId, createContentDigest },
+  themeOptions
+) => {
+  const { coursesPath } = withDefaults(themeOptions);
+
   const { createNode, createParentChildLink } = actions;
 
   // Make sure it's an MDX node

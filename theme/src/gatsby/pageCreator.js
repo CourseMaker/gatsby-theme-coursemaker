@@ -61,6 +61,7 @@ const createCoursesStrapi = (courses, createPage, build_id) => {
       context: {
         id: course.id,
         build_id,
+        fromStrapi: true,
       },
     });
 

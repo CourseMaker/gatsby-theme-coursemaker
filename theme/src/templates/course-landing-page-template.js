@@ -7,7 +7,12 @@ import Section from "../components/section";
 
 const Curriculum = ({ pageContext, data }) => {
   console.log(pageContext);
-  const course = data.currentCourse;
+  console.log(data);
+  const course = pageContext.build_id
+    ? data.cms.siteBuild.school.courses[0]
+    : data.currentCourse;
+
+  console.log(course);
 
   // TODO: add to data model
   const { primary_button, cta_button } = {
@@ -108,9 +113,9 @@ const Curriculum = ({ pageContext, data }) => {
           <div className="mx-auto inner lg:w-8/12">
             <h2 className="mt-12 mb-6 leading-tight">Curriculum</h2>
             <div className="curriculum-list space-y-6">
-              {course.Sections.map((section) => (
+              {/* {course.Sections.map((section) => (
                 <Section data={section} size="big" key={section.id} />
-              ))}
+              ))} */}
             </div>
           </div>
         </div>
@@ -205,7 +210,7 @@ const Curriculum = ({ pageContext, data }) => {
 export default Curriculum;
 
 export const query = graphql`
-  query($id: String!) {
+  query($fromStrapi: Boolean! = false, $build_id: ID! = 0, $id: String!) {
     currentCourse: course(id: { eq: $id }) {
       id
       title
@@ -218,6 +223,55 @@ export const query = graphql`
           id
           slug
           title
+        }
+      }
+    }
+
+    cms @include(if: $fromStrapi) {
+      siteBuild(id: $build_id) {
+        school {
+          courses(where: { id: $id }) {
+            title
+            subtitle
+            description_overview
+            description
+            cta_section {
+              title
+              description
+            }
+            cta_button {
+              text_color
+              text
+              color
+            }
+            primary_button {
+              text_color
+              text
+              color
+            }
+            author_photo {
+              url
+            }
+            author_display {
+              title
+              subtitle
+              description
+            }
+            description_overview
+            author {
+              username
+              email
+            }
+            sections {
+              id
+              title
+              description
+              lectures {
+                id
+                title
+              }
+            }
+          }
         }
       }
     }
