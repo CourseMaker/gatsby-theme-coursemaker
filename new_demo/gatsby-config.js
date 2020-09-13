@@ -5,29 +5,30 @@ require("dotenv").config({
 const axios = require("axios");
 const FormData = require("form-data");
 const LOGIN_URL = "https://api.coursemaker.io"; // 'http://localhost:1337';
-const COURSEMAKER_URL = process.env.CMS_BASE_PATH || "https://cms.coursemaker.io";
+const COURSEMAKER_URL =
+	process.env.CMS_BASE_PATH || "https://cms.coursemaker.io";
 
 // Authenticate with coursemaker cms
 // TODO: extract out into plugin
 async function getAuthToken() {
-  if (process.env.AUTH_HEADER) {
-    return process.env.AUTH_HEADER
-  }
-  if (process.env.AUTH_TOKEN) {
-    return `Bearer ${process.env.AUTH_TOKEN}`
-  }
+	if (process.env.AUTH_HEADER) {
+		return process.env.AUTH_HEADER;
+	}
+	if (process.env.AUTH_TOKEN) {
+		return `Bearer ${process.env.AUTH_TOKEN}`;
+	}
 
-  // Otherwise login
-  let data = new FormData();
-  data.append("username", "test@test.com");
-  data.append("password", "password");
-  data.append("grant_type", "password");
+	// Otherwise login
+	let data = new FormData();
+	data.append("username", "test@test.com");
+	data.append("password", "password");
+	data.append("grant_type", "password");
 
 	return await axios({
 		method: "post",
 		url: `${LOGIN_URL}/api/v1/login/access-token`,
-    headers: data.getHeaders(),
-		data: data
+		headers: data.getHeaders(),
+		data: data,
 	}).then(
 		(response) => {
 			return `Bearer ${response.data.access_token}`;
@@ -42,7 +43,8 @@ async function getAuthToken() {
 module.exports = {
 	siteMetadata: {
 		title: "Marketing School",
-		description: "A book and course for programmers who want to learn marketing.",
+		description:
+			"A book and course for programmers who want to learn marketing.",
 		author: "CourseMaker Team",
 		titleTemplate: "%s · Marketing for Developers",
 		url: "https://www.doe.com", // No trailing slash allowed!
@@ -65,7 +67,7 @@ module.exports = {
 				fieldName: "cms",
 				url: `${COURSEMAKER_URL}/graphql`,
 				headers: async () => {
-          console.log(`${COURSEMAKER_URL}/graphql`);
+					console.log(`${COURSEMAKER_URL}/graphql`);
 					return {
 						Authorization: await getAuthToken(),
 					};
@@ -101,6 +103,15 @@ module.exports = {
 		},
 		{
 			resolve: `gatsby-plugin-stylus`,
+		},
+		{
+			resolve: `gatsby-theme-coursemaker`,
+			options: {
+				basePath: "/x",
+				contentPath: "schoolX",
+				coursesPath: "schoolX/courses",
+				authorsPath: "schoolX/authors",
+			},
 		},
 	],
 };

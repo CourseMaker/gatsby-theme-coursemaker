@@ -20,6 +20,7 @@
 		"gatsby-plugin-stylus": "^2.3.10",
 		"gatsby-source-filesystem": "^2.3.3",
 		"gatsby-source-graphql": "^2.6.1",
+		"gatsby-theme-coursemaker": "*",
 		"gatsby-transformer-sharp": "^2.5.2",
 		"graphql": "github:getcoursemaker/graphql-js#disable-validation-dist",
 		"koa": "^2.12.1",
