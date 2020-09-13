@@ -324,13 +324,22 @@ exports.onCreateNode = (
 exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
   const { createPage } = actions;
 
+  // TODO - Remove fallback ID
+  // TODO - Add "Skip" / "Include" directive into GraphQL
+  const build_id = process.env.SITE_BUILD_ID || 61;
+
   // const { useStrapi } = withDefaults(themeOptions);
   // console.log("useStrapi");
   // console.log(useStrapi);
 
-  // TODO - Remove fallback ID
-  // TODO - Add "Skip" / "Include" directive into GraphQL
-  const build_id = process.env.SITE_BUILD_ID || 61;
+  //  Standard / Common Pages
+  createPage({
+    path: `/courses`,
+    component: require.resolve("./src/templates/courses.js"),
+    context: {
+      build_id,
+    },
+  });
 
   const { errors, data } = await graphql(
     `

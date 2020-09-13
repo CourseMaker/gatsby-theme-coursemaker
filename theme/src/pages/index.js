@@ -5,7 +5,10 @@ import Button from "../components/button";
 import Courses from "../components/courses";
 
 const IndexPage = ({ data }) => {
-  const courses = data.allCourse.edges;
+  const courses = data.allCourse.edges.map((course) => {
+    //   console.log(course);
+    return course.node;
+  });
   const title_and_description = { title: "yo" };
   const cta_section = { title: "yo" };
   const owner = { email: "yo" };
