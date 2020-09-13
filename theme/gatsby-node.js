@@ -9,7 +9,11 @@ const {
   toHoursMinutes,
 } = require("./bootstrapping/format-duration");
 const sortBy = require(`lodash/sortBy`);
-const { wrapper, query1 } = require("./src/gatsby/gatsbyNodeGraphQL");
+
+const {
+  createCoursesMDX,
+  createCoursesStrapi,
+} = require("./src/gatsby/pageCreator");
 
 // Ensure that content directories exist at site-level
 exports.onPreBootstrap = ({ store }, themeOptions) => {
@@ -317,77 +321,67 @@ exports.onCreateNode = ({
   }
 };
 
-// These templates are simply data-fetching wrappers that import components
-const CourseLandingPageTemplate = require.resolve(
-  `./src/templates/course-landing-page-template.js`
-);
-const CurriculumPageTemplate = require.resolve(
-  "./src/templates/course-curriculum-page-template.js"
-);
-const LecturePageTemplate = require.resolve(
-  "./src/templates/lecture-page-template.js"
-);
-
 // 4. Create pages
 exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
-  const { useStrapi } = withDefaults(themeOptions);
+  const { createPage } = actions;
 
-  console.log("useStrapi");
-  console.log(useStrapi);
+  // const { useStrapi } = withDefaults(themeOptions);
+  // console.log("useStrapi");
+  // console.log(useStrapi);
 
-  const result = await wrapper(
-    graphql(`
-      {
+  const { errors, data } = await graphql(
+    `
+      query RootQuery($build_id: ID!) {
+        allCourse {
+          edges {
+            node {
+              Sections {
+                Lectures {
+                  id
+                  slug
+                  title
+                  youtubeId
+                }
+                id
+                title
+                slug
+              }
+              slug
+              title
+              id
+            }
+          }
+        }
 
-        ${query1}
+        cms {
+          siteBuild(id: $build_id) {
+            school {
+              courses {
+                id
+                title
+                sections {
+                  id
+                  title
+                  lectures {
+                    id
+                    title
+                  }
+                }
+              }
+            }
+          }
+        }
       }
-    `),
-    reporter
+    `,
+    // TODO - Remove fallback ID
+    { build_id: process.env.SITE_BUILD_ID || 61 }
   );
 
-  console.log(result);
+  if (errors) {
+    reporter.panic("error loading docs", errors);
+  }
 
-  const { allCourse } = result.data;
-
-  const courses = allCourse.edges;
-  // create landing page for each course
-  courses.forEach(({ node: course }, i) => {
-    const nextCourse = i === courses.length - 1 ? null : courses[i + 1];
-    const previousCourse = i === 0 ? null : courses[i - 1];
-    const { slug } = course;
-    actions.createPage({
-      path: "/courses" + slug,
-      component: CourseLandingPageTemplate,
-      context: {
-        id: course.id,
-        course,
-        previousCourse,
-        nextCourse,
-      },
-    });
-    // create curriculum page for each course
-    actions.createPage({
-      path: `/courses${slug}curriculum`,
-      component: CourseLandingPageTemplate,
-      context: {
-        id: course.id,
-        title: course.title,
-      },
-    });
-    // TODO: tidy up inefficient nested loops
-    // create page for each lecture
-    course.Sections.forEach(function (section, index) {
-      console.log(section);
-      section.Lectures.forEach(function (lecture, index) {
-        actions.createPage({
-          path: `/courses${slug}lectures/${lecture.id}`,
-          component: LecturePageTemplate,
-          context: {
-            title: course.title,
-            id: course.id,
-          },
-        });
-      });
-    });
-  });
+  // Programmatically create pages with templates and helper functions
+  createCoursesMDX(data.allCourse.edges, createPage);
+  createCoursesStrapi(data.cms.siteBuild.school.courses, createPage);
 };
