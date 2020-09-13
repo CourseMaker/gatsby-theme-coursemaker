@@ -9,9 +9,7 @@ const {
   toHoursMinutes,
 } = require("./bootstrapping/format-duration");
 const sortBy = require(`lodash/sortBy`);
-
-let basePath;
-let coursesPath;
+const { wrapper, query1 } = require("./src/gatsby/gatsbyNodeGraphQL");
 
 // Ensure that content directories exist at site-level
 exports.onPreBootstrap = ({ store }, themeOptions) => {
@@ -331,45 +329,25 @@ const LecturePageTemplate = require.resolve(
 );
 
 // 4. Create pages
-exports.createPages = async ({ actions, graphql, reporter }, options) => {
-  const result = await graphql(`
-    {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-      allCourse {
-        edges {
-          node {
-            Sections {
-              Lectures {
-                id
-                slug
-                title
-                youtubeId
-              }
-              id
-              title
-              slug
-            }
-            slug
-            title
-            id
-          }
-        }
-      }
-    }
-  `);
+exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
+  const { useStrapi } = withDefaults(themeOptions);
 
-  if (result.errors) {
-    reporter.panic("error loading docs", result.errors);
-  }
+  console.log("useStrapi");
+  console.log(useStrapi);
 
-  const {
-    allCourse,
-    site: { siteMetadata },
-  } = result.data;
+  const result = await wrapper(
+    graphql(`
+      {
+
+        ${query1}
+      }
+    `),
+    reporter
+  );
+
+  console.log(result);
+
+  const { allCourse } = result.data;
 
   const courses = allCourse.edges;
   // create landing page for each course

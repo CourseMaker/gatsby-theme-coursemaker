@@ -9,10 +9,10 @@ module.exports = {
     {
       resolve: `gatsby-theme-coursemaker`,
       options: {
-        contentPath: "schoolMDX",
-        coursesPath: "schoolMDX/courses",
-        authorsPath: "schoolMDX/authors",
-        strapi: true,
+        // contentPath: "schoolMDX",
+        // coursesPath: "schoolMDX/courses",
+        // authorsPath: "schoolMDX/authors",
+        // useStrapi: true,
       },
     },
   ],
