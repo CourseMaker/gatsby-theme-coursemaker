@@ -19,18 +19,19 @@ const Curriculum = ({ data }) => {
 				<div className="container mx-auto">
 					<div className="mx-auto inner lg:w-8/12">
 						<h1 className="leading-tight">{course.title}</h1>
-						<div className="mb-4 text-2xl font-light text-gray-600">{course.subtitle}</div>
-						<div className="text-lg font-semibold">By {course.author_display.title}</div>
+						<div className="mb-4 text-2xl font-light text-gray-600">
+							{course.subtitle}
+						</div>
+						<div className="text-lg font-semibold">
+							By {course.author_display.title}
+						</div>
 
-						<h2 className="mt-12 mb-6 leading-tight">
-							Curriculum
-						</h2>
+						<h2 className="mt-12 mb-6 leading-tight">Curriculum</h2>
 						<div className="curriculum-list space-y-10">
 							{course.sections.map((section) => (
 								<Section data={section} size="big" key={section.id} />
 							))}
 						</div>
-
 					</div>
 				</div>
 			</section>
@@ -41,12 +42,12 @@ const Curriculum = ({ data }) => {
 export default Curriculum;
 
 export const query = graphql`
-	query CurriculumQuery($build_id: ID!, $id: String!) {
+	query CurriculumQueryStrapi($build_id: ID!, $id: String!) {
 		cms {
 			siteBuild(id: $build_id) {
 				school {
 					name
-					courses (where: {id: $id}) {
+					courses(where: { id: $id }) {
 						id
 						title
 						subtitle
@@ -76,4 +77,3 @@ export const query = graphql`
 		}
 	}
 `;
-
