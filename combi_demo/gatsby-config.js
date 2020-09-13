@@ -5,5 +5,15 @@
  */
 
 module.exports = {
-  plugins: ["gatsby-theme-coursemaker"],
-}
+  plugins: [
+    {
+      resolve: `gatsby-theme-coursemaker`,
+      options: {
+        basePath: "/x",
+        contentPath: "schoolX",
+        coursesPath: "schoolX/courses",
+        authorsPath: "schoolX/authors",
+      },
+    },
+  ],
+};
