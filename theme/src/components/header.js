@@ -1,10 +1,12 @@
+/** @jsx jsx */
 import React, { useState } from "react";
 import { Link } from "gatsby";
 import { useLocation } from "@reach/router";
+import { jsx } from "theme-ui";
 
 const Header = () => {
   const { pathname } = useLocation();
-  const school = { name: "school" };
+  const school = { name: "Alpha School" };
 
   let homeLinks = [
     ["Overview", "#overview"],
@@ -26,7 +28,13 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-20 text-white bg-green-500 shadow-md">
+    <header
+      className="sticky top-0 z-20 shadow-md"
+      sx={{
+        color: "background",
+        backgroundColor: "primary",
+      }}
+    >
       <div className="container mx-auto">
         <div className="flex flex-wrap items-center lg:h-24">
           <Link
