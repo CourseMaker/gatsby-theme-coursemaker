@@ -1,8 +1,10 @@
+/** @jsx jsx */
 import React from "react";
 import { graphql } from "gatsby";
 import Layout from "../components/layout";
 import Button from "../components/button";
 import Courses from "../components/courses";
+import { jsx } from "theme-ui";
 
 const IndexPage = ({ data }) => {
   // TODO  Merge / Normalise with CMS_Courses
@@ -11,10 +13,9 @@ const IndexPage = ({ data }) => {
   });
 
   const title_and_description = { title: "This is the title" };
-  const cta_section = { title: "CTA Section" };
-  const owner = { email: "yo" };
-  const primary_button = { color: "red", text: "howdy", text_color: "black" };
-  const cta_button = { color: "red", text: "howdy", text_color: "black" };
+  const cta_section = { title: "CTA Section", description: "Lorem Ipsum" };
+  const owner = { email: "admin@alphaschool.io" };
+
   return (
     <Layout>
       <section className="py-16 pb-8 text-center md:pt-30">
@@ -23,13 +24,10 @@ const IndexPage = ({ data }) => {
           <p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12">
             {title_and_description.description}
           </p>
-          {primary_button && (
-            <Button
-              text={primary_button.text}
-              color={primary_button.text_color}
-              bg={primary_button.color}
-            />
-          )}
+
+          <Button to="/x" text={"Primary Button"} variant="primary" />
+          <Button text={"Secondary Button"} variant="secondary" />
+
           <div className="mt-12 scroll-to">
             <svg
               className="block w-6 mx-auto"
@@ -54,7 +52,7 @@ const IndexPage = ({ data }) => {
         <div className="container">
           <div className="mx-auto inner lg:w-7/12">
             <h2 className="mb-4 lg:mb-6">Overview</h2>
-            <div className="leading-loose text-left text-gray-700 space-y-6">
+            <div className="leading-loose text-gray-700 space-y-6">
               <p>
                 Learn how to integrate Stripe (and SCA support!) with Ruby on
                 Rails 6 including one-time payments, subscriptions, upgrades,
@@ -68,13 +66,7 @@ const IndexPage = ({ data }) => {
               </p>
             </div>
             <div className="mt-8 btn-wrapper">
-              {primary_button && (
-                <Button
-                  text={primary_button.text}
-                  color={primary_button.text_color}
-                  bg={primary_button.color}
-                />
-              )}
+              <Button text={"Primary Button"} variant="primary" />
             </div>
           </div>
         </div>
@@ -93,13 +85,7 @@ const IndexPage = ({ data }) => {
               <p>{cta_section.description}</p>
             </div>
             <div className="mt-8 btn-wrapper">
-              {cta_button && (
-                <Button
-                  text={cta_button.text}
-                  color={cta_button.text_color}
-                  bg={cta_button.color}
-                />
-              )}
+              <Button text="CTA Button" />
             </div>
           </div>
         </div>
@@ -114,20 +100,19 @@ const IndexPage = ({ data }) => {
                 <span>Any questions? Send an email to</span>
                 <br />
                 {owner && (
-                  <a href={`mailto:${owner.email}`} className="link">
+                  <a
+                    href={`mailto:${owner.email}`}
+                    sx={{
+                      color: "primary",
+                    }}
+                  >
                     {owner.email}
                   </a>
                 )}
               </p>
             </div>
             <div className="mt-8 btn-wrapper">
-              {primary_button && (
-                <Button
-                  text={primary_button.text}
-                  color={primary_button.text_color}
-                  bg={primary_button.color}
-                />
-              )}
+              <Button text={"Primary Button"} variant="primary" />
             </div>
           </div>
         </div>

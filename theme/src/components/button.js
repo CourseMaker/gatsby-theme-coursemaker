@@ -1,22 +1,21 @@
-import React from "react";
+/** @jsx jsx */
+import { jsx } from "theme-ui";
 import { Link } from "gatsby";
 
-const Button = ({ text, color, bg, size = 'lg', to = '/' }) => {
-	let textColor = 'text-' + color;
-	let bgColor = 'bg-' + bg;
-	if(color !== 'black' && color !== 'white') {
-		textColor += '-500';
-	}
-	if(bg !== 'white' && bg !== 'black' && bg !== 'orange') {
-		bgColor += '-500';
-	}
-
-	return (
-		<Link to={to} className={`btn btn-${size} 
-			${textColor} ${bgColor}`} >
-			{text}
-		</Link>
-	)
-}
+const Button = ({ to = "/", variant = "primary", size = "lg", ...props }) => {
+  return (
+    <Link
+      to={to}
+      className={`btn btn-${size}`}
+      sx={{
+        mx: 1,
+        variant: `buttons.${variant}`,
+      }}
+      {...props}
+    >
+      {props.text}
+    </Link>
+  );
+};
 
 export default Button;
