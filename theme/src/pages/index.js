@@ -5,18 +5,19 @@ import Button from "../components/button";
 import Courses from "../components/courses";
 
 const IndexPage = ({ data }) => {
+  // TODO  Merge / Normalise with CMS_Courses
   const courses = data.allCourse.edges.map((course) => {
-    //   console.log(course);
     return course.node;
   });
-  const title_and_description = { title: "yo" };
-  const cta_section = { title: "yo" };
+
+  const title_and_description = { title: "This is the title" };
+  const cta_section = { title: "CTA Section" };
   const owner = { email: "yo" };
   const primary_button = { color: "red", text: "howdy", text_color: "black" };
   const cta_button = { color: "red", text: "howdy", text_color: "black" };
   return (
     <Layout>
-      <section className="py-16 pb-8 text-center md:pt-40">
+      <section className="py-16 pb-8 text-center md:pt-30">
         <div className="container">
           <h1 className="mb-4">{title_and_description.title}</h1>
           <p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12">

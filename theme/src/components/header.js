@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "gatsby";
 import { useLocation } from "@reach/router";
 import { jsx } from "theme-ui";
