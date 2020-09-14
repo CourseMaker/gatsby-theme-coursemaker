@@ -7,10 +7,17 @@ import Courses from "../components/courses";
 import { jsx } from "theme-ui";
 
 const IndexPage = ({ data }) => {
-  // TODO  Merge / Normalise with CMS_Courses
-  const courses = data.allCourse.edges.map((course) => {
-    return course.node;
-  });
+  const strapiCourses = data.cms.siteBuild.school.courses;
+  const mdxCourses = data.allCourse.edges;
+
+  const mergedCourses = [
+    ...strapiCourses.map((course) => {
+      return course;
+    }),
+    ...mdxCourses.map((course) => {
+      return course.node;
+    }),
+  ];
 
   const title_and_description = { title: "This is the title" };
   const cta_section = { title: "CTA Section", description: "Lorem Ipsum" };
@@ -72,7 +79,7 @@ const IndexPage = ({ data }) => {
         </div>
       </section>
 
-      <Courses courses={courses} />
+      <Courses courses={mergedCourses} />
 
       <section
         id="author"
@@ -124,7 +131,17 @@ const IndexPage = ({ data }) => {
 export default IndexPage;
 
 export const query = graphql`
-  query {
+  query HomePage($build_id: ID! = 61) {
+    cms {
+      siteBuild(id: $build_id) {
+        school {
+          courses {
+            id
+            title
+          }
+        }
+      }
+    }
     allCourse {
       edges {
         node {
