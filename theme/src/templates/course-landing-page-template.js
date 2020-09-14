@@ -113,9 +113,9 @@ const Curriculum = ({ pageContext, data }) => {
           <div className="mx-auto inner lg:w-8/12">
             <h2 className="mt-12 mb-6 leading-tight">Curriculum</h2>
             <div className="curriculum-list space-y-6">
-              {/* {course.Sections.map((section) => (
+              {course.Sections.map((section) => (
                 <Section data={section} size="big" key={section.id} />
-              ))} */}
+              ))}
             </div>
           </div>
         </div>
