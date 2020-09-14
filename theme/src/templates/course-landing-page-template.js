@@ -6,8 +6,8 @@ import Button from "../components/button";
 import Section from "../components/section";
 
 const Curriculum = ({ pageContext, data }) => {
-  console.log(pageContext);
-  console.log(data);
+  // console.log(pageContext);
+  // console.log(data);
   const course = pageContext.build_id
     ? data.cms.siteBuild.school.courses[0]
     : data.currentCourse;
