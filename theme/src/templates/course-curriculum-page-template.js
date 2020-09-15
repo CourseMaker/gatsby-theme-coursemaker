@@ -65,16 +65,16 @@ export const query = graphql`
   query CurriculumQuery(
     $fromStrapi: Boolean! = false
     $build_id: ID! = 0
-    $id: String!
+    $course_id: String!
   ) {
-    currentCourse: course(id: { eq: $id }) {
+    currentCourse: course(id: { eq: $course_id }) {
       ...CourseMDXFragment
     }
 
     cms @include(if: $fromStrapi) {
       siteBuild(id: $build_id) {
         school {
-          courses(where: { id: $id }) {
+          courses(where: { id: $course_id }) {
             ...CourseCMSFragment
           }
         }

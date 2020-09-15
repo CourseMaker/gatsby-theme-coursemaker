@@ -30,8 +30,7 @@ const createCoursesMDX = (courses, createPage) => {
       path: `/courses${slug}curriculum`,
       component: curriculumTemplate,
       context: {
-        id: course.id,
-        title: course.title,
+        course_id: course.id,
       },
     });
     // TODO: tidy up inefficient nested loops
@@ -43,7 +42,6 @@ const createCoursesMDX = (courses, createPage) => {
           path: `/courses${slug}lectures/${lecture.id}`,
           component: lectureTemplate,
           context: {
-            title: course.title,
             course_id: course.id,
           },
         });
@@ -70,7 +68,7 @@ const createCoursesStrapi = (courses, createPage, build_id) => {
       path: `/courses/${course.title}/curriculum`,
       component: curriculumTemplate,
       context: {
-        id: course.id,
+        course_id: course.id,
         build_id,
         fromStrapi: true,
       },
