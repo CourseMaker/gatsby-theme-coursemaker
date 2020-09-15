@@ -15,11 +15,7 @@ const Curriculum = ({ pageContext, data }) => {
   console.log(course);
 
   // TODO: add to data model
-  const { primary_button, cta_button } = {
-    color: "blue",
-    text: "test",
-    text_color: "black",
-  };
+
   const cta_section = { title: "cta test", description: "cta desc" };
   const author = { username: "joe", email: "yoyo@gmail.com" };
   const photo = { url: "abc.com" };
@@ -38,14 +34,9 @@ const Curriculum = ({ pageContext, data }) => {
           <p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-5/12">
             {course.description_overview}
           </p>
-          {primary_button && (
-            <Button
-              text={primary_button.text}
-              color={primary_button.text_color}
-              bg={primary_button.color}
-              to="./curriculum"
-            />
-          )}
+
+          <Button text="Curriculum" to="./curriculum" />
+
           <div className="mt-12 scroll-to">
             <svg
               className="block w-6 mx-auto"
@@ -95,14 +86,7 @@ const Curriculum = ({ pageContext, data }) => {
               <ReactMarkdown source={course.description} />
             </div>
             <div className="mt-8 btn-wrapper">
-              {primary_button && (
-                <Button
-                  text={primary_button.text}
-                  color={primary_button.text_color}
-                  bg={primary_button.color}
-                  to="./curriculum"
-                />
-              )}
+              <Button text="Curriculum" to="./curriculum" />
             </div>
           </div>
         </div>
@@ -137,14 +121,7 @@ const Curriculum = ({ pageContext, data }) => {
               <div className="mb-4 leading-loose text-gray-700 md:mb-6 space-y-5">
                 <ReactMarkdown source={author_display.description} />
               </div>
-              {primary_button && (
-                <Button
-                  text={primary_button.text}
-                  color={primary_button.text_color}
-                  bg={primary_button.color}
-                  to="./curriculum"
-                />
-              )}
+              <Button text="Curriculum" to="./curriculum" />
             </div>
           </div>
         </div>
@@ -161,16 +138,7 @@ const Curriculum = ({ pageContext, data }) => {
               <div className="leading-loose text-gray-200 space-y-6">
                 <ReactMarkdown source={cta_section.description} />
               </div>
-              {cta_button && (
-                <div className="mt-8 btn-wrapper">
-                  <Button
-                    text={cta_button[0].text}
-                    color={cta_button[0].text_color}
-                    bg={cta_button[0].color}
-                    to="./curriculum"
-                  />
-                </div>
-              )}
+              <Button text="Curriculum" to="./curriculum" />
             </div>
           </div>
         </section>
@@ -192,13 +160,7 @@ const Curriculum = ({ pageContext, data }) => {
               </p>
             </div>
             <div className="mt-8 btn-wrapper">
-              {primary_button && (
-                <Button
-                  text={primary_button.text}
-                  color={primary_button.text_color}
-                  bg={primary_button.color}
-                />
-              )}
+              <Button text="Curriculum" to="./curriculum" />
             </div>
           </div>
         </div>
