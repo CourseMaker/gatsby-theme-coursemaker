@@ -219,7 +219,7 @@ export const query = graphql`
         id
         slug
         title
-        Lectures {
+        lectures: Lectures {
           id
           slug
           title
