@@ -5,6 +5,7 @@ import LayoutLecture from "../components/layout-lecture";
 import Breadcrumbs from "../components/course-breadcrumbs";
 
 const Lecture = ({ data }) => {
+  console.log(data);
   const course = data.currentCourse;
   const school = "school";
 
