@@ -231,46 +231,7 @@ export const query = graphql`
       siteBuild(id: $build_id) {
         school {
           courses(where: { id: $id }) {
-            title
-            subtitle
-            description_overview
-            description
-            cta_section {
-              title
-              description
-            }
-            cta_button {
-              text_color
-              text
-              color
-            }
-            primary_button {
-              text_color
-              text
-              color
-            }
-            author_photo {
-              url
-            }
-            author_display {
-              title
-              subtitle
-              description
-            }
-            description_overview
-            author {
-              username
-              email
-            }
-            sections {
-              id
-              title
-              description
-              lectures {
-                id
-                title
-              }
-            }
+            ...CourseCMSFragment
           }
         }
       }
