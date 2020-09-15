@@ -212,19 +212,7 @@ export default Curriculum;
 export const query = graphql`
   query($fromStrapi: Boolean! = false, $build_id: ID! = 0, $id: String!) {
     currentCourse: course(id: { eq: $id }) {
-      id
-      title
-      slug
-      sections: Sections {
-        id
-        slug
-        title
-        lectures: Lectures {
-          id
-          slug
-          title
-        }
-      }
+      ...CourseMDXFragment
     }
 
     cms @include(if: $fromStrapi) {
