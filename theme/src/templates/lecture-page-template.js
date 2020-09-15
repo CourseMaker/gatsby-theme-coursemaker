@@ -121,6 +121,8 @@ export const query = graphql`
     $fromStrapi: Boolean! = false
     $build_id: ID! = 0
     $course_id: String!
+    $section_id: String!
+    $id: String!
   ) {
     currentCourse: course(id: { eq: $course_id }) {
       ...CourseMDXFragment
@@ -132,6 +134,14 @@ export const query = graphql`
           id
           courses(where: { id: $course_id }) {
             ...CourseCMSFragment
+            currentSection: sections(where: { id: $section_id }) {
+              id
+              title
+              lectures(where: { id: $id }) {
+                id
+                title
+              }
+            }
           }
         }
       }
