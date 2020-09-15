@@ -8,12 +8,13 @@ import Breadcrumbs from "../components/course-breadcrumbs";
 const Lecture = ({ pageContext, data }) => {
   //   console.log(pageContext);
   console.log(data);
-  const school = "school";
+
   const lecture = data.currentCourse || data.cms.lecture;
 
   console.log(lecture);
 
-  const allLectures = lecture.section.lectures;
+  const allLectures =
+    (lecture.section && lecture.section.lectures) || lecture.sections;
   let nextLecture;
   let prevLecture;
 
@@ -37,8 +38,8 @@ const Lecture = ({ pageContext, data }) => {
   return (
     <LayoutLecture
       lecture={lecture}
-      lectureList={lecture.section.lectures}
-      totalLectures={lecture.section.lectures.length}
+      lectureList={allLectures}
+      totalLectures={allLectures.length}
     >
       {/* video */}
       <div className="bg-black video-wrapper">
@@ -100,15 +101,21 @@ export const query = graphql`
   query(
     $fromStrapi: Boolean! = false
     # $build_id: ID! = 0
-    $course_id: String! # $section_id: String!
-    $id: ID!
+    $course_id: String!
+    $lecture_id: ID!
+    $lecture_id_string: String!
   ) {
     currentCourse: course(id: { eq: $course_id }) {
       ...CourseMDXFragment
     }
 
+    lecture(id: { eq: $lecture_id_string }) {
+      id
+      title
+    }
+
     cms @include(if: $fromStrapi) {
-      lecture(id: $id) {
+      lecture(id: $lecture_id) {
         id
         title
         section {

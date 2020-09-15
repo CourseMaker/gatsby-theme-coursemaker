@@ -44,7 +44,8 @@ const createCoursesMDX = (courses, createPage) => {
           context: {
             course_id: course.id,
             section_id: section.id,
-            id: lecture.id,
+            lecture_id: lecture.id,
+            lecture_id_string: lecture.id,
           },
         });
       });
@@ -85,7 +86,8 @@ const createCoursesStrapi = (courses, createPage, build_id) => {
           context: {
             course_id: course.id,
             section_id: section.id,
-            id: lecture.id,
+            lecture_id: lecture.id,
+            lecture_id_string: lecture.id,
             build_id,
             fromStrapi: true,
           },

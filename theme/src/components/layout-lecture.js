@@ -55,7 +55,9 @@ const LayoutLecture = ({
                       //     size="small"
                       //     key={section.id}
                       //   />
-                      <pre>{JSON.stringify(section, null, 2)}</pre>
+                      <pre key={section.id}>
+                        {JSON.stringify(section, null, 2)}
+                      </pre>
                     ))}
                   </div>
                 )}
