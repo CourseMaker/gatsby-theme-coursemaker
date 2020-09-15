@@ -10,7 +10,7 @@ const Header = () => {
 
   let homeLinks = [
     ["Overview", "#overview"],
-    ["Courses", "#courses"],
+    ["Courses", "/courses"],
     ["Login", "/login"],
     ["Enrol Now", "/", "btn btn-white"],
   ];
