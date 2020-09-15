@@ -4,17 +4,21 @@ import ReactMarkdown from "react-markdown";
 import LayoutLecture from "../components/layout-lecture";
 import Breadcrumbs from "../components/course-breadcrumbs";
 
-const Lecture = ({ data }) => {
+const Lecture = ({ pageContext, data }) => {
   console.log(data);
-  const course = data.currentCourse;
+
   const school = "school";
+
+  const course = pageContext.build_id
+    ? data.cms.siteBuild.school.courses[0]
+    : data.currentCourse;
 
   let lecture = false;
   let totalLectures = 0;
 
   // get lecture object
-  course.Sections.forEach((section) => {
-    section.Lectures.forEach((item) => {
+  course.sections.forEach((section) => {
+    section.lectures.forEach((item) => {
       if (!lecture) {
         lecture = item;
       }
@@ -26,9 +30,9 @@ const Lecture = ({ data }) => {
   let allLectures = [];
 
   // match current course with all courses
-  course.Sections.forEach(function (section) {
-    allLectures = allLectures.concat(section.Lectures);
-    totalLectures += section.Lectures.length;
+  course.sections.forEach(function (section) {
+    allLectures = allLectures.concat(section.lectures);
+    totalLectures += section.lectures.length;
   });
 
   let nextLecture,
@@ -113,19 +117,22 @@ const Lecture = ({ data }) => {
 export default Lecture;
 
 export const query = graphql`
-  query($id: String!) {
-    currentCourse: course(id: { eq: $id }) {
-      id
-      title
-      slug
-      Sections {
-        id
-        slug
-        title
-        Lectures {
+  query(
+    $fromStrapi: Boolean! = false
+    $build_id: ID! = 0
+    $course_id: String!
+  ) {
+    currentCourse: course(id: { eq: $course_id }) {
+      ...CourseMDXFragment
+    }
+
+    cms @include(if: $fromStrapi) {
+      siteBuild(id: $build_id) {
+        school {
           id
-          slug
-          title
+          courses(where: { id: $course_id }) {
+            ...CourseCMSFragment
+          }
         }
       }
     }

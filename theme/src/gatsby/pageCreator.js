@@ -44,7 +44,7 @@ const createCoursesMDX = (courses, createPage) => {
           component: lectureTemplate,
           context: {
             title: course.title,
-            id: course.id,
+            course_id: course.id,
           },
         });
       });
