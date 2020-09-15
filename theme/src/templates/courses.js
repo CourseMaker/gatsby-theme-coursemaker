@@ -10,7 +10,10 @@ const CoursesPage = ({ data }) => {
   const mergedCourses = [
     ...strapiCourses.map((course) => {
       //   console.log(course);
-      return course;
+      return {
+        ...course,
+        slug: `/${course.slug}`,
+      };
     }),
     ...mdxCourses.map((course) => {
       //   console.log(course);
@@ -34,20 +37,8 @@ export const query = graphql`
         school {
           courses {
             id
-            author_display {
-              title
-              photo {
-                url
-              }
-            }
-            cover_photo {
-              url
-            }
-            created_at
-            enrolment_enabled
-            description_overview
-            subtitle
             title
+            slug: title
           }
         }
       }
