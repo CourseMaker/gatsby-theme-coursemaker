@@ -7,7 +7,7 @@ import Section from "../components/section";
 
 const Curriculum = ({ pageContext, data }) => {
   // console.log(pageContext);
-  // console.log(data);
+
   const course = pageContext.build_id
     ? data.cms.siteBuild.school.courses[0]
     : data.currentCourse;
@@ -113,7 +113,7 @@ const Curriculum = ({ pageContext, data }) => {
           <div className="mx-auto inner lg:w-8/12">
             <h2 className="mt-12 mb-6 leading-tight">Curriculum</h2>
             <div className="curriculum-list space-y-6">
-              {course.Sections.map((section) => (
+              {course.sections.map((section) => (
                 <Section data={section} size="big" key={section.id} />
               ))}
             </div>
@@ -215,7 +215,7 @@ export const query = graphql`
       id
       title
       slug
-      Sections {
+      sections: Sections {
         id
         slug
         title
