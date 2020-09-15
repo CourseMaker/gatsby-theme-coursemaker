@@ -4,7 +4,7 @@ import Layout from "../components/layout";
 import Section from "../components/section";
 import Breadcrumbs from "../components/course-breadcrumbs";
 
-const Curriculum = ({ data }) => {
+const Curriculum = ({ pageContext, data }) => {
   // TODO: add to data model
   // 	const { primary_button, cta_button } = {
   // 	  "color": "blue",
@@ -22,7 +22,11 @@ const Curriculum = ({ data }) => {
   };
   const school = "school"; //todo
   console.log(data);
-  const course = data.currentCourse;
+
+  const course = pageContext.build_id
+    ? data.cms.siteBuild.school.courses[0]
+    : data.currentCourse;
+
   return (
     <Layout>
       <section className="pt-5">
@@ -44,7 +48,7 @@ const Curriculum = ({ data }) => {
 
             <h2 className="mt-12 mb-6 leading-tight">Curriculum</h2>
             <div className="curriculum-list space-y-10">
-              {course.Sections.map((section) => (
+              {course.sections.map((section) => (
                 <Section data={section} size="big" key={section.id} />
               ))}
             </div>
@@ -58,19 +62,21 @@ const Curriculum = ({ data }) => {
 export default Curriculum;
 
 export const query = graphql`
-  query CurriculumQuery($id: String!) {
+  query CurriculumQuery(
+    $fromStrapi: Boolean! = false
+    $build_id: ID! = 0
+    $id: String!
+  ) {
     currentCourse: course(id: { eq: $id }) {
-      id
-      title
-      slug
-      Sections {
-        id
-        slug
-        title
-        Lectures {
-          id
-          slug
-          title
+      ...CourseMDXFragment
+    }
+
+    cms @include(if: $fromStrapi) {
+      siteBuild(id: $build_id) {
+        school {
+          courses(where: { id: $id }) {
+            ...CourseCMSFragment
+          }
         }
       }
     }

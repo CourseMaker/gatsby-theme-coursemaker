@@ -72,6 +72,7 @@ const createCoursesStrapi = (courses, createPage, build_id) => {
       context: {
         id: course.id,
         build_id,
+        fromStrapi: true,
       },
     });
 
@@ -86,6 +87,7 @@ const createCoursesStrapi = (courses, createPage, build_id) => {
             section_id: section.id,
             id: lecture.id,
             build_id,
+            fromStrapi: true,
           },
         });
       });
