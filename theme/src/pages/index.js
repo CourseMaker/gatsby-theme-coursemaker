@@ -12,7 +12,10 @@ const IndexPage = ({ data }) => {
 
   const mergedCourses = [
     ...strapiCourses.map((course) => {
-      return course;
+      return {
+        ...course,
+        slug: `/${course.slug}`,
+      };
     }),
     ...mdxCourses.map((course) => {
       return course.node;
@@ -138,6 +141,7 @@ export const query = graphql`
           courses {
             id
             title
+            slug: title
           }
         }
       }
