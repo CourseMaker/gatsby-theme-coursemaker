@@ -5,9 +5,12 @@ import Layout from "../components/layout";
 import Button from "../components/button";
 import Courses from "../components/courses";
 import { jsx } from "theme-ui";
+const withDefaults = require("../../bootstrapping/default-options");
 
-const IndexPage = ({ data }) => {
-  const strapiCourses = data.cms.siteBuild.school.courses;
+const { useStrapi } = false;
+
+const SchoolLandingPage = ({ pageContext, data }) => {
+  const strapiCourses = useStrapi ? data.cms.siteBuild.school.courses : [];
   const mdxCourses = data.allCourse.edges;
 
   const mergedCourses = [
@@ -22,7 +25,7 @@ const IndexPage = ({ data }) => {
     }),
   ];
 
-  const title_and_description = { title: "This is the title" };
+  const title_and_description = { title: pageContext.title };
   const cta_section = { title: "CTA Section", description: "Lorem Ipsum" };
   const owner = { email: "admin@alphaschool.io" };
 
@@ -131,7 +134,7 @@ const IndexPage = ({ data }) => {
   );
 };
 
-export default IndexPage;
+export default SchoolLandingPage;
 
 export const query = graphql`
   query HomePage($build_id: ID! = 61) {

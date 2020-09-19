@@ -8,6 +8,20 @@ const curriculumTemplate = require.resolve(
 const lectureTemplate = require.resolve(
   "../../src/templates/lecture-page-template.js"
 );
+const schoolLandingTemplate = require.resolve(
+  "../../src/templates/school-landing-page-template.js"
+);
+
+const createSchoolMDX = (school, createPage) => {
+  // create the school landing page
+  createPage({
+    path: "/",
+    component: schoolLandingTemplate,
+    context: {
+      title: school.title,
+    }
+  })
+}
 
 const createCoursesMDX = (courses, createPage) => {
   // create landing page for each course
@@ -97,4 +111,4 @@ const createCoursesStrapi = (courses, createPage, build_id) => {
   });
 };
 
-module.exports = { createCoursesMDX, createCoursesStrapi };
+module.exports = { createCoursesMDX, createCoursesStrapi, createSchoolMDX };

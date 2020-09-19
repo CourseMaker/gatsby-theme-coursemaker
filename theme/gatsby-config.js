@@ -38,6 +38,26 @@ async function getAuthToken() {
   );
 }
 
+const useStrapi = () => {
+  if (process.env.USE_STRAPI) {
+    return {
+      resolve: "gatsby-source-graphql",
+      options: {
+        typeName: "CMS",
+        fieldName: "cms",
+        url: `${COURSEMAKER_URL}/graphql`,
+        headers: async () => {
+          return {
+            Authorization: await getAuthToken(),
+          };
+        },
+        // Additional options to pass to node-fetch
+        fetchOptions: {},
+      },
+    };
+  }
+};
+
 module.exports = (themeOptions) => {
   const options = withDefaults(themeOptions);
   let {
@@ -48,6 +68,7 @@ module.exports = (themeOptions) => {
   return {
     siteMetadata: {
       title: "My Cool School (update in gatsby-config)",
+      useStrapi: options.useStrapi
     },
     plugins: [
       !mdxOtherwiseConfigured &&
@@ -141,21 +162,7 @@ module.exports = (themeOptions) => {
       {
         resolve: `gatsby-plugin-stylus`,
       },
-      {
-        resolve: "gatsby-source-graphql",
-        options: {
-          typeName: "CMS",
-          fieldName: "cms",
-          url: `${COURSEMAKER_URL}/graphql`,
-          headers: async () => {
-            return {
-              Authorization: await getAuthToken(),
-            };
-          },
-          // Additional options to pass to node-fetch
-          fetchOptions: {},
-        },
-      },
+      useStrapi(),
     ].filter(Boolean),
   };
 };

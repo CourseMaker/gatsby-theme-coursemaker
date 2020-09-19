@@ -13,13 +13,14 @@ const sortBy = require(`lodash/sortBy`);
 const {
   createCoursesMDX,
   createCoursesStrapi,
+  createSchoolMDX,
 } = require("./src/gatsby/pageCreator");
 
 // Ensure that content directories exist at site-level
 exports.onPreBootstrap = ({ store }, themeOptions) => {
   const { program } = store.getState();
 
-  const { authorsPath, coursesPath } = withDefaults(themeOptions);
+  const { authorsPath, coursesPath, useStrapi } = withDefaults(themeOptions);
 
   const dirs = [
     path.join(program.directory, coursesPath),
@@ -326,11 +327,10 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
 
   // TODO - Remove fallback ID
   // TODO - Add "Skip" / "Include" directive into GraphQL
+  // TODO - we need to programatically set this
   const build_id = process.env.SITE_BUILD_ID || 61;
 
-  // const { useStrapi } = withDefaults(themeOptions);
-  // console.log("useStrapi");
-  // console.log(useStrapi);
+  const { useStrapi } = withDefaults(themeOptions);
 
   //  Standard / Common Pages
   createPage({
@@ -343,7 +343,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
 
   const { errors, data } = await graphql(
     `
-      query RootQuery($build_id: ID!) {
+      query RootQuery($build_id: ID!, $useStrapi: Boolean!) {
         allCourse {
           edges {
             node {
@@ -364,8 +364,12 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
             }
           }
         }
-
-        cms {
+        site {
+          siteMetadata {
+            title
+          }
+        }
+        cms @include(if: $useStrapi) {
           siteBuild(id: $build_id) {
             school {
               courses {
@@ -386,7 +390,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
       }
     `,
 
-    { build_id }
+    { build_id, useStrapi }
   );
 
   if (errors) {
@@ -394,6 +398,10 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
   }
 
   // Programmatically create pages with templates and helper functions
+  createSchoolMDX(data.site.siteMetadata, createPage);
   createCoursesMDX(data.allCourse.edges, createPage);
-  createCoursesStrapi(data.cms.siteBuild.school.courses, createPage, build_id);
+  if (useStrapi) {
+    //createSchoolStrapi(data.cms.siteBuild.school, createPage, build_id);
+    createCoursesStrapi(data.cms.siteBuild.school.courses, createPage, build_id);
+  }
 };

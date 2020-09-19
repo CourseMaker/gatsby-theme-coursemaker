@@ -5,5 +5,19 @@
  */
 
 module.exports = {
-  plugins: ["gatsby-theme-coursemaker"],
+  siteMetadata: {
+      title: "Demo Site Cool School",
+  },
+  plugins: [
+    {
+      resolve: `gatsby-theme-coursemaker`,
+      options: {
+        // contentPath: "schoolMDX",
+        // coursesPath: "schoolMDX/courses",
+        // authorsPath: "schoolMDX/authors",
+        // useStrapi: true,
+
+      },
+    },
+  ],
 }

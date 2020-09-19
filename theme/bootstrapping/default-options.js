@@ -3,8 +3,8 @@ module.exports = ({
   contentPath = "school",
   coursesPath = "school/courses",
   authorsPath = "school/authors",
-  useExternalMDX = false,
-  useStrapi = true,
+  useExternalMDX = true,
+  useStrapi = false,
   // replace "UA-XXXXXXXXX-X" with your own Tracking ID
   gaTrackingId = "UPDATE ME",
   stripeClientId = "UPDATE ME",
