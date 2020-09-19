@@ -10,6 +10,7 @@
   "workspaces": [
     "theme",
     "demo",
-    "full_demo"
+    "full_demo",
+    "combi_demo"
   ]
 }

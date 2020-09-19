@@ -5,9 +5,6 @@
  */
 
 module.exports = {
-  siteMetadata: {
-      title: "Demo Site Cool School",
-  },
   plugins: [
     {
       resolve: `gatsby-theme-coursemaker`,
@@ -15,9 +12,8 @@ module.exports = {
         // contentPath: "schoolMDX",
         // coursesPath: "schoolMDX/courses",
         // authorsPath: "schoolMDX/authors",
-        useStrapi: true,
-
+        // useStrapi: true,
       },
     },
   ],
-}
+};

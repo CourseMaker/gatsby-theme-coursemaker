@@ -4,31 +4,39 @@ const mkdirp = require(`mkdirp`);
 const { createFilePath } = require(`gatsby-source-filesystem`);
 const withDefaults = require(`./bootstrapping/default-options`);
 const sanitizeSlug = require("./bootstrapping/sanitize-slug");
-const { toSeconds, toHoursMinutes } = require("./bootstrapping/format-duration");
+const {
+  toSeconds,
+  toHoursMinutes,
+} = require("./bootstrapping/format-duration");
 const sortBy = require(`lodash/sortBy`);
 
-let basePath;
-let coursesPath;
+const {
+  createCoursesMDX,
+  createCoursesStrapi,
+  createSchoolMDX,
+  createSchoolStrapi,
+} = require("./src/gatsby/pageCreator");
 
 // Ensure that content directories exist at site-level
 exports.onPreBootstrap = ({ store }, themeOptions) => {
   const { program } = store.getState();
-  const { authorsPath } = withDefaults(themeOptions);
-  coursesPath = themeOptions.coursesPath || `school/courses`;
+
+  const { authorsPath, coursesPath, useStrapi } = withDefaults(themeOptions);
+  console.log(useStrapi);
 
   const dirs = [
     path.join(program.directory, coursesPath),
-    path.join(program.directory, authorsPath)
+    path.join(program.directory, authorsPath),
   ];
 
-  dirs.forEach(dir => {
+  dirs.forEach((dir) => {
     if (!fs.existsSync(dir)) {
       mkdirp.sync(dir);
     }
   });
 };
 
-const mdxResolverPassthrough = fieldName => async (
+const mdxResolverPassthrough = (fieldName) => async (
   source,
   args,
   context,
@@ -36,11 +44,11 @@ const mdxResolverPassthrough = fieldName => async (
 ) => {
   const type = info.schema.getType(`Mdx`);
   const mdxNode = context.nodeModel.getNodeById({
-    id: source.parent
+    id: source.parent,
   });
   const resolver = type.getFields()[fieldName].resolve;
   const result = await resolver(mdxNode, args, context, {
-    fieldName
+    fieldName,
   });
   return result;
 };
@@ -86,12 +94,12 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
           type: `String`,
           resolve: (source, args, context) => {
             const courses = context.nodeModel.getAllNodes({
-              type: 'Course',
+              type: "Course",
             });
             const courseSlug = `/${
-              source.slug.split('/')[source.slug.split('/').length - 3]
+              source.slug.split("/")[source.slug.split("/").length - 3]
             }/`;
-            const course = courses.filter(c => c.slug === courseSlug)[0];
+            const course = courses.filter((c) => c.slug === courseSlug)[0];
             return course.premium;
           },
         },
@@ -120,12 +128,12 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
         },
         Lectures: {
           type: `[Lecture!]`,
-          resolve: source =>
+          resolve: (source) =>
             sortBy(
-              getNodesByType(`Lecture`).filter(Lecture =>
+              getNodesByType(`Lecture`).filter((Lecture) =>
                 Lecture.slug.startsWith(source.slug)
               ),
-              ['slug']
+              ["slug"]
             ),
         },
       },
@@ -137,10 +145,10 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
       name: `Course`,
       fields: {
         id: { type: `ID!` },
-        title: { type: `String!`},
-        subtitle: { type: `String!`},
-        description_overview: { type: `String!`},
-        description: { type: `String!`},
+        title: { type: `String!` },
+        subtitle: { type: `String!` },
+        description_overview: { type: `String!` },
+        description: { type: `String!` },
         slug: {
           type: `String!`,
         },
@@ -169,12 +177,12 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
         },
         Sections: {
           type: `[Section!]`,
-          resolve: source =>
+          resolve: (source) =>
             sortBy(
-              getNodesByType(`Section`).filter(Section =>
+              getNodesByType(`Section`).filter((Section) =>
                 Section.slug.startsWith(source.slug)
               ),
-              ['slug']
+              ["slug"]
             ),
         },
         coverImage: {
@@ -186,7 +194,12 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
   );
 };
 
-exports.onCreateNode = ({ node, actions, getNode, createNodeId, createContentDigest }) => {
+exports.onCreateNode = (
+  { node, actions, getNode, createNodeId, createContentDigest },
+  themeOptions
+) => {
+  const { coursesPath } = withDefaults(themeOptions);
+
   const { createNode, createParentChildLink } = actions;
 
   // Make sure it's an MDX node
@@ -207,17 +220,17 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId, createContentDig
   // this means we are in the course root dir
   // in this scenario we just create the course node
   relDir = fileNode.relativeDirectory.toLocaleLowerCase();
-  if (!relDir.includes('section')) {
+  if (!relDir.includes("section")) {
     if (fileNode.name === `index`) {
       // create course node
-      console.log('Creating course node...');
+      console.log("Creating course node...");
       const slug = node.frontmatter.slug
-      ? sanitizeSlug(node.frontmatter.slug)
-      : createFilePath({
-          node: fileNode,
-          getNode,
-          basePath: coursesPath
-        });
+        ? sanitizeSlug(node.frontmatter.slug)
+        : createFilePath({
+            node: fileNode,
+            getNode,
+            basePath: coursesPath,
+          });
       const fieldData = {
         title: node.frontmatter.title,
         tags: node.frontmatter.tags,
@@ -242,7 +255,7 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId, createContentDig
           description: `Courses`,
         },
       });
-      createParentChildLink({parent: fileNode, child: node});
+      createParentChildLink({ parent: fileNode, child: node });
     }
   } else {
     // Index with section means that this is the section
@@ -310,91 +323,89 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId, createContentDig
   }
 };
 
-// These templates are simply data-fetching wrappers that import components
-const CourseLandingPageTemplate = require.resolve(`./src/templates/course-landing-page-template.js`);
-const CurriculumPageTemplate = require.resolve("./src/templates/course-curriculum-page-template.js");
-const LecturePageTemplate = require.resolve("./src/templates/lecture-page-template.js");
-
 // 4. Create pages
-exports.createPages = async ({ actions, graphql, reporter }, options) => {
-  const result = await graphql(`
-    {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    allCourse {
-      edges {
-        node {
-          Sections {
-            Lectures {
-              id
+exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
+  const { createPage } = actions;
+
+  // TODO - Remove fallback ID
+  // TODO - Add "Skip" / "Include" directive into GraphQL
+  // TODO - we need to programatically set this
+  const build_id = process.env.SITE_BUILD_ID || 61;
+
+  const { useStrapi } = withDefaults(themeOptions);
+
+  //  Standard / Common Pages
+  createPage({
+    path: `/courses`,
+    component: require.resolve("./src/templates/courses.js"),
+    context: {
+      build_id,
+    },
+  });
+
+  const { errors, data } = await graphql(
+    `
+      query RootQuery($build_id: ID!, $useStrapi: Boolean!) {
+        allCourse {
+          edges {
+            node {
+              Sections {
+                Lectures {
+                  id
+                  slug
+                  title
+                  youtubeId
+                }
+                id
+                title
+                slug
+              }
               slug
               title
-              youtubeId
+              id
             }
-            id
-            title
-            slug
           }
-          slug
-          title
-          id
+        }
+        site {
+          siteMetadata {
+            title
+          }
+        }
+        cms @include(if: $useStrapi) {
+          siteBuild(id: $build_id) {
+            school {
+              courses {
+                id
+                title
+                sections {
+                  id
+                  title
+                  lectures {
+                    id
+                    title
+                  }
+                }
+              }
+            }
+          }
         }
       }
-    }
+    `,
+
+    { build_id, useStrapi }
+  );
+
+  if (errors) {
+    reporter.panic("error loading docs", errors);
   }
-`);
 
-  if (result.errors) {
-    reporter.panic('error loading docs', result.errors);
+  if (useStrapi) {
+    createSchoolStrapi(data.cms.siteBuild.school, createPage, build_id);
+    createCoursesStrapi(data.cms.siteBuild.school.courses, createPage, build_id);
+  } else {
+    // Programmatically create pages with templates and helper functions
+    createSchoolMDX(data.site.siteMetadata, createPage);
+    createCoursesMDX(data.allCourse.edges, createPage);
   }
 
-  const {
-    allCourse,
-    site: { siteMetadata },
-  } = result.data;
-
-  const courses = allCourse.edges;
-  // create landing page for each course
-  courses.forEach(({ node: course }, i) => {
-    const nextCourse = i === courses.length - 1 ? null : courses[i + 1];
-    const previousCourse = i === 0 ? null : courses[i - 1];
-    const {slug} = course;
-    actions.createPage({
-      path: '/courses' + slug,
-      component: CourseLandingPageTemplate,
-      context: {
-        id: course.id,
-        course,
-        previousCourse,
-        nextCourse,
-      },
-    });
-    // create curriculum page for each course
-    actions.createPage({
-      path: `/courses${slug}curriculum`,
-      component: CourseLandingPageTemplate,
-      context: {
-        id: course.id,
-        title: course.title,
-      },
-    });
-    // TODO: tidy up inefficient nested loops
-    // create page for each lecture
-    course.Sections.forEach(function (section, index) {
-      console.log(section);
-      section.Lectures.forEach(function (lecture, index) {
-        actions.createPage({
-          path: `/courses${slug}lectures/${lecture.id}`,
-          component: LecturePageTemplate,
-          context: {
-            title: course.title,
-            id: course.id,
-          },
-        });
-      });
-    });
-  });
 };
