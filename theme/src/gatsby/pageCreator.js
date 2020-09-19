@@ -68,6 +68,7 @@ const createCoursesMDX = (courses, createPage) => {
 };
 
 const createSchoolStrapi = (school, createPage, build_id) => {
+  console.log("create school: " + school);
   // create the school landing page
   createPage({
     path: "/",
@@ -75,7 +76,8 @@ const createSchoolStrapi = (school, createPage, build_id) => {
     context: {
       title: school.title,
       build_id: build_id,
-      fromStrapi: true
+      fromStrapi: true,
+      school: school,
     }
   })
 }

@@ -38,8 +38,20 @@ async function getAuthToken() {
   );
 }
 
+const enable_strapi = () => {
+  if (process.env.USE_STRAPI){
+    if (process.env.USE_STRAPI == "false") {
+      return false;
+    }
+    return true;
+  } else {
+    return false;
+  }
+}
+
+
 const useStrapi = () => {
-  if (process.env.USE_STRAPI) {
+  if (enable_strapi()) {
     return {
       resolve: "gatsby-source-graphql",
       options: {

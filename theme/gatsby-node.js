@@ -4,6 +4,7 @@ const mkdirp = require(`mkdirp`);
 const { createFilePath } = require(`gatsby-source-filesystem`);
 const withDefaults = require(`./bootstrapping/default-options`);
 const sanitizeSlug = require("./bootstrapping/sanitize-slug");
+const normalize = require('./src/gatsby/normalize');
 const {
   toSeconds,
   toHoursMinutes,
@@ -331,8 +332,12 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
   // TODO - Add "Skip" / "Include" directive into GraphQL
   // TODO - we need to programatically set this
   const build_id = process.env.SITE_BUILD_ID || 61;
-
   const { useStrapi } = withDefaults(themeOptions);
+
+  const dataSources = {
+    local: { authors: [], courses: [] },
+    cms: { authors: [], courses: [] },
+  };
 
   //  Standard / Common Pages
   createPage({
@@ -340,72 +345,91 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
     component: require.resolve("./src/templates/courses.js"),
     context: {
       build_id,
+      useStrapi,
     },
   });
 
-  const { errors, data } = await graphql(
-    `
-      query RootQuery($build_id: ID!, $useStrapi: Boolean!) {
-        allCourse {
-          edges {
-            node {
-              Sections {
-                Lectures {
-                  id
-                  slug
-                  title
-                  youtubeId
-                }
-                id
-                title
-                slug
-              }
-              slug
-              title
-              id
-            }
-          }
-        }
-        site {
-          siteMetadata {
-            title
-          }
-        }
-        cms @include(if: $useStrapi) {
-          siteBuild(id: $build_id) {
-            school {
-              courses {
-                id
-                title
-                sections {
+
+  console.log("use strapi: " + useStrapi);
+  if (useStrapi) {
+    // TODO: move queries to separate files like this: https://github.com/narative/gatsby-theme-novela/blob/master/%40narative/gatsby-theme-novela/src/gatsby/node/createPages.js#L95
+    try {
+      const cmsData = await graphql(`
+        query RootQuery($build_id: ID!){
+          cms {
+            siteBuild(id: $build_id) {
+              school {
+                courses {
                   id
                   title
-                  lectures {
+                  sections {
                     id
                     title
+                    lectures {
+                      id
+                      title
+                    }
                   }
                 }
               }
             }
           }
         }
-      }
-    `,
-
-    { build_id, useStrapi }
-  );
-
-  if (errors) {
-    reporter.panic("error loading docs", errors);
+      `,
+      {build_id}
+    );
+      console.log("cms query success");
+      createSchoolStrapi(cmsData.data.cms.siteBuild.school, createPage, build_id);
+      createCoursesStrapi(cmsData.data.cms.siteBuild.school.courses, createPage, build_id);
+    } catch (error) {
+      console.error("CMS query error");
+      console.error(error);
+    }
   }
 
-  if (useStrapi) {
-    createSchoolStrapi(data.cms.siteBuild.school, createPage, build_id);
-    createCoursesStrapi(data.cms.siteBuild.school.courses, createPage, build_id);
-  } else {
+  try {
+    const localData = await graphql(
+      `
+        query LocalRootQuery {
+          allCourse {
+            edges {
+              node {
+                Sections {
+                  Lectures {
+                    id
+                    slug
+                    title
+                    youtubeId
+                  }
+                  id
+                  title
+                  slug
+                }
+                slug
+                title
+                id
+              }
+            }
+          }
+          site {
+            siteMetadata {
+              landing_page {
+                title_and_description {
+                  title
+                  description
+                }
+              }
+            }
+          }
+        }
+      `,
+    );
     // Programmatically create pages with templates and helper functions
-    createSchoolMDX(data.site.siteMetadata, createPage);
-    createCoursesMDX(data.allCourse.edges, createPage);
+    createSchoolMDX(localData.data.site.siteMetadata, createPage);
+    createCoursesMDX(localData.data.allCourse.edges, createPage);
+    console.log(localData);
+  } catch (error) {
+    reporter.panic("error loading docs", error);
   }
 
 };

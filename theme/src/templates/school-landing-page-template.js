@@ -8,7 +8,9 @@ import { jsx } from "theme-ui";
 
 
 const SchoolLandingPage = ({ pageContext, data }) => {
-  const strapiCourses = pageContext.fromStrapi ? data.cms.siteBuild.school.courses : [];
+  console.log(pageContext);
+  console.log(data);
+  const strapiCourses = pageContext.fromStrapi ? pageContext.courses : [];
   const mdxCourses = data.allCourse.edges;
 
   const mergedCourses = [
@@ -23,7 +25,15 @@ const SchoolLandingPage = ({ pageContext, data }) => {
     }),
   ];
 
-  const title_and_description = { title: pageContext.title };
+  let mergedLandingPage = null;
+  if (pageContext.fromStrapi) {
+    mergedLandingPage = pageContext.landing_page;
+  } else {
+    mergedLandingPage = data.site.siteMetadata.landing_page;
+  }
+
+  const title = mergedLandingPage.title_and_description.title;
+  const description = mergedLandingPage.title_and_description.description;
   const cta_section = { title: "CTA Section", description: "Lorem Ipsum" };
   const owner = { email: "admin@alphaschool.io" };
 
@@ -31,9 +41,9 @@ const SchoolLandingPage = ({ pageContext, data }) => {
     <Layout>
       <section className="py-16 pb-8 text-center md:pt-30">
         <div className="container">
-          <h1 className="mb-4">{title_and_description.title}</h1>
+          <h1 className="mb-4">{title}</h1>
           <p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12">
-            {title_and_description.description}
+            {description}
           </p>
 
           <Button to="/x" text={"Primary Button"} variant="primary" />
@@ -135,18 +145,7 @@ const SchoolLandingPage = ({ pageContext, data }) => {
 export default SchoolLandingPage;
 
 export const query = graphql`
-  query ($fromStrapi: Boolean! = false, $build_id: ID! = 61) {
-    cms @include(if: $fromStrapi){
-      siteBuild(id: $build_id) {
-        school {
-          courses {
-            id
-            title
-            slug: title
-          }
-        }
-      }
-    }
+  query {
     allCourse {
       edges {
         node {
@@ -155,6 +154,9 @@ export const query = graphql`
           slug
         }
       }
+    }
+    site {
+      ...SchoolMDXFragment
     }
   }
 `;
