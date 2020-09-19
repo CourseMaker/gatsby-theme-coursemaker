@@ -10,7 +10,7 @@ import { jsx } from "theme-ui";
 const SchoolLandingPage = ({ pageContext, data }) => {
   console.log(pageContext);
   console.log(data);
-  const strapiCourses = pageContext.fromStrapi ? pageContext.courses : [];
+  const strapiCourses = pageContext.fromStrapi ? data.cms.siteBuild.school.courses : [];
   const mdxCourses = data.allCourse.edges;
 
   const mergedCourses = [
@@ -27,7 +27,7 @@ const SchoolLandingPage = ({ pageContext, data }) => {
 
   let mergedLandingPage = null;
   if (pageContext.fromStrapi) {
-    mergedLandingPage = pageContext.landing_page;
+    mergedLandingPage = data.cms.siteBuild.school.landing_page;
   } else {
     mergedLandingPage = data.site.siteMetadata.landing_page;
   }
@@ -144,8 +144,29 @@ const SchoolLandingPage = ({ pageContext, data }) => {
 
 export default SchoolLandingPage;
 
+// TODO: come up with an elegant solution to this
+// The problem is that when strapi is switched off, gatsby + graphql
+// throw an error due to an empty "cms" data source.
+
+var fromStrapi = false;
 export const query = graphql`
-  query {
+    query ($fromStrapi: Boolean! = false, $build_id: ID! = 61) {
+      cms @include(if:$fromStrapi){
+      siteBuild(id: $build_id) {
+        school {
+          courses {
+            id
+            title
+            slug: title
+          }
+          landing_page {
+            title_and_description {
+              title
+            }
+          }
+        }
+      }
+    }
     allCourse {
       edges {
         node {

@@ -56,6 +56,12 @@ const mdxResolverPassthrough = (fieldName) => async (
 
 exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
   const { createTypes } = actions;
+  // const typeDefs = `
+  //   type CMS implements Node {
+  //     replyFor: String
+  //   }
+  // `
+  // createTypes(typeDefs);
   createTypes(
     schema.buildObjectType({
       name: `Lecture`,
@@ -333,6 +339,10 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
   // TODO - we need to programatically set this
   const build_id = process.env.SITE_BUILD_ID || 61;
   const { useStrapi } = withDefaults(themeOptions);
+  console.log(typeof(useStrapi));
+  var activeStrapi = (useStrapi.toLowerCase() === 'true');
+  console.log(activeStrapi);
+  console.log(typeof(activeStrapi));
 
   const dataSources = {
     local: { authors: [], courses: [] },
@@ -345,13 +355,13 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
     component: require.resolve("./src/templates/courses.js"),
     context: {
       build_id,
-      useStrapi,
+      fromStrapi: activeStrapi,
     },
   });
 
 
   console.log("use strapi: " + useStrapi);
-  if (useStrapi) {
+  if (activeStrapi) {
     // TODO: move queries to separate files like this: https://github.com/narative/gatsby-theme-novela/blob/master/%40narative/gatsby-theme-novela/src/gatsby/node/createPages.js#L95
     try {
       const cmsData = await graphql(`
@@ -379,8 +389,8 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
       {build_id}
     );
       console.log("cms query success");
-      createSchoolStrapi(cmsData.data.cms.siteBuild.school, createPage, build_id);
-      createCoursesStrapi(cmsData.data.cms.siteBuild.school.courses, createPage, build_id);
+      createSchoolStrapi(cmsData.data.cms.siteBuild.school, createPage, build_id, activeStrapi);
+      //createCoursesStrapi(cmsData.data.cms.siteBuild.school.courses, createPage, build_id);
     } catch (error) {
       console.error("CMS query error");
       console.error(error);
@@ -425,9 +435,8 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
       `,
     );
     // Programmatically create pages with templates and helper functions
-    createSchoolMDX(localData.data.site.siteMetadata, createPage);
-    createCoursesMDX(localData.data.allCourse.edges, createPage);
-    console.log(localData);
+    //createSchoolMDX(localData.data.site.siteMetadata, createPage);
+    //createCoursesMDX(localData.data.allCourse.edges, createPage);
   } catch (error) {
     reporter.panic("error loading docs", error);
   }

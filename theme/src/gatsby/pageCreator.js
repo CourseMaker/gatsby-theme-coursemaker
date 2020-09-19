@@ -50,7 +50,6 @@ const createCoursesMDX = (courses, createPage) => {
     // TODO: tidy up inefficient nested loops
     // create page for each lecture
     course.Sections.forEach(function (section, index) {
-      console.log(section);
       section.Lectures.forEach(function (lecture, index) {
         createPage({
           path: `/courses${slug}lectures/${lecture.id}`,
@@ -67,8 +66,7 @@ const createCoursesMDX = (courses, createPage) => {
   });
 };
 
-const createSchoolStrapi = (school, createPage, build_id) => {
-  console.log("create school: " + school);
+const createSchoolStrapi = (school, createPage, build_id, fromStrapi) => {
   // create the school landing page
   createPage({
     path: "/",
@@ -76,8 +74,7 @@ const createSchoolStrapi = (school, createPage, build_id) => {
     context: {
       title: school.title,
       build_id: build_id,
-      fromStrapi: true,
-      school: school,
+      fromStrapi: fromStrapi,
     }
   })
 }
