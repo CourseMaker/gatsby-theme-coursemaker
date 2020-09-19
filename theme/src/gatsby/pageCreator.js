@@ -67,6 +67,19 @@ const createCoursesMDX = (courses, createPage) => {
   });
 };
 
+const createSchoolStrapi = (school, createPage, build_id) => {
+  // create the school landing page
+  createPage({
+    path: "/",
+    component: schoolLandingTemplate,
+    context: {
+      title: school.title,
+      build_id: build_id,
+      fromStrapi: true
+    }
+  })
+}
+
 const createCoursesStrapi = (courses, createPage, build_id) => {
   courses.forEach((course) => {
     // courses
@@ -111,4 +124,4 @@ const createCoursesStrapi = (courses, createPage, build_id) => {
   });
 };
 
-module.exports = { createCoursesMDX, createCoursesStrapi, createSchoolMDX };
+module.exports = { createCoursesMDX, createCoursesStrapi, createSchoolMDX, createSchoolStrapi };

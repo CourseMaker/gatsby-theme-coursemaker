@@ -14,6 +14,7 @@ const {
   createCoursesMDX,
   createCoursesStrapi,
   createSchoolMDX,
+  createSchoolStrapi,
 } = require("./src/gatsby/pageCreator");
 
 // Ensure that content directories exist at site-level
@@ -21,6 +22,7 @@ exports.onPreBootstrap = ({ store }, themeOptions) => {
   const { program } = store.getState();
 
   const { authorsPath, coursesPath, useStrapi } = withDefaults(themeOptions);
+  console.log(useStrapi);
 
   const dirs = [
     path.join(program.directory, coursesPath),
@@ -397,11 +399,13 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
     reporter.panic("error loading docs", errors);
   }
 
-  // Programmatically create pages with templates and helper functions
-  createSchoolMDX(data.site.siteMetadata, createPage);
-  createCoursesMDX(data.allCourse.edges, createPage);
   if (useStrapi) {
-    //createSchoolStrapi(data.cms.siteBuild.school, createPage, build_id);
+    createSchoolStrapi(data.cms.siteBuild.school, createPage, build_id);
     createCoursesStrapi(data.cms.siteBuild.school.courses, createPage, build_id);
+  } else {
+    // Programmatically create pages with templates and helper functions
+    createSchoolMDX(data.site.siteMetadata, createPage);
+    createCoursesMDX(data.allCourse.edges, createPage);
   }
+
 };

@@ -15,7 +15,7 @@ module.exports = {
         // contentPath: "schoolMDX",
         // coursesPath: "schoolMDX/courses",
         // authorsPath: "schoolMDX/authors",
-        // useStrapi: true,
+        useStrapi: true,
 
       },
     },

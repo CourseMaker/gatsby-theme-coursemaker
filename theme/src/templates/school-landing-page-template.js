@@ -5,12 +5,10 @@ import Layout from "../components/layout";
 import Button from "../components/button";
 import Courses from "../components/courses";
 import { jsx } from "theme-ui";
-const withDefaults = require("../../bootstrapping/default-options");
 
-const { useStrapi } = false;
 
 const SchoolLandingPage = ({ pageContext, data }) => {
-  const strapiCourses = useStrapi ? data.cms.siteBuild.school.courses : [];
+  const strapiCourses = pageContext.fromStrapi ? data.cms.siteBuild.school.courses : [];
   const mdxCourses = data.allCourse.edges;
 
   const mergedCourses = [
@@ -137,8 +135,8 @@ const SchoolLandingPage = ({ pageContext, data }) => {
 export default SchoolLandingPage;
 
 export const query = graphql`
-  query HomePage($build_id: ID! = 61) {
-    cms {
+  query ($fromStrapi: Boolean! = false, $build_id: ID! = 61) {
+    cms @include(if: $fromStrapi){
       siteBuild(id: $build_id) {
         school {
           courses {
