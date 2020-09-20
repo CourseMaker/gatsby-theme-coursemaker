@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Section from "./section";
 import Header from "./header";
 import Footer from "./footer";
 

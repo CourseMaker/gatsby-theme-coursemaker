@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import React from "react";
-import { graphql } from "gatsby";
 import Layout from "../components/layout";
 import Button from "../components/button";
 import Courses from "../components/courses";

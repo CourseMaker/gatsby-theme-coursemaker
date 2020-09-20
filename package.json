@@ -1,16 +1,14 @@
 {
   "private": true,
   "scripts": {
-    "clean": "yarn workspace demo gatsby clean && yarn workspace gatsby-theme-coursemaker gatsby clean",
-    "local": "yarn workspace demo gatsby develop"
+    "clean": "yarn workspace course_demo_site gatsby clean && yarn workspace gatsby-theme-coursemaker gatsby clean",
+    "local": "yarn workspace course_demo_site gatsby develop"
   },
   "resolutions": {
     "graphql": "github:getcoursemaker/graphql-js#disable-validation-dist"
   },
   "workspaces": [
     "theme",
-    "demo",
-    "full_demo",
-    "combi_demo"
+    "demo"
   ]
 }

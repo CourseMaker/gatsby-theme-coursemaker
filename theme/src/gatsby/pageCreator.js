@@ -28,12 +28,9 @@ const createSchool = (school, courses, createPage) => {
 const createCourses = (school, courses, createPage) => {
   courses.forEach(function(course, i){
     // Individual course landing pages
-    console.log(course);
     let slug = course.slug ? course.slug : `/${slugify(course.title, {strict: true, lower: true})}/`;
     const nextCourse = i === courses.length - 1 ? null : courses[i + 1];
     const previousCourse = i === 0 ? null : courses[i - 1];
-    console.log(slug);
-    console.log(course);
     createPage({
       path: "/courses" + slug,
       component: courseTemplate,
