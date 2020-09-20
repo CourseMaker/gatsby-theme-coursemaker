@@ -29,14 +29,13 @@ const createCourses = (school, courses, createPage) => {
   courses.forEach(function(course, i){
     // Individual course landing pages
     console.log(course);
-    console.log(i);
-    let slug = course.slug ? course.slug : "/" + slugify(course.title, {strict: true, lower: true});
+    let slug = course.slug ? course.slug : `/${slugify(course.title, {strict: true, lower: true})}/`;
     const nextCourse = i === courses.length - 1 ? null : courses[i + 1];
     const previousCourse = i === 0 ? null : courses[i - 1];
     console.log(slug);
     console.log(course);
     createPage({
-      path: "/courses/" + slug,
+      path: "/courses" + slug,
       component: courseTemplate,
       context: {
         course: course,
@@ -45,7 +44,7 @@ const createCourses = (school, courses, createPage) => {
 
     // Curriculum pages
     createPage({
-      path: `/courses/${slug}curriculum`,
+      path: `/courses${slug}curriculum`,
       component: curriculumTemplate,
       context: {
         course: course,
@@ -55,16 +54,17 @@ const createCourses = (school, courses, createPage) => {
 
     // Individual lectures pages
     // TODO: strapi sections are not capitalizaed
+    
     allCourseLectures = [];
-    if (course.Sections) {
-      course.Sections.forEach(function (section, i) {
-        allCourseLectures.push(section.Lectures);
+    if (course.sections) {
+      course.sections.forEach(function (section) {
+        allCourseLectures = allCourseLectures.concat(section.lectures);
       });
     }
 
     allCourseLectures.forEach((lecture) => {
       createPage({
-        path: `/courses/${slug}/lectures/${lecture.id}`,
+        path: `/courses${slug}lectures/${lecture.id}`,
         component: lectureTemplate,
         context: {
           course: course,

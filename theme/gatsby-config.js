@@ -52,7 +52,7 @@ const enable_strapi = () => {
 }
 
 
-const useStrapi = () => {
+const strapiPluginOrFake = () => {
   const fetch = require("node-fetch");
   const { introspectionQuery } = require("graphql");
   const fs = require("fs");
@@ -89,7 +89,8 @@ const useStrapi = () => {
       },
     };
   } else {
-    return {
+    return false
+    /* {
       resolve: `gatsby-source-faker`,
       options: {
         schema: {
@@ -98,7 +99,7 @@ const useStrapi = () => {
         count: 3, // how many fake objects you need
         type: "CMS", // Name of the graphql query node
       },
-    }
+    } */
   }
 };
 
@@ -112,7 +113,7 @@ module.exports = (themeOptions) => {
   return {
     siteMetadata: {
       title: "My Cool School (update in gatsby-config)",
-      useStrapi: options.useStrapi
+      strapiPluginOrFake: options.useStrapi
     },
     plugins: [
       !mdxOtherwiseConfigured &&
@@ -220,7 +221,7 @@ module.exports = (themeOptions) => {
     //     type: `cms`,
     //   },
     // },
-      useStrapi(),
+      strapiPluginOrFake(),
     ].filter(Boolean),
   };
 };

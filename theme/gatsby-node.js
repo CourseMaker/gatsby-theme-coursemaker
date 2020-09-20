@@ -337,7 +337,6 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
   // TODO - we need to programatically set this
   const build_id = process.env.SITE_BUILD_ID || 61;
   const { useStrapi } = withDefaults(themeOptions);
-  var activeStrapi = (useStrapi.toLowerCase() === 'true');
 
   const dataSources = {
     local: { authors: [], courses: [], school: {} },
@@ -345,7 +344,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
   };
 
   console.log("use strapi: " + useStrapi);
-  if (activeStrapi) {
+  if (useStrapi) {
     // TODO: move queries to separate files like this: https://github.com/narative/gatsby-theme-novela/blob/master/%40narative/gatsby-theme-novela/src/gatsby/node/createPages.js#L95
     try {
       const cmsData = await graphql(`
@@ -381,7 +380,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
     );
       console.log("cms query success");
       // TODO: normalize
-      dataSources.cms.courses = cmsData.data.cms.siteBuild.school.courses;
+      dataSources.cms.courses = cmsData.data.cms.siteBuild.school.courses; //.map(normalize.cms.courses);
       dataSources.cms.school = cmsData.data.cms.siteBuild.school;
     } catch (error) {
       console.error("CMS query error");
@@ -396,8 +395,8 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
           allCourse {
             edges {
               node {
-                Sections {
-                  Lectures {
+                sections: Sections {
+                  lectures: Lectures {
                     id
                     slug
                     title
@@ -441,7 +440,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
 
   // school object is precise, however.
   let liveSchool;
-  if (activeStrapi) {
+  if (useStrapi) {
     liveSchool = dataSources.cms.school;
   } else {
     liveSchool = dataSources.local.school;
