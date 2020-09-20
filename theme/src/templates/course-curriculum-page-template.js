@@ -4,7 +4,7 @@ import Layout from "../components/layout";
 import Section from "../components/section";
 import Breadcrumbs from "../components/course-breadcrumbs";
 
-const Curriculum = ({ pageContext, data }) => {
+const Curriculum = ({ pageContext }) => {
   // TODO: add to data model
   // 	const { primary_button, cta_button } = {
   // 	  "color": "blue",
@@ -13,6 +13,7 @@ const Curriculum = ({ pageContext, data }) => {
   //   };
   // const cta_section = { "title": "cta test", "description": "cta desc" };
   // const author = { "username": "joe", "email": "yoyo@gmail.com" };
+  console.log(pageContext);
   const photo = { url: "abc.com" };
   const author_display = {
     title: "joe",
@@ -20,12 +21,9 @@ const Curriculum = ({ pageContext, data }) => {
     photo: photo,
     description: "foo",
   };
-  const school = "school"; //todo
-  console.log(data);
+  const school = pageContext.school;
 
-  const course = pageContext.build_id
-    ? data.cms.siteBuild.school.courses[0]
-    : data.currentCourse;
+  const course = pageContext.course;
 
   return (
     <Layout>
@@ -60,25 +58,3 @@ const Curriculum = ({ pageContext, data }) => {
 };
 
 export default Curriculum;
-
-export const query = graphql`
-  query CurriculumQuery(
-    $fromStrapi: Boolean! = false
-    $build_id: ID! = 0
-    $course_id: String!
-  ) {
-    currentCourse: course(id: { eq: $course_id }) {
-      ...CourseMDXFragment
-    }
-
-    cms @include(if: $fromStrapi) {
-      siteBuild(id: $build_id) {
-        school {
-          courses(where: { id: $course_id }) {
-            ...CourseCMSFragment
-          }
-        }
-      }
-    }
-  }
-`;

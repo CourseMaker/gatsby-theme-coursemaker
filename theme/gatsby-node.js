@@ -4,6 +4,7 @@ const mkdirp = require(`mkdirp`);
 const { createFilePath } = require(`gatsby-source-filesystem`);
 const withDefaults = require(`./bootstrapping/default-options`);
 const sanitizeSlug = require("./bootstrapping/sanitize-slug");
+const normalize = require('./src/gatsby/normalize');
 const {
   toSeconds,
   toHoursMinutes,
@@ -11,10 +12,8 @@ const {
 const sortBy = require(`lodash/sortBy`);
 
 const {
-  createCoursesMDX,
-  createCoursesStrapi,
-  createSchoolMDX,
-  createSchoolStrapi,
+  createCourses,
+  createSchool,
 } = require("./src/gatsby/pageCreator");
 
 // Ensure that content directories exist at site-level
@@ -55,6 +54,12 @@ const mdxResolverPassthrough = (fieldName) => async (
 
 exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
   const { createTypes } = actions;
+  // const typeDefs = `
+  //   type CMS implements Node {
+  //     replyFor: String
+  //   }
+  // `
+  // createTypes(typeDefs);
   createTypes(
     schema.buildObjectType({
       name: `Lecture`,
@@ -331,57 +336,38 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
   // TODO - Add "Skip" / "Include" directive into GraphQL
   // TODO - we need to programatically set this
   const build_id = process.env.SITE_BUILD_ID || 61;
-
   const { useStrapi } = withDefaults(themeOptions);
 
-  //  Standard / Common Pages
-  createPage({
-    path: `/courses`,
-    component: require.resolve("./src/templates/courses.js"),
-    context: {
-      build_id,
-    },
-  });
+  const dataSources = {
+    local: { authors: [], courses: [], school: {} },
+    cms: { authors: [], courses: [], school: {} },
+  };
 
-  const { errors, data } = await graphql(
-    `
-      query RootQuery($build_id: ID!, $useStrapi: Boolean!) {
-        allCourse {
-          edges {
-            node {
-              Sections {
-                Lectures {
-                  id
-                  slug
-                  title
-                  youtubeId
-                }
-                id
-                title
-                slug
-              }
-              slug
-              title
-              id
-            }
-          }
-        }
-        site {
-          siteMetadata {
-            title
-          }
-        }
-        cms @include(if: $useStrapi) {
-          siteBuild(id: $build_id) {
-            school {
-              courses {
-                id
-                title
-                sections {
+  console.log("use strapi: " + useStrapi);
+  if (useStrapi) {
+    // TODO: move queries to separate files like this: https://github.com/narative/gatsby-theme-novela/blob/master/%40narative/gatsby-theme-novela/src/gatsby/node/createPages.js#L95
+    try {
+      const cmsData = await graphql(`
+        query RootQuery($build_id: ID!){
+          cms {
+            siteBuild(id: $build_id) {
+              school {
+                name
+                courses {
                   id
                   title
-                  lectures {
+                  sections {
                     id
+                    title
+                    lectures {
+                      id
+                      title
+                    }
+                  }
+                }
+                landing_page {
+                  title_and_description {
+                    description
                     title
                   }
                 }
@@ -389,23 +375,88 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
             }
           }
         }
-      }
-    `,
-
-    { build_id, useStrapi }
-  );
-
-  if (errors) {
-    reporter.panic("error loading docs", errors);
+      `,
+      {build_id}
+    );
+      console.log("cms query success");
+      // TODO: normalize
+      dataSources.cms.courses = cmsData.data.cms.siteBuild.school.courses; //.map(normalize.cms.courses);
+      dataSources.cms.school = cmsData.data.cms.siteBuild.school;
+    } catch (error) {
+      console.error("CMS query error");
+      console.error(error);
+    }
   }
 
+  try {
+    const localData = await graphql(
+      `
+        query LocalRootQuery {
+          allCourse {
+            edges {
+              node {
+                sections: Sections {
+                  lectures: Lectures {
+                    id
+                    slug
+                    title
+                    youtubeId
+                  }
+                  id
+                  title
+                  slug
+                }
+                slug
+                title
+                id
+              }
+            }
+          }
+          site {
+            siteMetadata {
+              landing_page {
+                title_and_description {
+                  title
+                  description
+                }
+              }
+            }
+          }
+        }
+      `,
+    );
+    // TODO: normalize
+    dataSources.local.school = localData.data.site.siteMetadata;
+    dataSources.local.courses = localData.data.allCourse.edges.map(normalize.local.courses);
+  } catch (error) {
+    reporter.panic("error loading docs", error);
+  }
+
+  // combine courses to pass to school for ease of debugging
+  allCourses = [
+    ...dataSources.local.courses,
+    ...dataSources.cms.courses,
+  ];
+
+  // school object is precise, however.
+  let liveSchool;
   if (useStrapi) {
-    createSchoolStrapi(data.cms.siteBuild.school, createPage, build_id);
-    createCoursesStrapi(data.cms.siteBuild.school.courses, createPage, build_id);
+    liveSchool = dataSources.cms.school;
   } else {
-    // Programmatically create pages with templates and helper functions
-    createSchoolMDX(data.site.siteMetadata, createPage);
-    createCoursesMDX(data.allCourse.edges, createPage);
+    liveSchool = dataSources.local.school;
   }
+  createSchool(liveSchool, allCourses, createPage);
+
+  // course page creation is permissive
+  createCourses(liveSchool, allCourses, createPage);
+
+  // Create course list page
+  createPage({
+    path: `/courses`,
+    component: require.resolve("./src/templates/list-courses-page-template.js"),
+    context: {
+      courses: allCourses,
+    },
+  });
 
 };

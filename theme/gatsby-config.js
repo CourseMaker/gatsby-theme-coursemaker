@@ -1,5 +1,7 @@
 const withDefaults = require(`./bootstrapping/default-options`);
+const { buildSchema, buildClientSchema } = require("graphql")
 
+const fs = require("fs");
 const axios = require("axios");
 const FormData = require("form-data");
 const LOGIN_URL = "https://api.coursemaker.io"; // 'http://localhost:1337';
@@ -38,8 +40,34 @@ async function getAuthToken() {
   );
 }
 
-const useStrapi = () => {
-  if (process.env.USE_STRAPI) {
+const enable_strapi = () => {
+  if (process.env.USE_STRAPI){
+    if (process.env.USE_STRAPI == "false") {
+      return false;
+    }
+    return true;
+  } else {
+    return false;
+  }
+}
+
+
+const strapiPluginOrFake = () => {
+  const fetch = require("node-fetch");
+  const { introspectionQuery } = require("graphql");
+  const fs = require("fs");
+
+  // generate introspection schema
+  // fetch(COURSEMAKER_URL + "/graphql", {
+  //   method: "POST",
+  //   headers: { "Content-Type": "application/json" },
+  //   body: JSON.stringify({ query: introspectionQuery })
+  // })
+  //   .then(res => res.json())
+  //   .then(res =>
+  //     fs.writeFileSync("introspection.json", JSON.stringify(res.data, null, 2))
+  //   );
+  if (enable_strapi()) {
     return {
       resolve: "gatsby-source-graphql",
       options: {
@@ -53,8 +81,25 @@ const useStrapi = () => {
         },
         // Additional options to pass to node-fetch
         fetchOptions: {},
+      //   createSchema: async () => {
+      //     const json = JSON.parse(fs.readFileSync(`${__dirname}/introspection.json`));
+      //     console.log(json);
+      //     return buildClientSchema(json.data)
+      //   }
       },
     };
+  } else {
+    return false
+    /* {
+      resolve: `gatsby-source-faker`,
+      options: {
+        schema: {
+          name: ["cms"],
+        },
+        count: 3, // how many fake objects you need
+        type: "CMS", // Name of the graphql query node
+      },
+    } */
   }
 };
 
@@ -68,29 +113,29 @@ module.exports = (themeOptions) => {
   return {
     siteMetadata: {
       title: "My Cool School (update in gatsby-config)",
-      useStrapi: options.useStrapi
+      strapiPluginOrFake: options.useStrapi
     },
     plugins: [
       !mdxOtherwiseConfigured &&
-        legacyConfigureMdxFlag && {
-          resolve: `gatsby-plugin-mdx`,
-          options: {
-            extensions: [`.mdx`, `.md`],
-            gatsbyRemarkPlugins: [
-              {
-                resolve: `gatsby-remark-images`,
-                options: {
-                  // should this be configurable by the end-user?
-                  maxWidth: 1380,
-                  linkImagesToOriginal: false,
-                },
+      legacyConfigureMdxFlag && {
+        resolve: `gatsby-plugin-mdx`,
+        options: {
+          extensions: [`.mdx`, `.md`],
+          gatsbyRemarkPlugins: [
+            {
+              resolve: `gatsby-remark-images`,
+              options: {
+                // should this be configurable by the end-user?
+                maxWidth: 1380,
+                linkImagesToOriginal: false,
               },
-              { resolve: `gatsby-remark-copy-linked-files` },
-              { resolve: `gatsby-remark-smartypants` },
-            ],
-            remarkPlugins: [require(`remark-slug`)],
-          },
+            },
+            { resolve: `gatsby-remark-copy-linked-files` },
+            { resolve: `gatsby-remark-smartypants` },
+          ],
+          remarkPlugins: [require(`remark-slug`)],
         },
+      },
       {
         resolve: `gatsby-plugin-google-analytics`,
         options: {
@@ -162,7 +207,21 @@ module.exports = (themeOptions) => {
       {
         resolve: `gatsby-plugin-stylus`,
       },
-      useStrapi(),
+    //   {
+    //   resolve: `gatsby-source-faker`,
+    //   options: {
+    //     schema: {
+    //       siteBuild: [`firstName`, `lastName`],
+    //       address: [`streetAddress`, `streetName`, `city`, `state`, `zipCode`],
+    //       internet: [`email`],
+    //       lorem: [`paragraph`],
+    //       phone: [`phoneNumber`],
+    //     },
+    //     count: 1,
+    //     type: `cms`,
+    //   },
+    // },
+      strapiPluginOrFake(),
     ].filter(Boolean),
   };
 };

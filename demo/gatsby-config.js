@@ -4,9 +4,17 @@
  * See: https://www.gatsbyjs.org/docs/gatsby-config/
  */
 
+const useStrapi = process.env.USE_STRAPI === "true";
+
 module.exports = {
   siteMetadata: {
       title: "Demo Site Cool School",
+      landing_page: {
+        title_and_description: {
+          title: "Demo Site Cool School 4 realz",
+          description: "Yaml description",
+        }
+      },
   },
   plugins: [
     {
@@ -15,8 +23,7 @@ module.exports = {
         // contentPath: "schoolMDX",
         // coursesPath: "schoolMDX/courses",
         // authorsPath: "schoolMDX/authors",
-        useStrapi: true,
-
+        useStrapi,
       },
     },
   ],
