@@ -12,8 +12,6 @@ const {
 const sortBy = require(`lodash/sortBy`);
 
 const {
-  createCoursesMDX,
-  createCoursesStrapi,
   createCourses,
   createSchool,
 } = require("./src/gatsby/pageCreator");
@@ -339,31 +337,12 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
   // TODO - we need to programatically set this
   const build_id = process.env.SITE_BUILD_ID || 61;
   const { useStrapi } = withDefaults(themeOptions);
-  console.log(typeof(useStrapi));
   var activeStrapi = (useStrapi.toLowerCase() === 'true');
-  console.log(activeStrapi);
-  console.log(typeof(activeStrapi));
 
   const dataSources = {
     local: { authors: [], courses: [], school: {} },
     cms: { authors: [], courses: [], school: {} },
   };
-
-  // option 1: school fields clash, so we have to come up with one model
-  // course fields do not clash, so we could combine
-  // but this is confusing
-  // instead, suggest we unify the models, but separate the page creation
-
-  //  Standard / Common Pages
-  createPage({
-    path: `/courses`,
-    component: require.resolve("./src/templates/courses.js"),
-    context: {
-      build_id,
-      fromStrapi: activeStrapi,
-    },
-  });
-
 
   console.log("use strapi: " + useStrapi);
   if (activeStrapi) {
@@ -455,22 +434,30 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
   }
 
   // combine courses to pass to school for ease of debugging
-  console.log(dataSources);
   allCourses = [
     ...dataSources.local.courses,
     ...dataSources.cms.courses,
   ];
 
   // school object is precise, however.
+  let liveSchool;
   if (activeStrapi) {
-    createSchool(dataSources.cms.school, allCourses, createPage)
+    liveSchool = dataSources.cms.school;
   } else {
-    createSchool(dataSources.local.school, allCourses, createPage)
+    liveSchool = dataSources.local.school;
   }
+  createSchool(liveSchool, allCourses, createPage);
 
   // course page creation is permissive
-  createCourses(allCourses, createPage);
-  //createCoursesStrapi(allCourses, createPage);
-  //createCoursesMDX(localData.data.allCourse.edges, createPage);
+  createCourses(liveSchool, allCourses, createPage);
+
+  // Create course list page
+  createPage({
+    path: `/courses`,
+    component: require.resolve("./src/templates/list-courses-page-template.js"),
+    context: {
+      courses: allCourses,
+    },
+  });
 
 };

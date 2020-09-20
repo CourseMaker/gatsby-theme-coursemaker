@@ -7,7 +7,7 @@ import Courses from "../components/courses";
 import { jsx } from "theme-ui";
 
 
-const SchoolLandingPage = ({ pageContext, data }) => {
+const SchoolLandingPage = ({ pageContext }) => {
   console.log(pageContext);
   const passedCourses = pageContext.courses;
   const mergedLandingPage = pageContext.school.landing_page;

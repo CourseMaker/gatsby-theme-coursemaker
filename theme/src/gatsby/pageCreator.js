@@ -13,49 +13,6 @@ const schoolLandingTemplate = require.resolve(
   "../../src/templates/school-landing-page-template.js"
 );
 
-const createCoursesMDX = (courses, createPage) => {
-  // create landing page for each course
-  courses.forEach(({ node: course }, i) => {
-    const nextCourse = i === courses.length - 1 ? null : courses[i + 1];
-    const previousCourse = i === 0 ? null : courses[i - 1];
-    const { slug } = course;
-    createPage({
-      path: "/courses" + slug,
-      component: courseTemplate,
-      context: {
-        id: course.id,
-        course,
-        previousCourse,
-        nextCourse,
-      },
-    });
-    // create curriculum page for each course
-    createPage({
-      path: `/courses${slug}curriculum`,
-      component: curriculumTemplate,
-      context: {
-        course_id: course.id,
-      },
-    });
-    // TODO: tidy up inefficient nested loops
-    // create page for each lecture
-    course.Sections.forEach(function (section, index) {
-      section.Lectures.forEach(function (lecture, index) {
-        createPage({
-          path: `/courses${slug}lectures/${lecture.id}`,
-          component: lectureTemplate,
-          context: {
-            course_id: course.id,
-            section_id: section.id,
-            lecture_id: lecture.id,
-            lecture_id_string: lecture.id,
-          },
-        });
-      });
-    });
-  });
-};
-
 const createSchool = (school, courses, createPage) => {
   // create the school landing page
   createPage({
@@ -68,10 +25,14 @@ const createSchool = (school, courses, createPage) => {
   })
 }
 
-const createCourses = (courses, createPage) => {
-  courses.forEach((course) => {
-    // courses
-    let slug = course.slug ? course.slug : slugify(course.title, {strict: true, lower: true});
+const createCourses = (school, courses, createPage) => {
+  courses.forEach(function(course, i){
+    // Individual course landing pages
+    console.log(course);
+    console.log(i);
+    let slug = course.slug ? course.slug : "/" + slugify(course.title, {strict: true, lower: true});
+    const nextCourse = i === courses.length - 1 ? null : courses[i + 1];
+    const previousCourse = i === 0 ? null : courses[i - 1];
     console.log(slug);
     console.log(course);
     createPage({
@@ -81,50 +42,38 @@ const createCourses = (courses, createPage) => {
         course: course,
       },
     });
-  });
-};
 
-const createCoursesStrapi = (courses, createPage) => {
-  courses.forEach((course) => {
-    // courses
+    // Curriculum pages
     createPage({
-      path: `/courses/${course.title}`,
-      component: courseTemplate,
+      path: `/courses/${slug}curriculum`,
+      component: curriculumTemplate,
       context: {
         course: course,
-        fromStrapi: true,
+        school: school
       },
     });
-    //
-    // // curriculums
-    // createPage({
-    //   path: `/courses/${course.title}/curriculum`,
-    //   component: curriculumTemplate,
-    //   context: {
-    //     course_id: course.id,
-    //     build_id,
-    //     fromStrapi: true,
-    //   },
-    // });
-    //
-    // // lectures
-    // course.sections.forEach((section) => {
-    //   section.lectures.forEach((lecture) => {
-    //     createPage({
-    //       path: `/courses/${course.title}/lectures/${lecture.id}`,
-    //       component: lectureTemplate,
-    //       context: {
-    //         course_id: course.id,
-    //         section_id: section.id,
-    //         lecture_id: lecture.id,
-    //         lecture_id_string: lecture.id,
-    //         build_id,
-    //         fromStrapi: true,
-    //       },
-    //     });
-    //   });
-    // });
+
+    // Individual lectures pages
+    // TODO: strapi sections are not capitalizaed
+    allCourseLectures = [];
+    if (course.Sections) {
+      course.Sections.forEach(function (section, i) {
+        allCourseLectures.push(section.Lectures);
+      });
+    }
+
+    allCourseLectures.forEach((lecture) => {
+      createPage({
+        path: `/courses/${slug}/lectures/${lecture.id}`,
+        component: lectureTemplate,
+        context: {
+          course: course,
+          lecture: lecture,
+          allLectures: allCourseLectures,
+        },
+      });
+    });
   });
 };
 
-module.exports = { createCoursesMDX, createCoursesStrapi, createSchool, createCourses };
+module.exports = { createSchool, createCourses };

@@ -5,16 +5,11 @@ import Layout from "../components/layout";
 import LayoutLecture from "../components/layout-lecture";
 import Breadcrumbs from "../components/course-breadcrumbs";
 
-const Lecture = ({ pageContext, data }) => {
-  //   console.log(pageContext);
-  console.log(data);
-
-  const lecture = data.currentCourse || data.cms.lecture;
-
-  console.log(lecture);
-
-  const allLectures =
-    (lecture.section && lecture.section.lectures) || lecture.sections;
+const Lecture = ({ pageContext }) => {
+  console.log(pageContext);
+  const currentCourse = pageContext.course;
+  const lecture = pageContext.lecture;
+  const allLectures = pageContext.allLectures;
   let nextLecture;
   let prevLecture;
 
@@ -96,40 +91,3 @@ const Lecture = ({ pageContext, data }) => {
 };
 
 export default Lecture;
-
-export const query = graphql`
-  query(
-    $fromStrapi: Boolean! = false
-    # $build_id: ID! = 0
-    $course_id: String!
-    $lecture_id: ID!
-    $lecture_id_string: String!
-  ) {
-    currentCourse: course(id: { eq: $course_id }) {
-      ...CourseMDXFragment
-    }
-
-    lecture(id: { eq: $lecture_id_string }) {
-      id
-      title
-    }
-
-    cms @include(if: $fromStrapi) {
-      lecture(id: $lecture_id) {
-        id
-        title
-        section {
-          title
-          lectures {
-            id
-            title
-          }
-          course {
-            id
-            title
-          }
-        }
-      }
-    }
-  }
-`;
