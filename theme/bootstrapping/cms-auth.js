@@ -14,8 +14,8 @@ module.exports = {
 
     // Otherwise login
     let data = new FormData();
-    data.append("username", "test@test.com");
-    data.append("password", "password");
+    data.append("username", process.env.TEST_STRAPI_USER);
+    data.append("password", process.env.TEST_STRAPI_PASSWORD);
     data.append("grant_type", "password");
 
     return await axios({
