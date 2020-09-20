@@ -1,12 +1,10 @@
 import React from "react";
-import { Link, graphql } from "gatsby";
+import { Link } from "gatsby";
 import ReactMarkdown from "react-markdown";
-import Layout from "../components/layout";
 import LayoutLecture from "../components/layout-lecture";
 import Breadcrumbs from "../components/course-breadcrumbs";
 
 const Lecture = ({ pageContext }) => {
-  console.log(pageContext);
   const currentCourse = pageContext.course;
   const lecture = pageContext.lecture;
   const allLectures = pageContext.allLectures;

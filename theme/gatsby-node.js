@@ -21,7 +21,6 @@ exports.onPreBootstrap = ({ store }, themeOptions) => {
   const { program } = store.getState();
 
   const { authorsPath, coursesPath, useStrapi } = withDefaults(themeOptions);
-  console.log(useStrapi);
 
   const dirs = [
     path.join(program.directory, coursesPath),
@@ -378,7 +377,6 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
       `,
       {build_id}
     );
-      console.log("cms query success");
       // TODO: normalize
       dataSources.cms.courses = cmsData.data.cms.siteBuild.school.courses; //.map(normalize.cms.courses);
       dataSources.cms.school = cmsData.data.cms.siteBuild.school;
