@@ -14,8 +14,8 @@ const sortBy = require(`lodash/sortBy`);
 const {
   createCoursesMDX,
   createCoursesStrapi,
-  createSchoolMDX,
-  createSchoolStrapi,
+  createCourses,
+  createSchool,
 } = require("./src/gatsby/pageCreator");
 
 // Ensure that content directories exist at site-level
@@ -345,9 +345,14 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
   console.log(typeof(activeStrapi));
 
   const dataSources = {
-    local: { authors: [], courses: [] },
-    cms: { authors: [], courses: [] },
+    local: { authors: [], courses: [], school: {} },
+    cms: { authors: [], courses: [], school: {} },
   };
+
+  // option 1: school fields clash, so we have to come up with one model
+  // course fields do not clash, so we could combine
+  // but this is confusing
+  // instead, suggest we unify the models, but separate the page creation
 
   //  Standard / Common Pages
   createPage({
@@ -369,6 +374,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
           cms {
             siteBuild(id: $build_id) {
               school {
+                name
                 courses {
                   id
                   title
@@ -381,6 +387,12 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                     }
                   }
                 }
+                landing_page {
+                  title_and_description {
+                    description
+                    title
+                  }
+                }
               }
             }
           }
@@ -389,8 +401,9 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
       {build_id}
     );
       console.log("cms query success");
-      createSchoolStrapi(cmsData.data.cms.siteBuild.school, createPage, build_id, activeStrapi);
-      //createCoursesStrapi(cmsData.data.cms.siteBuild.school.courses, createPage, build_id);
+      // TODO: normalize
+      dataSources.cms.courses = cmsData.data.cms.siteBuild.school.courses;
+      dataSources.cms.school = cmsData.data.cms.siteBuild.school;
     } catch (error) {
       console.error("CMS query error");
       console.error(error);
@@ -434,11 +447,30 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
         }
       `,
     );
-    // Programmatically create pages with templates and helper functions
-    //createSchoolMDX(localData.data.site.siteMetadata, createPage);
-    //createCoursesMDX(localData.data.allCourse.edges, createPage);
+    // TODO: normalize
+    dataSources.local.school = localData.data.site.siteMetadata;
+    dataSources.local.courses = localData.data.allCourse.edges.map(normalize.local.courses);
   } catch (error) {
     reporter.panic("error loading docs", error);
   }
+
+  // combine courses to pass to school for ease of debugging
+  console.log(dataSources);
+  allCourses = [
+    ...dataSources.local.courses,
+    ...dataSources.cms.courses,
+  ];
+
+  // school object is precise, however.
+  if (activeStrapi) {
+    createSchool(dataSources.cms.school, allCourses, createPage)
+  } else {
+    createSchool(dataSources.local.school, allCourses, createPage)
+  }
+
+  // course page creation is permissive
+  createCourses(allCourses, createPage);
+  //createCoursesStrapi(allCourses, createPage);
+  //createCoursesMDX(localData.data.allCourse.edges, createPage);
 
 };

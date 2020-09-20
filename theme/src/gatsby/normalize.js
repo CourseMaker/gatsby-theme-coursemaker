@@ -4,6 +4,11 @@ module.exports.local = {
       ...course,
     };
   },
+  school: ({node: school}) => {
+    return {
+      ...school,
+    }
+  }
 };
 
 module.exports.cms = {
@@ -12,4 +17,10 @@ module.exports.cms = {
       ...course,
     };
   },
+  school: ({node: school}) => {
+    return {
+      ...school,
+      meta: "strapi",
+    };
+  }
 };

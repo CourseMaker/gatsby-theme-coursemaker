@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "gatsby";
+import slugify from "slugify";
 
 // const cmsURL = "https://cms.coursemaker.io";
 
@@ -9,10 +10,11 @@ const Card = ({ course }) => {
   // if (course.cover_photo.url) {
   // 	IMAGE_PLACEHOLDER = cmsURL + course.cover_photo.url;
   // }
+  let slug = course.slug ? course.slug : "/" + slugify(course.title, {strict: true, lower: true});
 
   return (
     <Link
-      to={`/courses${course.slug}`}
+      to={`/courses${slug}`}
       className="block overflow-hidden bg-white border-t border-gray-200 rounded-lg shadow md:shadow-md transition transition-shadow duration-300 hover:shadow-lg"
     >
       <div className="md:flex">

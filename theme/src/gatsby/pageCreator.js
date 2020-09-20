@@ -1,3 +1,4 @@
+const slugify = require(`slugify`);
 // These templates are simply data-fetching wrappers that import components
 const courseTemplate = require.resolve(
   `../../src/templates/course-landing-page-template.js`
@@ -11,17 +12,6 @@ const lectureTemplate = require.resolve(
 const schoolLandingTemplate = require.resolve(
   "../../src/templates/school-landing-page-template.js"
 );
-
-const createSchoolMDX = (school, createPage) => {
-  // create the school landing page
-  createPage({
-    path: "/",
-    component: schoolLandingTemplate,
-    context: {
-      title: school.title,
-    }
-  })
-}
 
 const createCoursesMDX = (courses, createPage) => {
   // create landing page for each course
@@ -66,61 +56,75 @@ const createCoursesMDX = (courses, createPage) => {
   });
 };
 
-const createSchoolStrapi = (school, createPage, build_id, fromStrapi) => {
+const createSchool = (school, courses, createPage) => {
   // create the school landing page
   createPage({
     path: "/",
     component: schoolLandingTemplate,
     context: {
-      title: school.title,
-      build_id: build_id,
-      fromStrapi: fromStrapi,
+      school: school,
+      courses: courses,
     }
   })
 }
 
-const createCoursesStrapi = (courses, createPage, build_id) => {
+const createCourses = (courses, createPage) => {
+  courses.forEach((course) => {
+    // courses
+    let slug = course.slug ? course.slug : slugify(course.title, {strict: true, lower: true});
+    console.log(slug);
+    console.log(course);
+    createPage({
+      path: "/courses/" + slug,
+      component: courseTemplate,
+      context: {
+        course: course,
+      },
+    });
+  });
+};
+
+const createCoursesStrapi = (courses, createPage) => {
   courses.forEach((course) => {
     // courses
     createPage({
       path: `/courses/${course.title}`,
       component: courseTemplate,
       context: {
-        id: course.id,
-        build_id,
+        course: course,
         fromStrapi: true,
       },
     });
-
-    // curriculums
-    createPage({
-      path: `/courses/${course.title}/curriculum`,
-      component: curriculumTemplate,
-      context: {
-        course_id: course.id,
-        build_id,
-        fromStrapi: true,
-      },
-    });
-
-    // lectures
-    course.sections.forEach((section) => {
-      section.lectures.forEach((lecture) => {
-        createPage({
-          path: `/courses/${course.title}/lectures/${lecture.id}`,
-          component: lectureTemplate,
-          context: {
-            course_id: course.id,
-            section_id: section.id,
-            lecture_id: lecture.id,
-            lecture_id_string: lecture.id,
-            build_id,
-            fromStrapi: true,
-          },
-        });
-      });
-    });
+    //
+    // // curriculums
+    // createPage({
+    //   path: `/courses/${course.title}/curriculum`,
+    //   component: curriculumTemplate,
+    //   context: {
+    //     course_id: course.id,
+    //     build_id,
+    //     fromStrapi: true,
+    //   },
+    // });
+    //
+    // // lectures
+    // course.sections.forEach((section) => {
+    //   section.lectures.forEach((lecture) => {
+    //     createPage({
+    //       path: `/courses/${course.title}/lectures/${lecture.id}`,
+    //       component: lectureTemplate,
+    //       context: {
+    //         course_id: course.id,
+    //         section_id: section.id,
+    //         lecture_id: lecture.id,
+    //         lecture_id_string: lecture.id,
+    //         build_id,
+    //         fromStrapi: true,
+    //       },
+    //     });
+    //   });
+    // });
   });
 };
 
-module.exports = { createCoursesMDX, createCoursesStrapi, createSchoolMDX, createSchoolStrapi };
+module.exports = { createCoursesMDX, createCoursesStrapi, createSchool, createCourses };

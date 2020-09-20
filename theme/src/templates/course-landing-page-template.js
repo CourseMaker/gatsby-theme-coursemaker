@@ -5,17 +5,12 @@ import Layout from "../components/layout";
 import Button from "../components/button";
 import Section from "../components/section";
 
-const Curriculum = ({ pageContext, data }) => {
-  // console.log(pageContext);
+const CourseLandingPage = ({ pageContext, data }) => {
+  console.log(pageContext);
 
-  const course = pageContext.build_id
-    ? data.cms.siteBuild.school.courses[0]
-    : data.currentCourse;
-
-  console.log(course);
+  const course = pageContext.course;
 
   // TODO: add to data model
-
   const cta_section = { title: "cta test", description: "cta desc" };
   const author = { username: "joe", email: "yoyo@gmail.com" };
   const photo = { url: "abc.com" };
@@ -169,22 +164,4 @@ const Curriculum = ({ pageContext, data }) => {
   );
 };
 
-export default Curriculum;
-
-export const query = graphql`
-  query($fromStrapi: Boolean! = false, $build_id: ID! = 0, $id: String!) {
-    currentCourse: course(id: { eq: $id }) {
-      ...CourseMDXFragment
-    }
-
-    cms @include(if: $fromStrapi) {
-      siteBuild(id: $build_id) {
-        school {
-          courses(where: { id: $id }) {
-            ...CourseCMSFragment
-          }
-        }
-      }
-    }
-  }
-`;
+export default CourseLandingPage;
