@@ -4,7 +4,7 @@
  * See: https://www.gatsbyjs.org/docs/gatsby-config/
  */
 
-const useStrapi = process.env.USE_STRAPI;
+const useStrapi = process.env.USE_STRAPI === "true";
 
 module.exports = {
   siteMetadata: {
@@ -23,8 +23,7 @@ module.exports = {
         // contentPath: "schoolMDX",
         // coursesPath: "schoolMDX/courses",
         // authorsPath: "schoolMDX/authors",
-        useStrapi: useStrapi || false,
-
+        useStrapi,
       },
     },
   ],

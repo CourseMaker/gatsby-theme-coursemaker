@@ -87,6 +87,17 @@ const useStrapi = () => {
       //     return buildClientSchema(json.data)
       //   }
       },
+    };
+  } else {
+    return {
+      resolve: `gatsby-source-faker`,
+      options: {
+        schema: {
+          name: ["cms"],
+        },
+        count: 3, // how many fake objects you need
+        type: "CMS", // Name of the graphql query node
+      },
     }
   }
 };
@@ -105,25 +116,25 @@ module.exports = (themeOptions) => {
     },
     plugins: [
       !mdxOtherwiseConfigured &&
-        legacyConfigureMdxFlag && {
-          resolve: `gatsby-plugin-mdx`,
-          options: {
-            extensions: [`.mdx`, `.md`],
-            gatsbyRemarkPlugins: [
-              {
-                resolve: `gatsby-remark-images`,
-                options: {
-                  // should this be configurable by the end-user?
-                  maxWidth: 1380,
-                  linkImagesToOriginal: false,
-                },
+      legacyConfigureMdxFlag && {
+        resolve: `gatsby-plugin-mdx`,
+        options: {
+          extensions: [`.mdx`, `.md`],
+          gatsbyRemarkPlugins: [
+            {
+              resolve: `gatsby-remark-images`,
+              options: {
+                // should this be configurable by the end-user?
+                maxWidth: 1380,
+                linkImagesToOriginal: false,
               },
-              { resolve: `gatsby-remark-copy-linked-files` },
-              { resolve: `gatsby-remark-smartypants` },
-            ],
-            remarkPlugins: [require(`remark-slug`)],
-          },
+            },
+            { resolve: `gatsby-remark-copy-linked-files` },
+            { resolve: `gatsby-remark-smartypants` },
+          ],
+          remarkPlugins: [require(`remark-slug`)],
         },
+      },
       {
         resolve: `gatsby-plugin-google-analytics`,
         options: {

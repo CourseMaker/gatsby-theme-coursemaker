@@ -71,7 +71,6 @@
     "react-scripts": "3.4.1",
     "remark-slug": "^5.1.2",
     "serialize-javascript": "^3.0.0",
-    "slugify": "^1.4.5",
     "theme-ui": "^0.2.43"
   },
   "keywords": [
