@@ -3,7 +3,7 @@ import { Link } from "gatsby";
 import ReactMarkdown from "react-markdown";
 import LayoutLecture from "../components/layout-lecture";
 import Breadcrumbs from "../components/course-breadcrumbs";
-import { login, isAuthenticated, getProfile } from "../../auth/auth"
+import { login, isAuthenticated } from "../../auth/auth"
 
 const Lecture = ({ pageContext }) => {
   console.log(pageContext);

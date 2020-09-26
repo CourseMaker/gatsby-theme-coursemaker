@@ -403,6 +403,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
     );
       // TODO: normalize
       cmsData.data.cms.siteBuild.school.useAuth = false;
+      cmsData.data.cms.siteBuild.school.enablePayments = false;
       dataSources.cms.courses = cmsData.data.cms.siteBuild.school.courses; //.map(normalize.cms.courses);
       dataSources.cms.school = cmsData.data.cms.siteBuild.school;
     } catch (error) {
@@ -445,6 +446,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
               }
               name: title
               useAuth
+              enablePayments
             }
           }
         }

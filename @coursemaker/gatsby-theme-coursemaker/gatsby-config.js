@@ -17,6 +17,7 @@ module.exports = (themeOptions) => {
       title: "My Cool School (update in gatsby-config)",
       strapiPluginOrFake: options.useStrapi,
       useAuth: options.useAuth,
+      enablePayments: options.enablePayments, // required for paid courses
       landing_page: {
         title_and_description: {
           title: "Demo Site (update in gatsby-config)",
