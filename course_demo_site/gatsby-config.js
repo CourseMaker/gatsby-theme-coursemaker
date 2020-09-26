@@ -15,10 +15,11 @@ module.exports = {
           description: "Yaml description",
         }
       },
+      stripe_public_key: "pk_test_TYooMQauvdEDq54NiTphI7jx"
   },
   plugins: [
     {
-      resolve: `gatsby-theme-coursemaker`,
+      resolve: `@coursemaker/gatsby-theme-coursemaker`,
       options: {
         // contentPath: "schoolMDX",
         // coursesPath: "schoolMDX/courses",
