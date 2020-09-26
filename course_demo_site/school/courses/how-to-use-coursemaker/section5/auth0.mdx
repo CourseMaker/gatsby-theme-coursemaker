@@ -1,0 +1,26 @@
+---
+title: Create Auth0 Account
+description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eleifend nibh vel blandit interdum.
+duration: "9:16"
+number: 4
+video: https://www.youtube.com/embed/dQw4w9WgXcQ
+---
+
+Auth0's free plan will allow you to have up to 7000 students authenticate per month.
+
+- Sign up for Auth0
+- After creating your account, go to the Applications section of your Auth0 dashboard and click on the Create Application button.
+Then, fill the form as follows:
+
+- Application Name: "Your school name"
+- Application Type: "Single Page Web App"
+
+When you click on the Create button, Auth0 will redirect you to the Quick Start tab of your new application. From there, head to the Settings tab and make two changes:
+
+- Add http://localhost:8000/callback to the Allowed Callback URLs field.
+- Add http://localhost:8000 to Allowed Web Origins and Allowed Logout URLs.
+
+For security reasons, after the login and logout processes,
+Auth0 will only redirect users to the URLs you register in these fields.
+
+
