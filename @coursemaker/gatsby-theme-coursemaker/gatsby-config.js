@@ -22,6 +22,20 @@ module.exports = (themeOptions) => {
         title_and_description: {
           title: "Demo Site (update in gatsby-config)",
           description: "Yaml description (update in gatsby-config)",
+        },
+        primary_button: {
+          text: "View Courses",
+          color: "black",
+          text_color: "white",
+        },
+        cta_section: {
+          "title": "Now is a great time to learn",
+          "description": "Update me (update in gatsby-config)"
+        },
+        cta_button: {
+          text: "View Courses",
+          color: "black",
+          text_color: "white",
         }
       },
     },

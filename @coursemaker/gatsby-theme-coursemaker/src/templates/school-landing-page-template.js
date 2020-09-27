@@ -9,12 +9,22 @@ import { jsx } from "theme-ui";
 const SchoolLandingPage = ({ pageContext }) => {
   console.log(pageContext);
   const passedCourses = pageContext.courses;
-  const mergedLandingPage = pageContext.school.landing_page;
+  const landingPage = pageContext.school.landing_page;
 
-  const title = mergedLandingPage.title_and_description.title;
-  const description = mergedLandingPage.title_and_description.description;
-  const cta_section = { title: "CTA Section", description: "Lorem Ipsum" };
+  const title = landingPage.title_and_description.title;
+  const description = landingPage.title_and_description.description;
+  const primary_button = pageContext.school.landing_page.primary_button;
+  const cta_button = landingPage.cta_button;
+  const cta_section = landingPage.cta_section;
+
+  // TODO
   const owner = { email: "admin@alphaschool.io" };
+
+  /* If the school is a membership site, it makes sense to have an "enroll" button, which goes straight
+  to a payment page. If the school is full of one-time purchase courses, it makes more sense to have a
+  "view courses" CTA. We don't yet have the concept of setting the destination page for the CTA, which
+  may be a problem.
+   */
 
   return (
     <Layout>
@@ -22,11 +32,9 @@ const SchoolLandingPage = ({ pageContext }) => {
         <div className="container">
           <h1 className="mb-4">{title}</h1>
           <p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12">
-            {description}
           </p>
 
-          <Button to="/x" text={"Primary Button"} variant="primary" />
-          <Button text={"Secondary Button"} variant="secondary" />
+          <Button to="/courses" text={primary_button.text} variant="primary" />
 
           <div className="mt-12 scroll-to">
             <svg
@@ -54,19 +62,11 @@ const SchoolLandingPage = ({ pageContext }) => {
             <h2 className="mb-4 lg:mb-6">Overview</h2>
             <div className="leading-loose text-gray-700 space-y-6">
               <p>
-                Learn how to integrate Stripe (and SCA support!) with Ruby on
-                Rails 6 including one-time payments, subscriptions, upgrades,
-                downgrades, refunds, webhooks and more.
-              </p>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.
+                {description}
               </p>
             </div>
             <div className="mt-8 btn-wrapper">
-              <Button text={"Primary Button"} variant="primary" />
+              <Button to="/courses" text={primary_button.text} variant="primary" />
             </div>
           </div>
         </div>
@@ -85,7 +85,7 @@ const SchoolLandingPage = ({ pageContext }) => {
               <p>{cta_section.description}</p>
             </div>
             <div className="mt-8 btn-wrapper">
-              <Button text="CTA Button" />
+              <Button to="/courses" text={cta_button.text} />
             </div>
           </div>
         </div>
@@ -112,7 +112,6 @@ const SchoolLandingPage = ({ pageContext }) => {
               </p>
             </div>
             <div className="mt-8 btn-wrapper">
-              <Button text={"Primary Button"} variant="primary" />
             </div>
           </div>
         </div>

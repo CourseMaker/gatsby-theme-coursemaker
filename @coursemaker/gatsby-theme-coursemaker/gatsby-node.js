@@ -393,6 +393,20 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                     description
                     title
                   }
+                  primary_button {
+                    text
+                    color
+                    text_color
+                  }
+                  cta_section {
+                    title
+                    description
+                  }
+                  cta_button {
+                    text
+                    color
+                    text_color
+                  }
                 }
               }
             }
@@ -440,6 +454,20 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
             siteMetadata {
               landing_page {
                 title_and_description {
+                  title
+                  description
+                }
+                primary_button {
+                  text
+                  color
+                  text_color
+                }
+                cta_button {
+                  text
+                  color
+                  text_color
+                 }
+                cta_section {
                   title
                   description
                 }
