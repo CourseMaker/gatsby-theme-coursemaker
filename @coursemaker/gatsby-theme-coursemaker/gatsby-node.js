@@ -387,6 +387,9 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                 courses {
                   id
                   title
+                  author_display {
+                    title
+                  }
                   sections {
                     id
                     title
@@ -455,8 +458,8 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                 slug
                 title
                 id
-                author {
-                  name
+                author_display: author {
+                  title: name
                 }
               }
             }
