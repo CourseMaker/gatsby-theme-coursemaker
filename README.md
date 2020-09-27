@@ -2,14 +2,16 @@
 Make Online Courses
 
 ## 🗝 Elevator Pitch 
-This Gatsby theme allows you to create a fully-featured online course website for free. Key features:
+This Gatsby theme allows you to create a fully-featured, commercial online course website **for free**. 
+Key features:
 - Easily create courses and lectures using tools you love (git, markdown)
 - Sales pages out of the box, with easy configuration options
 - Gated content (via integration with Auth0's free plan)
 - Payments (via integration with Stripe Checkout)
 - Hosting (via Netlify, AWS or many other options)
-- SEO optimized
 - Responsive design (looks good on mobile + tablets for your students)
+- SEO optimized
+- Google analytics integration
 - Blazing fast 
 - Serious documentation & support - we use this theme for our commercial product. It's not going quiet. And naturally,
 we've created a course explaining how to use this theme ;)

@@ -162,7 +162,6 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
     })
   );
 
-  console.log(getNodesByType(`AuthorsYaml`));
   createTypes(
     schema.buildObjectType({
       name: `Course`,
@@ -182,7 +181,7 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
           type: `String`,
         },
         author: {
-          type: `AuthorsYaml!`,
+          type: `AuthorsYaml`,
           resolve: source =>
             getNodesByType(`AuthorsYaml`).find(
               author => author.name === source.author
@@ -217,7 +216,7 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
             ),
         },
         coverImage: {
-          type: `File!`,
+          type: `File`,
         },
       },
       interfaces: [`Node`],
@@ -390,6 +389,9 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                   author_display {
                     title
                   }
+                  course_image {
+                    url
+                  }
                   sections {
                     id
                     title
@@ -460,6 +462,18 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                 id
                 author_display: author {
                   title: name
+                }
+                coverImage {
+                  absolutePath
+                  childImageSharp {
+                    fluid(maxWidth: 200, quality: 100) {
+                      base64
+                      aspectRatio
+                      src
+                      srcSet
+                      sizes
+                    }
+                  }
                 }
               }
             }
