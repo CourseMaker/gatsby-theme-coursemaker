@@ -76,12 +76,6 @@ exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
 
 exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
   const { createTypes } = actions;
-  // const typeDefs = `
-  //   type CMS implements Node {
-  //     replyFor: String
-  //   }
-  // `
-  // createTypes(typeDefs);
   createTypes(
     schema.buildObjectType({
       name: `Lecture`,
@@ -167,6 +161,8 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
       interfaces: [`Node`],
     })
   );
+
+  console.log(getNodesByType(`AuthorsYaml`));
   createTypes(
     schema.buildObjectType({
       name: `Course`,
@@ -184,6 +180,13 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
         tags: { type: `[String]!` },
         premium: {
           type: `String`,
+        },
+        author: {
+          type: `AuthorsYaml!`,
+          resolve: source =>
+            getNodesByType(`AuthorsYaml`).find(
+              author => author.name === source.author
+            )
         },
         excerpt: {
           type: `String!`,
@@ -214,7 +217,7 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
             ),
         },
         coverImage: {
-          type: `File`,
+          type: `File!`,
         },
       },
       interfaces: [`Node`],
@@ -268,6 +271,7 @@ exports.onCreateNode = (
         subtitle: node.frontmatter.subtitle,
         description_overview: node.frontmatter.description_overview,
         description: node.frontmatter.description,
+        author: node.frontmatter.author,
         slug,
       };
       createNode({
@@ -275,6 +279,7 @@ exports.onCreateNode = (
         // Required fields.
         id: createNodeId(`${node.id} >>> Course`),
         parent: node.id,
+        author: node.frontmatter.author,
         children: [],
         internal: {
           type: `Course`,
@@ -376,6 +381,9 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
             siteBuild(id: $build_id) {
               school {
                 name
+                owner {
+                  email
+                }
                 courses {
                   id
                   title
@@ -447,6 +455,9 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                 slug
                 title
                 id
+                author {
+                  name
+                }
               }
             }
           }
@@ -471,6 +482,9 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                   title
                   description
                 }
+              }
+              owner {
+                email
               }
               name: title
               useAuth

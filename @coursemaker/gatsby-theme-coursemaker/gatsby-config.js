@@ -18,6 +18,9 @@ module.exports = (themeOptions) => {
       strapiPluginOrFake: options.useStrapi,
       useAuth: options.useAuth,
       enablePayments: options.enablePayments, // required for paid courses
+      owner: {
+        email: "yourEmailAddress@domain.com"
+      },
       landing_page: {
         title_and_description: {
           title: "Demo Site (update in gatsby-config)",

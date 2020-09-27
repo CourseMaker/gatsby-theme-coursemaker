@@ -16,15 +16,7 @@ const SchoolLandingPage = ({ pageContext }) => {
   const primary_button = pageContext.school.landing_page.primary_button;
   const cta_button = landingPage.cta_button;
   const cta_section = landingPage.cta_section;
-
-  // TODO
-  const owner = { email: "admin@alphaschool.io" };
-
-  /* If the school is a membership site, it makes sense to have an "enroll" button, which goes straight
-  to a payment page. If the school is full of one-time purchase courses, it makes more sense to have a
-  "view courses" CTA. We don't yet have the concept of setting the destination page for the CTA, which
-  may be a problem.
-   */
+  const owner = pageContext.school.owner;
 
   return (
     <Layout>

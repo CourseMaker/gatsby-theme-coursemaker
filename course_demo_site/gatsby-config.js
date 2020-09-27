@@ -15,6 +15,9 @@ cta_description_string = "There has never been an easier way to make an online c
 module.exports = {
   siteMetadata: {
       title: "Demo Site Cool School",
+      owner: {
+        email: "chris@coursemaker.org"
+      },
       landing_page: {
         title_and_description: {
           title: "The CourseMaker Demo School",
