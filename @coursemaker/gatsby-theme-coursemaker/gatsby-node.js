@@ -216,7 +216,7 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
             ),
         },
         course_image: {
-          type: `File`,
+          type: `File!`,
         },
       },
       interfaces: [`Node`],
