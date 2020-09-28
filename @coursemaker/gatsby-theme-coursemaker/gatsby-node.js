@@ -168,15 +168,15 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
       fields: {
         id: { type: `ID!` },
         title: { type: `String!` },
-        subtitle: { type: `String!` },
-        price: {type: `Int!`},  // price in cents
-        description_overview: { type: `String!` },
-        description: { type: `String!` },
+        subtitle: { type: `String` },
+        price: {type: `Int`},  // price in cents
+        description_overview: { type: `String` },
+        description: { type: `String` },
         slug: {
           type: `String!`,
         },
         lastUpdated: { type: `Date`, extensions: { dateformat: {} } },
-        tags: { type: `[String]!` },
+        tags: { type: `[String]` },
         premium: {
           type: `String`,
         },
@@ -188,7 +188,7 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
             )
         },
         excerpt: {
-          type: `String!`,
+          type: `String`,
           args: {
             pruneLength: {
               type: `Int`,
@@ -198,7 +198,7 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
           resolve: mdxResolverPassthrough(`excerpt`),
         },
         body: {
-          type: `String!`,
+          type: `String`,
           resolve: mdxResolverPassthrough(`body`),
         },
         frontmatter: {
@@ -206,7 +206,7 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
           resolve: mdxResolverPassthrough(`frontmatter`),
         },
         Sections: {
-          type: `[Section!]`,
+          type: `[Section]`,
           resolve: (source) =>
             sortBy(
               getNodesByType(`Section`).filter((Section) =>
@@ -465,7 +465,6 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                   title: name
                 }
                 course_image {
-                  absolutePath
                   childImageSharp {
                     fluid(maxWidth: 200, quality: 100) {
                       base64
