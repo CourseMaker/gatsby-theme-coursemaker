@@ -465,7 +465,6 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                   title: name
                 }
                 course_image {
-                  absolutePath
                   childImageSharp {
                     fluid(maxWidth: 200, quality: 100) {
                       base64
