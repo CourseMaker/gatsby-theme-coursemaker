@@ -8,5 +8,10 @@ ID = "CourseMaker Demo Site"
   # Ignore build command if exit 0
   ignore = "git diff --quiet HEAD^ HEAD sub_dir/"
 
-[context.deploy-preview]
-  environment = { GATSBY_AUTH0_DOMAIN="update me", GATSBY_AUTH0_CLIENTID="secret", GATSBY_AUTH0_CALLBACK="http://localhost:8000/callback", GATSBY_STRIPE_PUBLISHABLE_KEY="update me", GATSBY_BUTTON_PRICE_ID="update me", GATSBY_ENABLE_PAYMENTS=true}
+[context.deploy-preview.environment]
+  GATSBY_AUTH0_DOMAIN="update me"
+  GATSBY_AUTH0_CLIENTID="secret"
+  GATSBY_AUTH0_CALLBACK="http://localhost:8000/callback"
+  GATSBY_STRIPE_PUBLISHABLE_KEY="update me"
+  GATSBY_BUTTON_PRICE_ID="update me"
+  GATSBY_ENABLE_PAYMENTS="true"
