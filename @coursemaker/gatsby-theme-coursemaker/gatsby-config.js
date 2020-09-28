@@ -8,20 +8,33 @@ module.exports = (themeOptions) => {
     mdx: legacyConfigureMdxFlag = true,
   } = themeOptions; // keep mdx flag so we don't introduce a breaking change
 
-  console.log("gatsby config");
-  console.log(process.env.CMS_BASE_PATH);
-  console.log(process.env.CMS_LOGIN_URL);
-
   return {
     siteMetadata: {
       title: "My Cool School (update in gatsby-config)",
       strapiPluginOrFake: options.useStrapi,
       useAuth: options.useAuth,
       enablePayments: options.enablePayments, // required for paid courses
+      owner: {
+        email: "yourEmailAddress@domain.com"
+      },
       landing_page: {
         title_and_description: {
           title: "Demo Site (update in gatsby-config)",
           description: "Yaml description (update in gatsby-config)",
+        },
+        primary_button: {
+          text: "View Courses",
+          color: "black",
+          text_color: "white",
+        },
+        cta_section: {
+          "title": "Now is a great time to learn",
+          "description": "Update me (update in gatsby-config)"
+        },
+        cta_button: {
+          text: "View Courses",
+          color: "black",
+          text_color: "white",
         }
       },
     },
@@ -35,7 +48,6 @@ module.exports = (themeOptions) => {
             {
               resolve: `gatsby-remark-images`,
               options: {
-                // should this be configurable by the end-user?
                 maxWidth: 1380,
                 linkImagesToOriginal: false,
               },
@@ -110,7 +122,7 @@ module.exports = (themeOptions) => {
         options: {
           postCssPlugins: [
             require("tailwindcss"),
-            require("./tailwind.config.js"), // Optional: Load custom Tailwind CSS configuration
+            require("./src/css/tailwind.config.js"), // Optional: Load custom Tailwind CSS configuration
           ],
         },
       },

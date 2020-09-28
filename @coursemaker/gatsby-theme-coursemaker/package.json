@@ -5,7 +5,7 @@
     "type": "git",
     "url": "https://github.com/CourseMaker/gatsby-theme-coursemaker.git"
   },
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -24,8 +24,7 @@
   "devDependencies": {
     "gatsby": "^2.13.1",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "tailwindcss": "^1.4.6"
+    "react-dom": "^16.8.6"
   },
   "dependencies": {
     "@auth0/auth0-react": "^1.1.0",
@@ -34,7 +33,7 @@
     "@mdx-js/react": "^1.5.0",
     "@stripe/stripe-js": "^1.9.0",
     "auth0-js": "^9.14.0",
-    "gatsby-image": "^2.4.3",
+    "gatsby-image": "^2.4.19",
     "gatsby-plugin-gdpr-cookies": "^1.0.7",
     "gatsby-plugin-google-analytics": "^2.3.13",
     "gatsby-plugin-manifest": "^2.4.3",
@@ -52,7 +51,7 @@
     "gatsby-source-faker": "^2.3.11",
     "gatsby-source-filesystem": "^2.1.28",
     "gatsby-source-graphql": "^2.6.1",
-    "gatsby-transformer-sharp": "^2.5.2",
+    "gatsby-transformer-sharp": "^2.5.15",
     "gatsby-transformer-yaml": "^2.3.1",
     "graphql": "github:getcoursemaker/graphql-js#disable-validation-dist",
     "koa": "^2.12.1",
@@ -74,6 +73,7 @@
     "react-scripts": "3.4.1",
     "remark-slug": "^5.1.2",
     "serialize-javascript": "^3.0.0",
+    "tailwindcss": "^1.8.10",
     "theme-ui": "^0.2.43"
   },
   "keywords": [

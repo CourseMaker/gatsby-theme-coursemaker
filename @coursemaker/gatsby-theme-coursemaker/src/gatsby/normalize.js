@@ -1,3 +1,20 @@
+require("dotenv").config();
+
+exports.normalizeImageUrl = (course) => {
+  let course_image = {
+    url: {},
+  };
+  if (course.course_image) {
+    course.course_image = {
+      url: process.env.CMS_BASE_PATH + course.course_image.url,
+    };
+  } else {
+    console.log('\u001B[33m', `Missing course_image for "${course.title}"`);
+  }
+
+  return course;
+}
+
 module.exports.local = {
   courses: ({ node: course }) => {
     return {
@@ -13,8 +30,11 @@ module.exports.local = {
 
 module.exports.cms = {
   courses: ({ node: course }) => {
+    console.log("foo");
+    console.log(course);
     return {
       ...course,
+      course_image: normalizeImageUrl(course)
     };
   },
   school: ({node: school}) => {

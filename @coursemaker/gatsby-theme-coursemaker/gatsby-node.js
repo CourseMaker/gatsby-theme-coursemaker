@@ -76,12 +76,6 @@ exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
 
 exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
   const { createTypes } = actions;
-  // const typeDefs = `
-  //   type CMS implements Node {
-  //     replyFor: String
-  //   }
-  // `
-  // createTypes(typeDefs);
   createTypes(
     schema.buildObjectType({
       name: `Lecture`,
@@ -167,6 +161,7 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
       interfaces: [`Node`],
     })
   );
+
   createTypes(
     schema.buildObjectType({
       name: `Course`,
@@ -184,6 +179,13 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
         tags: { type: `[String]!` },
         premium: {
           type: `String`,
+        },
+        author: {
+          type: `AuthorsYaml`,
+          resolve: source =>
+            getNodesByType(`AuthorsYaml`).find(
+              author => author.name === source.author
+            )
         },
         excerpt: {
           type: `String!`,
@@ -213,7 +215,7 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
               ["slug"]
             ),
         },
-        coverImage: {
+        course_image: {
           type: `File`,
         },
       },
@@ -263,11 +265,12 @@ exports.onCreateNode = (
         title: node.frontmatter.title,
         tags: node.frontmatter.tags,
         lastUpdated: node.frontmatter.lastUpdated,
-        coverImage: node.frontmatter.coverImage,
+        course_image: node.frontmatter.courseImage,
         premium: node.frontmatter.premium,
         subtitle: node.frontmatter.subtitle,
         description_overview: node.frontmatter.description_overview,
         description: node.frontmatter.description,
+        author: node.frontmatter.author,
         slug,
       };
       createNode({
@@ -275,6 +278,7 @@ exports.onCreateNode = (
         // Required fields.
         id: createNodeId(`${node.id} >>> Course`),
         parent: node.id,
+        author: node.frontmatter.author,
         children: [],
         internal: {
           type: `Course`,
@@ -376,15 +380,25 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
             siteBuild(id: $build_id) {
               school {
                 name
+                owner {
+                  email
+                }
                 courses {
                   id
                   title
+                  author_display {
+                    title
+                  }
+                  course_image {
+                    url
+                  }
                   sections {
                     id
                     title
                     lectures {
                       id
                       title
+                      video_id
                     }
                   }
                 }
@@ -392,6 +406,20 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                   title_and_description {
                     description
                     title
+                  }
+                  primary_button {
+                    text
+                    color
+                    text_color
+                  }
+                  cta_section {
+                    title
+                    description
+                  }
+                  cta_button {
+                    text
+                    color
+                    text_color
                   }
                 }
               }
@@ -404,7 +432,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
       // TODO: normalize
       cmsData.data.cms.siteBuild.school.useAuth = false;
       cmsData.data.cms.siteBuild.school.enablePayments = false;
-      dataSources.cms.courses = cmsData.data.cms.siteBuild.school.courses; //.map(normalize.cms.courses);
+      dataSources.cms.courses = cmsData.data.cms.siteBuild.school.courses.map(normalize.normalizeImageUrl);
       dataSources.cms.school = cmsData.data.cms.siteBuild.school;
     } catch (error) {
       console.error("CMS query error");
@@ -433,6 +461,21 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                 slug
                 title
                 id
+                author_display: author {
+                  title: name
+                }
+                course_image {
+                  absolutePath
+                  childImageSharp {
+                    fluid(maxWidth: 200, quality: 100) {
+                      base64
+                      aspectRatio
+                      src
+                      srcSet
+                      sizes
+                    }
+                  }
+                }
               }
             }
           }
@@ -443,6 +486,23 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                   title
                   description
                 }
+                primary_button {
+                  text
+                  color
+                  text_color
+                }
+                cta_button {
+                  text
+                  color
+                  text_color
+                 }
+                cta_section {
+                  title
+                  description
+                }
+              }
+              owner {
+                email
               }
               name: title
               useAuth
