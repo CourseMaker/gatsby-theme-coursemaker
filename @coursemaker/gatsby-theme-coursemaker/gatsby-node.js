@@ -434,7 +434,6 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
       cmsData.data.cms.siteBuild.school.enablePayments = false;
       dataSources.cms.courses = cmsData.data.cms.siteBuild.school.courses.map(normalize.normalizeImageUrl);
       dataSources.cms.school = cmsData.data.cms.siteBuild.school;
-      console.log(dataSources.cms.courses);
     } catch (error) {
       console.error("CMS query error");
       console.error(error);

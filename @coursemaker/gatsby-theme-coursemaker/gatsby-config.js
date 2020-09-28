@@ -8,10 +8,6 @@ module.exports = (themeOptions) => {
     mdx: legacyConfigureMdxFlag = true,
   } = themeOptions; // keep mdx flag so we don't introduce a breaking change
 
-  console.log("gatsby config");
-  console.log(process.env.CMS_BASE_PATH);
-  console.log(process.env.CMS_LOGIN_URL);
-
   return {
     siteMetadata: {
       title: "My Cool School (update in gatsby-config)",

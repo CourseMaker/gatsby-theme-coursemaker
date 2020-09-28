@@ -4,7 +4,9 @@ ID = "CourseMaker Demo Site"
 # Settings in the [build] context are global and are applied to all contexts unless otherwise overridden by more specific contexts.
 
 [build]
-  command = "yarn build"
+  base = "course_demo_site"
+  command = "gatsby build"
+  publish = "course_demo_site/public"
   # Ignore build command if exit 0
   ignore = "git diff --quiet HEAD^ HEAD sub_dir/"
 
