@@ -385,6 +385,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                     lectures {
                       id
                       title
+                      video_id
                     }
                   }
                 }
