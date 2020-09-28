@@ -122,7 +122,7 @@ module.exports = (themeOptions) => {
         options: {
           postCssPlugins: [
             require("tailwindcss"),
-            require("./tailwind.config.js"), // Optional: Load custom Tailwind CSS configuration
+            require("./src/css/tailwind.config.js"), // Optional: Load custom Tailwind CSS configuration
           ],
         },
       },
