@@ -7,8 +7,6 @@ ID = "CourseMaker Demo Site"
   base = "course_demo_site"
   command = "gatsby build"
   publish = "course_demo_site/public"
-  # Ignore build command if exit 0
-  ignore = "git diff --quiet HEAD^ HEAD sub_dir/"
 
 [context.deploy-preview.environment]
   GATSBY_AUTH0_DOMAIN="update me"
