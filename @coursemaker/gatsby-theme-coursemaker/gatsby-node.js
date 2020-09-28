@@ -215,7 +215,7 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
               ["slug"]
             ),
         },
-        coverImage: {
+        course_image: {
           type: `File`,
         },
       },
@@ -265,7 +265,7 @@ exports.onCreateNode = (
         title: node.frontmatter.title,
         tags: node.frontmatter.tags,
         lastUpdated: node.frontmatter.lastUpdated,
-        coverImage: node.frontmatter.coverImage,
+        course_image: node.frontmatter.courseImage,
         premium: node.frontmatter.premium,
         subtitle: node.frontmatter.subtitle,
         description_overview: node.frontmatter.description_overview,
@@ -432,8 +432,9 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
       // TODO: normalize
       cmsData.data.cms.siteBuild.school.useAuth = false;
       cmsData.data.cms.siteBuild.school.enablePayments = false;
-      dataSources.cms.courses = cmsData.data.cms.siteBuild.school.courses; //.map(normalize.cms.courses);
+      dataSources.cms.courses = cmsData.data.cms.siteBuild.school.courses.map(normalize.normalizeImageUrl);
       dataSources.cms.school = cmsData.data.cms.siteBuild.school;
+      console.log(dataSources.cms.courses);
     } catch (error) {
       console.error("CMS query error");
       console.error(error);
@@ -464,7 +465,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                 author_display: author {
                   title: name
                 }
-                coverImage {
+                course_image {
                   absolutePath
                   childImageSharp {
                     fluid(maxWidth: 200, quality: 100) {

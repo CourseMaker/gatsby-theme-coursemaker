@@ -60,6 +60,13 @@ called "school" created in your project root. This houses all your courses and l
 * Every directory directly underneath the `school/courses` directory represents a course. 
 * Every course is configured via the index.mdx file in its root directory. 
 
+#### The Course index.mdx
+Many aspects of your course are configured in the index.mdx file frontmatter at the course directory
+root. These include:
+
+* `courseImage` which looks in the `/assets` directory of your course folder for the file you indicate.
+This image will appear on your school and course landing pages. 
+
 
 #### 💰 Gated Content Feature
 * GATSBY_ENABLE_PAYMENTS
