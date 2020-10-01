@@ -6,7 +6,7 @@ ID = "CourseMaker Demo Site"
 [build]
   base = "/"
   command = "yarn build"
-  publish = "/public"
+  publish = "course_demo_site/public"
 
 [context.deploy-preview.environment]
   GATSBY_AUTH0_DOMAIN="update me"
