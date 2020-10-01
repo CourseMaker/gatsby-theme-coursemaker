@@ -2,7 +2,6 @@
 import { jsx } from "theme-ui";
 
 const Video = ({ lecture, ...props }) => {
-  console.log(lecture);
   const video_src = lecture.video_id ? "https://www.youtube.com/embed/" + lecture.video_id : null;
   if (video_src != null){
     return (

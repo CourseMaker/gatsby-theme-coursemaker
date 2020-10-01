@@ -10,7 +10,6 @@ const LayoutLecture = ({
   sections,
   totalLectures,
 }) => {
-  console.log(lectureList);
   function random(min, max) {
     const number = Math.random() * (max - min) + min;
     return Math.round(number);
