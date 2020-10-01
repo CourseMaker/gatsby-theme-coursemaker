@@ -3,10 +3,11 @@ import { Link } from "gatsby";
 import ReactMarkdown from "react-markdown";
 import LayoutLecture from "../components/layout-lecture";
 import Breadcrumbs from "../components/course-breadcrumbs";
+import Video from "../components/video";
 import { login, isAuthenticated } from "../../auth/auth"
+import { MDXRenderer } from "gatsby-plugin-mdx"
 
 const Lecture = ({ pageContext }) => {
-  console.log(pageContext);
   if (pageContext.school.useAuth){
     if (!isAuthenticated()) {
       login()
@@ -36,6 +37,15 @@ const Lecture = ({ pageContext }) => {
     }
   });
 
+  let lecture_body;
+  if (lecture.body){
+    // local source
+    lecture_body = <MDXRenderer>{lecture.body}</MDXRenderer>;
+  } else {
+    // strapi
+    lecture_body = <ReactMarkdown source={lecture.body_markdown} />;
+  }
+
   return (
     <LayoutLecture
       lecture={lecture}
@@ -43,17 +53,7 @@ const Lecture = ({ pageContext }) => {
       totalLectures={allLectures.length}
     >
       {/* video */}
-      <div className="bg-black video-wrapper">
-        <iframe
-          title="video"
-          width="560"
-          height="315"
-          src="https://www.youtube.com/embed/dXu_m1LVaYA"
-          frameBorder="0"
-          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
-      </div>
+      {<Video lecture={lecture} />}
 
       {/* course header */}
       <div className="pt-5 border-b border-gray-300">
@@ -62,9 +62,6 @@ const Lecture = ({ pageContext }) => {
           <div className="items-end justify-between pt-4 pb-6 lg:flex">
             <div>
               <h2 className="leading-tight">{lecture.title}</h2>
-              <div className="font-light text-gray-600 md:text-2xl">
-                We need a lecture subtitle field
-              </div>
             </div>
 
             {/* .controls */}
@@ -88,7 +85,7 @@ const Lecture = ({ pageContext }) => {
       <div className="w-full py-12 mx-auto lg:py-16 lg:w-9/12">
         <div className="container">
           <div className="font-light leading-relaxed text-gray-700 description space-y-4 lg:w-11/12">
-            <ReactMarkdown source={lecture.description} />
+            {lecture_body}
           </div>
         </div>
       </div>

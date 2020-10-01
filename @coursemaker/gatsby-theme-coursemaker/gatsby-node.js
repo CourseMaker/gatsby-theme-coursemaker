@@ -87,7 +87,7 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
         slug: {
           type: `String!`,
         },
-        youtubeId: {
+        video: {
           type: `String`,
         },
         duration: {
@@ -325,16 +325,16 @@ exports.onCreateNode = (
         getNode,
         basePath: coursesPath,
       });
-      const { title, youtubeId, duration } = node.frontmatter;
+      const { title, video, duration } = node.frontmatter;
       let videoDuration;
-      if (youtubeId && !duration) {
+      if (video && !duration) {
         // TODO: get video duration
         videoDuration = 1000;
       }
       const fieldData = {
         title,
         duration: duration || videoDuration,
-        youtubeId,
+        video,
         slug,
       };
       createNode({
@@ -399,6 +399,8 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                       id
                       title
                       video_id
+                      body_text
+                      body_markdown
                     }
                   }
                 }
@@ -452,7 +454,8 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                     id
                     slug
                     title
-                    youtubeId
+                    video_id: video
+                    body
                   }
                   id
                   title

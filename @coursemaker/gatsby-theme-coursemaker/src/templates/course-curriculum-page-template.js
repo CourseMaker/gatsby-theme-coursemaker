@@ -12,7 +12,6 @@ const Curriculum = ({ pageContext }) => {
   //   };
   // const cta_section = { "title": "cta test", "description": "cta desc" };
   // const author = { "username": "joe", "email": "yoyo@gmail.com" };
-  console.log(pageContext);
   const photo = { url: "abc.com" };
   const author_display = {
     title: "joe",
