@@ -8,7 +8,6 @@ import { login, isAuthenticated } from "../../auth/auth"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 
 const Lecture = ({ pageContext }) => {
-  console.log(pageContext);
   if (pageContext.school.useAuth){
     if (!isAuthenticated()) {
       login()
