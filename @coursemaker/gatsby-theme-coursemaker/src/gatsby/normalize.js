@@ -30,8 +30,6 @@ module.exports.local = {
 
 module.exports.cms = {
   courses: ({ node: course }) => {
-    console.log("foo");
-    console.log(course);
     return {
       ...course,
       course_image: normalizeImageUrl(course)
