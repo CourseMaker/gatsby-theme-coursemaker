@@ -4,9 +4,9 @@ ID = "CourseMaker Demo Site"
 # Settings in the [build] context are global and are applied to all contexts unless otherwise overridden by more specific contexts.
 
 [build]
-  base = "/"
-  command = "yarn build"
-  publish = "course_demo_site/public"
+  base = "course_demo_site"
+  command = "gatsby build"
+  publish = "/public"
 
 [context.deploy-preview.environment]
   GATSBY_AUTH0_DOMAIN="update me"

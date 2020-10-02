@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "gatsby": "^2.24.65",
-    "@coursemaker/gatsby-theme-coursemaker": "*",
+    "@coursemaker/gatsby-theme-coursemaker": "^0.1.7",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "tailwindcss": "^1.8.10"

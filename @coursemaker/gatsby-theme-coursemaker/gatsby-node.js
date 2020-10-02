@@ -181,7 +181,7 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
           type: `String`,
         },
         author: {
-          type: `AuthorsYaml`,
+          type: `AuthorsYaml!`,
           resolve: source =>
             getNodesByType(`AuthorsYaml`).find(
               author => author.name === source.author
