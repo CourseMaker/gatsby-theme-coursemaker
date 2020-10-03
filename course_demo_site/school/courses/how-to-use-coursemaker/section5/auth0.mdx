@@ -23,4 +23,20 @@ When you click on the Create button, Auth0 will redirect you to the Quick Start 
 For security reasons, after the login and logout processes,
 Auth0 will only redirect users to the URLs you register in these fields.
 
+# install the
+npm install -g netlify-cli
+
+# log into your Netlify account
+ntl login
+
+Next, we need to tell the CLI where our files are, so let’s create a netlify.toml to specify which files will be published to production (in our case, the public folder is our web root).
+
+Inside netlify.toml, add the following:
+
+[build]
+    publish = "public"
+After we’ve saved this file, we can start the local server using ntl dev!
+
+ntl dev
+
 

@@ -1,4 +1,13 @@
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+/*
+ * This function implements a Stripe webhook handler to handle
+ * fulfillment for our successful payments.
+ *
+ * @see https://stripe.com/docs/payments/checkout/fulfillment#webhooks
+ */
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY, {
+  apiVersion: '2020-03-02',
+  maxNetworkRetries: 2,
+});
 
 exports.handler = async ({ body, headers }) => {
   try {
