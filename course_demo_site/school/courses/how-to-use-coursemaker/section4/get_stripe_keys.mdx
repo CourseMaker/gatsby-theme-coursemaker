@@ -6,4 +6,22 @@ number: 4
 video: https://www.youtube.com/embed/dQw4w9WgXcQ
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eleifend nibh vel blandit interdum. Phasellus vel sodales justo, vel maximus tellus. Nulla semper risus nec massa tincidunt, vitae condimentum diam commodo. Nullam ut nibh vitae magna tempus faucibus et a ligula. In vehicula vel diam vitae bibendum. Aenean nunc urna, ornare egestas purus nec, maximus euismod ex. Fusce porttitor neque ac nisl rhoncus venenatis. Praesent ut venenatis ante, id ultrices magna. Mauris lobortis nisl eu euismod hendrerit.
+Get your test credentials from Stripe
+Selling products on our site will require both the publishable key and the secret key for our Stripe account. We’ll stay in test mode so we can run through the transactions without spending real money.
+
+To get these values, we need to:
+
+Log into Stripe at https://dashboard.stripe.com/login
+Make sure the “Viewing test data” switch is toggled on
+Click “Developers” in the left-hand menu
+Click “API keys”
+Copy both the publishable key and secret key from the “Standard keys” panel
+
+---
+
+On the site’s admin dashboard, do the following:
+
+Click “Deploys” in the top nav
+Click “Deploy settings”
+Click “Envoronment” in the left-hand nav
+Click “Edit variables” and add STRIPE_PUBLISHABLE_KEY and STRIPE_SECRET_KEY with the corresponding values from Stripe, then save
