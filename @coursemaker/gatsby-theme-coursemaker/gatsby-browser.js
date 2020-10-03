@@ -3,33 +3,21 @@ import "./src/css/style.styl";
 
 // ./gatsby-browser.js
 import React from "react"
-import { silentAuth } from "./auth/auth"
+import { Auth0Provider } from "@auth0/auth0-react"
+import { navigate } from "gatsby"
 
-class SessionCheck extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      loading: true,
-    }
-  }
+const onRedirectCallback = appState =>
+  appState && appState.targetUrl && navigate(appState.targetUrl)
 
-  handleCheckSession = () => {
-    this.setState({ loading: false })
-  }
-
-  componentDidMount() {
-    silentAuth(this.handleCheckSession)
-  }
-
-  render() {
-    return (
-      this.state.loading === false && (
-        <React.Fragment>{this.props.children}</React.Fragment>
-      )
-    )
-  }
-}
-
-export const wrapRootElement = ({ element }) => {
-  return <SessionCheck>{element}</SessionCheck>
+export const wrapRootElement = ({ element }, pluginOptions) => {
+  return (
+    <Auth0Provider
+      domain={process.env.GATSBY_AUTH0_DOMAIN}
+      clientId={process.env.GATSBY_AUTH0_CLIENTID}
+      redirectUri={window.location.origin}
+      onRedirectCallback={onRedirectCallback}
+    >
+      {element}
+    </Auth0Provider>
+  )
 }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import getStripe from '../../payments/stripejs'
-import {isAuthenticated, login} from "../../auth/auth";
+import { useAuth0 } from "@auth0/auth0-react"
 
 const buttonStyles = {
   fontSize: '13px',
@@ -19,26 +19,26 @@ const buttonDisabledStyles = {
 }
 
 const Checkout = () => {
-  const [loading, setLoading] = useState(false)
+  const { isAuthenticated, loading, logout, user, loginWithPopup } = useAuth0()
+  if (loading) {
+    return <p>Loading...</p>
+  }
 
   const redirectToCheckout = async event => {
     event.preventDefault()
-    setLoading(true)
-
     const stripe = await getStripe()
+    console.log(user);
     const { error } = await stripe.redirectToCheckout({
       mode: 'payment',
       lineItems: [{ price: process.env.GATSBY_BUTTON_PRICE_ID, quantity: 1 }],
       successUrl: `${window.location.origin}/callback/`,
       cancelUrl: `${window.location.origin}/`,
+      customerEmail: user.email,
+      clientReferenceId: 'abc',
     })
       .then(function(result){
         console.log("here");
         console.log(result);
-        if (!isAuthenticated()) {
-          login()
-          return <p>Redirecting to login...</p>
-        }
         // TODO: update Auth0 with stripe metadata
         // TODO sign up user next (what happens if they do not sign up?)
       });
@@ -46,20 +46,24 @@ const Checkout = () => {
 
     if (error) {
       console.warn('Error:', error)
-      setLoading(false)
     }
   }
 
   return (
-    <button
-      disabled={loading}
-      style={
-        loading ? { ...buttonStyles, ...buttonDisabledStyles } : buttonStyles
-      }
-      onClick={redirectToCheckout}
-    >
-      Purchase Course
-    </button>
+     <div>
+      {isAuthenticated ? (
+        <>
+          <button onClick={(e) => redirectToCheckout(e)}>Purchase Course</button>
+          <p>Check out the user data supplied by Auth0, below:</p>
+          <pre>{isAuthenticated && JSON.stringify(user, null, 2)}</pre>
+        </>
+      ) : (
+        <>
+          <h2>Hi, please log in to purchase the course:</h2>
+          <button onClick={() => loginWithPopup()}>Log in</button>
+        </>
+      )}
+    </div>
   )
 }
 
