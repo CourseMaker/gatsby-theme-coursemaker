@@ -1,20 +1,17 @@
 const fs = require(`fs`);
 const path = require(`path`);
 const mkdirp = require(`mkdirp`);
-const { createFilePath } = require(`gatsby-source-filesystem`);
-const withDefaults = require(`./bootstrapping/default-options`);
+const { createFilePath } = require("gatsby-source-filesystem");
+const withDefaults = require("./bootstrapping/default-options");
 const sanitizeSlug = require("./bootstrapping/sanitize-slug");
-const normalize = require('./src/gatsby/normalize');
+const normalize = require("./src/gatsby/normalize");
 const {
   toSeconds,
   toHoursMinutes,
 } = require("./bootstrapping/format-duration");
 const sortBy = require(`lodash/sortBy`);
 
-const {
-  createCourses,
-  createSchool,
-} = require("./src/gatsby/pageCreator");
+const { createCourses, createSchool } = require("./src/gatsby/pageCreator");
 
 // Ensure that content directories exist at site-level
 exports.onPreBootstrap = ({ store }, themeOptions) => {
@@ -51,7 +48,6 @@ const mdxResolverPassthrough = (fieldName) => async (
   return result;
 };
 
-
 exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
   if (stage === "build-html") {
     /*
@@ -70,7 +66,7 @@ exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
           },
         ],
       },
-    })
+    });
   }
 }
 
@@ -182,10 +178,10 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
         },
         author: {
           type: `AuthorsYaml!`,
-          resolve: source =>
+          resolve: (source) =>
             getNodesByType(`AuthorsYaml`).find(
-              author => author.name === source.author
-            )
+              (author) => author.name === source.author
+            ),
         },
         excerpt: {
           type: `String`,
@@ -374,67 +370,75 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
   if (useStrapi) {
     // TODO: move queries to separate files like this: https://github.com/narative/gatsby-theme-novela/blob/master/%40narative/gatsby-theme-novela/src/gatsby/node/createPages.js#L95
     try {
-      const cmsData = await graphql(`
-        query RootQuery($build_id: ID!){
-          cms {
-            siteBuild(id: $build_id) {
-              school {
-                name
-                owner {
-                  email
-                }
-                courses {
-                  id
-                  title
-                  author_display {
-                    title
+      const cmsData = await graphql(
+        `
+          query RootQuery($build_id: ID!) {
+            cms {
+              siteBuild(id: $build_id) {
+                school {
+                  name
+                  owner {
+                    email
                   }
-                  course_image {
-                    url
-                  }
-                  sections {
+                  courses {
                     id
                     title
-                    lectures {
+                    author_display {
+                      title
+                      bio
+                      subtitle
+                      author_image {
+                        url
+                      }
+                    }
+                    course_image {
+                      url
+                    }
+                    sections {
                       id
                       title
-                      video_id
-                      body_text
-                      body_markdown
+                      lectures {
+                        id
+                        title
+                        video_id
+                        body_text
+                        body_markdown
+                      }
                     }
                   }
-                }
-                landing_page {
-                  title_and_description {
-                    description
-                    title
-                  }
-                  primary_button {
-                    text
-                    color
-                    text_color
-                  }
-                  cta_section {
-                    title
-                    description
-                  }
-                  cta_button {
-                    text
-                    color
-                    text_color
+                  landing_page {
+                    title_and_description {
+                      description
+                      title
+                    }
+                    primary_button {
+                      text
+                      color
+                      text_color
+                    }
+                    cta_section {
+                      title
+                      description
+                    }
+                    cta_button {
+                      text
+                      color
+                      text_color
+                    }
                   }
                 }
               }
             }
           }
-        }
-      `,
-      {build_id}
-    );
+        `,
+        { build_id }
+      );
       // TODO: normalize
       cmsData.data.cms.siteBuild.school.useAuth = false;
       cmsData.data.cms.siteBuild.school.enablePayments = false;
-      dataSources.cms.courses = cmsData.data.cms.siteBuild.school.courses.map(normalize.normalizeImageUrl);
+      dataSources.cms.courses = cmsData.data.cms.siteBuild.school.courses.map(
+        normalize.normalizeImageUrl
+      );
       dataSources.cms.school = cmsData.data.cms.siteBuild.school;
     } catch (error) {
       console.error("CMS query error");
@@ -466,6 +470,19 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                 id
                 author_display: author {
                   title: name
+                  bio
+                  subtitle
+                  author_image {
+                    childImageSharp {
+                      fluid(maxWidth: 200, quality: 100) {
+                        base64
+                        aspectRatio
+                        src
+                        srcSet
+                        sizes
+                      }
+                    }
+                  }
                 }
                 course_image {
                   childImageSharp {
@@ -497,7 +514,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                   text
                   color
                   text_color
-                 }
+                }
                 cta_section {
                   title
                   description
@@ -512,20 +529,19 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
             }
           }
         }
-      `,
+      `
     );
     // TODO: normalize
     dataSources.local.school = localData.data.site.siteMetadata;
-    dataSources.local.courses = localData.data.allCourse.edges.map(normalize.local.courses);
+    dataSources.local.courses = localData.data.allCourse.edges.map(
+      normalize.local.courses
+    );
   } catch (error) {
     reporter.panic("error loading docs", error);
   }
 
   // combine courses to pass to school for ease of debugging
-  allCourses = [
-    ...dataSources.local.courses,
-    ...dataSources.cms.courses,
-  ];
+  allCourses = [...dataSources.local.courses, ...dataSources.cms.courses];
 
   // school object is precise, however.
   let liveSchool;
@@ -547,5 +563,4 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
       courses: allCourses,
     },
   });
-
 };

@@ -12,17 +12,11 @@ const Curriculum = ({ pageContext }) => {
   //   };
   // const cta_section = { "title": "cta test", "description": "cta desc" };
   // const author = { "username": "joe", "email": "yoyo@gmail.com" };
-  const photo = { url: "abc.com" };
-  const author_display = {
-    title: "joe",
-    subtitle: "bar",
-    photo: photo,
-    description: "foo",
-  };
+
   const school = pageContext.school;
 
   const course = pageContext.course;
-
+  const { author_display } = course;
   return (
     <Layout>
       <section className="pt-5">

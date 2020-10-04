@@ -5,20 +5,12 @@ import Button from "../components/button";
 import Section from "../components/section";
 
 const CourseLandingPage = ({ pageContext, data }) => {
-  console.log(pageContext);
-
   const course = pageContext.course;
 
   // TODO: add to data model
   const cta_section = { title: "cta test", description: "cta desc" };
   const author = { username: "joe", email: "yoyo@gmail.com" };
-  const photo = { url: "abc.com" };
-  const author_display = {
-    title: "joe",
-    subtitle: "bar",
-    photo: photo,
-    description: "foo",
-  };
+  const { author_display } = course;
 
   return (
     <Layout>
@@ -104,7 +96,10 @@ const CourseLandingPage = ({ pageContext, data }) => {
           <div className="lg:items-center md:inline-flex lg:px-16 justify-content-center">
             <img
               className="block object-cover w-48 h-48 bg-gray-500 rounded-full author-photo lg:h-64 lg:w-64"
-              src={author_display.photo["url"]}
+              src={
+                author_display?.author_image?.["url"] ??
+                author_display.author_image?.childImageSharp?.fluid?.src
+              }
               alt={author_display.title}
             />
             <div className="w-full mt-8 md:pl-12 lg:pl-16 md:mt-0">
@@ -113,7 +108,7 @@ const CourseLandingPage = ({ pageContext, data }) => {
                 {author_display.subtitle}
               </p>
               <div className="mb-4 leading-loose text-gray-700 md:mb-6 space-y-5">
-                <ReactMarkdown source={author_display.description} />
+                <ReactMarkdown source={author_display.bio} />
               </div>
               <Button text="Curriculum" to="./curriculum" />
             </div>
