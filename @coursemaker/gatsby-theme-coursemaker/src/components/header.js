@@ -3,10 +3,11 @@ import { useState } from "react";
 import { Link } from "gatsby";
 import { useLocation } from "@reach/router";
 import { jsx } from "theme-ui";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const { pathname } = useLocation();
-  const school = { name: "Alpha School" };
+  const school = useSelector(({ school }) => school?.school?.data);
 
   let homeLinks = [
     ["Overview", "#overview"],
