@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import Lecture from "./lecture";
 
 const Section = ({ lecture, size, data }) => {

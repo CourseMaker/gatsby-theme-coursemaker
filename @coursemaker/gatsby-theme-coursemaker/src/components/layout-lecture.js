@@ -1,22 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import Header from "./header";
 import Footer from "./footer";
-
+import Section from "./section";
+import { useSelector } from "react-redux";
+import { isNumber } from "lodash";
 const LayoutLecture = ({
   children,
   lecture,
   lectureList,
   sections,
   totalLectures,
+  currentCourse,
 }) => {
-  function random(min, max) {
-    const number = Math.random() * (max - min) + min;
-    return Math.round(number);
-  }
-
-  const randomProgress = random(0, 100);
-
+  const course = useSelector(({ course }) => course);
+  let completedLectures = course?.items?.length;
+  let progress =
+    completedLectures >= 0
+      ? parseInt((completedLectures / lectureList?.length) * 100)
+      : 0;
   return (
     <>
       <Header />
@@ -34,29 +36,31 @@ const LayoutLecture = ({
               <div className="bottom-0 right-0 pt-8 pb-16 overflow-scroll border-l-0 border-gray-300 lg:border-l lg:pb-0 lg:pt-24 lg:h-full lg:w-3/12 lg:fixed sidebar">
                 <div className="py-8 text-sm text-gray-600 lg:p-4 progress">
                   <div className="relative flex justify-between mb-2">
-                    <div>{`${randomProgress}%`} Complete</div>
+                    <div>{`${progress}%`} Complete</div>
                     <div>0/{totalLectures} Lectures</div>
                   </div>
                   <div className="relative h-2 overflow-hidden bg-gray-400 rounded-lg">
                     <div
                       className="absolute top-0 bottom-0 left-0 h-2 bg-green-500"
-                      style={{ width: `${randomProgress}%` }}
+                      style={{ width: `${progress}%` }}
                     ></div>
                   </div>
                 </div>
                 {lectureList && (
                   <div className="curriculum-list space-y-6 lg:space-y-0">
-                    {lectureList.map((section) => (
-                      //   <Section
-                      //     lecture={lecture}
-                      //     data={section}
-                      //     size="small"
-                      //     key={section.id}
-                      //   />
-                      <pre key={section.id}>
-                        {JSON.stringify(section, null, 2)}
-                      </pre>
-                    ))}
+                    {currentCourse?.sections?.map((section) => {
+                      return (
+                        <Section
+                          lecture={lecture}
+                          data={section}
+                          size="small"
+                          key={section.id}
+                        />
+                        // <pre key={section.id}>
+                        //   {JSON.stringify(section, null, 2)}
+                        // </pre>
+                      );
+                    })}
                   </div>
                 )}
               </div>
