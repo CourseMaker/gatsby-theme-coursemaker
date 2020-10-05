@@ -48,6 +48,7 @@ const Lecture = ({ pageContext }) => {
 
   return (
     <LayoutLecture
+      pageContext={pageContext}
       lecture={lecture}
       lectureList={allLectures}
       totalLectures={allLectures.length}

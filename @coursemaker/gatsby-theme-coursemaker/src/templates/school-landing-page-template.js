@@ -23,7 +23,13 @@ const SchoolLandingPage = ({ pageContext }) => {
           <h1 className="mb-4">{title}</h1>
           <p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12"></p>
 
-          <Button to="/courses" text={primary_button.text} variant="primary" />
+          <Button
+            to="/courses"
+            text={primary_button.text}
+            color={primary_button.color}
+            text_color={primary_button.text_color}
+            variant="primary"
+          />
 
           <div className="mt-12 scroll-to">
             <svg
@@ -56,6 +62,8 @@ const SchoolLandingPage = ({ pageContext }) => {
               <Button
                 to="/courses"
                 text={primary_button.text}
+                color={cta_button.color}
+                text_color={cta_button.text_color}
                 variant="primary"
               />
             </div>
@@ -76,7 +84,13 @@ const SchoolLandingPage = ({ pageContext }) => {
               <p>{cta_section.description}</p>
             </div>
             <div className="mt-8 btn-wrapper">
-              <Button to="/courses" text={cta_button.text} />
+              <Button
+                to="/courses"
+                text={cta_button.text}
+                color={cta_button.color}
+                text_color={cta_button.text_color}
+                variant="secondary"
+              />
             </div>
           </div>
         </div>

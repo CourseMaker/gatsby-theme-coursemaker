@@ -15,6 +15,7 @@ const LayoutLecture = ({
   sections,
   totalLectures,
   currentCourse,
+  pageContext,
 }) => {
   const course = readLocalStorage("course");
 
@@ -25,7 +26,7 @@ const LayoutLecture = ({
       : 0;
   return (
     <>
-      <Header />
+      <Header school={pageContext.school} />
       <section id="lecture">
         <div className="flex-wrap lg:flex">
           <div className="lg:w-9/12">

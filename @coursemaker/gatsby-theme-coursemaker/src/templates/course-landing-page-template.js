@@ -3,10 +3,11 @@ import ReactMarkdown from "react-markdown";
 import Layout from "../components/layout";
 import Button from "../components/button";
 import Section from "../components/section";
+import { readLocalStorage } from "../helpers/storage";
 
 const CourseLandingPage = ({ pageContext, data }) => {
   const course = pageContext.course;
-
+  const storedCourse = readLocalStorage("course");
   // TODO: add to data model
   const cta_section = { title: "cta test", description: "cta desc" };
   const author = { username: "joe", email: "yoyo@gmail.com" };
@@ -83,9 +84,21 @@ const CourseLandingPage = ({ pageContext, data }) => {
           <div className="mx-auto inner lg:w-8/12">
             <h2 className="mt-12 mb-6 leading-tight">Curriculum</h2>
             <div className="curriculum-list space-y-6">
-              {course.sections.map((section) => (
-                <Section data={section} size="big" key={section.id} />
-              ))}
+              {course.sections.map((section) => {
+                let allLectures = course?.sections
+                  ?.map((section) => section?.lectures?.map((item) => item))
+                  .flat(1);
+
+                return (
+                  <Section
+                    data={section}
+                    size="big"
+                    key={section.id}
+                    allLectures={allLectures}
+                    course={storedCourse}
+                  />
+                );
+              })}
             </div>
           </div>
         </div>

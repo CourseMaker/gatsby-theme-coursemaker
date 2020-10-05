@@ -73,10 +73,20 @@ const Lecture = ({ lecture, size, data, isAllowed, nextLecture }) => {
 
             <div className="ml-auto">
               <Link
+                onClick={async () => {
+                  if (isAllowed) {
+                    await addLectureToComplete(lecture);
+                    await addLectureToComplete(nextLecture);
+                  }
+                }}
                 to={`${
                   lastpath === "curriculum" ? "../lectures" : "./lectures"
                 }/${id}`}
-                className="px-2 py-1 text-xs text-white bg-green-500 rounded shadow cursor-pointer transition-all duration-300 hover:bg-green-400 transition"
+                className={`px-2 py-1 text-xs text-white bg-green-500 rounded shadow   ${
+                  !isAllowed
+                    ? "disable-lecture"
+                    : "cursor-pointer transition-all duration-300 hover:bg-green-400 transition"
+                }`}
               >
                 {type === "video" ? "View" : "Download"}
               </Link>

@@ -5,6 +5,8 @@ export default {
     muted: "grey",
     text: "purple",
     background: "white",
+    white: "white",
+    black: "black",
   },
   buttons: {
     primary: {
