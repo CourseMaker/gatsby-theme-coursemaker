@@ -8,7 +8,7 @@ import { login, isAuthenticated } from "../../auth/auth";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 
 const Lecture = ({ pageContext }) => {
-  if (pageContext.school.useAuth){
+  if (pageContext.school.useAuth) {
     if (!isAuthenticated()) {
       login();
       return <p>Redirecting to login...</p>;

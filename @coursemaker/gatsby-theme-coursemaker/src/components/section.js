@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCourse } from "../actions/course";
 
 import Lecture from "./lecture";
 
-const Section = ({ lecture, size, data }) => {
+const Section = ({ lecture, size, data, allLectures }) => {
+  const course = useSelector(({ course }) => course);
   const [toggle, setTogggle] = useState(true);
   const toggleSection = (e) => {
     setTogggle(!toggle);
@@ -17,7 +20,16 @@ const Section = ({ lecture, size, data }) => {
   if (lecture) {
     currentLecture = lecture;
   }
-
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (allLectures?.[0]) {
+      const addData = async () => {
+        await dispatch(addToCourse(allLectures[0]));
+        await dispatch(addToCourse(allLectures[1]));
+      };
+      addData();
+    }
+  }, []);
   return (
     <div
       className={`${
@@ -79,13 +91,29 @@ const Section = ({ lecture, size, data }) => {
         </button>
       </div>
       <div className={toggle ? "block" : "hidden"}>
-        {data.lectures.map((lecture) => {
+        {data.lectures.map((lecture, index) => {
+          // let isFound = course?.items?.findIndex(
+          //   (storedItem) =>
+          //     storedItem.id ===
+          //     allLectures?.find(
+          //       (item) => item?.id === storedItem?.id && storedItem?.id
+          //     )
+          // );
+          let currentLectureAllowed = allLectures?.find(
+            (item) => item?.id === lecture?.id
+          );
+          let isFound = course?.items?.findIndex(
+            (item) => item?.id === currentLectureAllowed?.id
+          );
+
           return (
             <Lecture
               lecture={currentLecture}
               data={lecture}
+              nextLecture={allLectures?.[isFound + 1]}
               size={size}
               key={lecture.id}
+              isAllowed={isFound != -1}
             />
           );
         })}

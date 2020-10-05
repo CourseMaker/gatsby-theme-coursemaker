@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "gatsby";
 import { useLocation } from "@reach/router";
 import { useDispatch } from "react-redux";
 import { addToCourse } from "../actions/course";
 
-const Lecture = ({ lecture, size, data }) => {
+const Lecture = ({ lecture, size, data, isAllowed, nextLecture }) => {
   const dispatch = useDispatch();
   const { title, id } = data;
   function random(min, max) {
@@ -20,8 +20,10 @@ const Lecture = ({ lecture, size, data }) => {
   const arrPathname = pathname.split("/");
   let lastpath = arrPathname[arrPathname.length - 1];
 
-  const addLectureToComplete = (lecture) => {
-    dispatch(addToCourse(lecture));
+  const addLectureToComplete = async (lecture) => {
+    await dispatch(addToCourse(lecture));
+    console.log("this is next lecture", nextLecture);
+    if (nextLecture) await dispatch(addToCourse(nextLecture));
   };
 
   return (
@@ -62,12 +64,16 @@ const Lecture = ({ lecture, size, data }) => {
         </div>
       ) : (
         <Link
-          onClick={() => addLectureToComplete(lecture)}
-          to={`../${data.id}`}
+          onClick={() => isAllowed && addLectureToComplete(lecture)}
+          to={isAllowed ? `../${data.id}` : "/"}
           className={`${
             lecture.id === data.id ? "bg-green-100" : "hover:bg-gray-100"
+          } ${
+            !isAllowed
+              ? "disable-lecture"
+              : "transition transition-all duration-300 bg-white bg-gray-100 hover:bg-gray-100"
           }
-					relative block p-4 transition transition-all duration-300 bg-white`}
+					relative block p-4 `}
         >
           {lecture.id === data.id && (
             <div

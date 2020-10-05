@@ -4,19 +4,20 @@ import slugify from "slugify";
 import Img from "gatsby-image";
 
 const Card = ({ course }) => {
-  console.log(course);
-  let slug = course.slug ? course.slug : "/" + slugify(course.title, {strict: true, lower: true});
+  let slug = course.slug
+    ? course.slug
+    : "/" + slugify(course.title, { strict: true, lower: true });
   const courseAuthor = course.author_display.title || "";
 
   let courseImage;
   if (course.course_image == null) {
     // default
-    courseImage = {"src": "https://picsum.photos/300/300"};
+    courseImage = { src: "https://picsum.photos/300/300" };
   } else if (course.course_image.childImageSharp != null) {
     courseImage = course.course_image.childImageSharp.fluid;
-  } else if (course.course_image.url){
+  } else if (course.course_image.url) {
     // strapi hack
-    courseImage = {"src": course.course_image.url}
+    courseImage = { src: course.course_image.url };
   }
 
   return (

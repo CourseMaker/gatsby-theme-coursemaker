@@ -14,7 +14,8 @@ const LayoutLecture = ({
   currentCourse,
 }) => {
   const course = useSelector(({ course }) => course);
-  let completedLectures = course?.items?.length;
+
+  let completedLectures = course?.items?.length - 1;
   let progress =
     completedLectures >= 0
       ? parseInt((completedLectures / lectureList?.length) * 100)
@@ -49,16 +50,20 @@ const LayoutLecture = ({
                 {lectureList && (
                   <div className="curriculum-list space-y-6 lg:space-y-0">
                     {currentCourse?.sections?.map((section) => {
+                      let allLectures = currentCourse?.sections
+                        ?.map((section) =>
+                          section?.lectures?.map((item) => item)
+                        )
+                        .flat(1);
+
                       return (
                         <Section
+                          allLectures={allLectures}
                           lecture={lecture}
                           data={section}
                           size="small"
                           key={section.id}
                         />
-                        // <pre key={section.id}>
-                        //   {JSON.stringify(section, null, 2)}
-                        // </pre>
                       );
                     })}
                   </div>

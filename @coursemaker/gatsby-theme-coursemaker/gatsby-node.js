@@ -165,7 +165,7 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
         id: { type: `ID!` },
         title: { type: `String!` },
         subtitle: { type: `String` },
-        price: {type: `Int`},  // price in cents
+        price: { type: `Int` }, // price in cents
         description_overview: { type: `String` },
         description: { type: `String` },
         slug: {
