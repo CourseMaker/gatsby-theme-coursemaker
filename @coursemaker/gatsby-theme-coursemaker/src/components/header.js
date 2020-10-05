@@ -43,7 +43,7 @@ const Header = () => {
             to="/"
           >
             <div className="w-12 h-12 mr-4 bg-white rounded-full"></div>
-            <span className="font-semibold">{school.name}</span>
+            <span className="font-semibold">{school?.name}</span>
           </Link>
 
           <nav
