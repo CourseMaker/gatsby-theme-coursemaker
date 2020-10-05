@@ -5,9 +5,8 @@ import { useLocation } from "@reach/router";
 import { jsx } from "theme-ui";
 import { useSelector } from "react-redux";
 
-const Header = () => {
+const Header = ({ school }) => {
   const { pathname } = useLocation();
-  const school = useSelector(({ school }) => school?.school?.data);
 
   let homeLinks = [
     ["Overview", "#overview"],

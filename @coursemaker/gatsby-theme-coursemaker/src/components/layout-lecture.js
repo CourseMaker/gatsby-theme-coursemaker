@@ -3,8 +3,11 @@ import PropTypes from "prop-types";
 import Header from "./header";
 import Footer from "./footer";
 import Section from "./section";
-import { useSelector } from "react-redux";
-import { isNumber } from "lodash";
+import {
+  bakeLocalStorage,
+  deleteLocalStorage,
+  readLocalStorage,
+} from "../helpers/storage";
 const LayoutLecture = ({
   children,
   lecture,
@@ -13,7 +16,7 @@ const LayoutLecture = ({
   totalLectures,
   currentCourse,
 }) => {
-  const course = useSelector(({ course }) => course);
+  const course = readLocalStorage("course");
 
   let completedLectures = course?.items?.length - 1;
   let progress =
@@ -63,6 +66,7 @@ const LayoutLecture = ({
                           data={section}
                           size="small"
                           key={section.id}
+                          course={course}
                         />
                       );
                     })}

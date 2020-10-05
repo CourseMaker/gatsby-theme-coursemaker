@@ -3,12 +3,12 @@ import PropTypes from "prop-types";
 import Header from "./header";
 import Footer from "./footer";
 import CookieConsent from "react-cookie-consent";
-import { Helmet } from 'react-helmet';
+import { Helmet } from "react-helmet";
 
-const Layout = ({ children }) => {
+const Layout = ({ children, pageContext }) => {
   return (
     <>
-      <Header />
+      <Header school={pageContext.school} />
       <main>{children}</main>
       <CookieConsent
         location="bottom"

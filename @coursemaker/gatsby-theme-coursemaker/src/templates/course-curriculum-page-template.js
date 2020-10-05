@@ -18,7 +18,7 @@ const Curriculum = ({ pageContext }) => {
   const course = pageContext.course;
   const { author_display } = course;
   return (
-    <Layout>
+    <Layout pageContext={pageContext}>
       <section className="pt-5">
         <div className="container mx-auto">
           <Breadcrumbs school={school} course={course} />

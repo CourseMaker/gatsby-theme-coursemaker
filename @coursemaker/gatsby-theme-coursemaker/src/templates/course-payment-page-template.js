@@ -12,14 +12,13 @@ const CoursePaymentPage = ({ pageContext }) => {
   const school = pageContext.school;
 
   return (
-    <Layout>
+    <Layout pageContext={pageContext}>
       <section className="py-16 pb-8 text-center md:pt-24">
         <div className="container">
           <h1 className="mb-4">{course.title}</h1>
         </div>
         <Checkout />
       </section>
-
     </Layout>
   );
 };

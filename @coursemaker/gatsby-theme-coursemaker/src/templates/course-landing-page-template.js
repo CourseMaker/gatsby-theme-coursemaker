@@ -13,7 +13,7 @@ const CourseLandingPage = ({ pageContext, data }) => {
   const { author_display } = course;
 
   return (
-    <Layout>
+    <Layout pageContext={pageContext}>
       <section className="py-16 pb-8 text-center md:pt-24">
         <div className="container">
           <h1 className="mb-4">{course.title}</h1>

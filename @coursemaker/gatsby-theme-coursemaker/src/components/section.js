@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCourse } from "../actions/course";
-
+import {
+  bakeLocalStorage,
+  deleteLocalStorage,
+  readLocalStorage,
+} from "../helpers/storage";
 import Lecture from "./lecture";
 
-const Section = ({ lecture, size, data, allLectures }) => {
-  const course = useSelector(({ course }) => course);
+const Section = ({ lecture, size, data, allLectures, course }) => {
   const [toggle, setTogggle] = useState(true);
   const toggleSection = (e) => {
     setTogggle(!toggle);
@@ -23,11 +26,31 @@ const Section = ({ lecture, size, data, allLectures }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     if (allLectures?.[0]) {
-      const addData = async () => {
-        await dispatch(addToCourse(allLectures[0]));
-        await dispatch(addToCourse(allLectures[1]));
+      const addData = async (lecture) => {
+        let state = readLocalStorage("course");
+        let newState = {
+          items: [...((state && state?.items) || [])],
+        };
+
+        const exists = newState.items.some((item) => item?.id === lecture?.id);
+
+        // if item already exists in course, add quantity to item
+        if (exists) {
+          newState.items = newState?.items?.map((item) =>
+            item?.id === lecture?.id
+              ? {
+                  ...item,
+                }
+              : item
+          );
+        } else {
+          newState.items = [...newState?.items, { id: lecture?.id }];
+        }
+
+        bakeLocalStorage("course", newState);
       };
-      addData();
+      addData(allLectures[0]);
+      addData(allLectures[1]);
     }
   }, []);
   return (
@@ -106,6 +129,7 @@ const Section = ({ lecture, size, data, allLectures }) => {
             (item) => item?.id === currentLectureAllowed?.id
           );
 
+          let isAllowed = isFound >= 0;
           return (
             <Lecture
               lecture={currentLecture}
@@ -113,7 +137,7 @@ const Section = ({ lecture, size, data, allLectures }) => {
               nextLecture={allLectures?.[isFound + 1]}
               size={size}
               key={lecture.id}
-              isAllowed={isFound != -1}
+              isAllowed={isAllowed}
             />
           );
         })}

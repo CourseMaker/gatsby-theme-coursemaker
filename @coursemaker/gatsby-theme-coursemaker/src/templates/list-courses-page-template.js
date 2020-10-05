@@ -5,7 +5,7 @@ import Courses from "../components/courses";
 const CoursesPage = ({ pageContext }) => {
   const courses = pageContext.courses;
   return (
-    <Layout>
+    <Layout pageContext={pageContext}>
       <Courses courses={courses} />
     </Layout>
   );

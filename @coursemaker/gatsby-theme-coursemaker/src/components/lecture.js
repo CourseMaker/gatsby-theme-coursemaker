@@ -3,14 +3,18 @@ import { Link } from "gatsby";
 import { useLocation } from "@reach/router";
 import { useDispatch } from "react-redux";
 import { addToCourse } from "../actions/course";
-
+import {
+  bakeLocalStorage,
+  deleteLocalStorage,
+  readLocalStorage,
+} from "../helpers/storage";
 const Lecture = ({ lecture, size, data, isAllowed, nextLecture }) => {
   const dispatch = useDispatch();
   const { title, id } = data;
   function random(min, max) {
     return Math.random() * (max - min) + min;
   }
-
+  
   // dummy data. needs to change later
   const progressVal = random(10, 100);
   const type = "video";
@@ -21,11 +25,28 @@ const Lecture = ({ lecture, size, data, isAllowed, nextLecture }) => {
   let lastpath = arrPathname[arrPathname.length - 1];
 
   const addLectureToComplete = async (lecture) => {
-    await dispatch(addToCourse(lecture));
-    console.log("this is next lecture", nextLecture);
-    if (nextLecture) await dispatch(addToCourse(nextLecture));
-  };
+    let state = readLocalStorage("course");
+    let newState = {
+      items: [...((state && state?.items) || [])],
+    };
 
+    const exists = newState?.items?.some((item) => item?.id === lecture?.id);
+
+    if (exists) {
+      console.log("exist is running");
+      newState.items = newState?.items.map((item) =>
+        item?.id === lecture?.id
+          ? {
+              ...item,
+            }
+          : item
+      );
+    } else {
+      newState.items = [...newState.items, { id: lecture?.id }];
+    }
+
+    bakeLocalStorage("course", newState);
+  };
   return (
     <div className="border-t border-gray-300 lecture-item">
       {size === "big" ? (
@@ -64,7 +85,12 @@ const Lecture = ({ lecture, size, data, isAllowed, nextLecture }) => {
         </div>
       ) : (
         <Link
-          onClick={() => isAllowed && addLectureToComplete(lecture)}
+          onClick={async () => {
+            if (isAllowed) {
+              await addLectureToComplete(lecture);
+              await addLectureToComplete(nextLecture);
+            }
+          }}
           to={isAllowed ? `../${data.id}` : "/"}
           className={`${
             lecture.id === data.id ? "bg-green-100" : "hover:bg-gray-100"

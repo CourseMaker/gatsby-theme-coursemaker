@@ -4,14 +4,8 @@ import Layout from "../components/layout";
 import Button from "../components/button";
 import Courses from "../components/courses";
 import { jsx } from "theme-ui";
-import { useDispatch } from "react-redux";
-import { addSchool } from "../actions/school";
 
 const SchoolLandingPage = ({ pageContext }) => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(addSchool(pageContext?.school));
-  }, []);
   const passedCourses = pageContext.courses;
   const landingPage = pageContext.school.landing_page;
 
@@ -23,7 +17,7 @@ const SchoolLandingPage = ({ pageContext }) => {
   const owner = pageContext.school.owner;
 
   return (
-    <Layout>
+    <Layout pageContext={pageContext}>
       <section className="py-16 pb-8 text-center md:pt-30">
         <div className="container">
           <h1 className="mb-4">{title}</h1>
