@@ -80,6 +80,9 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
         title: {
           type: `String!`,
         },
+        number: {
+          type: `Int`,
+        },
         slug: {
           type: `String!`,
         },
@@ -321,7 +324,7 @@ exports.onCreateNode = (
         getNode,
         basePath: coursesPath,
       });
-      const { title, video, duration } = node.frontmatter;
+      const { title, video, duration, number } = node.frontmatter;
       let videoDuration;
       if (video && !duration) {
         // TODO: get video duration
@@ -332,6 +335,7 @@ exports.onCreateNode = (
         duration: duration || videoDuration,
         video,
         slug,
+        number,
       };
       createNode({
         ...fieldData,
@@ -459,6 +463,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                     slug
                     title
                     video_id: video
+                    number
                     body
                   }
                   id

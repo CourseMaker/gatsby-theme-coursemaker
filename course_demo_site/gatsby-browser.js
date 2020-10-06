@@ -1,10 +1,10 @@
 // ./gatsby-browser.js
-import React from "react"
-import { silentAuth } from "@coursemaker/gatsby-theme-coursemaker/auth/auth"
+import React from "react";
+import { silentAuth } from "@coursemaker/gatsby-theme-coursemaker/auth/auth";
 
 class SessionCheck extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       loading: true,
     }
