@@ -30,6 +30,7 @@ const Card = ({ course }) => {
           className="object-cover w-full h-40 md:h-64 md:w-1/2"
           fluid={courseImage}
           alt="cover image"
+          imgStyle={{ objectPosition: "center", objectFit: "contain" }}
         />
         <div className="p-6 md:px-10 md:py-8 md:w-1/2">
           <h4 className="mb-1 text-xl font-semibold">{course.title}</h4>

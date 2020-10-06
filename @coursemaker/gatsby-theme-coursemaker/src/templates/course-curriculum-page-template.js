@@ -4,7 +4,7 @@ import Section from "../components/section";
 import Breadcrumbs from "../components/course-breadcrumbs";
 import { readLocalStorage } from "../helpers/storage";
 
-const Curriculum = ({ pageContext }) => {
+const Curriculum = ({ pageContext = {} }) => {
   // TODO: add to data model
   // 	const { primary_button, cta_button } = {
   // 	  "color": "blue",

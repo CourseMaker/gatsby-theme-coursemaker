@@ -474,7 +474,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                   subtitle
                   author_image {
                     childImageSharp {
-                      fluid(maxWidth: 200, quality: 100) {
+                      fluid(maxWidth: 500, quality: 100) {
                         base64
                         aspectRatio
                         src
@@ -486,7 +486,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                 }
                 course_image {
                   childImageSharp {
-                    fluid(maxWidth: 200, quality: 100) {
+                    fluid(maxWidth: 500, quality: 100) {
                       base64
                       aspectRatio
                       src

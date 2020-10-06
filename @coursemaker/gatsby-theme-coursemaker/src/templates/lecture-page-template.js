@@ -7,7 +7,7 @@ import Video from "../components/video";
 import { login, isAuthenticated } from "../../auth/auth";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 
-const Lecture = ({ pageContext }) => {
+const Lecture = ({ pageContext = {} }) => {
   if (pageContext.school.useAuth) {
     if (!isAuthenticated()) {
       login();

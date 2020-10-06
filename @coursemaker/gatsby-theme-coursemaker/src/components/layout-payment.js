@@ -5,7 +5,7 @@ import Footer from "./footer";
 import CookieConsent from "react-cookie-consent";
 import { Helmet } from "react-helmet";
 
-const Layout = ({ children, pageContext }) => {
+const Layout = ({ children, pageContext = {} }) => {
   return (
     <>
       <Helmet>

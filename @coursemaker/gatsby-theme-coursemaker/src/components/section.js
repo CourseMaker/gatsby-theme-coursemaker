@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addToCourse } from "../actions/course";
-import {
-  bakeLocalStorage,
-  deleteLocalStorage,
-  readLocalStorage,
-} from "../helpers/storage";
+
+import { bakeLocalStorage, readLocalStorage } from "../helpers/storage";
 import Lecture from "./lecture";
 
 const Section = ({ lecture, size, data, allLectures, course }) => {
@@ -23,7 +18,6 @@ const Section = ({ lecture, size, data, allLectures, course }) => {
   if (lecture) {
     currentLecture = lecture;
   }
-  const dispatch = useDispatch();
   useEffect(() => {
     if (allLectures?.[0]) {
       const addData = async (lecture) => {

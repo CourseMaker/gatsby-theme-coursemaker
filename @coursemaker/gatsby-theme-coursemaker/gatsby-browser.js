@@ -4,9 +4,7 @@ import "./src/css/style.styl";
 // ./gatsby-browser.js
 import React from "react";
 import { silentAuth } from "./auth/auth";
-import { Provider } from "react-redux";
 
-import store from "./src/store";
 class SessionCheck extends React.Component {
   constructor(props) {
     super(props);
@@ -26,10 +24,7 @@ class SessionCheck extends React.Component {
   render() {
     return (
       this.state.loading === false && (
-        <Provider store={store}>
-          {" "}
-          <React.Fragment>{this.props.children}</React.Fragment>
-        </Provider>
+        <React.Fragment>{this.props.children}</React.Fragment>
       )
     );
   }

@@ -1,15 +1,9 @@
 import React, { useEffect } from "react";
 import { Link } from "gatsby";
 import { useLocation } from "@reach/router";
-import { useDispatch } from "react-redux";
-import { addToCourse } from "../actions/course";
-import {
-  bakeLocalStorage,
-  deleteLocalStorage,
-  readLocalStorage,
-} from "../helpers/storage";
+
+import { bakeLocalStorage, readLocalStorage } from "../helpers/storage";
 const Lecture = ({ lecture, size, data, isAllowed, nextLecture }) => {
-  const dispatch = useDispatch();
   const { title, id } = data;
   function random(min, max) {
     return Math.random() * (max - min) + min;

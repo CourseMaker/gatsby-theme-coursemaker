@@ -15,7 +15,7 @@ const LayoutLecture = ({
   sections,
   totalLectures,
   currentCourse,
-  pageContext,
+  pageContext = {},
 }) => {
   const course = readLocalStorage("course");
 

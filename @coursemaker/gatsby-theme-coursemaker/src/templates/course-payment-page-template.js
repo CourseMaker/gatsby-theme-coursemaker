@@ -5,7 +5,7 @@ import Button from "../components/button";
 import Section from "../components/section";
 import Checkout from "../components/checkout";
 
-const CoursePaymentPage = ({ pageContext }) => {
+const CoursePaymentPage = ({ pageContext = {} }) => {
   // TODO: pass course price from front matter
   // TODO: pass stripe key from site config
   const course = pageContext.course;
