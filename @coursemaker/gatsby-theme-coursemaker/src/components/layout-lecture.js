@@ -19,7 +19,7 @@ const LayoutLecture = ({
 }) => {
   const course = readLocalStorage("course");
 
-  let completedLectures = course?.items?.length - 1;
+  let completedLectures = course?.items?.length;
   let progress =
     completedLectures >= 0
       ? parseInt((completedLectures / lectureList?.length) * 100)
@@ -57,7 +57,9 @@ const LayoutLecture = ({
                 <div className="py-8 text-sm text-gray-600 lg:p-4 progress">
                   <div className="relative flex justify-between mb-2">
                     <div>{`${progress}%`} Complete</div>
-                    <div>0/{totalLectures} Lectures</div>
+                    <div>
+                      {course?.items?.length || 0}/{totalLectures} Lectures
+                    </div>
                   </div>
                   <div className="relative h-2 overflow-hidden bg-gray-400 rounded-lg">
                     <div
