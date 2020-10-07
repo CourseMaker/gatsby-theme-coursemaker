@@ -26,8 +26,7 @@ const LayoutLecture = ({
       : 0;
   const scrollContainer = useRef(null);
   useEffect(() => {
-    console.log("working");
-    scrollContainer.current.scrollTop = readLocalStorage("scroll").y;
+    scrollContainer.current.scrollTop = readLocalStorage("scroll")?.y || 0;
   }, []);
   const scroll = () => {
     var y = scrollContainer?.current?.scrollTop;
