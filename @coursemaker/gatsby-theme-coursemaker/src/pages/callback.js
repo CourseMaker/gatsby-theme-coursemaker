@@ -1,5 +1,5 @@
 import React from "react"
-import { handleAuthentication } from "../../auth/auth"
+import { handleAuthentication } from "../auth/auth"
 
 const Callback = () => {
   handleAuthentication()

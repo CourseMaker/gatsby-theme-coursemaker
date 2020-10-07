@@ -4,7 +4,7 @@
  * See: https://www.gatsbyjs.org/docs/gatsby-config/
  */
 
-const useStrapi = process.env.USE_STRAPI === "true";
+const useStrapi = process.env.GATSBY_USE_STRAPI === "true";
 
 description_string = "Learn everything you need to know to use the @coursemaker/gatsby-theme-coursemaker \n"+
                       "Including how to setup gated content and payments.";

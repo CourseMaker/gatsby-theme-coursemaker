@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import getStripe from '../../payments/stripejs'
-import {isAuthenticated, login} from "../../auth/auth";
+import {isAuthenticated, login} from "../auth/auth";
 
 const buttonStyles = {
   fontSize: '13px',

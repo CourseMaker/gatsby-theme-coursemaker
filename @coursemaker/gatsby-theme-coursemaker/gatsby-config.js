@@ -136,11 +136,11 @@ module.exports = (themeOptions) => {
 };
 
 // coursemaker team use only - don't worry about this if using the open-source version
-const cmsAuth = require(`./auth/cms-auth`);
+const cmsAuth = require(`./src/auth/cms-auth`);
 
 const enable_strapi = () => {
-  if (process.env.USE_STRAPI){
-    if (process.env.USE_STRAPI == "false") {
+  if (process.env.GATSBY_USE_STRAPI){
+    if (process.env.GATSBY_USE_STRAPI == "false") {
       return false;
     }
     return true;
@@ -156,7 +156,7 @@ const strapiPluginOrFake = () => {
       options: {
         typeName: "CMS",
         fieldName: "cms",
-        url: `${process.env.CMS_BASE_PATH}/graphql`,
+        url: `${process.env.GATSBY_CMS_BASE_URI}/graphql`,
         headers: async () => {
           return {
             Authorization: await cmsAuth.getAuthToken(),
