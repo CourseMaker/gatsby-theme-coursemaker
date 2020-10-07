@@ -3,8 +3,8 @@
  *
  * See: https://www.gatsbyjs.org/docs/gatsby-config/
  */
-
-const useStrapi = process.env.GATSBY_USE_STRAPI === "true";
+require("dotenv").config();
+const useStrapi = process.env.GATSBY_USE_STRAPI;
 
 description_string =
   "Learn everything you need to know to use the @coursemaker/gatsby-theme-coursemaker \n" +
