@@ -110,8 +110,8 @@ const CourseLandingPage = ({ pageContext, data }) => {
             <img
               className="block object-cover w-48 h-48 bg-gray-500 rounded-full author-photo lg:h-64 lg:w-64"
               src={
-                author_display?.author_image?.["url"] ??
-                author_display.author_image?.childImageSharp?.fluid?.src
+                author_display?.photo?.["url"] ??
+                author_display.photo?.childImageSharp?.fluid?.src
               }
               alt={author_display.title}
             />
@@ -121,7 +121,7 @@ const CourseLandingPage = ({ pageContext, data }) => {
                 {author_display.subtitle}
               </p>
               <div className="mb-4 leading-loose text-gray-700 md:mb-6 space-y-5">
-                <ReactMarkdown source={author_display.bio} />
+                <ReactMarkdown source={author_display.description} />
               </div>
               <Button text="Curriculum" to="./curriculum" />
             </div>

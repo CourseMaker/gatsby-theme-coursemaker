@@ -389,9 +389,9 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                     title
                     author_display {
                       title
-                      bio
+                      description
                       subtitle
-                      author_image {
+                      photo {
                         url
                       }
                     }
@@ -475,9 +475,9 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                 id
                 author_display: author {
                   title: name
-                  bio
+                  description: bio
                   subtitle
-                  author_image {
+                  photo: author_image {
                     childImageSharp {
                       fluid(maxWidth: 500, quality: 100) {
                         base64
