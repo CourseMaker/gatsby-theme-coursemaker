@@ -6,7 +6,7 @@ exports.normalizeImageUrl = (course) => {
   };
   if (course.course_image) {
     course.course_image = {
-      url: process.env.CMS_BASE_PATH + course.course_image.url,
+      url: process.env.GATSBY_CMS_BASE_URI + course.course_image.url,
     };
   } else {
     console.log('\u001B[33m', `Missing course_image for "${course.title}"`);
