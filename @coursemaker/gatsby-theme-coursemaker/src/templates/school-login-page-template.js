@@ -1,10 +1,10 @@
-/** @jsx jsx */
-import { jsx } from "theme-ui";
-import { Link } from "gatsby";
+import React from "react";
 import Layout from "../components/layout";
 import Input from "../components/input";
+import {Link} from "gatsby";
 
-const Login = () => {
+const LoginPage = ({ pageContext }) => {
+  const courses = pageContext.courses;
   return (
     <Layout>
       <section className="py-16 bg-indigo-100 md:py-24">
@@ -52,7 +52,7 @@ const Login = () => {
             <p className="mt-5 text-center text-gray-500">
               <span>Don't have an account? </span>
               <Link
-                to="/sign-up"
+                to="/register"
                 sx={{
                   color: "primary",
                 }}
@@ -67,4 +67,5 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;
+

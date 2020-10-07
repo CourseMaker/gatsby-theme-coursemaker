@@ -15,12 +15,38 @@ const lectureTemplate = require.resolve(
 const schoolLandingTemplate = require.resolve(
   "../../src/templates/school-landing-page-template.js"
 );
+const schoolLoginTemplate = require.resolve(
+  "../../src/templates/school-login-page-template.js"
+);
+const schoolRegistrationTemplate = require.resolve(
+  "../../src/templates/school-registration-page-template.js"
+);
 
 const createSchool = (school, courses, createPage) => {
   // create the school landing page
   createPage({
     path: "/",
     component: schoolLandingTemplate,
+    context: {
+      school: school,
+      courses: courses,
+    }
+  })
+
+  // create the school login
+  createPage({
+    path: "/login",
+    component: schoolLoginTemplate,
+    context: {
+      school: school,
+      courses: courses,
+    }
+  })
+
+  // create the school sign-up
+  createPage({
+    path: "/register",
+    component: schoolRegistrationTemplate,
     context: {
       school: school,
       courses: courses,

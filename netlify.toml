@@ -7,6 +7,7 @@ ID = "CourseMaker Demo Site"
   base = "course_demo_site"
   command = "gatsby build"
   publish = "/public"
+  functions = "lambda_src"
 
 [context.deploy-preview.environment]
   GATSBY_AUTH0_DOMAIN="update me"
@@ -15,3 +16,5 @@ ID = "CourseMaker Demo Site"
   GATSBY_STRIPE_PUBLISHABLE_KEY="update me"
   GATSBY_BUTTON_PRICE_ID="update me"
   GATSBY_ENABLE_PAYMENTS="true"
+  STRIPE_SECRET_KEY="secret"
+  STRIPE_WEBHOOK_SECRET="secret"
