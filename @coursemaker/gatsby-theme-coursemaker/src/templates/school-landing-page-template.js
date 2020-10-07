@@ -6,7 +6,6 @@ import Courses from "../components/courses";
 import { jsx } from "theme-ui";
 
 const SchoolLandingPage = ({ pageContext }) => {
-  console.log(pageContext);
   const passedCourses = pageContext.courses;
   const landingPage = pageContext.school.landing_page;
 
