@@ -17,7 +17,7 @@ const CoursePaymentPage = ({ pageContext }) => {
         <div className="container">
           <h1 className="mb-4">{course.title}</h1>
         </div>
-        <Checkout />
+        <Checkout school={school} course={course} />
       </section>
 
     </Layout>
