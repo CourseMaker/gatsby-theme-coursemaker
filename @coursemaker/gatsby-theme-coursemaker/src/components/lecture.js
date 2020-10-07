@@ -1,14 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "gatsby";
 import { useLocation } from "@reach/router";
 
 import { bakeLocalStorage, readLocalStorage } from "../helpers/storage";
-const Lecture = ({ lecture, size, data, isAllowed, nextLecture }) => {
+const Lecture = ({ lecture, size, data, nextLecture }) => {
   const { title, id } = data;
   function random(min, max) {
     return Math.random() * (max - min) + min;
   }
-  
+
   // dummy data. needs to change later
   const progressVal = random(10, 100);
   const type = "video";
@@ -68,19 +68,14 @@ const Lecture = ({ lecture, size, data, isAllowed, nextLecture }) => {
             <div className="ml-auto">
               <Link
                 onClick={async () => {
-                  if (isAllowed) {
-                    await addLectureToComplete(lecture);
-                    await addLectureToComplete(nextLecture);
-                  }
+                  await addLectureToComplete(lecture);
+                  await addLectureToComplete(nextLecture);
                 }}
                 to={`${
                   lastpath === "curriculum" ? "../lectures" : "./lectures"
                 }/${id}`}
-                className={`px-2 py-1 text-xs text-white bg-green-500 rounded shadow   ${
-                  !isAllowed
-                    ? "disable-lecture"
-                    : "cursor-pointer transition-all duration-300 hover:bg-green-400 transition"
-                }`}
+                className={`px-2 py-1 text-xs text-white bg-green-500 rounded shadow  
+                cursor-pointer transition-all duration-300 hover:bg-green-400 transition `}
               >
                 {type === "video" ? "View" : "Download"}
               </Link>
@@ -90,20 +85,14 @@ const Lecture = ({ lecture, size, data, isAllowed, nextLecture }) => {
       ) : (
         <Link
           onClick={async () => {
-            if (isAllowed) {
-              await addLectureToComplete(lecture);
-              await addLectureToComplete(nextLecture);
-            }
+            await addLectureToComplete(lecture);
+            await addLectureToComplete(nextLecture);
           }}
-          to={isAllowed ? `../${data.id}` : "/"}
+          to={`../${data.id}`}
           className={`${
             lecture.id === data.id ? "bg-green-100" : "hover:bg-gray-100"
-          } ${
-            !isAllowed
-              ? "disable-lecture"
-              : "transition transition-all duration-300 bg-white bg-gray-100 hover:bg-gray-100"
-          }
-					relative block p-4 `}
+          } 
+          transition transition-all duration-300 bg-white bg-gray-100 hover:bg-gray-100	relative block p-4 `}
         >
           {lecture.id === data.id && (
             <div

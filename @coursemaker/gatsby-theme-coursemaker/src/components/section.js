@@ -113,22 +113,13 @@ const Section = ({ lecture, size, data, allLectures, course }) => {
           data?.lectures?.[0].hasOwnProperty("number") ? "number" : "id",
           "asc"
         ).map((lecture, index) => {
-          let currentLectureAllowed = allLectures?.find(
-            (item) => item?.id === lecture?.id
-          );
-          let isFound = course?.items?.findIndex(
-            (item) => item?.id === currentLectureAllowed?.id
-          );
-
-          let isAllowed = isFound >= 0;
           return (
             <Lecture
               lecture={currentLecture}
               data={lecture}
-              nextLecture={allLectures?.[isFound + 1]}
+              nextLecture={allLectures?.[index + 1]}
               size={size}
               key={lecture.id}
-              isAllowed={isAllowed}
             />
           );
         })}

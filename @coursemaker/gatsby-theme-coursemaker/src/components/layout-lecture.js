@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import Header from "./header";
 import Footer from "./footer";
@@ -24,6 +24,16 @@ const LayoutLecture = ({
     completedLectures >= 0
       ? parseInt((completedLectures / lectureList?.length) * 100)
       : 0;
+  const scrollContainer = useRef(null);
+  useEffect(() => {
+    console.log("working");
+    scrollContainer.current.scrollTop = readLocalStorage("scroll").y;
+  }, []);
+  const scroll = () => {
+    var y = scrollContainer?.current?.scrollTop;
+
+    bakeLocalStorage("scroll", { y: y });
+  };
   return (
     <>
       <Header school={pageContext.school} />
@@ -38,7 +48,13 @@ const LayoutLecture = ({
 
           <div className="order-last w-full border-t border-gray-300 lg:border-t-0 lg:mt-10 lg:order-none lg:w-3/12 lg:mt-0">
             <div className="container lg:max-w-full">
-              <div className="bottom-0 right-0 pt-8 pb-16 overflow-scroll border-l-0 border-gray-300 lg:border-l lg:pb-0 lg:pt-24 lg:h-full lg:w-3/12 lg:fixed sidebar">
+              <div
+                onScroll={() => {
+                  scroll();
+                }}
+                ref={scrollContainer}
+                className="bottom-0 right-0 pt-8 pb-16 overflow-scroll border-l-0 border-gray-300 lg:border-l lg:pb-0 lg:pt-24 lg:h-full lg:w-3/12 lg:fixed sidebar"
+              >
                 <div className="py-8 text-sm text-gray-600 lg:p-4 progress">
                   <div className="relative flex justify-between mb-2">
                     <div>{`${progress}%`} Complete</div>
