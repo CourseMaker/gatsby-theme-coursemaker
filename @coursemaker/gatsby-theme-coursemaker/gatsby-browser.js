@@ -2,8 +2,8 @@ import "./src/css/tailwind.css";
 import "./src/css/style.styl";
 
 // ./gatsby-browser.js
-import React from "react";
-import { silentAuth } from "./auth/auth";
+import React from "react"
+import { silentAuth } from "./src/auth/auth"
 
 class SessionCheck extends React.Component {
   constructor(props) {

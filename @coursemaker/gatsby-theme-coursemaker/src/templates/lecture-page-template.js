@@ -4,7 +4,7 @@ import ReactMarkdown from "react-markdown";
 import LayoutLecture from "../components/layout-lecture";
 import Breadcrumbs from "../components/course-breadcrumbs";
 import Video from "../components/video";
-import { login, isAuthenticated } from "../../auth/auth";
+import { login, isAuthenticated } from "../auth/auth";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 
 const Lecture = ({ pageContext = {} }) => {
