@@ -6,39 +6,41 @@
 
 const useStrapi = process.env.GATSBY_USE_STRAPI === "true";
 
-description_string = "Learn everything you need to know to use the @coursemaker/gatsby-theme-coursemaker \n"+
-                      "Including how to setup gated content and payments.";
+description_string =
+  "Learn everything you need to know to use the @coursemaker/gatsby-theme-coursemaker \n" +
+  "Including how to setup gated content and payments.";
 
-cta_description_string = "There has never been an easier way to make an online course. \n"+
-                          "And it's free.";
+cta_description_string =
+  "There has never been an easier way to make an online course. \n" +
+  "And it's free.";
 
 module.exports = {
   siteMetadata: {
-      title: "Demo Site Cool School",
-      owner: {
-        email: "chris@coursemaker.org"
+    title: "Demo Site Cool School",
+    owner: {
+      email: "chris@coursemaker.org",
+    },
+    landing_page: {
+      title_and_description: {
+        title: "The CourseMaker Demo School",
+        description: description_string,
       },
-      landing_page: {
-        title_and_description: {
-          title: "The CourseMaker Demo School",
-          description: description_string
-        },
-        primary_button: {
-          text: "View Courses",
-          color: "black",
-          text_color: "white",
-        },
-        cta_section: {
-          "title": "Everything you need to use CourseMaker's Tools",
-          "description": cta_description_string
-        },
-        cta_button: {
-          text: "View Courses",
-          color: "black",
-          text_color: "white",
-        }
+      primary_button: {
+        text: "View Courses",
+        color: "black",
+        text_color: "white",
       },
-      stripe_public_key: "pk_test_TYooMQauvdEDq54NiTphI7jx"
+      cta_section: {
+        title: "Everything you need to use CourseMaker's Tools",
+        description: cta_description_string,
+      },
+      cta_button: {
+        text: "View Courses",
+        color: "red",
+        text_color: "white",
+      },
+    },
+    stripe_public_key: "pk_test_TYooMQauvdEDq54NiTphI7jx",
   },
   plugins: [
     {
@@ -51,4 +53,4 @@ module.exports = {
       },
     },
   ],
-}
+};

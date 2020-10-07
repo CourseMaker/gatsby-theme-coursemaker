@@ -13,6 +13,7 @@ export const CourseMDXFragment = graphql`
         id
         slug
         title
+        number
       }
     }
   }
