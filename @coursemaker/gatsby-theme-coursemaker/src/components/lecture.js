@@ -3,7 +3,7 @@ import { Link } from "gatsby";
 import { useLocation } from "@reach/router";
 
 import { bakeLocalStorage, readLocalStorage } from "../helpers/storage";
-const Lecture = ({ lecture, size, data, nextLecture }) => {
+const Lecture = ({ lecture, size, data }) => {
   const { title, id } = data;
   function random(min, max) {
     return Math.random() * (max - min) + min;
@@ -27,7 +27,6 @@ const Lecture = ({ lecture, size, data, nextLecture }) => {
     const exists = newState?.items?.some((item) => item?.id === lecture?.id);
 
     if (exists) {
-      console.log("exist is running");
       newState.items = newState?.items.map((item) =>
         item?.id === lecture?.id
           ? {
@@ -69,7 +68,6 @@ const Lecture = ({ lecture, size, data, nextLecture }) => {
               <Link
                 onClick={async () => {
                   await addLectureToComplete(lecture);
-                  await addLectureToComplete(nextLecture);
                 }}
                 to={`${
                   lastpath === "curriculum" ? "../lectures" : "./lectures"
@@ -86,7 +84,6 @@ const Lecture = ({ lecture, size, data, nextLecture }) => {
         <Link
           onClick={async () => {
             await addLectureToComplete(lecture);
-            await addLectureToComplete(nextLecture);
           }}
           to={`../${data.id}`}
           className={`${

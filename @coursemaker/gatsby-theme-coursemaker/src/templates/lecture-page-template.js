@@ -6,7 +6,8 @@ import Breadcrumbs from "../components/course-breadcrumbs";
 import Video from "../components/video";
 import { login, isAuthenticated } from "../auth/auth";
 import { MDXRenderer } from "gatsby-plugin-mdx";
-
+import _ from "lodash";
+import { bakeLocalStorage, readLocalStorage } from "../helpers/storage";
 const Lecture = ({ pageContext = {} }) => {
   if (pageContext.school.useAuth) {
     if (!isAuthenticated()) {
@@ -16,7 +17,17 @@ const Lecture = ({ pageContext = {} }) => {
   }
   const currentCourse = pageContext.course;
   const lecture = pageContext.lecture;
-  const allLectures = pageContext.allLectures;
+
+  let allLectures = currentCourse?.sections
+    ?.map((section) =>
+      _.orderBy(
+        section?.lectures,
+        section?.lectures?.[0].hasOwnProperty("number") ? "number" : "id",
+        "asc"
+      ).map((item) => item)
+    )
+    .flat(1);
+
   let nextLecture;
   let prevLecture;
 
@@ -46,6 +57,28 @@ const Lecture = ({ pageContext = {} }) => {
     lecture_body = <ReactMarkdown source={lecture.body_markdown} />;
   }
 
+  const addLectureToComplete = async (lecture) => {
+    let state = readLocalStorage("course");
+    let newState = {
+      items: [...((state && state?.items) || [])],
+    };
+
+    const exists = newState?.items?.some((item) => item?.id === lecture?.id);
+
+    if (exists) {
+      newState.items = newState?.items.map((item) =>
+        item?.id === lecture?.id
+          ? {
+              ...item,
+            }
+          : item
+      );
+    } else {
+      newState.items = [...newState.items, { id: lecture?.id }];
+    }
+
+    bakeLocalStorage("course", newState);
+  };
   return (
     <LayoutLecture
       pageContext={pageContext}
@@ -80,7 +113,13 @@ const Lecture = ({ pageContext = {} }) => {
                 </Link>
               )}
               {nextLecture && (
-                <Link to={`../${nextLecture.id}`} className="btn btn-default">
+                <Link
+                  onClick={async () => {
+                    await addLectureToComplete(nextLecture);
+                  }}
+                  to={`../${nextLecture.id}`}
+                  className="btn btn-default"
+                >
                   Next
                 </Link>
               )}

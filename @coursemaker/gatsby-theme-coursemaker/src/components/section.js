@@ -44,7 +44,6 @@ const Section = ({ lecture, size, data, allLectures, course }) => {
         bakeLocalStorage("course", newState);
       };
       addData(allLectures[0]);
-      addData(allLectures[1]);
     }
   }, []);
   return (
@@ -117,7 +116,6 @@ const Section = ({ lecture, size, data, allLectures, course }) => {
             <Lecture
               lecture={currentLecture}
               data={lecture}
-              nextLecture={allLectures?.[index + 1]}
               size={size}
               key={lecture.id}
             />
