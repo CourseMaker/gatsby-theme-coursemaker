@@ -18,4 +18,4 @@ ID = "CourseMaker Demo Site"
   GATSBY_ENABLE_PAYMENTS="true"
   STRIPE_SECRET_KEY="secret"
   STRIPE_WEBHOOK_SECRET="secret"
-  GATSBY_USE_STRAPI=false
+  GATSBY_USE_STRAPI="false"
