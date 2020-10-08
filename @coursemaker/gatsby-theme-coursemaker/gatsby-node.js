@@ -367,7 +367,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
     cms: { authors: [], courses: [], school: {} },
   };
   console.log("use strapi: " + useStrapi);
-  if (useStrapi) {
+  if (useStrapi === "true") {
     // TODO: move queries to separate files like this: https://github.com/narative/gatsby-theme-novela/blob/master/%40narative/gatsby-theme-novela/src/gatsby/node/createPages.js#L95
     try {
       const cmsData = await graphql(
@@ -546,7 +546,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
 
   // school object is precise, however.
   let liveSchool;
-  if (useStrapi) {
+  if (useStrapi === "true") {
     liveSchool = dataSources.cms.school;
   } else {
     liveSchool = dataSources.local.school;
