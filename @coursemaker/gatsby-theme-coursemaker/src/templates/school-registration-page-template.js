@@ -4,7 +4,6 @@ import Input from "../components/input";
 import {Link} from "gatsby";
 
 const RegistrationPage = ({ pageContext }) => {
-  const courses = pageContext.courses;
   return (
     <Layout>
       <section className="py-16 bg-indigo-100 md:py-24">

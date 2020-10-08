@@ -3,12 +3,15 @@ import ReactMarkdown from "react-markdown";
 import Layout from "../components/layout";
 import Button from "../components/button";
 import Section from "../components/section";
+import Author from "../components/author"
+import CourseVideo from "../components/video_course";
+import LandingImage from "../components/image_landing";
 
 const CourseLandingPage = ({ pageContext, data }) => {
   const course = pageContext.course;
   // TODO: add to data model
   const cta_section = { title: "cta test", description: "cta desc" };
-  const author = { username: "joe", email: "yoyo@gmail.com" };
+  const author = { username: "joe", email: "example@gmail.com" };
   const { author_display } = course;
 
   return (
@@ -42,27 +45,12 @@ const CourseLandingPage = ({ pageContext, data }) => {
         </div>
       </section>
 
-      <section id="video" className="pt-16 bg-gray-100 lg:pt-32">
-        <div className="container">
-          <div className="mx-auto lg:w-9/12">
-            <div className="shadow-xl md:shadow-2xl responsive-video">
-              <iframe
-                title="video"
-                width="560"
-                height="315"
-                src="https://www.youtube.com/embed/dXu_m1LVaYA"
-                frameBorder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
-            </div>
-          </div>
-        </div>
-      </section>
+      {<CourseVideo course={course} />}
+      {<LandingImage landing={course.course_image} />}
 
       <section
         id="overview"
-        className="py-16 text-center bg-gray-100 md:pt-24 md:pb-32"
+        className="py-8 text-center bg-gray-100 md:pt-24 md:pb-32"
       >
         <div className="container">
           <div className="mx-auto inner lg:w-8/12">
@@ -77,7 +65,7 @@ const CourseLandingPage = ({ pageContext, data }) => {
         </div>
       </section>
 
-      <section id="course" className="pt-12 pb-12 lg:py-20 lg:pb-32">
+      <section id="course" className="pt-12 pb-12 lg:py-10 lg:pb-22">
         <div className="container mx-auto">
           <div className="mx-auto inner lg:w-8/12">
             <h2 className="mt-12 mb-6 leading-tight">Curriculum</h2>
@@ -102,30 +90,7 @@ const CourseLandingPage = ({ pageContext, data }) => {
         </div>
       </section>
 
-      <section id="author" className="py-24 bg-gray-100">
-        <div className="container">
-          <div className="lg:items-center md:inline-flex lg:px-16 justify-content-center">
-            <img
-              className="block object-cover w-48 h-48 bg-gray-500 rounded-full author-photo lg:h-64 lg:w-64"
-              src={
-                author_display?.photo?.["url"] ??
-                author_display.photo?.childImageSharp?.fluid?.src
-              }
-              alt={author_display.title}
-            />
-            <div className="w-full mt-8 md:pl-12 lg:pl-16 md:mt-0">
-              <h3>{author_display.title}</h3>
-              <p className="mb-6 text-xl font-light text-gray-600">
-                {author_display.subtitle}
-              </p>
-              <div className="mb-4 leading-loose text-gray-700 md:mb-6 space-y-5">
-                <ReactMarkdown source={author_display.description} />
-              </div>
-              <Button text="Curriculum" to="./curriculum" />
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       {cta_section && (
         <section
@@ -143,6 +108,8 @@ const CourseLandingPage = ({ pageContext, data }) => {
           </div>
         </section>
       )}
+
+      {<Author author_display={author_display} /> }
 
       <section className="py-16 text-center bg-gray-100 md:py-32">
         <div className="container">

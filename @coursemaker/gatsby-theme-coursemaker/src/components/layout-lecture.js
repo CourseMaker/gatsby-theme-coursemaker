@@ -5,7 +5,6 @@ import Footer from "./footer";
 import Section from "./section";
 import {
   bakeLocalStorage,
-  deleteLocalStorage,
   readLocalStorage,
 } from "../helpers/storage";
 const LayoutLecture = ({
