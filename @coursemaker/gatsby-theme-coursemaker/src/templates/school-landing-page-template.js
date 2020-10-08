@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useEffect } from "react";
+import React from "react";
 import Layout from "../components/layout";
 import Button from "../components/button";
 import Courses from "../components/courses";

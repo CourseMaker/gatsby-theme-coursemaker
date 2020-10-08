@@ -40,7 +40,6 @@ const Header = ({ school }) => {
             className="inline-flex items-center h-24 text-lg logo lg:h-auto"
             to="/"
           >
-            <div className="w-12 h-12 mr-4 bg-white rounded-full"></div>
             <span className="font-semibold">{school?.name}</span>
           </Link>
 

@@ -169,6 +169,7 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
         id: { type: `ID!` },
         title: { type: `String!` },
         subtitle: { type: `String` },
+        course_video: { type: `String`},
         price: { type: `Int` }, // price in cents
         description_overview: { type: `String` },
         description: { type: `String` },
@@ -266,6 +267,7 @@ exports.onCreateNode = (
         tags: node.frontmatter.tags,
         lastUpdated: node.frontmatter.lastUpdated,
         course_image: node.frontmatter.courseImage,
+        course_video: node.frontmatter.courseVideoID,
         premium: node.frontmatter.premium,
         subtitle: node.frontmatter.subtitle,
         description_overview: node.frontmatter.description_overview,
@@ -391,6 +393,10 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                         url
                       }
                     }
+                    course_video {
+                      url
+                      id
+                    }
                     course_image {
                       url
                     }
@@ -439,6 +445,9 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
       dataSources.cms.courses = cmsData.data.cms.siteBuild.school.courses.map(
         normalize.normalizeImageUrl
       );
+      dataSources.cms.courses = cmsData.data.cms.siteBuild.school.courses.map(
+        normalize.normalizeVideoUrl
+      );
       dataSources.cms.school = cmsData.data.cms.siteBuild.school;
     } catch (error) {
       console.error("CMS query error");
@@ -485,6 +494,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                     }
                   }
                 }
+                course_video
                 course_image {
                   childImageSharp {
                     fluid(maxWidth: 500, quality: 100) {

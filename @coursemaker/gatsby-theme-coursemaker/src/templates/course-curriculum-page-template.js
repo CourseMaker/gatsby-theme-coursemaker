@@ -2,13 +2,10 @@ import React from "react";
 import Layout from "../components/layout";
 import Section from "../components/section";
 import Breadcrumbs from "../components/course-breadcrumbs";
-import { readLocalStorage, deleteLocalStorage } from "../helpers/storage";
 
 const Curriculum = ({ pageContext = {} }) => {
   const school = pageContext.school;
   const course = pageContext.course;
-
-  const storedCourse = readLocalStorage(course.slug);
   const { author_display } = course;
   return (
     <Layout pageContext={pageContext}>
