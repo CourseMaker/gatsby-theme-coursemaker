@@ -72,7 +72,7 @@ const Section = ({ lecture, size, data, allLectures, slug }) => {
         </div>
         <p className="ml-auto text-sm text-gray-500">
           {size === "big" ? (
-            <span>0/{getArrayLength(data.lectures)} Lectures Completed</span>
+            ""//<span>0/{getArrayLength(data.lectures)} Lectures Completed</span>
           ) : (
             <span>{getArrayLength(data.lectures)} Lectures</span>
           )}

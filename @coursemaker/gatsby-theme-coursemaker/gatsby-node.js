@@ -10,6 +10,7 @@ const {
   toHoursMinutes,
 } = require("./bootstrapping/format-duration");
 const sortBy = require(`lodash/sortBy`);
+require("dotenv").config();
 
 const { createCourses, createSchool } = require("./src/gatsby/pageCreator");
 
@@ -358,7 +359,7 @@ exports.onCreateNode = (
 // 4. Create pages
 exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
   const { createPage } = actions;
-  const build_id = process.env.SITE_BUILD_ID;
+  const build_id = process.env.GATSBY_SITE_BUILD_ID;
   const { useStrapi } = withDefaults(themeOptions);
 
   const dataSources = {
