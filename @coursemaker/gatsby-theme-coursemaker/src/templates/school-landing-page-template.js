@@ -1,17 +1,15 @@
 /** @jsx jsx */
-import React from "react";
+import React, { useEffect } from "react";
 import Layout from "../components/layout";
 import Button from "../components/button";
 import Courses from "../components/courses";
 import { jsx } from "theme-ui";
 
-
 const SchoolLandingPage = ({ pageContext }) => {
-  console.log(pageContext);
   const passedCourses = pageContext.courses;
   const landingPage = pageContext.school.landing_page;
 
-  const title = landingPage.title_and_description.title;
+  const title = pageContext.school.name;
   const description = landingPage.title_and_description.description;
   const primary_button = pageContext.school.landing_page.primary_button;
   const cta_button = landingPage.cta_button;
@@ -19,14 +17,19 @@ const SchoolLandingPage = ({ pageContext }) => {
   const owner = pageContext.school.owner;
 
   return (
-    <Layout>
+    <Layout pageContext={pageContext}>
       <section className="py-16 pb-8 text-center md:pt-30">
         <div className="container">
           <h1 className="mb-4">{title}</h1>
-          <p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12">
-          </p>
+          <p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12"></p>
 
-          <Button to="/courses" text={primary_button.text} variant="primary" />
+          <Button
+            to="/courses"
+            text={primary_button.text}
+            color={primary_button.color}
+            text_color={primary_button.text_color}
+            variant="primary"
+          />
 
           <div className="mt-12 scroll-to">
             <svg
@@ -53,12 +56,16 @@ const SchoolLandingPage = ({ pageContext }) => {
           <div className="mx-auto inner lg:w-7/12">
             <h2 className="mb-4 lg:mb-6">Overview</h2>
             <div className="leading-loose text-gray-700 space-y-6">
-              <p>
-                {description}
-              </p>
+              <p>{description}</p>
             </div>
             <div className="mt-8 btn-wrapper">
-              <Button to="/courses" text={primary_button.text} variant="primary" />
+              <Button
+                to="/courses"
+                text={primary_button.text}
+                color={cta_button.color}
+                text_color={cta_button.text_color}
+                variant="primary"
+              />
             </div>
           </div>
         </div>
@@ -77,7 +84,13 @@ const SchoolLandingPage = ({ pageContext }) => {
               <p>{cta_section.description}</p>
             </div>
             <div className="mt-8 btn-wrapper">
-              <Button to="/courses" text={cta_button.text} />
+              <Button
+                to="/courses"
+                text={cta_button.text}
+                color={cta_button.color}
+                text_color={cta_button.text_color}
+                variant="secondary"
+              />
             </div>
           </div>
         </div>
@@ -103,8 +116,7 @@ const SchoolLandingPage = ({ pageContext }) => {
                 )}
               </p>
             </div>
-            <div className="mt-8 btn-wrapper">
-            </div>
+            <div className="mt-8 btn-wrapper"></div>
           </div>
         </div>
       </section>

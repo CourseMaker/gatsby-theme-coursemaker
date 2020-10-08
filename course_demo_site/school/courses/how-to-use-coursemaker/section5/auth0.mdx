@@ -2,7 +2,7 @@
 title: Create Auth0 Account
 description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eleifend nibh vel blandit interdum.
 duration: "9:16"
-number: 4
+number: 2
 video: https://www.youtube.com/embed/dQw4w9WgXcQ
 ---
 
@@ -10,7 +10,7 @@ Auth0's free plan will allow you to have up to 7000 students authenticate per mo
 
 - Sign up for Auth0
 - After creating your account, go to the Applications section of your Auth0 dashboard and click on the Create Application button.
-Then, fill the form as follows:
+  Then, fill the form as follows:
 
 - Application Name: "Your school name"
 - Application Type: "Single Page Web App"
@@ -22,21 +22,3 @@ When you click on the Create button, Auth0 will redirect you to the Quick Start 
 
 For security reasons, after the login and logout processes,
 Auth0 will only redirect users to the URLs you register in these fields.
-
-# install the
-npm install -g netlify-cli
-
-# log into your Netlify account
-ntl login
-
-Next, we need to tell the CLI where our files are, so let’s create a netlify.toml to specify which files will be published to production (in our case, the public folder is our web root).
-
-Inside netlify.toml, add the following:
-
-[build]
-    publish = "public"
-After we’ve saved this file, we can start the local server using ntl dev!
-
-ntl dev
-
-

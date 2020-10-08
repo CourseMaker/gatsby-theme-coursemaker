@@ -58,6 +58,7 @@ const createCourses = (school, courses, createPage) => {
   courses.forEach(function(course, i){
     // Individual course landing pages
     let slug = course.slug ? course.slug : `/${slugify(course.title, {strict: true, lower: true})}/`;
+    course.slug = slug;
     const nextCourse = i === courses.length - 1 ? null : courses[i + 1];
     const previousCourse = i === 0 ? null : courses[i - 1];
     createPage({

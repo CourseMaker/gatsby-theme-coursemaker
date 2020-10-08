@@ -2,7 +2,14 @@
 import { jsx } from "theme-ui";
 import { Link } from "gatsby";
 
-const Button = ({ to = "/", variant = "primary", size = "lg", ...props }) => {
+const Button = ({
+  to = "/",
+  variant = "primary",
+  color = "primary",
+  text_color = "white",
+  size = "lg",
+  ...props
+}) => {
   return (
     <Link
       to={to}
@@ -10,6 +17,8 @@ const Button = ({ to = "/", variant = "primary", size = "lg", ...props }) => {
       sx={{
         mx: 1,
         variant: `buttons.${variant}`,
+        bg: color,
+        color: text_color,
       }}
       {...props}
     >

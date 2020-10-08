@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import _ from "lodash";
+import { bakeLocalStorage, readLocalStorage } from "../helpers/storage";
 import Lecture from "./lecture";
 
-const Section = ({ lecture, size, data }) => {
+const Section = ({ lecture, size, data, allLectures, slug }) => {
   const [toggle, setTogggle] = useState(true);
   const toggleSection = (e) => {
     setTogggle(!toggle);
@@ -16,7 +18,34 @@ const Section = ({ lecture, size, data }) => {
   if (lecture) {
     currentLecture = lecture;
   }
+  useEffect(() => {
+    if (allLectures?.[0]) {
+      const addData = async (lecture) => {
+        let state = readLocalStorage(slug);
+        let newState = {
+          items: [...((state && state?.items) || [])],
+        };
 
+        const exists = newState.items.some((item) => item?.id === lecture?.id);
+
+        // if item already exists in course, add quantity to item
+        if (exists) {
+          newState.items = newState?.items?.map((item) =>
+            item?.id === lecture?.id
+              ? {
+                  ...item,
+                }
+              : item
+          );
+        } else {
+          newState.items = [...newState?.items, { id: lecture?.id }];
+        }
+
+        bakeLocalStorage(slug, newState);
+      };
+      addData(allLectures[0]);
+    }
+  }, []);
   return (
     <div
       className={`${
@@ -43,7 +72,7 @@ const Section = ({ lecture, size, data }) => {
         </div>
         <p className="ml-auto text-sm text-gray-500">
           {size === "big" ? (
-            <span>0/{getArrayLength(data.lectures)} Lectures Completed</span>
+            ""//<span>0/{getArrayLength(data.lectures)} Lectures Completed</span>
           ) : (
             <span>{getArrayLength(data.lectures)} Lectures</span>
           )}
@@ -78,10 +107,15 @@ const Section = ({ lecture, size, data }) => {
         </button>
       </div>
       <div className={toggle ? "block" : "hidden"}>
-        {data.lectures.map((lecture) => {
+        {_.orderBy(
+          data?.lectures,
+          data?.lectures?.[0].hasOwnProperty("number") ? "number" : "id",
+          "asc"
+        ).map((lecture, index) => {
           return (
             <Lecture
               lecture={currentLecture}
+              slug={slug}
               data={lecture}
               size={size}
               key={lecture.id}
