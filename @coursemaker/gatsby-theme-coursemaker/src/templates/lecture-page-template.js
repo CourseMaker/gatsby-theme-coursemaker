@@ -58,7 +58,7 @@ const Lecture = ({ pageContext = {} }) => {
   }
 
   const addLectureToComplete = async (lecture) => {
-    let state = readLocalStorage("course");
+    let state = readLocalStorage(currentCourse.slug);
     let newState = {
       items: [...((state && state?.items) || [])],
     };
@@ -77,7 +77,7 @@ const Lecture = ({ pageContext = {} }) => {
       newState.items = [...newState.items, { id: lecture?.id }];
     }
 
-    bakeLocalStorage("course", newState);
+    bakeLocalStorage(currentCourse.slug, newState);
   };
   return (
     <LayoutLecture

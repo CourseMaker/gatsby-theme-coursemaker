@@ -2,23 +2,13 @@ import React from "react";
 import Layout from "../components/layout";
 import Section from "../components/section";
 import Breadcrumbs from "../components/course-breadcrumbs";
-import { readLocalStorage } from "../helpers/storage";
+import { readLocalStorage, deleteLocalStorage } from "../helpers/storage";
 
 const Curriculum = ({ pageContext = {} }) => {
-  // TODO: add to data model
-  // 	const { primary_button, cta_button } = {
-  // 	  "color": "blue",
-  //     "text": "test",
-  //     "text_color": "black"
-  //   };
-  // const cta_section = { "title": "cta test", "description": "cta desc" };
-  // const author = { "username": "joe", "email": "yoyo@gmail.com" };
-
   const school = pageContext.school;
-
   const course = pageContext.course;
 
-  const storedCourse = readLocalStorage("course");
+  const storedCourse = readLocalStorage(course.slug);
   const { author_display } = course;
   return (
     <Layout pageContext={pageContext}>
@@ -51,7 +41,7 @@ const Curriculum = ({ pageContext = {} }) => {
                     size="big"
                     key={section.id}
                     allLectures={allLectures}
-                    course={storedCourse}
+                    slug={course.slug}
                   />
                 );
               })}

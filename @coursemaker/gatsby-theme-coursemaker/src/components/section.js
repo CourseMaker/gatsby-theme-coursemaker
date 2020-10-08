@@ -3,7 +3,7 @@ import _ from "lodash";
 import { bakeLocalStorage, readLocalStorage } from "../helpers/storage";
 import Lecture from "./lecture";
 
-const Section = ({ lecture, size, data, allLectures, course }) => {
+const Section = ({ lecture, size, data, allLectures, slug }) => {
   const [toggle, setTogggle] = useState(true);
   const toggleSection = (e) => {
     setTogggle(!toggle);
@@ -21,7 +21,7 @@ const Section = ({ lecture, size, data, allLectures, course }) => {
   useEffect(() => {
     if (allLectures?.[0]) {
       const addData = async (lecture) => {
-        let state = readLocalStorage("course");
+        let state = readLocalStorage(slug);
         let newState = {
           items: [...((state && state?.items) || [])],
         };
@@ -41,7 +41,7 @@ const Section = ({ lecture, size, data, allLectures, course }) => {
           newState.items = [...newState?.items, { id: lecture?.id }];
         }
 
-        bakeLocalStorage("course", newState);
+        bakeLocalStorage(slug, newState);
       };
       addData(allLectures[0]);
     }
@@ -115,6 +115,7 @@ const Section = ({ lecture, size, data, allLectures, course }) => {
           return (
             <Lecture
               lecture={currentLecture}
+              slug={slug}
               data={lecture}
               size={size}
               key={lecture.id}

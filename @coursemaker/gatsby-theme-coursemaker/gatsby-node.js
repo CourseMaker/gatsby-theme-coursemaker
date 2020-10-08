@@ -358,18 +358,13 @@ exports.onCreateNode = (
 // 4. Create pages
 exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
   const { createPage } = actions;
-
-  // TODO - Remove fallback ID
-  // TODO - Add "Skip" / "Include" directive into GraphQL
-  // TODO - we need to programatically set this
-  const build_id = process.env.SITE_BUILD_ID || 61;
+  const build_id = process.env.SITE_BUILD_ID;
   const { useStrapi } = withDefaults(themeOptions);
 
   const dataSources = {
     local: { authors: [], courses: [], school: {} },
     cms: { authors: [], courses: [], school: {} },
   };
-
   console.log("use strapi: " + useStrapi);
   if (useStrapi) {
     // TODO: move queries to separate files like this: https://github.com/narative/gatsby-theme-novela/blob/master/%40narative/gatsby-theme-novela/src/gatsby/node/createPages.js#L95

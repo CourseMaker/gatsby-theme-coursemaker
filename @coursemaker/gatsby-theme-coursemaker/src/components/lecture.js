@@ -3,7 +3,7 @@ import { Link } from "gatsby";
 import { useLocation } from "@reach/router";
 
 import { bakeLocalStorage, readLocalStorage } from "../helpers/storage";
-const Lecture = ({ lecture, size, data }) => {
+const Lecture = ({ lecture, size, data, slug }) => {
   const { title, id } = data;
   function random(min, max) {
     return Math.random() * (max - min) + min;
@@ -19,7 +19,7 @@ const Lecture = ({ lecture, size, data }) => {
   let lastpath = arrPathname[arrPathname.length - 1];
 
   const addLectureToComplete = async (lecture) => {
-    let state = readLocalStorage("course");
+    let state = readLocalStorage(slug);
     let newState = {
       items: [...((state && state?.items) || [])],
     };
@@ -38,7 +38,7 @@ const Lecture = ({ lecture, size, data }) => {
       newState.items = [...newState.items, { id: lecture?.id }];
     }
 
-    bakeLocalStorage("course", newState);
+    bakeLocalStorage(slug, newState);
   };
   return (
     <div className="border-t border-gray-300 lecture-item">

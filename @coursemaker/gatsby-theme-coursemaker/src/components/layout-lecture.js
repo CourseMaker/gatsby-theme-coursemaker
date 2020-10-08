@@ -17,8 +17,11 @@ const LayoutLecture = ({
   currentCourse,
   pageContext = {},
 }) => {
-  const course = readLocalStorage("course");
-
+  console.log("here");
+  console.log(currentCourse);
+  let slug = currentCourse.slug;
+  const course = readLocalStorage(slug);
+  console.log(course);
   let completedLectures = course?.items?.length;
   let progress =
     completedLectures >= 0
@@ -85,6 +88,7 @@ const LayoutLecture = ({
                           size="small"
                           key={section.id}
                           course={course}
+                          slug={slug}
                         />
                       );
                     })}

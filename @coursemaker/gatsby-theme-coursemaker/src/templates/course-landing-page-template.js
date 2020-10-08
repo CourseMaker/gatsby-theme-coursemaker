@@ -3,11 +3,9 @@ import ReactMarkdown from "react-markdown";
 import Layout from "../components/layout";
 import Button from "../components/button";
 import Section from "../components/section";
-import { readLocalStorage } from "../helpers/storage";
 
 const CourseLandingPage = ({ pageContext, data }) => {
   const course = pageContext.course;
-  const storedCourse = readLocalStorage("course");
   // TODO: add to data model
   const cta_section = { title: "cta test", description: "cta desc" };
   const author = { username: "joe", email: "yoyo@gmail.com" };
@@ -95,7 +93,7 @@ const CourseLandingPage = ({ pageContext, data }) => {
                     size="big"
                     key={section.id}
                     allLectures={allLectures}
-                    course={storedCourse}
+                    slug={course.slug}
                   />
                 );
               })}
