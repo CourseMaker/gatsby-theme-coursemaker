@@ -11,13 +11,13 @@ const Header = ({ school }) => {
     ["Overview", "#overview"],
     ["Courses", "#courses"],
     ["Login", "/login"],
-    ["Enrol Now", "/", "btn btn-white"],
+    ["Enroll Now", "/register", "btn btn-white"],
   ];
 
   if (pathname !== "/") {
     homeLinks = [
       ["My Courses", "/courses"],
-      ["Logout", "/logout"],
+      ["Logout", "/"],
     ];
   }
 
