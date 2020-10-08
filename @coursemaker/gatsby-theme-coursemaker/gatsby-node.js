@@ -1,20 +1,18 @@
 const fs = require(`fs`);
 const path = require(`path`);
 const mkdirp = require(`mkdirp`);
-const { createFilePath } = require(`gatsby-source-filesystem`);
-const withDefaults = require(`./bootstrapping/default-options`);
+const { createFilePath } = require("gatsby-source-filesystem");
+const withDefaults = require("./bootstrapping/default-options");
 const sanitizeSlug = require("./bootstrapping/sanitize-slug");
-const normalize = require('./src/gatsby/normalize');
+const normalize = require("./src/gatsby/normalize");
 const {
   toSeconds,
   toHoursMinutes,
 } = require("./bootstrapping/format-duration");
 const sortBy = require(`lodash/sortBy`);
+require("dotenv").config();
 
-const {
-  createCourses,
-  createSchool,
-} = require("./src/gatsby/pageCreator");
+const { createCourses, createSchool } = require("./src/gatsby/pageCreator");
 
 // Ensure that content directories exist at site-level
 exports.onPreBootstrap = ({ store }, themeOptions) => {
@@ -51,7 +49,6 @@ const mdxResolverPassthrough = (fieldName) => async (
   return result;
 };
 
-
 exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
   if (stage === "build-html") {
     /*
@@ -70,7 +67,7 @@ exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
           },
         ],
       },
-    })
+    });
   }
 }
 
@@ -83,6 +80,9 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
         id: { type: `ID!` },
         title: {
           type: `String!`,
+        },
+        number: {
+          type: `Int`,
         },
         slug: {
           type: `String!`,
@@ -169,7 +169,7 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
         id: { type: `ID!` },
         title: { type: `String!` },
         subtitle: { type: `String` },
-        price: {type: `Int`},  // price in cents
+        price: { type: `Int` }, // price in cents
         description_overview: { type: `String` },
         description: { type: `String` },
         slug: {
@@ -182,10 +182,10 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
         },
         author: {
           type: `AuthorsYaml!`,
-          resolve: source =>
+          resolve: (source) =>
             getNodesByType(`AuthorsYaml`).find(
-              author => author.name === source.author
-            )
+              (author) => author.name === source.author
+            ),
         },
         excerpt: {
           type: `String`,
@@ -325,7 +325,7 @@ exports.onCreateNode = (
         getNode,
         basePath: coursesPath,
       });
-      const { title, video, duration } = node.frontmatter;
+      const { title, video, duration, number } = node.frontmatter;
       let videoDuration;
       if (video && !duration) {
         // TODO: get video duration
@@ -336,6 +336,7 @@ exports.onCreateNode = (
         duration: duration || videoDuration,
         video,
         slug,
+        number,
       };
       createNode({
         ...fieldData,
@@ -358,84 +359,86 @@ exports.onCreateNode = (
 // 4. Create pages
 exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
   const { createPage } = actions;
-
-  // TODO - Remove fallback ID
-  // TODO - Add "Skip" / "Include" directive into GraphQL
-  // TODO - we need to programatically set this
-  const build_id = process.env.SITE_BUILD_ID || 61;
+  const build_id = process.env.GATSBY_SITE_BUILD_ID;
   const { useStrapi } = withDefaults(themeOptions);
 
   const dataSources = {
     local: { authors: [], courses: [], school: {} },
     cms: { authors: [], courses: [], school: {} },
   };
-
   console.log("use strapi: " + useStrapi);
-  if (useStrapi) {
+  if (useStrapi === "true") {
     // TODO: move queries to separate files like this: https://github.com/narative/gatsby-theme-novela/blob/master/%40narative/gatsby-theme-novela/src/gatsby/node/createPages.js#L95
     try {
-      const cmsData = await graphql(`
-        query RootQuery($build_id: ID!){
-          cms {
-            siteBuild(id: $build_id) {
-              school {
-                name
-                owner {
-                  email
-                }
-                external_id
-                courses {
-                  id
-                  title
-                  author_display {
-                    title
+      const cmsData = await graphql(
+        `
+          query RootQuery($build_id: ID!) {
+            cms {
+              siteBuild(id: $build_id) {
+                school {
+                  name
+                  owner {
+                    email
                   }
-                  course_image {
-                    url
-                  }
-                  sections {
+                  courses {
                     id
                     title
-                    lectures {
+                    author_display {
+                      title
+                      description
+                      subtitle
+                      photo {
+                        url
+                      }
+                    }
+                    course_image {
+                      url
+                    }
+                    sections {
                       id
                       title
-                      video_id
-                      body_text
-                      body_markdown
+                      lectures {
+                        id
+                        title
+                        video_id
+                        body_text
+                        body_markdown
+                      }
                     }
                   }
-                }
-                landing_page {
-                  title_and_description {
-                    description
-                    title
-                  }
-                  primary_button {
-                    text
-                    color
-                    text_color
-                  }
-                  cta_section {
-                    title
-                    description
-                  }
-                  cta_button {
-                    text
-                    color
-                    text_color
+                  landing_page {
+                    title_and_description {
+                      description
+                      title
+                    }
+                    primary_button {
+                      text
+                      color
+                      text_color
+                    }
+                    cta_section {
+                      title
+                      description
+                    }
+                    cta_button {
+                      text
+                      color
+                      text_color
+                    }
                   }
                 }
               }
             }
           }
-        }
-      `,
-      {build_id}
-    );
+        `,
+        { build_id }
+      );
       // TODO: normalize
       cmsData.data.cms.siteBuild.school.useAuth = false;
       cmsData.data.cms.siteBuild.school.enablePayments = false;
-      dataSources.cms.courses = cmsData.data.cms.siteBuild.school.courses.map(normalize.normalizeImageUrl);
+      dataSources.cms.courses = cmsData.data.cms.siteBuild.school.courses.map(
+        normalize.normalizeImageUrl
+      );
       dataSources.cms.school = cmsData.data.cms.siteBuild.school;
     } catch (error) {
       console.error("CMS query error");
@@ -456,6 +459,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                     slug
                     title
                     video_id: video
+                    number
                     body
                   }
                   id
@@ -467,10 +471,23 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                 id
                 author_display: author {
                   title: name
+                  description: bio
+                  subtitle
+                  photo: author_image {
+                    childImageSharp {
+                      fluid(maxWidth: 500, quality: 100) {
+                        base64
+                        aspectRatio
+                        src
+                        srcSet
+                        sizes
+                      }
+                    }
+                  }
                 }
                 course_image {
                   childImageSharp {
-                    fluid(maxWidth: 200, quality: 100) {
+                    fluid(maxWidth: 500, quality: 100) {
                       base64
                       aspectRatio
                       src
@@ -498,7 +515,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                   text
                   color
                   text_color
-                 }
+                }
                 cta_section {
                   title
                   description
@@ -513,24 +530,23 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
             }
           }
         }
-      `,
+      `
     );
     // TODO: normalize
     dataSources.local.school = localData.data.site.siteMetadata;
-    dataSources.local.courses = localData.data.allCourse.edges.map(normalize.local.courses);
+    dataSources.local.courses = localData.data.allCourse.edges.map(
+      normalize.local.courses
+    );
   } catch (error) {
     reporter.panic("error loading docs", error);
   }
 
   // combine courses to pass to school for ease of debugging
-  allCourses = [
-    ...dataSources.local.courses,
-    ...dataSources.cms.courses,
-  ];
+  allCourses = [...dataSources.local.courses, ...dataSources.cms.courses];
 
   // school object is precise, however.
   let liveSchool;
-  if (useStrapi) {
+  if (useStrapi === "true") {
     liveSchool = dataSources.cms.school;
   } else {
     liveSchool = dataSources.local.school;
@@ -548,5 +564,4 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
       courses: allCourses,
     },
   });
-
 };

@@ -4,21 +4,20 @@ import { Link } from "gatsby";
 import { useLocation } from "@reach/router";
 import { jsx } from "theme-ui";
 
-const Header = () => {
+const Header = ({ school }) => {
   const { pathname } = useLocation();
-  const school = { name: "Alpha School" };
 
   let homeLinks = [
     ["Overview", "#overview"],
     ["Courses", "#courses"],
     ["Login", "/login"],
-    ["Enrol Now", "/", "btn btn-white"],
+    ["Enroll Now", "/register", "btn btn-white"],
   ];
 
   if (pathname !== "/") {
     homeLinks = [
       ["My Courses", "/courses"],
-      ["Logout", "/logout"],
+      ["Logout", "/"],
     ];
   }
 
@@ -42,7 +41,7 @@ const Header = () => {
             to="/"
           >
             <div className="w-12 h-12 mr-4 bg-white rounded-full"></div>
-            <span className="font-semibold">{school.name}</span>
+            <span className="font-semibold">{school?.name}</span>
           </Link>
 
           <nav

@@ -25,8 +25,11 @@ export const CourseCMSFragment = graphql`
     }
     author_display {
       title
+      bio
       subtitle
-      description
+      author_image {
+        url
+      }
     }
     description_overview
     author {

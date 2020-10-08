@@ -6,21 +6,32 @@ import Breadcrumbs from "../components/course-breadcrumbs";
 import Video from "../components/video";
 import { login, isAuthenticated } from "../auth/auth";
 import { MDXRenderer } from "gatsby-plugin-mdx";
-
-const Lecture = ({ pageContext }) => {
-  if (pageContext.school.useAuth){
+import _ from "lodash";
+import { bakeLocalStorage, readLocalStorage } from "../helpers/storage";
+const Lecture = ({ pageContext = {} }) => {
+  if (pageContext.school.useAuth) {
     if (!isAuthenticated()) {
-      login()
-      return <p>Redirecting to login...</p>
+      login();
+      return <p>Redirecting to login...</p>;
     }
   }
   const currentCourse = pageContext.course;
   const lecture = pageContext.lecture;
-  const allLectures = pageContext.allLectures;
+
+  let allLectures = currentCourse?.sections
+    ?.map((section) =>
+      _.orderBy(
+        section?.lectures,
+        section?.lectures?.[0].hasOwnProperty("number") ? "number" : "id",
+        "asc"
+      ).map((item) => item)
+    )
+    .flat(1);
+
   let nextLecture;
   let prevLecture;
 
-  allLectures.forEach(function (item, i) {
+  allLectures.forEach(function(item, i) {
     if (item.id === lecture.id) {
       if (i <= allLectures.length - 1) {
         nextLecture = allLectures[i + 1];
@@ -38,7 +49,7 @@ const Lecture = ({ pageContext }) => {
   });
 
   let lecture_body;
-  if (lecture.body){
+  if (lecture.body) {
     // local source
     lecture_body = <MDXRenderer>{lecture.body}</MDXRenderer>;
   } else {
@@ -46,11 +57,35 @@ const Lecture = ({ pageContext }) => {
     lecture_body = <ReactMarkdown source={lecture.body_markdown} />;
   }
 
+  const addLectureToComplete = async (lecture) => {
+    let state = readLocalStorage(currentCourse.slug);
+    let newState = {
+      items: [...((state && state?.items) || [])],
+    };
+
+    const exists = newState?.items?.some((item) => item?.id === lecture?.id);
+
+    if (exists) {
+      newState.items = newState?.items.map((item) =>
+        item?.id === lecture?.id
+          ? {
+              ...item,
+            }
+          : item
+      );
+    } else {
+      newState.items = [...newState.items, { id: lecture?.id }];
+    }
+
+    bakeLocalStorage(currentCourse.slug, newState);
+  };
   return (
     <LayoutLecture
+      pageContext={pageContext}
       lecture={lecture}
       lectureList={allLectures}
       totalLectures={allLectures.length}
+      currentCourse={currentCourse}
     >
       {/* video */}
       {<Video lecture={lecture} />}
@@ -58,7 +93,13 @@ const Lecture = ({ pageContext }) => {
       {/* course header */}
       <div className="pt-5 border-b border-gray-300">
         <div className="container lg:max-w-full">
-          {<Breadcrumbs school={pageContext.school} course={currentCourse} lecture={lecture} /> }
+          {
+            <Breadcrumbs
+              school={pageContext.school}
+              course={currentCourse}
+              lecture={lecture}
+            />
+          }
           <div className="items-end justify-between pt-4 pb-6 lg:flex">
             <div>
               <h2 className="leading-tight">{lecture.title}</h2>
@@ -72,7 +113,13 @@ const Lecture = ({ pageContext }) => {
                 </Link>
               )}
               {nextLecture && (
-                <Link to={`../${nextLecture.id}`} className="btn btn-default">
+                <Link
+                  onClick={async () => {
+                    await addLectureToComplete(nextLecture);
+                  }}
+                  to={`../${nextLecture.id}`}
+                  className="btn btn-default"
+                >
                   Next
                 </Link>
               )}

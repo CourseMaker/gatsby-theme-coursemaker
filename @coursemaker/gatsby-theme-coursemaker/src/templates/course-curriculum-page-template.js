@@ -2,29 +2,16 @@ import React from "react";
 import Layout from "../components/layout";
 import Section from "../components/section";
 import Breadcrumbs from "../components/course-breadcrumbs";
+import { readLocalStorage, deleteLocalStorage } from "../helpers/storage";
 
-const Curriculum = ({ pageContext }) => {
-  // TODO: add to data model
-  // 	const { primary_button, cta_button } = {
-  // 	  "color": "blue",
-  //     "text": "test",
-  //     "text_color": "black"
-  //   };
-  // const cta_section = { "title": "cta test", "description": "cta desc" };
-  // const author = { "username": "joe", "email": "yoyo@gmail.com" };
-  const photo = { url: "abc.com" };
-  const author_display = {
-    title: "joe",
-    subtitle: "bar",
-    photo: photo,
-    description: "foo",
-  };
+const Curriculum = ({ pageContext = {} }) => {
   const school = pageContext.school;
-
   const course = pageContext.course;
 
+  const storedCourse = readLocalStorage(course.slug);
+  const { author_display } = course;
   return (
-    <Layout>
+    <Layout pageContext={pageContext}>
       <section className="pt-5">
         <div className="container mx-auto">
           <Breadcrumbs school={school} course={course} />
@@ -44,9 +31,20 @@ const Curriculum = ({ pageContext }) => {
 
             <h2 className="mt-12 mb-6 leading-tight">Curriculum</h2>
             <div className="curriculum-list space-y-10">
-              {course.sections.map((section) => (
-                <Section data={section} size="big" key={section.id} />
-              ))}
+              {course.sections.map((section) => {
+                let allLectures = course?.sections
+                  ?.map((section) => section?.lectures?.map((item) => item))
+                  .flat(1);
+                return (
+                  <Section
+                    data={section}
+                    size="big"
+                    key={section.id}
+                    allLectures={allLectures}
+                    slug={course.slug}
+                  />
+                );
+              })}
             </div>
           </div>
         </div>

@@ -5,23 +5,14 @@ import Button from "../components/button";
 import Section from "../components/section";
 
 const CourseLandingPage = ({ pageContext, data }) => {
-  console.log(pageContext);
-
   const course = pageContext.course;
-
   // TODO: add to data model
   const cta_section = { title: "cta test", description: "cta desc" };
   const author = { username: "joe", email: "yoyo@gmail.com" };
-  const photo = { url: "abc.com" };
-  const author_display = {
-    title: "joe",
-    subtitle: "bar",
-    photo: photo,
-    description: "foo",
-  };
+  const { author_display } = course;
 
   return (
-    <Layout>
+    <Layout pageContext={pageContext}>
       <section className="py-16 pb-8 text-center md:pt-24">
         <div className="container">
           <h1 className="mb-4">{course.title}</h1>
@@ -91,9 +82,21 @@ const CourseLandingPage = ({ pageContext, data }) => {
           <div className="mx-auto inner lg:w-8/12">
             <h2 className="mt-12 mb-6 leading-tight">Curriculum</h2>
             <div className="curriculum-list space-y-6">
-              {course.sections.map((section) => (
-                <Section data={section} size="big" key={section.id} />
-              ))}
+              {course.sections.map((section) => {
+                let allLectures = course?.sections
+                  ?.map((section) => section?.lectures?.map((item) => item))
+                  .flat(1);
+
+                return (
+                  <Section
+                    data={section}
+                    size="big"
+                    key={section.id}
+                    allLectures={allLectures}
+                    slug={course.slug}
+                  />
+                );
+              })}
             </div>
           </div>
         </div>
@@ -104,7 +107,10 @@ const CourseLandingPage = ({ pageContext, data }) => {
           <div className="lg:items-center md:inline-flex lg:px-16 justify-content-center">
             <img
               className="block object-cover w-48 h-48 bg-gray-500 rounded-full author-photo lg:h-64 lg:w-64"
-              src={author_display.photo["url"]}
+              src={
+                author_display?.photo?.["url"] ??
+                author_display.photo?.childImageSharp?.fluid?.src
+              }
               alt={author_display.title}
             />
             <div className="w-full mt-8 md:pl-12 lg:pl-16 md:mt-0">

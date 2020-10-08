@@ -4,19 +4,20 @@ import slugify from "slugify";
 import Img from "gatsby-image";
 
 const Card = ({ course }) => {
-  console.log(course);
-  let slug = course.slug ? course.slug : "/" + slugify(course.title, {strict: true, lower: true});
+  let slug = course.slug
+    ? course.slug
+    : "/" + slugify(course.title, { strict: true, lower: true });
   const courseAuthor = course.author_display.title || "";
 
   let courseImage;
   if (course.course_image == null) {
     // default
-    courseImage = {"src": "https://picsum.photos/300/300"};
+    courseImage = { src: "https://picsum.photos/300/300" };
   } else if (course.course_image.childImageSharp != null) {
     courseImage = course.course_image.childImageSharp.fluid;
-  } else if (course.course_image.url){
+  } else if (course.course_image.url) {
     // strapi hack
-    courseImage = {"src": course.course_image.url}
+    courseImage = { src: course.course_image.url };
   }
 
   return (
@@ -29,6 +30,7 @@ const Card = ({ course }) => {
           className="object-cover w-full h-40 md:h-64 md:w-1/2"
           fluid={courseImage}
           alt="cover image"
+          imgStyle={{ objectPosition: "center", objectFit: "contain" }}
         />
         <div className="p-6 md:px-10 md:py-8 md:w-1/2">
           <h4 className="mb-1 text-xl font-semibold">{course.title}</h4>
