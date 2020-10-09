@@ -7,6 +7,7 @@ export default {
     background: "white",
     white: "white",
     black: "black",
+    green: "#48bb78"
   },
   buttons: {
     primary: {
