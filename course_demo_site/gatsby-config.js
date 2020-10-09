@@ -27,7 +27,7 @@ module.exports = {
       },
       primary_button: {
         text: "View Courses",
-        color: "black",
+        color: "green",
         text_color: "white",
       },
       cta_section: {
