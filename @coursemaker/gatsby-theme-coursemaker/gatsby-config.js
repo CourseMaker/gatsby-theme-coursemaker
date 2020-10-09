@@ -35,7 +35,8 @@ module.exports = (themeOptions) => {
           text: "View Courses",
           color: "black",
           text_color: "white",
-        }
+        },
+        video_id: null
       },
     },
     plugins: [

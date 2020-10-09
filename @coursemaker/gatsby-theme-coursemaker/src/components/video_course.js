@@ -2,7 +2,8 @@
 import { jsx } from "theme-ui";
 
 const CourseVideo = ({ course, ...props }) => {
-  const video_src = course.course_video ? "https://www.youtube.com/embed/" + course.course_video : null;
+  console.log(course);
+  const video_src = course.course_video_id ? "https://www.youtube.com/embed/" + course.course_video_id : null;
   if (video_src != null){
     return (
       <section id="video" className="pt-16 bg-gray-100 lg:pt-32">

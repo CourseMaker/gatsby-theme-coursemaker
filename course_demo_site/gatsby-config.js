@@ -36,7 +36,7 @@ module.exports = {
       },
       cta_button: {
         text: "View Courses",
-        color: "red",
+        color: "green",
         text_color: "white",
       },
     },

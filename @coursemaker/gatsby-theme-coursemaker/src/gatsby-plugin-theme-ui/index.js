@@ -1,7 +1,7 @@
 export default {
   colors: {
-    primary: "#85144b",
-    secondary: "#FF851B",
+    primary: "#48bb78",
+    secondary: "#0B0057",
     muted: "grey",
     text: "purple",
     background: "white",
