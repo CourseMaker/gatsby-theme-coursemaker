@@ -33,8 +33,6 @@ const Checkout = ({ school, course }) => {
       cancelUrl: `${window.location.origin}/`,
     })
       .then(function(result){
-        console.log("here");
-        console.log(result);
         if (!isAuthenticated()) {
           login()
           return <p>Redirecting to login...</p>

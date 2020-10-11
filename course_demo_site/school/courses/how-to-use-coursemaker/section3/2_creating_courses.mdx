@@ -1,0 +1,15 @@
+---
+title: Creating Courses
+number: 2
+---
+
+To create a new course, add a directory underneath `school/courses`.
+
+There is a course-level `index.mdx` file which sits in the course directory (not to be confused with section-level `index.mdx`
+files). Which allows you to define course properties in the [frontmatter](https://www.gatsbyjs.com/docs/adding-markdown-pages/#frontmatter-for-metadata-in-markdown-files)
+
+`title`: course title
+`courseImage`: Image that will represent the course (appears on course landing page)
+`courseVideoID`: Course video that will represent the course (appears on course landing page) - this should be a youtube video ID.
+`subtitle`: Appears underneath the course title on the course landing page
+`author`: Must match an author found in the `authors.yml` (see next lecture)
