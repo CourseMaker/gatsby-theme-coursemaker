@@ -16,18 +16,6 @@ exports.normalizeImageUrl = (course) => {
   return course;
 }
 
-exports.normalizeVideoUrl = (course) => {
-  let course_video = null;
-  if (course.course_video.url) {
-    course.course_video = course_video.url
-  } else {
-    console.log('\u001B[33m', `No course_video for "${course.title}"`);
-    course.course_video = course_video;
-  }
-
-  return course;
-}
-
 module.exports.local = {
   courses: ({ node: course }) => {
     return {
