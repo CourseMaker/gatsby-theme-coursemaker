@@ -19,26 +19,17 @@ const Lecture = ({ lecture, size, data, slug }) => {
   let lastpath = arrPathname[arrPathname.length - 1];
 
   const addLectureToComplete = async (lecture) => {
-    let state = readLocalStorage(slug);
-    let newState = {
-      items: [...((state && state?.items) || [])],
-    };
+    let state = await readLocalStorage(slug);
 
-    const exists = newState?.items?.some((item) => item?.id === lecture?.id);
+    const exists = state?.items?.some((item) => item?.id === lecture?.id);
 
-    if (exists) {
-      newState.items = newState?.items.map((item) =>
-        item?.id === lecture?.id
-          ? {
-              ...item,
-            }
-          : item
-      );
-    } else {
+    if (!exists && lecture) {
+      let newState = {
+        items: [...((state && state?.items) || [])],
+      };
       newState.items = [...newState.items, { id: lecture?.id }];
+      await bakeLocalStorage(slug, newState);
     }
-
-    bakeLocalStorage(slug, newState);
   };
   return (
     <div className="border-t border-gray-300 lecture-item">
