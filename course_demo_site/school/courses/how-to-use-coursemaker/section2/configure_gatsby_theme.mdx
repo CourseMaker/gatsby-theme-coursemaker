@@ -1,19 +1,12 @@
-/**
- * Configure your Gatsby site with this file.
- *
- * See: https://www.gatsbyjs.org/docs/gatsby-config/
- */
-require("dotenv").config();
-const useStrapi = process.env.GATSBY_USE_STRAPI;
+---
+title: Configure the Coursemaker Gatsby Theme
+number: 3
+---
 
-description_string =
-  "Learn everything you need to know to use the @coursemaker/gatsby-theme-coursemaker \n" +
-  "Including how to setup gated content and payments.";
+In the `gatsby-config.js` you will find a field called `siteMetadata`. This controls the configuration for the school (more
+on defining a `school` in the next section):
 
-cta_description_string =
-  "There has never been an easier way to make an online course. \n" +
-  "And it's free.";
-
+```js
 module.exports = {
   siteMetadata: {
     title: "Demo Site Cool School",
@@ -40,17 +33,25 @@ module.exports = {
         text_color: "white",
       },
     },
-    stripe_public_key: process.env.GATSBY_STRIPE_PUBLISHABLE_KEY,
+    stripe_public_key: "update me",
   },
-  plugins: [
+  ...
+```
+
+The theme can also take options:
+
+```js
+plugins: [
     {
       resolve: `@coursemaker/gatsby-theme-coursemaker`,
       options: {
-        // contentPath: "schoolMDX",
-        // coursesPath: "schoolMDX/courses",
-        // authorsPath: "schoolMDX/authors",
-        useStrapi: useStrapi,
+        coursesPath: "schoolMDX/courses",
+        authorsPath: "schoolMDX/authors",
       },
     },
-  ],
-};
+```
+
+Notable options include:
+`coursesPath`: the directory where your course files will be detected
+`authorsPath`: the directory where your author files will be detected
+

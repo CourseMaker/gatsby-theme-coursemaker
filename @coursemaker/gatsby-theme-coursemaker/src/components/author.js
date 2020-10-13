@@ -8,7 +8,6 @@ import React from "react";
 
 const Author = ({ author_display, ...props }) => {
   let authorImage;
-  console.log(author_display);
   if (author_display.photo == null) {
     // default
     authorImage = { src: "https://picsum.photos/300/300" };

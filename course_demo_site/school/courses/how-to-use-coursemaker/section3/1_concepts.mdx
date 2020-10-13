@@ -1,0 +1,41 @@
+---
+title: Concepts
+number: 1
+---
+
+The top-most entity you will be working with is that of a `school`. A school contains many courses. Courses are made up
+of lectures, which are grouped into sections.
+
+```
+school/
+└── authors/
+|	├── authors.yml
+|	└── assets/
+|		├── author.jpg
+└── courses/
+|	└── course1/
+|   	index.mdx
+|		└── assets/
+|			├── cover.jpg
+|   	└── section1/
+|       	├── index.mdx
+|       	├── lecture1.mdx
+|       	├── lecture2.mdx
+|   	└── section2/
+|       	├── index.mdx
+|       	├── lecture3.mdx
+|       	├── lecture4.mdx
+|	└── course2/
+|   	index.mdx
+|   	└── section1/
+|       	├── index.mdx
+|       	├── lecture1.mdx
+|       	├── lecture2.mdx
+|   	└── section2/
+|       	├── index.mdx
+|       	├── lecture3.mdx
+|       	├── lecture4.mdx
+```
+
+You will notice that these files are not "vanilla" markdown (.md) files, but rather .mdx files which allows you to
+write JSX inside embedded markdown ([more information here](https://github.com/mdx-js/mdx)).
