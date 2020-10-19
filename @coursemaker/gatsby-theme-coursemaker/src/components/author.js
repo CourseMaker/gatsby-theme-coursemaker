@@ -8,16 +8,16 @@ import React from "react";
 
 const Author = ({ author_display, ...props }) => {
   let authorImage;
-  if (author_display.photo == null) {
+  if (author_display?.photo == null) {
     // default
     authorImage = { src: "https://picsum.photos/300/300" };
-  } else if (author_display.photo.childImageSharp != null) {
+  } else if (author_display?.photo.childImageSharp != null) {
     authorImage = author_display.photo.childImageSharp.fluid;
-  } else if (author_display.photo) {
+  } else if (author_display?.photo) {
     // strapi hack
-    authorImage = { src: author_display.photo.url };
+    authorImage = { src: author_display?.photo.url };
   }
-  if (author_display.photo){
+  if (author_display?.photo){
     return (
       <section id="author" className="py-12 bg-gray-100">
         <div className="container">
