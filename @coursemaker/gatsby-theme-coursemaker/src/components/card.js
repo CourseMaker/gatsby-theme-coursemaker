@@ -7,7 +7,7 @@ const Card = ({ course }) => {
   let slug = course.slug
     ? course.slug
     : "/" + slugify(course.title, { strict: true, lower: true });
-  const courseAuthor = course.author_display.title || "";
+  const courseAuthor = course.author_display?.title || "";
 
   let courseImage;
   if (course.course_image == null) {

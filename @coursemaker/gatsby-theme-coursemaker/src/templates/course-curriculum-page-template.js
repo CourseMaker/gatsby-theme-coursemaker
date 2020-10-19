@@ -23,7 +23,7 @@ const Curriculum = ({ pageContext = {} }) => {
               {course.subtitle}
             </div>
             <div className="text-lg font-semibold">
-              By {author_display.title}
+              By {author_display?.title}
             </div>
 
             <h2 className="mt-12 mb-6 leading-tight">Curriculum</h2>
