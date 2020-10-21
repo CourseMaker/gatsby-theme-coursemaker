@@ -382,6 +382,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                   owner {
                     email
                   }
+                  external_id
                   courses {
                     id
                     title
