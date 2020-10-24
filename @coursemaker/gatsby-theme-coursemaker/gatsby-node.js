@@ -567,6 +567,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
     path: `/courses`,
     component: require.resolve("./src/templates/list-courses-page-template.js"),
     context: {
+      school: liveSchool,
       courses: allCourses,
     },
   });
