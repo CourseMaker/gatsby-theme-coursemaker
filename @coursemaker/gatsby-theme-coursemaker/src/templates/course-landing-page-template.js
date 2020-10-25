@@ -16,7 +16,7 @@ const CourseLandingPage = ({ pageContext, data }) => {
 
   return (
     <Layout pageContext={pageContext}>
-      <section className="py-16 pb-8 text-center md:pt-24">
+      <section className="py-8 pb-8 text-center md:pt-24">
         <div className="container">
           <h1 className="mb-4">{course.title}</h1>
           <p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-5/12">
@@ -95,7 +95,7 @@ const CourseLandingPage = ({ pageContext, data }) => {
       {cta_section && (
         <section
           id="cta"
-          className="py-16 text-center text-white bg-gray-900 lg:py-32"
+          className="py-8 text-center text-white bg-gray-900 lg:py-24"
         >
           <div className="container">
             <div className="mx-auto inner lg:w-6/12">
@@ -111,7 +111,7 @@ const CourseLandingPage = ({ pageContext, data }) => {
 
       {<Author author_display={author_display} /> }
 
-      <section className="py-16 text-center bg-gray-100 md:py-32">
+      <section className="py-8 text-center bg-gray-100 md:py-24">
         <div className="container">
           <div className="mx-auto inner lg:w-5/12">
             <h2 className="mb-4 mb:mb-6">Questions?</h2>

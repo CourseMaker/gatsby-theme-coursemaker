@@ -18,13 +18,13 @@ const SchoolLandingPage = ({ pageContext }) => {
 
   return (
     <Layout pageContext={pageContext}>
-      <section className="py-16 pb-8 text-center md:pt-30">
+      <section className="py-8 pb-8 text-center md:pt-30">
         <div className="container">
           <h1 className="mb-4">{title}</h1>
           <p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12"></p>
 
           <Button
-            to="/courses"
+            to="/#courses"
             text={primary_button.text}
             color={primary_button.color}
             text_color={primary_button.text_color}
@@ -51,7 +51,7 @@ const SchoolLandingPage = ({ pageContext }) => {
         </div>
       </section>
 
-      <section id="overview" className="py-16 text-center bg-gray-100 md:py-32">
+      <section id="overview" className="py-8 text-center bg-gray-100 md:py-24">
         <div className="container">
           <div className="mx-auto inner lg:w-7/12">
             <h2 className="mb-4 lg:mb-6">Overview</h2>
@@ -60,7 +60,7 @@ const SchoolLandingPage = ({ pageContext }) => {
             </div>
             <div className="mt-8 btn-wrapper">
               <Button
-                to="/courses"
+                to="/#courses"
                 text={primary_button.text}
                 color={cta_button.color}
                 text_color={cta_button.text_color}
@@ -73,30 +73,30 @@ const SchoolLandingPage = ({ pageContext }) => {
 
       <Courses courses={passedCourses} />
 
-      <section
-        id="author"
-        className="py-16 text-center text-white bg-gray-900 lg:py-32"
-      >
-        <div className="container">
-          <div className="mx-auto inner lg:w-5/12">
-            <h2 className="mb-4 md:mb-6">{cta_section.title}</h2>
-            <div className="leading-loose text-gray-200 space-y-6">
-              <p>{cta_section.description}</p>
-            </div>
-            <div className="mt-8 btn-wrapper">
-              <Button
-                to="/courses"
-                text={cta_button.text}
-                color={cta_button.color}
-                text_color={cta_button.text_color}
-                variant="secondary"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
+      {/*<section*/}
+      {/*  id="author"*/}
+      {/*  className="py-8 text-center text-white bg-gray-900 lg:py-24"*/}
+      {/*>*/}
+      {/*  <div className="container">*/}
+      {/*    <div className="mx-auto inner lg:w-5/12">*/}
+      {/*      <h2 className="mb-4 md:mb-6">{cta_section.title}</h2>*/}
+      {/*      <div className="leading-loose text-gray-200 space-y-6">*/}
+      {/*        <p>{cta_section.description}</p>*/}
+      {/*      </div>*/}
+      {/*      <div className="mt-8 btn-wrapper">*/}
+      {/*        <Button*/}
+      {/*          to="/#courses"*/}
+      {/*          text={cta_button.text}*/}
+      {/*          color={cta_button.color}*/}
+      {/*          text_color={cta_button.text_color}*/}
+      {/*          variant="secondary"*/}
+      {/*        />*/}
+      {/*      </div>*/}
+      {/*    </div>*/}
+      {/*  </div>*/}
+      {/*</section>*/}
 
-      <section className="py-16 text-center bg-gray-100 md:py-32">
+      <section className="py-16 text-center bg-gray-100 md:py-24">
         <div className="container">
           <div className="mx-auto inner lg:w-5/12">
             <h2 className="mb-4 mb:mb-6">Questions?</h2>

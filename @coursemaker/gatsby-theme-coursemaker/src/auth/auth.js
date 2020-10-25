@@ -1,6 +1,6 @@
 import auth0 from "auth0-js"
-import { useAuth0 } from "@auth0/auth0-react";
 import { navigate } from "gatsby"
+import jwtDecode from 'jwt-decode';
 
 const isBrowser = typeof window !== "undefined";
 
@@ -23,14 +23,6 @@ const tokens = {
 }
 
 let user = {}
-
-export const isAuthenticated = () => {
-  if (!isBrowser) {
-    return;
-  }
-
-  return localStorage.getItem("isLoggedIn") === "true"
-}
 
 export const login = () => {
   if (!isBrowser) {
@@ -79,4 +71,43 @@ export const silentAuth = callback => {
 export const logout = () => {
   localStorage.setItem("isLoggedIn", false)
   auth.logout()
+}
+
+export const isAuthenticated = () => {
+  if (!isBrowser) {
+    return;
+  }
+
+  if (!process.env.GATSBY_ENABLE_AUTH){
+    return true;
+  }
+
+  return localStorage.getItem("user") !== null
+}
+
+
+export const coursesFromJWT = () => {
+  let tokenString = localStorage.getItem("token")
+  if (tokenString) {
+    let token = JSON.parse(tokenString);
+    const decodedAccessToken = jwtDecode(token.access_token);
+    console.log(decodedAccessToken);
+    return decodedAccessToken.courses;
+  }
+}
+
+
+export const isAuthorized = (courseID) => {
+  if (!process.env.GATSBY_ENABLE_AUTH){
+    return true;
+  }
+
+  if (!isAuthenticated()){
+    navigate("/login")
+  }
+
+  let allowedCourses = coursesFromJWT()
+  if (allowedCourses.includes(parseInt(courseID))){
+    return true;
+  }
 }
