@@ -91,13 +91,16 @@ export const coursesFromJWT = () => {
   if (tokenString) {
     let token = JSON.parse(tokenString);
     const decodedAccessToken = jwtDecode(token.access_token);
-    console.log(decodedAccessToken);
     return decodedAccessToken.courses;
   }
 }
 
 
 export const isAuthorized = (courseID) => {
+  if (!isBrowser) {
+    return;
+  }
+
   if (!process.env.GATSBY_ENABLE_AUTH){
     return true;
   }

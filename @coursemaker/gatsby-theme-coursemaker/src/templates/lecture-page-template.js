@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Link } from "gatsby";
 import ReactMarkdown from "react-markdown";
 import LayoutLecture from "../components/layout-lecture";
@@ -12,9 +12,11 @@ import {navigate} from "gatsby";
 
 
 const Lecture = ({ pageContext = {} }) => {
-  if (!isAuthorized(pageContext.course.id)) {
-    navigate(`/courses${pageContext.course.slug}checkout`);
-  }
+  useEffect(() => {
+    if (!isAuthorized(pageContext.course.id)) {
+      navigate(`/courses${pageContext.course.slug}checkout`);
+    }
+  })
   const currentCourse = pageContext.course;
   const lecture = pageContext.lecture;
 

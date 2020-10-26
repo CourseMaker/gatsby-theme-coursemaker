@@ -7,9 +7,12 @@ import { isAuthenticated, coursesFromJWT } from "../auth/auth";
 
 const CoursesPage = ({ pageContext }) => {
   const courses = pageContext.courses;
-  if (!isAuthenticated()){
-    navigate('/login')
-  }
+  useEffect(() => {
+    if (!isAuthenticated()){
+      navigate('/login')
+    }
+  })
+
   let displayCourses = courses;
   if (process.env.GATSBY_ENABLE_PAYMENTS == true){
     console.log(process.env.GATSBY_ENABLE_PAYMENTS);
