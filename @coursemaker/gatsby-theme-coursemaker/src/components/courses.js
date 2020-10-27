@@ -2,6 +2,11 @@ import React from "react";
 import Card from "./card";
 
 const Courses = ({ courses }) => {
+  if (!courses) {
+    return (
+      <p>No courses available</p>
+    )
+  }
   return (
     <section id="courses" className="py-16 md:py-32">
       <div className="container mx-auto">

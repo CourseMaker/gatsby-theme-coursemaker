@@ -1,20 +1,22 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Link } from "gatsby";
 import ReactMarkdown from "react-markdown";
 import LayoutLecture from "../components/layout-lecture";
 import Breadcrumbs from "../components/course-breadcrumbs";
 import Video from "../components/video";
-import { login, isAuthenticated } from "../auth/auth";
+import { isAuthorized } from "../auth/auth";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 import _ from "lodash";
 import { bakeLocalStorage, readLocalStorage } from "../helpers/storage";
+import {navigate} from "gatsby";
+
+
 const Lecture = ({ pageContext = {} }) => {
-  if (pageContext.school.useAuth) {
-    if (!isAuthenticated()) {
-      login();
-      return <p>Redirecting to login...</p>;
+  useEffect(() => {
+    if (!isAuthorized(pageContext.course.id)) {
+      navigate(`/courses${pageContext.course.slug}checkout`);
     }
-  }
+  })
   const currentCourse = pageContext.course;
   const lecture = pageContext.lecture;
 
