@@ -1,13 +1,14 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
+
 import Layout from "../components/layout";
 import Button from "../components/button";
 import Section from "../components/section";
-import Author from "../components/author"
+import Author from "../components/author";
 import CourseVideo from "../components/video_course";
 import LandingImage from "../components/image_landing";
 
-const CourseLandingPage = ({ pageContext, data }) => {
+const CourseLandingPage = ({ pageContext = {} /*data*/ }) => {
   const course = pageContext.course;
   // TODO: add to data model
   const cta_section = { title: "cta test", description: "cta desc" };
@@ -90,8 +91,6 @@ const CourseLandingPage = ({ pageContext, data }) => {
         </div>
       </section>
 
-
-
       {cta_section && (
         <section
           id="cta"
@@ -109,7 +108,7 @@ const CourseLandingPage = ({ pageContext, data }) => {
         </section>
       )}
 
-      {<Author author_display={author_display} /> }
+      {<Author author_display={author_display} />}
 
       <section className="py-8 text-center bg-gray-100 md:py-24">
         <div className="container">

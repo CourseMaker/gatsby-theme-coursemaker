@@ -10,15 +10,14 @@ const Card = ({ course }) => {
   const courseAuthor = course.author_display?.title || "";
 
   let courseImage;
-  if (course.course_image == null) {
+  if (course.course_image == null)
     // default
     courseImage = { src: "https://picsum.photos/300/300" };
-  } else if (course.course_image.childImageSharp != null) {
+  else if (course.course_image.childImageSharp != null)
     courseImage = course.course_image.childImageSharp.fluid;
-  } else if (course.course_image.url) {
+  else if (course.course_image.url)
     // strapi hack
     courseImage = { src: course.course_image.url };
-  }
 
   return (
     <Link

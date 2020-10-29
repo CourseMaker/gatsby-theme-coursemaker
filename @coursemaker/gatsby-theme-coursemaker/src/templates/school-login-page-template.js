@@ -1,9 +1,14 @@
 import React from "react";
+import { Link } from "gatsby";
+
 import Layout from "../components/layout";
 import Input from "../components/input";
-import {Link} from "gatsby";
 
-const LoginPage = ({ pageContext }) => {
+const LoginPage = (
+  {
+    /*pageContext*/
+  }
+) => {
   return (
     <Layout>
       <section className="py-16 bg-indigo-100 md:py-24">
@@ -67,4 +72,3 @@ const LoginPage = ({ pageContext }) => {
 };
 
 export default LoginPage;
-

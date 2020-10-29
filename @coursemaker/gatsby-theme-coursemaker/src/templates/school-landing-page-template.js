@@ -1,11 +1,12 @@
 /** @jsx jsx */
+import { jsx } from "theme-ui";
 import React from "react";
+
 import Layout from "../components/layout";
 import Button from "../components/button";
 import Courses from "../components/courses";
-import { jsx } from "theme-ui";
 
-const SchoolLandingPage = ({ pageContext }) => {
+const SchoolLandingPage = ({ pageContext = {} }) => {
   const passedCourses = pageContext.courses;
   const landingPage = pageContext.school.landing_page;
 
@@ -13,7 +14,7 @@ const SchoolLandingPage = ({ pageContext }) => {
   const description = landingPage.title_and_description.description;
   const primary_button = pageContext.school.landing_page.primary_button;
   const cta_button = landingPage.cta_button;
-  const cta_section = landingPage.cta_section;
+  // const cta_section = landingPage.cta_section;
   const owner = pageContext.school.owner;
 
   return (
@@ -21,7 +22,7 @@ const SchoolLandingPage = ({ pageContext }) => {
       <section className="py-8 pb-8 text-center md:pt-30">
         <div className="container">
           <h1 className="mb-4">{title}</h1>
-          <p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12"></p>
+          <p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12" />
 
           <Button
             to="/#courses"
@@ -73,28 +74,30 @@ const SchoolLandingPage = ({ pageContext }) => {
 
       <Courses courses={passedCourses} />
 
-      {/*<section*/}
-      {/*  id="author"*/}
-      {/*  className="py-8 text-center text-white bg-gray-900 lg:py-24"*/}
-      {/*>*/}
-      {/*  <div className="container">*/}
-      {/*    <div className="mx-auto inner lg:w-5/12">*/}
-      {/*      <h2 className="mb-4 md:mb-6">{cta_section.title}</h2>*/}
-      {/*      <div className="leading-loose text-gray-200 space-y-6">*/}
-      {/*        <p>{cta_section.description}</p>*/}
-      {/*      </div>*/}
-      {/*      <div className="mt-8 btn-wrapper">*/}
-      {/*        <Button*/}
-      {/*          to="/#courses"*/}
-      {/*          text={cta_button.text}*/}
-      {/*          color={cta_button.color}*/}
-      {/*          text_color={cta_button.text_color}*/}
-      {/*          variant="secondary"*/}
-      {/*        />*/}
-      {/*      </div>*/}
-      {/*    </div>*/}
-      {/*  </div>*/}
-      {/*</section>*/}
+      {/*
+      <section
+        id="author"
+        className="py-8 text-center text-white bg-gray-900 lg:py-24"
+      >
+        <div className="container">
+          <div className="mx-auto inner lg:w-5/12">
+            <h2 className="mb-4 md:mb-6">{cta_section.title}</h2>
+            <div className="leading-loose text-gray-200 space-y-6">
+              <p>{cta_section.description}</p>
+            </div>
+            <div className="mt-8 btn-wrapper">
+              <Button
+                to="/#courses"
+                text={cta_button.text}
+                color={cta_button.color}
+                text_color={cta_button.text_color}
+                variant="secondary"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+      */}
 
       <section className="py-16 text-center bg-gray-100 md:py-24">
         <div className="container">
@@ -116,7 +119,7 @@ const SchoolLandingPage = ({ pageContext }) => {
                 )}
               </p>
             </div>
-            <div className="mt-8 btn-wrapper"></div>
+            <div className="mt-8 btn-wrapper" />
           </div>
         </div>
       </section>

@@ -9,22 +9,20 @@ const Button = ({
   text_color = "white",
   size = "lg",
   ...props
-}) => {
-  return (
-    <Link
-      to={to}
-      className={`btn btn-${size}`}
-      sx={{
-        mx: 1,
-        variant: `buttons.${variant}`,
-        bg: color,
-        color: text_color,
-      }}
-      {...props}
-    >
-      {props.text}
-    </Link>
-  );
-};
+}) => (
+  <Link
+    to={to}
+    className={`btn btn-${size}`}
+    sx={{
+      mx: 1,
+      variant: `buttons.${variant}`,
+      bg: color,
+      color: text_color,
+    }}
+    {...props}
+  >
+    {props.text}
+  </Link>
+);
 
 export default Button;

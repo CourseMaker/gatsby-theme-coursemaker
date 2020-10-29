@@ -1,8 +1,9 @@
 import React from "react";
-import ReactMarkdown from "react-markdown";
+// import ReactMarkdown from "react-markdown";
+
 import Layout from "../components/layout-payment";
-import Button from "../components/button";
-import Section from "../components/section";
+// import Button from "../components/button";
+// import Section from "../components/section";
 import Checkout from "../components/checkout";
 
 const CoursePaymentPage = ({ pageContext = {} }) => {

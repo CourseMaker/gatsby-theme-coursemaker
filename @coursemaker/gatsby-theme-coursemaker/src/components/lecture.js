@@ -3,11 +3,10 @@ import { Link } from "gatsby";
 import { useLocation } from "@reach/router";
 
 import { bakeLocalStorage, readLocalStorage } from "../helpers/storage";
+
 const Lecture = ({ lecture, size, data, slug }) => {
   const { title, id } = data;
-  function random(min, max) {
-    return Math.random() * (max - min) + min;
-  }
+  const random = (min, max) => Math.random() * (max - min) + min;
 
   // dummy data. needs to change later
   const progressVal = random(10, 100);
@@ -45,9 +44,9 @@ const Lecture = ({ lecture, size, data, slug }) => {
                   <div
                     className="absolute bottom-0 left-0 h-1 bg-blue-700 rounded-bl transform translate-y-px -translate-x-px"
                     style={{ width: progressVal + "%" }}
-                  ></div>
+                  />
                 ) : (
-                  <div className="absolute top-0 right-0 w-4 h-4 bg-blue-700 rounded-full checkmark transform -translate-y-1 translate-x-1"></div>
+                  <div className="absolute top-0 right-0 w-4 h-4 bg-blue-700 rounded-full checkmark transform -translate-y-1 translate-x-1" />
                 )}
               </div>
               <div className="ml-4 text-sm leading-snug text-gray-700 md:text-base lecture-title">
@@ -86,7 +85,7 @@ const Lecture = ({ lecture, size, data, slug }) => {
             <div
               style={{ width: "4px" }}
               className="absolute top-0 bottom-0 left-0 bg-green-500"
-            ></div>
+            />
           )}
           <div className="flex">
             <div className="flex items-center left-side">
@@ -95,7 +94,7 @@ const Lecture = ({ lecture, size, data, slug }) => {
                 className="relative w-8 h-6 bg-gray-200 border border-indigo-200 rounded lecture-file"
               >
                 {progressVal === 100 && (
-                  <div className="absolute top-0 right-0 w-4 h-4 bg-blue-700 rounded-full checkmark transform -translate-y-1 translate-x-1"></div>
+                  <div className="absolute top-0 right-0 w-4 h-4 bg-blue-700 rounded-full checkmark transform -translate-y-1 translate-x-1" />
                 )}
               </div>
               <div className="ml-4 text-sm leading-snug text-gray-700 lecture-title">

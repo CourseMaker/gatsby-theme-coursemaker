@@ -1,23 +1,24 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
+import React from "react";
 import Img from "gatsby-image";
 import ReactMarkdown from "react-markdown";
-import Button from "./button";
-import Layout from "./layout";
-import React from "react";
 
-const Author = ({ author_display, ...props }) => {
+import Button from "./button";
+// import Layout from "./layout";
+
+const Author = ({ author_display /*...props*/ }) => {
   let authorImage;
-  if (author_display?.photo == null) {
+  if (author_display?.photo == null)
     // default
     authorImage = { src: "https://picsum.photos/300/300" };
-  } else if (author_display?.photo.childImageSharp != null) {
+  else if (author_display?.photo.childImageSharp != null)
     authorImage = author_display.photo.childImageSharp.fluid;
-  } else if (author_display?.photo) {
+  else if (author_display?.photo)
     // strapi hack
     authorImage = { src: author_display?.photo.url };
-  }
-  if (author_display?.photo){
+
+  if (author_display?.photo)
     return (
       <section id="author" className="py-12 bg-gray-100">
         <div className="container">
@@ -29,7 +30,7 @@ const Author = ({ author_display, ...props }) => {
                 alt="cover image"
                 imgStyle={{ objectPosition: "center", objectFit: "contain" }}
               />
-          </div>
+            </div>
             <div className="w-full mt-8 md:pl-12 lg:pl-16 md:mt-0">
               <h3>{author_display.title}</h3>
               <p className="mb-6 text-xl font-light text-gray-600">
@@ -44,9 +45,7 @@ const Author = ({ author_display, ...props }) => {
         </div>
       </section>
     );
-  } else {
-    return (<div></div>)
-  }
+  return <div />;
 };
 
 export default Author;

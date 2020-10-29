@@ -1,22 +1,21 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { Link } from "gatsby";
 import ReactMarkdown from "react-markdown";
+import { MDXRenderer } from "gatsby-plugin-mdx";
+import _ from "lodash";
+import { navigate } from "gatsby";
+
 import LayoutLecture from "../components/layout-lecture";
 import Breadcrumbs from "../components/course-breadcrumbs";
 import Video from "../components/video";
 import { isAuthorized } from "../auth/auth";
-import { MDXRenderer } from "gatsby-plugin-mdx";
-import _ from "lodash";
 import { bakeLocalStorage, readLocalStorage } from "../helpers/storage";
-import {navigate} from "gatsby";
-
 
 const Lecture = ({ pageContext = {} }) => {
   useEffect(() => {
-    if (!isAuthorized(pageContext.course.id)) {
+    if (!isAuthorized(pageContext.course.id))
       navigate(`/courses${pageContext.course.slug}checkout`);
-    }
-  })
+  });
   const currentCourse = pageContext.course;
   const lecture = pageContext.lecture;
 
@@ -33,31 +32,21 @@ const Lecture = ({ pageContext = {} }) => {
   let nextLecture;
   let prevLecture;
 
-  allLectures.forEach(function(item, i) {
+  allLectures.forEach((item, i) => {
     if (item.id === lecture.id) {
-      if (i <= allLectures.length - 1) {
-        nextLecture = allLectures[i + 1];
-      }
-      if (i > 0) {
-        prevLecture = allLectures[i - 1];
-      }
-      if (i === 0) {
-        prevLecture = false;
-      }
-      if (i === allLectures.length - 1) {
-        nextLecture = false;
-      }
+      if (i <= allLectures.length - 1) nextLecture = allLectures[i + 1];
+      if (i > 0) prevLecture = allLectures[i - 1];
+      if (i === 0) prevLecture = false;
+      if (i === allLectures.length - 1) nextLecture = false;
     }
   });
 
   let lecture_body;
-  if (lecture.body) {
+  if (lecture.body)
     // local source
     lecture_body = <MDXRenderer>{lecture.body}</MDXRenderer>;
-  } else {
-    // strapi
-    lecture_body = <ReactMarkdown source={lecture.body_markdown} />;
-  }
+  // strapi
+  else lecture_body = <ReactMarkdown source={lecture.body_markdown} />;
 
   const addLectureToComplete = async (lecture) => {
     let state = readLocalStorage(currentCourse.slug);
@@ -67,20 +56,15 @@ const Lecture = ({ pageContext = {} }) => {
 
     const exists = newState?.items?.some((item) => item?.id === lecture?.id);
 
-    if (exists) {
+    if (exists)
       newState.items = newState?.items.map((item) =>
-        item?.id === lecture?.id
-          ? {
-              ...item,
-            }
-          : item
+        item?.id === lecture?.id ? { ...item } : item
       );
-    } else {
-      newState.items = [...newState.items, { id: lecture?.id }];
-    }
+    else newState.items = [...newState.items, { id: lecture?.id }];
 
     bakeLocalStorage(currentCourse.slug, newState);
   };
+
   return (
     <LayoutLecture
       pageContext={pageContext}

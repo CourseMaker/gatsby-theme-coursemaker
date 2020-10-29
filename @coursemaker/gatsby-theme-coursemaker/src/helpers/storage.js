@@ -4,9 +4,7 @@ import { isValidJSON, isValidStringify } from "./index";
 const format = (name) => {
   const prefix = ``;
 
-  if (process.env.NODE_ENV === "development") {
-    return `${prefix}_local_${name}`;
-  }
+  if (process.env.NODE_ENV === "development") return `${prefix}_local_${name}`;
 
   return `${prefix}_${name}`;
 };
@@ -33,7 +31,6 @@ export function readLocalStorage(name) {
 }
 
 export function deleteLocalStorage(name) {
-  if (typeof window !== "undefined") {
+  if (typeof window !== "undefined")
     return localStorage.removeItem(format(name));
-  }
 }

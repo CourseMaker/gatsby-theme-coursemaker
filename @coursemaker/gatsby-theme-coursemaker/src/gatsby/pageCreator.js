@@ -30,8 +30,8 @@ const createSchool = (school, courses, createPage) => {
     context: {
       school: school,
       courses: courses,
-    }
-  })
+    },
+  });
 
   // create the school login
   createPage({
@@ -40,8 +40,8 @@ const createSchool = (school, courses, createPage) => {
     context: {
       school: school,
       courses: courses,
-    }
-  })
+    },
+  });
 
   // create the school sign-up
   createPage({
@@ -50,17 +50,19 @@ const createSchool = (school, courses, createPage) => {
     context: {
       school: school,
       courses: courses,
-    }
-  })
-}
+    },
+  });
+};
 
 const createCourses = (school, courses, createPage) => {
-  courses.forEach(function(course, i){
+  courses.forEach((course /*i*/) => {
     // Individual course landing pages
-    let slug = course.slug ? course.slug : `/${slugify(course.title, {strict: true, lower: true})}/`;
+    let slug = course.slug
+      ? course.slug
+      : `/${slugify(course.title, { strict: true, lower: true })}/`;
     course.slug = slug;
-    const nextCourse = i === courses.length - 1 ? null : courses[i + 1];
-    const previousCourse = i === 0 ? null : courses[i - 1];
+    // const nextCourse = i === courses.length - 1 ? null : courses[i + 1];
+    // const previousCourse = i === 0 ? null : courses[i - 1];
     createPage({
       path: "/courses" + slug,
       component: courseTemplate,
@@ -75,7 +77,7 @@ const createCourses = (school, courses, createPage) => {
       component: paymentTemplate,
       context: {
         course: course,
-        school: school
+        school: school,
       },
     });
 
@@ -85,14 +87,14 @@ const createCourses = (school, courses, createPage) => {
       component: curriculumTemplate,
       context: {
         course: course,
-        school: school
+        school: school,
       },
     });
 
     // Individual lectures pages
     allCourseLectures = [];
     if (course.sections) {
-      course.sections.forEach(function (section) {
+      course.sections.forEach((section) => {
         allCourseLectures = allCourseLectures.concat(section.lectures);
       });
     }

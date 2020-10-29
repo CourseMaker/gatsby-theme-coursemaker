@@ -15,7 +15,7 @@ module.exports = (themeOptions) => {
       useAuth: options.useAuth,
       enablePayments: options.enablePayments, // required for paid courses
       owner: {
-        email: "yourEmailAddress@domain.com"
+        email: "yourEmailAddress@domain.com",
       },
       landing_page: {
         title_and_description: {
@@ -28,37 +28,37 @@ module.exports = (themeOptions) => {
           text_color: "white",
         },
         cta_section: {
-          "title": "Now is a great time to learn",
-          "description": "Update me (update in gatsby-config)"
+          title: "Now is a great time to learn",
+          description: "Update me (update in gatsby-config)",
         },
         cta_button: {
           text: "View Courses",
           color: "black",
           text_color: "white",
         },
-        video_id: null
+        video_id: null,
       },
     },
     plugins: [
       !mdxOtherwiseConfigured &&
-      legacyConfigureMdxFlag && {
-        resolve: `gatsby-plugin-mdx`,
-        options: {
-          extensions: [`.mdx`, `.md`],
-          gatsbyRemarkPlugins: [
-            {
-              resolve: `gatsby-remark-images`,
-              options: {
-                maxWidth: 1380,
-                linkImagesToOriginal: false,
+        legacyConfigureMdxFlag && {
+          resolve: `gatsby-plugin-mdx`,
+          options: {
+            extensions: [`.mdx`, `.md`],
+            gatsbyRemarkPlugins: [
+              {
+                resolve: `gatsby-remark-images`,
+                options: {
+                  maxWidth: 1380,
+                  linkImagesToOriginal: false,
+                },
               },
-            },
-            { resolve: `gatsby-remark-copy-linked-files` },
-            { resolve: `gatsby-remark-smartypants` },
-          ],
-          remarkPlugins: [require(`remark-slug`)],
+              { resolve: `gatsby-remark-copy-linked-files` },
+              { resolve: `gatsby-remark-smartypants` },
+            ],
+            remarkPlugins: [require(`remark-slug`)],
+          },
         },
-      },
       {
         resolve: `gatsby-plugin-google-analytics`,
         options: {
@@ -131,6 +131,12 @@ module.exports = (themeOptions) => {
         resolve: `gatsby-plugin-stylus`,
       },
       "gatsby-plugin-react-helmet",
+      {
+        resolve: `gatsby-plugin-purgecss`,
+        options: {
+          tailwind: true,
+        },
+      },
       strapiPluginOrFake(),
     ].filter(Boolean),
   };
@@ -140,18 +146,13 @@ module.exports = (themeOptions) => {
 const cmsAuth = require(`./src/auth/cms-auth`);
 
 const enable_strapi = () => {
-  if (process.env.GATSBY_USE_STRAPI){
-    if (process.env.GATSBY_USE_STRAPI == "false") {
-      return false;
-    }
-    return true;
-  } else {
-    return false;
-  }
-}
+  if (process.env.GATSBY_USE_STRAPI)
+    return process.env.GATSBY_USE_STRAPI !== "false";
+  else return false;
+};
 
 const strapiPluginOrFake = () => {
-  if (enable_strapi()) {
+  if (enable_strapi())
     return {
       resolve: "gatsby-source-graphql",
       options: {
@@ -167,7 +168,5 @@ const strapiPluginOrFake = () => {
         fetchOptions: {},
       },
     };
-  } else {
-    return false
-  }
+  else return false;
 };

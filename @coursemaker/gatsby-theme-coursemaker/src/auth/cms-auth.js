@@ -4,13 +4,9 @@ const FormData = require("form-data");
 module.exports = {
   // Authenticate with coursemaker cms
   // TODO: extract out into plugin
-  getAuthToken: async function getAuthToken() {
-    if (process.env.AUTH_HEADER) {
-      return process.env.AUTH_HEADER;
-    }
-    if (process.env.AUTH_TOKEN) {
-      return `Bearer ${process.env.AUTH_TOKEN}`;
-    }
+  getAuthToken: async () => {
+    if (process.env.AUTH_HEADER) return process.env.AUTH_HEADER;
+    if (process.env.AUTH_TOKEN) return `Bearer ${process.env.AUTH_TOKEN}`;
 
     // Otherwise login
     let data = new FormData();
@@ -24,13 +20,11 @@ module.exports = {
       headers: data.getHeaders(),
       data: data,
     }).then(
-      (response) => {
-        return `Bearer ${response.data.access_token}`;
-      },
+      (response) => `Bearer ${response.data.access_token}`,
       (error) => {
         console.log(error);
         throw error;
       }
     );
-  }
-}
+  },
+};
