@@ -2,7 +2,8 @@
 import { jsx } from "theme-ui";
 import Img from "gatsby-image";
 
-const LandingImage = ({ landing /*...props*/ }) => {
+/*...props*/
+const LandingImage = ({ landing }) => {
   let courseImage;
   if (landing == null)
     // default

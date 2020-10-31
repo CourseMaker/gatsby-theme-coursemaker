@@ -1,13 +1,12 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
-import React from "react";
 import Img from "gatsby-image";
 import ReactMarkdown from "react-markdown";
 
 import Button from "./button";
-// import Layout from "./layout";
 
-const Author = ({ author_display /*...props*/ }) => {
+/*...props*/
+const Author = ({ author_display }) => {
   let authorImage;
   if (author_display?.photo == null)
     // default

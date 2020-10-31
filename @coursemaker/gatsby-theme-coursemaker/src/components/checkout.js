@@ -19,11 +19,8 @@ const buttonDisabledStyles = {
   cursor: "not-allowed",
 };
 
-const Checkout = (
-  {
-    /*school, course*/
-  }
-) => {
+/*{ school, course }*/
+const Checkout = () => {
   const [loading, setLoading] = useState(false);
 
   const redirectToCheckout = async (event) => {

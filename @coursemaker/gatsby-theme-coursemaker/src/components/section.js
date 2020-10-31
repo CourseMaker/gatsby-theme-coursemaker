@@ -4,7 +4,8 @@ import _ from "lodash";
 // import { bakeLocalStorage, readLocalStorage } from "../helpers/storage";
 import Lecture from "./lecture";
 
-const Section = ({ lecture, size, data, slug /* allLectures */ }) => {
+/* allLectures */
+const Section = ({ lecture, size, data, slug }) => {
   const [toggle, setTogggle] = useState(true);
   const toggleSection = (/*e*/) => {
     setTogggle(!toggle);

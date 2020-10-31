@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
 
-const Video = ({ lecture /*...props*/ }) => {
+/*...props*/
+const Video = ({ lecture }) => {
   const video_src = lecture.video_id
     ? "https://www.youtube.com/embed/" + lecture.video_id
     : null;
