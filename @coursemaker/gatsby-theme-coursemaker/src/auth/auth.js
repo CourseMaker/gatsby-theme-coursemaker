@@ -78,7 +78,7 @@ export const isAuthenticated = () => {
     return;
   }
 
-  if (!process.env.GATSBY_ENABLE_AUTH){
+  if (!process.env.GATSBY_ENABLE_AUTH != "true"){
     return true;
   }
 
@@ -101,7 +101,7 @@ export const isAuthorized = (courseID) => {
     return;
   }
 
-  if (!process.env.GATSBY_ENABLE_AUTH){
+  if (!process.env.GATSBY_ENABLE_AUTH != "true"){
     return true;
   }
 

@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import _ from "lodash";
-import { bakeLocalStorage, readLocalStorage } from "../helpers/storage";
 import Lecture from "./lecture";
 
 const Section = ({ lecture, size, data, allLectures, slug }) => {
@@ -82,7 +81,7 @@ const Section = ({ lecture, size, data, allLectures, slug }) => {
       <div className={toggle ? "block" : "hidden"}>
         {_.orderBy(
           data?.lectures,
-          data?.lectures?.[0].hasOwnProperty("number") ? "number" : "id",
+          data?.lectures?.[0].hasOwnProperty("order") ? "order" : "id",
           "asc"
         ).map((lecture, index) => {
           return (
