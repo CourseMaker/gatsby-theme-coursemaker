@@ -2,11 +2,16 @@ import React from "react";
 import Layout from "../components/layout";
 import Section from "../components/section";
 import Breadcrumbs from "../components/course-breadcrumbs";
+import _ from "lodash";
 
 const Curriculum = ({ pageContext = {} }) => {
   const school = pageContext.school;
   const course = pageContext.course;
   const { author_display } = course;
+  console.log(course);
+  let allLectures = course?.sections?.map(
+    (section) => section?.lectures?.map((item) => item))
+    .flat(1);
   return (
     <Layout pageContext={pageContext}>
       <section className="pt-5">
@@ -28,10 +33,11 @@ const Curriculum = ({ pageContext = {} }) => {
 
             <h2 className="mt-12 mb-6 leading-tight">Curriculum</h2>
             <div className="curriculum-list space-y-10">
-              {course.sections.map((section) => {
-                let allLectures = course?.sections
-                  ?.map((section) => section?.lectures?.map((item) => item))
-                  .flat(1);
+
+              {_.orderBy(course?.sections,
+                course?.sections?.[0].hasOwnProperty("order") ? "order": "id",
+                "asc"
+              ).map((section, index) => {
                 return (
                   <Section
                     data={section}
