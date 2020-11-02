@@ -66,6 +66,7 @@ export const logout = () => {
   auth.logout();
 };
 
+
 export const isAuthenticated = () => {
   if (!isBrowser) {
     return;
@@ -78,8 +79,6 @@ export const isAuthenticated = () => {
   return localStorage.getItem("user") !== null
 }
 
-  return localStorage.getItem("user") !== null;
-};
 
 export const coursesFromJWT = () => {
   let tokenString = localStorage.getItem("token");
