@@ -8,10 +8,19 @@ const Curriculum = ({ pageContext = {} }) => {
   const school = pageContext.school;
   const course = pageContext.course;
   const { author_display } = course;
-  console.log(course);
   let allLectures = course?.sections?.map(
     (section) => section?.lectures?.map((item) => item))
     .flat(1);
+  let orderedSections;
+  if (course.sections.length === 0 || course.sections === undefined) {
+    orderedSections = []
+  } else {
+    orderedSections = _.orderBy(course?.sections,
+      course?.sections?.[0].hasOwnProperty("order") ? "order" : "id",
+      "asc"
+    )
+  }
+
   return (
     <Layout pageContext={pageContext}>
       <section className="pt-5">
@@ -33,21 +42,19 @@ const Curriculum = ({ pageContext = {} }) => {
 
             <h2 className="mt-12 mb-6 leading-tight">Curriculum</h2>
             <div className="curriculum-list space-y-10">
-
-              {_.orderBy(course?.sections,
-                course?.sections?.[0].hasOwnProperty("order") ? "order": "id",
-                "asc"
-              ).map((section, index) => {
-                return (
-                  <Section
-                    data={section}
-                    size="big"
-                    key={section.id}
-                    allLectures={allLectures}
-                    slug={course.slug}
-                  />
-                );
-              })}
+              {orderedSections.length > 0 ?
+                orderedSections.map((section, index) => {
+                  return (
+                    <Section
+                      data={section}
+                      size="big"
+                      key={section.id}
+                      allLectures={allLectures}
+                      slug={course.slug}
+                    />
+                  );
+                }) : <p>No sections yet</p>
+              }
             </div>
           </div>
         </div>
