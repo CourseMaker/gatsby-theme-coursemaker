@@ -391,9 +391,11 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                     sections {
                       id
                       title
+                      order
                       lectures {
                         id
                         title
+                        order
                         video_id
                         body_text
                         body_markdown
@@ -454,7 +456,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                     slug
                     title
                     video_id: video
-                    number
+                    order: number
                     body
                   }
                   id

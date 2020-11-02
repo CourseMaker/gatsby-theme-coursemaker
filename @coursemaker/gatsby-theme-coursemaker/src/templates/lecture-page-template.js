@@ -23,7 +23,7 @@ const Lecture = ({ pageContext = {} }) => {
     ?.map((section) =>
       _.orderBy(
         section?.lectures,
-        section?.lectures?.[0].hasOwnProperty("number") ? "number" : "id",
+        section?.lectures?.[0].hasOwnProperty("order") ? "order" : "id",
         "asc"
       ).map((item) => item)
     )

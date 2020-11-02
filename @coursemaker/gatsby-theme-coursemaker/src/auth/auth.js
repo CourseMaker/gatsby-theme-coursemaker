@@ -67,8 +67,16 @@ export const logout = () => {
 };
 
 export const isAuthenticated = () => {
-  if (!isBrowser) return;
-  if (!process.env.GATSBY_ENABLE_AUTH) return true;
+  if (!isBrowser) {
+    return;
+  }
+
+  if (!process.env.GATSBY_ENABLE_AUTH != "true"){
+    return true;
+  }
+
+  return localStorage.getItem("user") !== null
+}
 
   return localStorage.getItem("user") !== null;
 };
@@ -84,9 +92,17 @@ export const coursesFromJWT = () => {
 
 export const isAuthorized = (courseID) => {
   if (!isBrowser) return;
-  if (!process.env.GATSBY_ENABLE_AUTH) return true;
-  if (!isAuthenticated()) navigate("/login");
 
-  let allowedCourses = coursesFromJWT();
-  if (allowedCourses.includes(parseInt(courseID))) return true;
-};
+  if (!process.env.GATSBY_ENABLE_AUTH != "true"){
+    return true;
+  }
+
+  if (!isAuthenticated()){
+    navigate("/login")
+  }
+
+  let allowedCourses = coursesFromJWT()
+  if (allowedCourses.includes(parseInt(courseID))){
+    return true;
+  }
+}

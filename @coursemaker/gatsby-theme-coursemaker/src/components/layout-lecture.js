@@ -5,6 +5,7 @@ import Header from "./header";
 import Footer from "./footer";
 import Section from "./section";
 import { bakeLocalStorage, readLocalStorage } from "../helpers/storage";
+import _ from "lodash";
 
 const LayoutLecture = ({
   children,
@@ -27,6 +28,10 @@ const LayoutLecture = ({
   useEffect(() => {
     scrollContainer.current.scrollTop = readLocalStorage("scroll")?.y || 0;
   }, []);
+
+  let allLectures = currentCourse?.sections?.map(
+    (section) => section?.lectures?.map(
+      (item) => item)).flat(1);
 
   const scroll = () => {
     let y = scrollContainer?.current?.scrollTop;
@@ -70,13 +75,10 @@ const LayoutLecture = ({
                 </div>
                 {lectureList && (
                   <div className="curriculum-list space-y-6 lg:space-y-0">
-                    {currentCourse?.sections?.map((section) => {
-                      let allLectures = currentCourse?.sections
-                        ?.map((section) =>
-                          section?.lectures?.map((item) => item)
-                        )
-                        .flat(1);
-
+                    {_.orderBy(currentCourse?.sections,
+                      currentCourse?.sections?.[0].hasOwnProperty("order") ? "order": "id",
+                      "asc"
+                    ).map((section, index) => {
                       return (
                         <Section
                           allLectures={allLectures}
@@ -84,7 +86,7 @@ const LayoutLecture = ({
                           data={section}
                           size="small"
                           key={section.id}
-                          course={course}
+                          course={currentCourse}
                           slug={slug}
                         />
                       );
