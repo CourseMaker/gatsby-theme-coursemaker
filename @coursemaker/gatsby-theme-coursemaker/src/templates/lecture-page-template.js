@@ -19,15 +19,20 @@ const Lecture = ({ pageContext = {} }) => {
   const currentCourse = pageContext.course;
   const lecture = pageContext.lecture;
 
-  let allLectures = currentCourse?.sections
-    ?.map((section) =>
-      _.orderBy(
-        section?.lectures,
-        section?.lectures?.[0].hasOwnProperty("order") ? "order" : "id",
-        "asc"
-      ).map((item) => item)
-    )
-    .flat(1);
+  let allLectures;
+  if (currentCourse == null || currentCourse?.sections === undefined || currentCourse?.sections.length == 0) {
+    allLectures = [];
+  } else {
+    allLectures = currentCourse?.sections
+      ?.map((section) =>
+        _.orderBy(
+          section?.lectures,
+          section?.lectures?.[0].hasOwnProperty("order") ? "order" : "id",
+          "asc"
+        ).map((item) => item)
+      )
+      .flat(1);
+  }
 
   let nextLecture;
   let prevLecture;

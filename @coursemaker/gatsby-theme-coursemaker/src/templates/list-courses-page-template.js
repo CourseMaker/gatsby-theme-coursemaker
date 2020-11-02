@@ -13,8 +13,8 @@ const CoursesPage = ({ pageContext = {} }) => {
   });
 
   let displayCourses = courses;
-  if (process.env.GATSBY_ENABLE_PAYMENTS === true) {
-    console.log(process.env.GATSBY_ENABLE_PAYMENTS);
+
+  if (process.env.GATSBY_ENABLE_PAYMENTS === true){
     let enrolledCourses = coursesFromJWT();
     displayCourses = courses.filter((course) =>
       enrolledCourses.includes(parseInt(course.id))
