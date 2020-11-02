@@ -1,21 +1,20 @@
 import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
+
 import Header from "./header";
 import Footer from "./footer";
 import Section from "./section";
-import {
-  bakeLocalStorage,
-  readLocalStorage,
-} from "../helpers/storage";
+import { bakeLocalStorage, readLocalStorage } from "../helpers/storage";
 import _ from "lodash";
+
 const LayoutLecture = ({
   children,
   lecture,
   lectureList,
-  sections,
+  // sections,
   totalLectures,
   currentCourse,
-  pageContext = {},
+  pageContext,
 }) => {
   let slug = currentCourse.slug;
   const course = readLocalStorage(slug);
@@ -25,18 +24,20 @@ const LayoutLecture = ({
       ? parseInt((completedLectures / lectureList?.length) * 100)
       : 0;
   const scrollContainer = useRef(null);
+
   useEffect(() => {
     scrollContainer.current.scrollTop = readLocalStorage("scroll")?.y || 0;
   }, []);
+
   let allLectures = currentCourse?.sections?.map(
     (section) => section?.lectures?.map(
       (item) => item)).flat(1);
 
   const scroll = () => {
-    var y = scrollContainer?.current?.scrollTop;
-
+    let y = scrollContainer?.current?.scrollTop;
     bakeLocalStorage("scroll", { y: y });
   };
+
   return (
     <>
       <Header school={pageContext.school} />
@@ -69,7 +70,7 @@ const LayoutLecture = ({
                     <div
                       className="absolute top-0 bottom-0 left-0 h-2 bg-green-500"
                       style={{ width: `${progress}%` }}
-                    ></div>
+                    />
                   </div>
                 </div>
                 {lectureList && (
@@ -106,6 +107,11 @@ const LayoutLecture = ({
 
 LayoutLecture.propTypes = {
   children: PropTypes.node.isRequired,
+  pageContext: PropTypes.object,
+};
+
+LayoutLecture.defaultProps = {
+  pageContext: {},
 };
 
 export default LayoutLecture;

@@ -1,12 +1,13 @@
 /** @jsx jsx */
+import { jsx } from "theme-ui";
 import { useState } from "react";
 import { Link } from "gatsby";
-import { useLocation } from "@reach/router";
-import { jsx } from "theme-ui";
+// import { useLocation } from "@reach/router";
+
 import { logout, isAuthenticated } from "../auth/auth";
 
 const Header = ({ school }) => {
-  const { pathname } = useLocation();
+  // const { pathname } = useLocation();
 
   let homeLinks = [
     ["Overview", "#overview"],
@@ -15,13 +16,12 @@ const Header = ({ school }) => {
     ["Enroll Now", "/register", "btn btn-white"],
   ];
 
-  if (isAuthenticated()) {
+  if (isAuthenticated())
     homeLinks = [
       ["Home", "/"],
       ["My Courses", "/courses"],
       ["Logout", "/"],
     ];
-  }
 
   const [toggle, setTogggle] = useState(false);
   const toggleHeader = () => {
@@ -50,26 +50,24 @@ const Header = ({ school }) => {
 						lg:space-x-6 lg:order-1 lg:w-auto py-8 lg:py-0 border-t lg:border-t-0 border-white border-opacity-25 
 						${toggle ? "block" : "hidden"}`}
           >
-          {homeLinks.map((link, i) => {
+            {homeLinks.map((link, i) => {
               let classes = "";
               if (link[2]) classes = link[2];
-              if (link[0] == "Logout"){
-                return (
-                  <li key={i}>
-                    <Link className={classes} to={link[1]} onClick={logout}>
-                      {link[0]}
-                    </Link>
-                  </li>
-                );
-              } else {
-              return (
+
+              return link[0] === "Logout" ? (
+                <li key={i}>
+                  <Link className={classes} to={link[1]} onClick={logout}>
+                    {link[0]}
+                  </Link>
+                </li>
+              ) : (
                 <li key={i}>
                   <Link className={classes} to={link[1]}>
                     {link[0]}
                   </Link>
                 </li>
               );
-            }})}
+            })}
           </nav>
 
           <button
@@ -78,9 +76,9 @@ const Header = ({ school }) => {
 						${toggle ? "is-active" : ""}`}
             onClick={toggleHeader}
           >
-            <div className="bar"></div>
-            <div className="bar"></div>
-            <div className="bar"></div>
+            <div className="bar" />
+            <div className="bar" />
+            <div className="bar" />
           </button>
         </div>
       </div>

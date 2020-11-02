@@ -1,2 +1,2 @@
-module.exports = slug =>
+module.exports = (slug) =>
   slug === "/" ? slug : `/${slug.replace(/^\/|\/$/g, "")}/`;

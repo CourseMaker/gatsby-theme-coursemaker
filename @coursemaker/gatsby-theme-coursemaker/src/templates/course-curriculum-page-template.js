@@ -1,4 +1,5 @@
 import React from "react";
+
 import Layout from "../components/layout";
 import Section from "../components/section";
 import Breadcrumbs from "../components/course-breadcrumbs";
@@ -8,6 +9,7 @@ const Curriculum = ({ pageContext = {} }) => {
   const school = pageContext.school;
   const course = pageContext.course;
   const { author_display } = course;
+
   let allLectures = course?.sections?.map(
     (section) => section?.lectures?.map((item) => item))
     .flat(1);

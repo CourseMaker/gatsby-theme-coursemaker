@@ -2,22 +2,18 @@ import React, { useState } from "react";
 import _ from "lodash";
 import Lecture from "./lecture";
 
-const Section = ({ lecture, size, data, allLectures, slug }) => {
+/* allLectures */
+const Section = ({ lecture, size, data, slug }) => {
   const [toggle, setTogggle] = useState(true);
-  const toggleSection = (e) => {
+  const toggleSection = (/*e*/) => {
     setTogggle(!toggle);
   };
 
-  function getArrayLength(array) {
-    return array.length;
-  }
+  const getArrayLength = (array) => array.length;
 
   let currentLecture = "";
+  if (lecture) currentLecture = lecture;
 
-  if (lecture) {
-    currentLecture = lecture;
-  }
-  
   return (
     <div
       className={`${
@@ -83,7 +79,7 @@ const Section = ({ lecture, size, data, allLectures, slug }) => {
           data?.lectures,
           data?.lectures?.[0].hasOwnProperty("order") ? "order" : "id",
           "asc"
-        ).map((lecture, index) => {
+        ).map((lecture /*index*/) => {
           return (
             <Lecture
               lecture={currentLecture}

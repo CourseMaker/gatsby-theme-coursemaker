@@ -4,8 +4,8 @@
  *
  * @see https://stripe.com/docs/payments/checkout/fulfillment#webhooks
  */
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2020-03-02',
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY, {
+  apiVersion: "2020-03-02",
   maxNetworkRetries: 2,
 });
 
@@ -14,14 +14,14 @@ exports.handler = async ({ body, headers }) => {
     // check the webhook to make sure it’s valid
     const stripeEvent = stripe.webhooks.constructEvent(
       body,
-      headers['stripe-signature'],
+      headers["stripe-signature"],
       process.env.STRIPE_WEBHOOK_SECRET
     );
 
     // only continue if this is a successful Stripe Checkout purchase
-    if (stripeEvent.type === 'checkout.session.completed') {
+    if (stripeEvent.type === "checkout.session.completed") {
       const eventObject = stripeEvent.data.object;
-      const items = eventObject.display_items;
+      // const items = eventObject.display_items;
       console.log(eventObject);
 
       // TODO: update Auth0

@@ -15,7 +15,7 @@ module.exports = (themeOptions) => {
       useAuth: options.useAuth,
       enablePayments: options.enablePayments, // required for paid courses
       owner: {
-        email: "yourEmailAddress@domain.com"
+        email: "yourEmailAddress@domain.com",
       },
       landing_page: {
         title_and_description: {
@@ -28,37 +28,37 @@ module.exports = (themeOptions) => {
           text_color: "white",
         },
         cta_section: {
-          "title": "Now is a great time to learn",
-          "description": "Update me (update in gatsby-config)"
+          title: "Now is a great time to learn",
+          description: "Update me (update in gatsby-config)",
         },
         cta_button: {
           text: "View Courses",
           color: "black",
           text_color: "white",
         },
-        video_id: null
+        video_id: null,
       },
     },
     plugins: [
       !mdxOtherwiseConfigured &&
-      legacyConfigureMdxFlag && {
-        resolve: `gatsby-plugin-mdx`,
-        options: {
-          extensions: [`.mdx`, `.md`],
-          gatsbyRemarkPlugins: [
-            {
-              resolve: `gatsby-remark-images`,
-              options: {
-                maxWidth: 1380,
-                linkImagesToOriginal: false,
+        legacyConfigureMdxFlag && {
+          resolve: `gatsby-plugin-mdx`,
+          options: {
+            extensions: [`.mdx`, `.md`],
+            gatsbyRemarkPlugins: [
+              {
+                resolve: `gatsby-remark-images`,
+                options: {
+                  maxWidth: 1380,
+                  linkImagesToOriginal: false,
+                },
               },
-            },
-            { resolve: `gatsby-remark-copy-linked-files` },
-            { resolve: `gatsby-remark-smartypants` },
-          ],
-          remarkPlugins: [require(`remark-slug`)],
+              { resolve: `gatsby-remark-copy-linked-files` },
+              { resolve: `gatsby-remark-smartypants` },
+            ],
+            remarkPlugins: [require(`remark-slug`)],
+          },
         },
-      },
       {
         resolve: `gatsby-plugin-google-analytics`,
         options: {
@@ -123,12 +123,61 @@ module.exports = (themeOptions) => {
         options: {
           postCssPlugins: [
             require("tailwindcss"),
-            require("./src/css/tailwind.config.js"), // Optional: Load custom Tailwind CSS configuration
+            require("./tailwind.config.js"), // Optional: Load custom Tailwind CSS configuration
           ],
         },
       },
       {
-        resolve: `gatsby-plugin-stylus`,
+        resolve: `gatsby-plugin-purgecss`,
+        options: {
+          // develop: true, // Enable while using `gatsby develop`
+          tailwind: true, // Enable tailwindcss support
+          whitelist: [`h1`, "h2", "h3", "h4", "h5", "h6", "a", "p", "button"], // Don't remove this selector
+          whitelistPatterns: [
+            /^bg-gray-/, /bg-white/, /^bg-indigo-/, /bg-black/, /^bg-green-/, /bg-blue-700/,
+            /^shadow/, /hover:shadow-lg/,
+            /w-full/, /w-48/, /w-16/, /w-8/, /w-6/, /w-5/, /w-4/,
+            /h-48/, /h-40/, /h-24/, /h-6/, /h-5/, /h-4/, /h-2/, /h-1/,
+            /^mt-/, /^mb-/, /^ml-/, /mx-auto/, /mx-1/,
+            /^py-/, /p-6/, /p-4/, /^px-/, /^pt-/, /^pb-/,
+            /^space-y-/, /space-x-6/, /space-x-5/,
+            /flex/, /flex-wrap/, /inline-flex/,
+            /justify-between/, /justify-content-center/,
+            /overflow-scroll/, /overflow-hidden/,
+            /translate-x-1/, /-translate-x-px/, /-translate-x-6/, /translate-y-px/, /translate-y-6/,
+            /-translate-y-1/,
+            /hover:shadow-lg:hover/, /hover:bg-green-400/, /hover:bg-gray-100/,
+            /items-center/, /items-end/,
+            /curriculum-list/, /curriculum-item/,
+            /^btn/, /^text-/, /^font-/, /^border/, /^rounded/, /^leading-/, /^lecture-/,
+            /^transition/,
+            /top-0/, /bottom-0/, /left-0/, /right-0/, /z-20/, /order-3/, /duration-300/,
+            /list-none/, /object-cover/, /burger-menu/, /is-active/, /scroll-to/, /card-list/,
+            /inline-block/, /input-field/, /input-fields/, /video-wrapper/, /section-header/,
+            /author-photo/, /left-side/, /order-last/, /cursor-pointer/, /responsive-video/,
+            /sticky/, /container/, /block/, /hidden/, /bar/, /inner/, /progress/, /link/, /sidebar/,
+            /relative/, /absolute/, /transform/, /checkmark/, /controls/, /description/,
+            /md:h-64/,
+            /md:w-1\/2/, /md:w-7\/12/,
+            /^md:py-/, /md:px-10/, /md:px-6/, /md:pt-30/, /md:pt-24/, /md:pb-32/, /md:pl-12/,
+            /md:mt-0/, /md:mb-10/, /md:mb-6/,
+            /md:text-3xl/, /md:text-2xl/, /md:text-base/,
+            /md:translate-x-0/, /md:translate-y-0/,
+            /md:shadow-md/, /md:shadow-2xl/,
+            /md:space-y-8/, /md:flex/, /md:inline-flex/, /md:relative/,
+            /^lg:w-/,
+            /lg:h-64/, /lg:h-24/, /lg:h-auto/, /lg:h-full/,
+            /lg:mt-10/, /lg:mt-0/, /lg:mb-10/, /lg:mb-6/,
+            /lg:p-4/, /lg:px-16/, /^lg:py-/, /lg:pt-32/, /lg:pt-24/, /lg:pb-32/, /lg:pb-22/,
+            /lg:pb-0/, /lg:pl-16/,
+            /lg:text-xl/,
+            /lg:space-x-6/, /lg:space-y-10/, /lg:space-y-0/,
+            /lg:order-none/, /lg:order-1/,
+            /^lg:border-/, /lg:hidden/, /lg:flex/, /lg:items-center/, /lg:block/, /lg:max-w-full/,
+            /lg:fixed/, /lg:rounded-none/,
+            /xl:w-6\/12/, /xl:w-5\/12/,
+          ],
+        },
       },
       "gatsby-plugin-react-helmet",
       strapiPluginOrFake(),
@@ -140,18 +189,13 @@ module.exports = (themeOptions) => {
 const cmsAuth = require(`./src/auth/cms-auth`);
 
 const enable_strapi = () => {
-  if (process.env.GATSBY_USE_STRAPI){
-    if (process.env.GATSBY_USE_STRAPI == "false") {
-      return false;
-    }
-    return true;
-  } else {
-    return false;
-  }
-}
+  if (process.env.GATSBY_USE_STRAPI)
+    return process.env.GATSBY_USE_STRAPI !== "false";
+  else return false;
+};
 
 const strapiPluginOrFake = () => {
-  if (enable_strapi()) {
+  if (enable_strapi())
     return {
       resolve: "gatsby-source-graphql",
       options: {
@@ -167,7 +211,5 @@ const strapiPluginOrFake = () => {
         fetchOptions: {},
       },
     };
-  } else {
-    return false
-  }
+  else return false;
 };

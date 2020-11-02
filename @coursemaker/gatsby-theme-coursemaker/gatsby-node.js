@@ -5,10 +5,7 @@ const { createFilePath } = require("gatsby-source-filesystem");
 const withDefaults = require("./bootstrapping/default-options");
 const sanitizeSlug = require("./bootstrapping/sanitize-slug");
 const normalize = require("./src/gatsby/normalize");
-const {
-  toSeconds,
-  toHoursMinutes,
-} = require("./bootstrapping/format-duration");
+// const { toSeconds, toHoursMinutes, } = require("./bootstrapping/format-duration");
 const sortBy = require(`lodash/sortBy`);
 require("dotenv").config();
 
@@ -18,7 +15,7 @@ const { createCourses, createSchool } = require("./src/gatsby/pageCreator");
 exports.onPreBootstrap = ({ store }, themeOptions) => {
   const { program } = store.getState();
 
-  const { authorsPath, coursesPath, useStrapi } = withDefaults(themeOptions);
+  const { authorsPath, coursesPath /*useStrapi*/ } = withDefaults(themeOptions);
 
   const dirs = [
     path.join(program.directory, coursesPath),
@@ -26,9 +23,7 @@ exports.onPreBootstrap = ({ store }, themeOptions) => {
   ];
 
   dirs.forEach((dir) => {
-    if (!fs.existsSync(dir)) {
-      mkdirp.sync(dir);
-    }
+    if (!fs.existsSync(dir)) mkdirp.sync(dir);
   });
 };
 
@@ -43,10 +38,10 @@ const mdxResolverPassthrough = (fieldName) => async (
     id: source.parent,
   });
   const resolver = type.getFields()[fieldName].resolve;
-  const result = await resolver(mdxNode, args, context, {
+
+  return await resolver(mdxNode, args, context, {
     fieldName,
   });
-  return result;
 };
 
 exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
@@ -69,7 +64,7 @@ exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
       },
     });
   }
-}
+};
 
 exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
   const { createTypes } = actions;
@@ -121,6 +116,7 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
               source.slug.split("/")[source.slug.split("/").length - 3]
             }/`;
             const course = courses.filter((c) => c.slug === courseSlug)[0];
+
             return course.premium;
           },
         },
@@ -169,7 +165,7 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
         id: { type: `ID!` },
         title: { type: `String!` },
         subtitle: { type: `String` },
-        course_video_id: { type: `String`},
+        course_video_id: { type: `String` },
         price: { type: `Int` }, // price in cents
         description_overview: { type: `String` },
         description: { type: `String` },
@@ -234,18 +230,14 @@ exports.onCreateNode = (
   const { createNode, createParentChildLink } = actions;
 
   // Make sure it's an MDX node
-  if (node.internal.type !== `Mdx`) {
-    return;
-  }
+  if (node.internal.type !== `Mdx`) return;
 
   // Create source field (according to coursesPath)
   const fileNode = getNode(node.parent);
   const source = fileNode.sourceInstanceName;
 
   // Make sure the source is coursesPath
-  if (source !== coursesPath) {
-    return;
-  }
+  if (source !== coursesPath) return;
 
   // if the relativeDirectory does not contain "section"
   // this means we are in the course root dir
@@ -329,10 +321,8 @@ exports.onCreateNode = (
       });
       const { title, video, duration, number } = node.frontmatter;
       let videoDuration;
-      if (video && !duration) {
-        // TODO: get video duration
-        videoDuration = 1000;
-      }
+      // TODO: get video duration
+      if (video && !duration) videoDuration = 1000;
       const fieldData = {
         title,
         duration: duration || videoDuration,
@@ -554,11 +544,9 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
 
   // school object is precise, however.
   let liveSchool;
-  if (useStrapi === "true") {
-    liveSchool = dataSources.cms.school;
-  } else {
-    liveSchool = dataSources.local.school;
-  }
+  if (useStrapi === "true") liveSchool = dataSources.cms.school;
+  else liveSchool = dataSources.local.school;
+
   createSchool(liveSchool, allCourses, createPage);
 
   // course page creation is permissive
