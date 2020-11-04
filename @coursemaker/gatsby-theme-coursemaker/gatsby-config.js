@@ -87,7 +87,6 @@ module.exports = (themeOptions) => {
           environments: ["production", "development"],
         },
       },
-      `gatsby-plugin-theme-ui`,
       `gatsby-transformer-yaml`,
       {
         resolve: `gatsby-source-filesystem`,
@@ -116,16 +115,14 @@ module.exports = (themeOptions) => {
           display: "minimal-ui",
         },
       },
-      "gatsby-plugin-postcss",
+      "gatsby-plugin-react-helmet",
+      `gatsby-plugin-theme-ui`,
       "gatsby-plugin-stylus",
       {
-        resolve: `gatsby-plugin-sass`,
+        resolve: `gatsby-plugin-postcss`,
         options: {
-          postCssPlugins: [
-            require("tailwindcss"),
-            require("./tailwind.config.js"), // Optional: Load custom Tailwind CSS configuration
-          ],
-        },
+          postCssPlugins: [require(`tailwindcss`)("./tailwind.config.js")]
+        }
       },
       {
         resolve: `gatsby-plugin-purgecss`,
@@ -179,7 +176,6 @@ module.exports = (themeOptions) => {
           ],
         },
       },
-      "gatsby-plugin-react-helmet",
       strapiPluginOrFake(),
     ].filter(Boolean),
   };
