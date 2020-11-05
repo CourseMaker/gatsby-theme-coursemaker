@@ -16,10 +16,10 @@
     "@coursemaker/gatsby-theme-coursemaker": "^0.1.30",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
-    "tailwindcss": "^1.9.6",
-    "stripe": "^8.119.0"
+    "tailwindcss": "^1.8.10",
+    "stripe": "^8.107.0"
   },
   "devDependencies": {
-    "prettier": "^2.1.2"
+    "prettier": "^1.18.2"
   }
 }
