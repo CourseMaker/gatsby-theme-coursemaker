@@ -399,6 +399,11 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                         video_id
                         body_text
                         body_markdown
+                        file_attachment {
+                          id
+                          url
+                          name
+                        }
                       }
                     }
                   }
