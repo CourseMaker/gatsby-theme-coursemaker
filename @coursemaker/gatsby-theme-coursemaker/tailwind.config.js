@@ -3,7 +3,7 @@ module.exports = {
     container: false,
   },
   plugins: [
-    ({ addComponents }) => {
+    require('tailwindcss/plugin')(({ addComponents }) => {
       addComponents({
         ".container": {
           marginLeft: "auto",
@@ -23,7 +23,7 @@ module.exports = {
           },
         },
       });
-    },
+    }),
   ],
   theme: {
     extend: {

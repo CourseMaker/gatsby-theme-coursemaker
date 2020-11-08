@@ -408,6 +408,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                     }
                   }
                   landing_page {
+                    contact_email
                     title_and_description {
                       description
                       title
@@ -505,6 +506,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
           site {
             siteMetadata {
               landing_page {
+                contact_email
                 title_and_description {
                   title
                   description
@@ -523,9 +525,6 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                   title
                   description
                 }
-              }
-              owner {
-                email
               }
               name: title
               useAuth

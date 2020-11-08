@@ -39,19 +39,21 @@ const Code = (props) => {
       theme={theme}
     >
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
-        <pre
-          className={className}
-          style={style}
-          sx={{ p: 2, overflowX: "scroll", variant: "prism-highlight" }}
-        >
-          {tokens.map((line, i) => (
-            <div {...getLineProps({ line, key: i })}>
-              {line.map((token, key) => (
-                <span {...getTokenProps({ token, key })} />
-              ))}
-            </div>
-          ))}
-        </pre>
+        <div className="gatsby-highlight" data-language={language}>
+          <pre
+            className={className}
+            style={style}
+            sx={{ p: 2, overflowX: "scroll", variant: "prism-highlight" }}
+          >
+            {tokens.map((line, i) => (
+              <div {...getLineProps({ line, key: i })}>
+                {line.map((token, key) => (
+                  <span {...getTokenProps({ token, key })} />
+                ))}
+              </div>
+            ))}
+          </pre>
+        </div>
       )}
     </Highlight>
   );

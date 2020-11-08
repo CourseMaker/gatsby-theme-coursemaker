@@ -42,6 +42,104 @@ const DocsPage = ({ page }) => (
 export default DocsPage;
 ```
 
+```js
+function helloWorld() {
+  return "A JS Function"
+}
+```
+
+```python
+def example_function() -> str:
+    return "A Python Function"
+```
+
+```java
+class Main {
+  public static void main(String[] args) {
+
+    // create int variable
+    int num1 = 36;
+    int num2 = 99;
+
+    // convert int to string
+    // using valueOf()
+    String str1 = String.valueOf(num1);
+    String str2 = String.valueOf(num2);
+
+    // print string variables
+    System.out.println(str1);    // 36
+    System.out.println(str2);    // 99
+  }
+}
+```
+
+```yaml
+- name: Chris Samiullah
+  subtitle: Human
+  author_image: "./assets/chris_samiullah.jpg"
+```
+
+## Math
+#### Inline $a^2 + b^2 = c^2$
+
+
+#### Block
+
+$$
+a^2 + b^2 = c^2
+$$
+
+$$
+\frac{f}{Z} = \frac{x}{X} \leftrightarrow x = \frac{fX}{Z}
+$$
+
+
+## Charts (via mermaid.js)
+
+```mermaid
+pie title NETFLIX
+         "Time spent looking for movie" : 90
+         "Time spent watching it" : 10
+```
+
+#### Class Diagram
+
+```mermaid
+classDiagram
+  Animal <|-- Duck
+  Animal <|-- Fish
+  Animal <|-- Zebra
+  Animal : +int age
+  Animal : +String gender
+  Animal: +isMammal()
+  Animal: +mate()
+  class Duck{
+	  +String beakColor
+	  +swim()
+	  +quack()
+  }
+  class Fish{
+	  -int sizeInFeet
+	  -canEat()
+  }
+  class Zebra{
+	  +bool is_wild
+	  +run()
+  }
+```
+
+#### Sequence Diagram
+
+```mermaid
+graph LR
+    A[Square Rect] -- Link text --> B((Circle))
+    A --> C(Round Rect)
+    B --> D{Rhombus}
+    C --> D
+```
+
+## Live code
+
 ```jsx react-live
 () => (
   <div>

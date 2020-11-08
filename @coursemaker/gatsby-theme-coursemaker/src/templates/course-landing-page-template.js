@@ -10,7 +10,6 @@ import LandingImage from "../components/image_landing";
 
 const CourseLandingPage = ({ pageContext = {} /*data*/ }) => {
   const course = pageContext.course;
-  // TODO: add to data model
   const cta_section = { title: "cta test", description: "cta desc" };
   const author = { username: "joe", email: "example@gmail.com" };
   const { author_display } = course;
@@ -118,7 +117,7 @@ const CourseLandingPage = ({ pageContext = {} /*data*/ }) => {
               <p>
                 <span>Any questions? Send an email to</span>
                 <br />
-                {author && (
+                {author_display?.title && (
                   <a href={`mailto:${author.email}`} className="link">
                     {author.email}
                   </a>

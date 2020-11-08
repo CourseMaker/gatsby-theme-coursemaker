@@ -10,11 +10,12 @@ const SchoolLandingPage = ({ pageContext = {} }) => {
   const landingPage = pageContext.school.landing_page;
 
   const title = pageContext.school.name;
-  const description = landingPage.title_and_description.description;
-  const primary_button = pageContext.school.landing_page.primary_button;
-  const cta_button = landingPage.cta_button;
-  // const cta_section = landingPage.cta_section;
-  const owner = pageContext.school.owner;
+  const description = landingPage?.title_and_description?.description;
+  const primary_button = pageContext.school.landing_page?.primary_button;
+  const cta_button = landingPage?.cta_button;
+  const cta_section_title = landingPage?.cta_section?.title;
+  const cta_section_description = landingPage?.cta_section?.description;
+  const contactEmail = pageContext.school?.landing_page?.contact_email;
 
   return (
     <Layout pageContext={pageContext}>
@@ -103,20 +104,20 @@ const SchoolLandingPage = ({ pageContext = {} }) => {
           <div className="mx-auto inner lg:w-5/12">
             <h2 className="mb-4 md:mb-6">Questions?</h2>
             <div className="text-xl text-gray-700 space-y-6">
+              {contactEmail && (
               <p>
                 <span>Any questions? Send an email to</span>
                 <br />
-                {owner && (
                   <a
-                    href={`mailto:${owner.email}`}
+                    href={`mailto:${contactEmail}`}
                     sx={{
                       color: "primary",
                     }}
                   >
-                    {owner.email}
+                    {contactEmail}
                   </a>
-                )}
               </p>
+              )}
             </div>
             <div className="mt-8 btn-wrapper" />
           </div>
