@@ -10,9 +10,8 @@ import LandingImage from "../components/image_landing";
 
 const CourseLandingPage = ({ pageContext = {} /*data*/ }) => {
   const course = pageContext.course;
-  // TODO: add to data model
-  const cta_section = { title: "cta test", description: "cta desc" };
-  const author = { username: "joe", email: "example@gmail.com" };
+  const cta_section = course?.cta_section;
+  console.log(course)
   const { author_display } = course;
 
   return (
@@ -60,7 +59,7 @@ const CourseLandingPage = ({ pageContext = {} /*data*/ }) => {
               <ReactMarkdown source={course.description} />
             </div>
             <div className="mt-8 btn-wrapper">
-              <Button text="Curriculum" to="./curriculum" />
+              <Button text="Purchase" to="./checkout" />
             </div>
           </div>
         </div>
@@ -98,9 +97,9 @@ const CourseLandingPage = ({ pageContext = {} /*data*/ }) => {
         >
           <div className="container">
             <div className="mx-auto inner lg:w-6/12">
-              <h2 className="mb-4 md:mb-6">{cta_section.title}</h2>
+              <h2 className="mb-4 md:mb-6">{cta_section?.title}</h2>
               <div className="leading-loose text-gray-200 space-y-6">
-                <ReactMarkdown source={cta_section.description} />
+                <ReactMarkdown source={cta_section?.description} />
               </div>
               <Button text="Purchase" to="./checkout" />
             </div>
@@ -110,27 +109,27 @@ const CourseLandingPage = ({ pageContext = {} /*data*/ }) => {
 
       {<Author author_display={author_display} />}
 
-      <section className="py-8 text-center bg-gray-100 md:py-24">
-        <div className="container">
-          <div className="mx-auto inner lg:w-5/12">
-            <h2 className="mb-4 md:mb-6">Questions?</h2>
-            <div className="text-xl text-gray-700 space-y-6">
-              <p>
-                <span>Any questions? Send an email to</span>
-                <br />
-                {author && (
-                  <a href={`mailto:${author.email}`} className="link">
-                    {author.email}
-                  </a>
-                )}
-              </p>
-            </div>
-            <div className="mt-8 btn-wrapper">
-              <Button text="Curriculum" to="./curriculum" />
-            </div>
-          </div>
-        </div>
-      </section>
+      {/*<section className="py-8 text-center bg-gray-100 md:py-24">*/}
+      {/*  <div className="container">*/}
+      {/*    <div className="mx-auto inner lg:w-5/12">*/}
+      {/*      <h2 className="mb-4 md:mb-6">Questions?</h2>*/}
+      {/*      <div className="text-xl text-gray-700 space-y-6">*/}
+      {/*        {author_display?.title && (*/}
+      {/*        <p>*/}
+      {/*          <span>Any questions? Send an email to</span>*/}
+      {/*          <br />*/}
+      {/*            <a href={`mailto:${author.email}`} className="link">*/}
+      {/*              {author.email}*/}
+      {/*            </a>*/}
+      {/*        </p>*/}
+      {/*        )}*/}
+      {/*      </div>*/}
+      {/*      <div className="mt-8 btn-wrapper">*/}
+      {/*        <Button text="Curriculum" to="./curriculum" />*/}
+      {/*      </div>*/}
+      {/*    </div>*/}
+      {/*  </div>*/}
+      {/*</section>*/}
     </Layout>
   );
 };

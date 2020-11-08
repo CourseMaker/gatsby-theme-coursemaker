@@ -14,14 +14,12 @@ module.exports = (themeOptions) => {
       strapiPluginOrFake: options.useStrapi,
       useAuth: options.useAuth,
       enablePayments: options.enablePayments, // required for paid courses
-      owner: {
-        email: "yourEmailAddress@domain.com",
-      },
       landing_page: {
         title_and_description: {
           title: "Demo Site (update in gatsby-config)",
           description: "Yaml description (update in gatsby-config)",
         },
+        contact_email: "yourEmailAddress@domain.com",
         primary_button: {
           text: "View Courses",
           color: "black",
@@ -53,12 +51,42 @@ module.exports = (themeOptions) => {
                   linkImagesToOriginal: false,
                 },
               },
+              {
+                resolve: `gatsby-remark-katex`,
+                options: {
+                  strict: `ignore`,
+                }
+              },
+              {
+                resolve: 'gatsby-remark-graph',
+                options: {
+                  // this is the language in your code-block that triggers mermaid parsing
+                  language: 'mermaid', // default
+                  theme: 'default' // could also be dark, forest, or neutral
+                }
+              },
               { resolve: `gatsby-remark-copy-linked-files` },
               { resolve: `gatsby-remark-smartypants` },
+
             ],
             remarkPlugins: [require(`remark-slug`)],
           },
         },
+        {
+        resolve: 'gatsby-transformer-remark',
+        options: {
+          plugins: [
+            {
+              resolve: 'gatsby-remark-graph',
+              options: {
+                // this is the language in your code-block that triggers mermaid parsing
+                language: 'mermaid', // default
+                theme: 'default' // could also be dark, forest, or neutral
+              }
+            }
+          ]
+        }
+      },
       {
         resolve: `gatsby-plugin-google-analytics`,
         options: {
@@ -116,17 +144,13 @@ module.exports = (themeOptions) => {
           display: "minimal-ui",
         },
       },
-      "gatsby-plugin-postcss",
-      "gatsby-plugin-stylus",
       {
-        resolve: `gatsby-plugin-sass`,
+        resolve: `gatsby-plugin-postcss`,
         options: {
-          postCssPlugins: [
-            require("tailwindcss"),
-            require("./tailwind.config.js"), // Optional: Load custom Tailwind CSS configuration
-          ],
-        },
+          postCssPlugins: [require(`tailwindcss`)("./tailwind.config.js")]
+        }
       },
+      "gatsby-plugin-stylus",
       {
         resolve: `gatsby-plugin-purgecss`,
         options: {

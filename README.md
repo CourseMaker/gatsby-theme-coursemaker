@@ -48,7 +48,7 @@ called "school" created in your project root. This houses all your courses and l
 ### 📚 School Config Options (all underneath `siteMetaData`)
 #### Text fields
 * `title`: The school name
-* `owner.email`: The contact email address which students are shown on the school landing page
+* `landing_page.contact_email`: The contact email address which students are shown on the school landing page
 * `landing_page.title_and_description.title`: The School name that will appear on your overall landing page
 * `landing_page.title_and_description.description`: The School description that will appear on your overview section of the landing page
 * `landing_page.primary_button.text`: The call to action text on your school's main button, e.g. "View Course(s)"

@@ -4,6 +4,7 @@ import ReactMarkdown from "react-markdown";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 import _ from "lodash";
 import { navigate } from "gatsby";
+import "katex/dist/katex.min.css"
 
 import LayoutLecture from "../components/layout-lecture";
 import Breadcrumbs from "../components/course-breadcrumbs";
