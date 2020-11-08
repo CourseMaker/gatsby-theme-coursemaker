@@ -38,7 +38,6 @@ const Author = ({ author_display }) => {
               <div className="mb-4 leading-loose text-gray-700 md:mb-6 space-y-5">
                 <ReactMarkdown source={author_display.description} />
               </div>
-              <Button text="Curriculum" to="./curriculum" />
             </div>
           </div>
         </div>
