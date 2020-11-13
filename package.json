@@ -3,6 +3,7 @@
   "scripts": {
     "clean": "yarn workspace course_demo_site gatsby clean && yarn workspace @coursemaker/gatsby-theme-coursemaker gatsby clean",
     "local": "yarn workspace course_demo_site gatsby develop",
+    "debug": "node --nolazy node_modules/.bin/gatsby develop --inspect-brk",
     "build": "yarn workspace course_demo_site gatsby build"
   },
   "resolutions": {

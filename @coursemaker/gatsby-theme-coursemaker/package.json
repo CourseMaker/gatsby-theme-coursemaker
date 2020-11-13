@@ -54,6 +54,7 @@
     "gatsby-source-faker": "^2.3.11",
     "gatsby-source-filesystem": "^2.1.28",
     "gatsby-source-graphql": "^2.6.1",
+    "gatsby-source-strapi": "^0.0.12",
     "gatsby-transformer-remark": "^2.9.2",
     "gatsby-transformer-sharp": "^2.5.15",
     "gatsby-transformer-yaml": "^2.3.1",

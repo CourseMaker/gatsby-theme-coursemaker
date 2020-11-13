@@ -52,7 +52,7 @@ const Lecture = ({ pageContext = {} }) => {
     // local source
     lecture_body = <MDXRenderer>{lecture.body}</MDXRenderer>;
   // strapi
-  else lecture_body = <ReactMarkdown source={lecture.body_markdown} />;
+  else lecture_body = <MDXRenderer>{lecture.body_markdown}</MDXRenderer>;
 
   const addLectureToComplete = async (lecture) => {
     let state = readLocalStorage(currentCourse.slug);

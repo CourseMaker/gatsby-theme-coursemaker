@@ -1,5 +1,6 @@
 const fs = require(`fs`);
 const path = require(`path`);
+const crypto = require('crypto');
 const mkdirp = require(`mkdirp`);
 const { createFilePath } = require("gatsby-source-filesystem");
 const withDefaults = require("./bootstrapping/default-options");
@@ -226,11 +227,40 @@ exports.onCreateNode = (
   themeOptions
 ) => {
   const { coursesPath } = withDefaults(themeOptions);
-
   const { createNode, createParentChildLink } = actions;
 
+  if (node.internal.type == 'StrapiSiteBuild') {
+    console.log(node)
+    // convert lectures to MDX
+    // TODO apply to all courses + sections, this is a PoC
+    node[0].school.courses[0].sections[0].lectures.forEach(lecture => {
+      console.log(lecture)
+      const newNode = {
+        id: createNodeId(`TEST-${lecture.id}`),
+        parent: node.id,
+        children: [],
+        internal: {
+          content: lecture.body_markdown || " ",
+          type: "CHRIS_TEST",
+          mediaType: "text/markdown",
+          contentDigest: crypto
+              .createHash("md5")
+              .update(lecture.body_markdown || " ")
+              .digest("hex"),
+        },
+      };
+      actions.createNode(newNode);
+      actions.createParentChildLink({
+        parent: node,
+        child: newNode,
+      });
+    })
+  }
+
   // Make sure it's an MDX node
-  if (node.internal.type !== `Mdx`) return;
+  if (node.internal.type !== `Mdx`) {
+    return;
+  }
 
   // Create source field (according to coursesPath)
   const fileNode = getNode(node.parent);
@@ -364,85 +394,144 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
     try {
       const cmsData = await graphql(
         `
-          query RootQuery($build_id: ID!) {
-            cms {
-              siteBuild(id: $build_id) {
-                school {
-                  name
-                  owner {
-                    email
-                  }
-                  external_id
-                  courses {
-                    id
-                    title
-                    author_display {
+        query RootQuery {
+          allStrapiSiteBuild {
+            edges {
+              node {
+                _0 {
+                  school {
+                    name
+                    courses {
                       title
-                      description
-                      subtitle
-                      photo {
-                        url
-                      }
-                    }
-                    course_video_id
-                    course_image {
-                      url
-                    }
-                    sections {
-                      id
-                      title
-                      order
-                      lectures {
-                        id
+                      sections {
                         title
-                        order
-                        video_id
-                        body_text
-                        body_markdown
-                        file_attachment {
-                          id
-                          url
-                          name
+                        lectures {
+                          title
+                          body_markdown
                         }
                       }
                     }
-                  }
-                  landing_page {
-                    contact_email
-                    title_and_description {
-                      description
-                      title
-                    }
-                    primary_button {
-                      text
-                      color
-                      text_color
-                    }
-                    cta_section {
-                      title
-                      description
-                    }
-                    cta_button {
-                      text
-                      color
-                      text_color
-                    }
-                    video_id
                   }
                 }
               }
             }
           }
-        `,
-        { build_id }
-      );
-      // TODO: normalize
-      cmsData.data.cms.siteBuild.school.useAuth = false;
-      cmsData.data.cms.siteBuild.school.enablePayments = false;
-      dataSources.cms.courses = cmsData.data.cms.siteBuild.school.courses.map(
+          strapiLecture(strapiId: {eq: 1}) {
+            body_markdown
+            title
+          }
+        }
+      `
+      )
+      // const cmsData = await graphql(
+      //   `
+      //     query RootQuery($build_id: ID!) {
+      //       cms {
+      //         siteBuild(id: $build_id) {
+      //           school {
+      //             name
+      //             owner {
+      //               email
+      //             }
+      //             external_id
+      //             courses {
+      //               id
+      //               title
+      //               author_display {
+      //                 title
+      //                 description
+      //                 subtitle
+      //                 photo {
+      //                   url
+      //                 }
+      //               }
+      //               course_video_id
+      //               course_image {
+      //                 url
+      //               }
+      //               sections {
+      //                 id
+      //                 title
+      //                 order
+      //                 lectures {
+      //                   id
+      //                   title
+      //                   order
+      //                   video_id
+      //                   body_text
+      //                   body_markdown
+      //                   file_attachment {
+      //                     id
+      //                     url
+      //                     name
+      //                   }
+      //                 }
+      //               }
+      //             }
+      //             landing_page {
+      //               contact_email
+      //               title_and_description {
+      //                 description
+      //                 title
+      //               }
+      //               primary_button {
+      //                 text
+      //                 color
+      //                 text_color
+      //               }
+      //               cta_section {
+      //                 title
+      //                 description
+      //               }
+      //               cta_button {
+      //                 text
+      //                 color
+      //                 text_color
+      //               }
+      //               video_id
+      //             }
+      //           }
+      //         }
+      //       }
+      //     }
+      //   `,
+      //   { build_id }
+      // );
+      // // TODO: normalize
+      // cmsData.data.cms.siteBuild.school.useAuth = false;
+      // cmsData.data.cms.siteBuild.school.enablePayments = false;
+      // dataSources.cms.courses = cmsData.data.cms.siteBuild.school.courses.map(
+      //   normalize.normalizeImageUrl
+      // );
+      // dataSources.cms.school = cmsData.data.cms.siteBuild.school;
+
+      cmsData.data.allStrapiSiteBuild.edges[0].node._0.school.useAuth = false;
+      cmsData.data.allStrapiSiteBuild.edges[0].node._0.school.enablePayments = false;
+      dataSources.cms.courses = cmsData.data.allStrapiSiteBuild.edges[0].node._0.school.courses.map(
         normalize.normalizeImageUrl
       );
-      dataSources.cms.school = cmsData.data.cms.siteBuild.school;
+      dataSources.cms.school = cmsData.data.allStrapiSiteBuild.edges[0].node._0.school;
+      dataSources.cms.school.landing_page = {
+        title_and_description: {
+          title: "The CourseMaker Demo School",
+          description: "yo",
+        },
+        contact_email: "chris@coursemaker.org",
+        primary_button: {
+          text: "View Courses",
+          color: "green",
+          text_color: "white",
+        },
+        cta_section: {
+          title: "Everything you need to use CourseMaker's Tools",
+          description: "yo",
+        },
+        cta_button: {
+          text: "View Courses",
+          color: "green",
+          text_color: "white",
+        }
+      }
     } catch (error) {
       console.error("CMS query error");
       console.error(error);

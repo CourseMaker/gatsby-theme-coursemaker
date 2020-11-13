@@ -219,21 +219,46 @@ const enable_strapi = () => {
 };
 
 const strapiPluginOrFake = () => {
-  if (enable_strapi())
+  if (enable_strapi()){
+    console.log(process.env.GATSBY_TEST_STRAPI_USER)
+    console.log(process.env.GATSBY_TEST_STRAPI_PASSWORD)
+    console.log(`${process.env.GATSBY_CMS_BASE_URI}`)
     return {
-      resolve: "gatsby-source-graphql",
+      resolve: `gatsby-source-strapi`,
       options: {
-        typeName: "CMS",
-        fieldName: "cms",
-        url: `${process.env.GATSBY_CMS_BASE_URI}/graphql`,
-        headers: async () => {
-          return {
-            Authorization: await cmsAuth.getAuthToken(),
-          };
+        apiURL: "http://localhost:1337",
+        queryLimit: 10000, // Default to 100
+        contentTypes: [`site-build`, `school`, `lecture`],
+        // Possibility to login with a strapi user, when content types are not publically available (optional).
+        loginData: {
+          identifier: "test@test.com",
+          password: "password",
         },
-        // Additional options to pass to node-fetch
-        fetchOptions: {},
       },
-    };
-  else return false;
+    }
+  } else {
+     return false;
+  }
 };
+    // return {
+    //   resolve: "gatsby-source-graphql",
+    //   options: {
+    //     typeName: "CMS",
+    //     fieldName: "cms",
+    //     url: `${process.env.GATSBY_CMS_BASE_URI}/graphql`,
+    //     headers: async () => {
+    //       return {
+    //         Authorization: await cmsAuth.getAuthToken(),
+    //       };
+    //     },
+    //     // Additional options to pass to node-fetch
+    //     fetchOptions: {},
+    //     // https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-source-graphql#performance-tuning
+    //     // Note that if any query result contains errors the whole batch will fail.
+    //     // batch: true,
+    //     // dataLoaderOptions: {
+    //     //   maxBatchSize: 10
+    //     // }
+    //   },
+    // };
+
