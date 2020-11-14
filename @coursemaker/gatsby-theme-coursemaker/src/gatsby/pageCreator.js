@@ -54,7 +54,7 @@ const createSchool = (school, courses, createPage) => {
   });
 };
 
-const createCourses = (school, courses, createPage) => {
+const createCourses = (school, courses, mdxLectures, createPage) => {
   courses.forEach((course /*i*/) => {
     // Individual course landing pages
     let slug = course.slug
@@ -108,6 +108,7 @@ const createCourses = (school, courses, createPage) => {
           lecture: lecture,
           allLectures: allCourseLectures,
           school: school,
+          mdxLectures: mdxLectures
         },
       });
     });

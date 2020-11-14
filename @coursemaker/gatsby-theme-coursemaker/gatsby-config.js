@@ -231,9 +231,10 @@ const strapiPluginOrFake = () => {
         contentTypes: [`site-build`, `school`, `lecture`],
         // Possibility to login with a strapi user, when content types are not publically available (optional).
         loginData: {
-          identifier: "test@test.com",
-          password: "password",
+          identifier: process.env.GATSBY_TEST_STRAPI_USER,
+          password: process.env.GATSBY_TEST_STRAPI_PASSWORD,
         },
+        plugins: [`gatsby-strapi-source-transformer`],
       },
     }
   } else {

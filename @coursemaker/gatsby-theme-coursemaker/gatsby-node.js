@@ -229,34 +229,6 @@ exports.onCreateNode = (
   const { coursesPath } = withDefaults(themeOptions);
   const { createNode, createParentChildLink } = actions;
 
-  if (node.internal.type == 'StrapiSiteBuild') {
-    console.log(node)
-    // convert lectures to MDX
-    // TODO apply to all courses + sections, this is a PoC
-    node[0].school.courses[0].sections[0].lectures.forEach(lecture => {
-      console.log(lecture)
-      const newNode = {
-        id: createNodeId(`TEST-${lecture.id}`),
-        parent: node.id,
-        children: [],
-        internal: {
-          content: lecture.body_markdown || " ",
-          type: "CHRIS_TEST",
-          mediaType: "text/markdown",
-          contentDigest: crypto
-              .createHash("md5")
-              .update(lecture.body_markdown || " ")
-              .digest("hex"),
-        },
-      };
-      actions.createNode(newNode);
-      actions.createParentChildLink({
-        parent: node,
-        child: newNode,
-      });
-    })
-  }
-
   // Make sure it's an MDX node
   if (node.internal.type !== `Mdx`) {
     return;
@@ -385,8 +357,8 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
   const { useStrapi } = withDefaults(themeOptions);
 
   const dataSources = {
-    local: { authors: [], courses: [], school: {} },
-    cms: { authors: [], courses: [], school: {} },
+    local: { authors: [], courses: [], school: {}, mdxLectures: {} },
+    cms: { authors: [], courses: [], school: {}, mdxLectures: {} },
   };
   console.log("use strapi: " + useStrapi);
   if (useStrapi === "true") {
@@ -419,6 +391,19 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
           strapiLecture(strapiId: {eq: 1}) {
             body_markdown
             title
+          }
+          allStrapiMdxLecture {
+            edges {
+              node {
+                id
+                childMdx {
+                  body
+                }
+                parent {
+                  id
+                }
+              }
+            }
           }
         }
       `
@@ -505,6 +490,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
       // );
       // dataSources.cms.school = cmsData.data.cms.siteBuild.school;
 
+      dataSources.cms.mdxLectures = cmsData.data.allStrapiMdxLecture.edges[0].node
       cmsData.data.allStrapiSiteBuild.edges[0].node._0.school.useAuth = false;
       cmsData.data.allStrapiSiteBuild.edges[0].node._0.school.enablePayments = false;
       dataSources.cms.courses = cmsData.data.allStrapiSiteBuild.edges[0].node._0.school.courses.map(
@@ -637,13 +623,19 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
 
   // school object is precise, however.
   let liveSchool;
-  if (useStrapi === "true") liveSchool = dataSources.cms.school;
-  else liveSchool = dataSources.local.school;
+  let mdxLectures;
+  if (useStrapi === "true") {
+    liveSchool = dataSources.cms.school;
+    mdxLectures = dataSources.cms.mdxLectures;
+  } else {
+    liveSchool = dataSources.local.school;
+    mdxLectures = [];
+  }
 
   createSchool(liveSchool, allCourses, createPage);
 
   // course page creation is permissive
-  createCourses(liveSchool, allCourses, createPage);
+  createCourses(liveSchool, allCourses, mdxLectures, createPage);
 
   // Create course list page
   createPage({

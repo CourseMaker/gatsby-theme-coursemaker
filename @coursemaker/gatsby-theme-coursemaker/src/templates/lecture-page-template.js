@@ -19,6 +19,12 @@ const Lecture = ({ pageContext = {} }) => {
   });
   const currentCourse = pageContext.course;
   const lecture = pageContext.lecture;
+  const mdxLecture = pageContext.mdxLectures;
+  console.log(pageContext)
+  let elMdx;
+  if (mdxLecture) {
+    elMdx = mdxLecture.childMdx.body;
+  }
 
   let allLectures;
   if (currentCourse == null || currentCourse?.sections === undefined || currentCourse?.sections.length == 0) {
@@ -52,7 +58,7 @@ const Lecture = ({ pageContext = {} }) => {
     // local source
     lecture_body = <MDXRenderer>{lecture.body}</MDXRenderer>;
   // strapi
-  else lecture_body = <MDXRenderer>{lecture.body_markdown}</MDXRenderer>;
+  else lecture_body = <MDXRenderer>{elMdx}</MDXRenderer>;
 
   const addLectureToComplete = async (lecture) => {
     let state = readLocalStorage(currentCourse.slug);
