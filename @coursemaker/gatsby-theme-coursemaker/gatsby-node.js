@@ -376,6 +376,20 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                   courses {
                     id
                     title
+                    school_prices {
+                      active
+                      currency
+                      name
+                      product_type
+                      product_type_readable
+                      recurring_interval
+                      recurring_interval_count
+                      unit_amount
+                      unit_amount_readable
+                      courses {
+                        id
+                      }
+                    }
                     author_display {
                       title
                       description
@@ -441,6 +455,9 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
       cmsData.data.cms.siteBuild.school.enablePayments = false;
       dataSources.cms.courses = cmsData.data.cms.siteBuild.school.courses.map(
         normalize.normalizeImageUrl
+      );
+      dataSources.cms.courses = cmsData.data.cms.siteBuild.school.courses.map(
+          normalize.normalizePrices
       );
       dataSources.cms.school = cmsData.data.cms.siteBuild.school;
     } catch (error) {

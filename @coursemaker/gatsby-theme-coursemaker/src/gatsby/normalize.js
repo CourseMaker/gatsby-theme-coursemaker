@@ -12,6 +12,22 @@ exports.normalizeImageUrl = (course) => {
   return course;
 };
 
+exports.normalizePrices = (course) => {
+  let priceInfo = {};
+  if (course.school_prices == null) {
+    course.price_info = priceInfo;
+    return course;
+  }
+
+  course.school_prices.map(price => {
+    if (price.courses[0].id == course.id && price.active) {
+      priceInfo = price;
+    }
+  });
+  course.price_info = priceInfo;
+  return course;
+}
+
 module.exports.local = {
   courses: ({ node: course }) => {
     return { ...course };
