@@ -2,12 +2,10 @@
 import { jsx } from "theme-ui";
 import { useState } from "react";
 import { Link } from "gatsby";
-// import { useLocation } from "@reach/router";
 
 import { logout, isAuthenticated } from "../auth/auth";
 
 const Header = ({ school }) => {
-  // const { pathname } = useLocation();
 
   let homeLinks = [
     ["Overview", "#overview"],

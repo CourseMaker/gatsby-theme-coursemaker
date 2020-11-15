@@ -5,13 +5,13 @@ import Layout from "../components/layout";
 import Button from "../components/button";
 import Section from "../components/section";
 import Author from "../components/author";
+import CTA from "../components/cta";
 import CourseVideo from "../components/video_course";
 import LandingImage from "../components/image_landing";
 
-const CourseLandingPage = ({ pageContext = {} /*data*/ }) => {
+const CourseLandingPage = ({ pageContext = {} }) => {
   const course = pageContext.course;
   const cta_section = course?.cta_section;
-  console.log(course)
   const { author_display } = course;
 
   return (
@@ -58,9 +58,7 @@ const CourseLandingPage = ({ pageContext = {} /*data*/ }) => {
             <div className="leading-loose text-left text-gray-700 space-y-6">
               <ReactMarkdown source={course.description} />
             </div>
-            <div className="mt-8 btn-wrapper">
-              <Button text="Purchase" to="./checkout" />
-            </div>
+            {<CTA priceInfo={course.price_info} />}
           </div>
         </div>
       </section>

@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button renders correctly 1`] = `
+<a
+  className="btn btn-lg css-1v6n45o-Button"
+  href="/"
+/>
+`;

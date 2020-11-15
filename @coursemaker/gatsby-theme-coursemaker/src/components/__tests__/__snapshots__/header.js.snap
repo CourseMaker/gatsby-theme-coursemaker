@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header renders correctly 1`] = `
+<header
+  className="sticky top-0 z-20 shadow-md css-186uef-Header"
+>
+  <div
+    className="container mx-auto"
+  >
+    <div
+      className="flex flex-wrap items-center lg:h-24"
+    >
+      <a
+        className="inline-flex items-center h-24 text-lg logo lg:h-auto"
+        href="/"
+      >
+        <span
+          className="font-semibold"
+        >
+          dsacademy2
+        </span>
+      </a>
+      <nav
+        className="items-center order-3 w-full ml-auto list-none lg:flex lg:space-y-0 space-y-3 
+						lg:space-x-6 lg:order-1 lg:w-auto py-8 lg:py-0 border-t lg:border-t-0 border-white border-opacity-25 
+						hidden"
+      >
+        <li>
+          <a
+            className=""
+            href="/"
+          >
+            Home
+          </a>
+        </li>
+        <li>
+          <a
+            className=""
+            href="/courses"
+          >
+            My Courses
+          </a>
+        </li>
+        <li>
+          <a
+            className=""
+            href="/"
+            onClick={[Function]}
+          >
+            Logout
+          </a>
+        </li>
+      </nav>
+      <button
+        className="block w-8 h-6 ml-auto cursor-pointer lg:hidden burger-menu 
+						"
+        onClick={[Function]}
+        tabIndex={0}
+      >
+        <div
+          className="bar"
+        />
+        <div
+          className="bar"
+        />
+        <div
+          className="bar"
+        />
+      </button>
+    </div>
+  </div>
+</header>
+`;
