@@ -72,7 +72,7 @@ export const isAuthenticated = () => {
     return;
   }
 
-  if (!process.env.GATSBY_ENABLE_AUTH != "true"){
+  if (process.env.GATSBY_ENABLE_AUTH != "true"){
     return true;
   }
 

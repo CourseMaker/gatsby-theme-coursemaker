@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { navigate } from "gatsby";
 import Layout from "../components/layout-payment";
 import Checkout from "../components/checkout";
+import {isAuthenticated} from "../auth/auth";
 
 const CoursePaymentPage = ({ pageContext = {} }) => {
   // TODO: pass course price from front matter
   // TODO: pass stripe key from site config
+  useEffect(() => {
+    if (!isAuthenticated()) navigate("/login");
+  });
   const course = pageContext.course;
   const school = pageContext.school;
   const priceInfo = course.price_info;
