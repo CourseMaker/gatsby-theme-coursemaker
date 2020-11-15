@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CTA renders correctly for membership purchase 1`] = `
+<div
+  className="mt-8 btn-wrapper"
+>
+  <a
+    className="btn btn-lg css-1v6n45o-Button"
+    href="./checkout"
+    text="Purchase Membership2"
+  >
+    Purchase Membership2
+  </a>
+</div>
+`;
+
+exports[`CTA renders correctly for one-time purchase 1`] = `
+<div
+  className="mt-8 btn-wrapper"
+>
+  <a
+    className="btn btn-lg css-1v6n45o-Button"
+    href="./checkout"
+    text="Purchase Course"
+  >
+    Purchase Course
+  </a>
+</div>
+`;
