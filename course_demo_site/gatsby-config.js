@@ -8,7 +8,8 @@ const useStrapi = process.env.GATSBY_USE_STRAPI;
 
 description_string =
   "Learn everything you need to know to use the @coursemaker/gatsby-theme-coursemaker \n" +
-  "Including how to setup gated content and payments.";
+  "*Including how to setup gated content and payments* \n + " +
+    "### here's a test H3";
 
 cta_description_string =
   "There has never been an easier way to make an online course. \n" +

@@ -373,6 +373,52 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                     email
                   }
                   external_id
+                  privacy_policy
+                  terms_and_conditions
+                  schoolThemeStyle {
+                    primaryColor
+                    secondaryColor
+                  }
+                  settings {
+                    google_analytics_tracking_id
+                  }
+                  favicon {
+                    url
+                  }
+                  landing_page {
+                    title
+                    subtitle
+                    initialCTA {
+                      color
+                      link
+                      text
+                      textColor
+                    }
+                    video_id
+                    image {
+                      url
+                    }
+                    overviewHeading
+                    overviewBody
+                    overviewCTA {
+                      color
+                      link
+                      text
+                      textColor
+                    }
+                    testimonialsHeading
+                    testimonialsBody
+                    faqHeading
+                    faqBody
+                    closingCTA {
+                      color
+                      link
+                      text
+                      textColor
+                    }
+                    contactHeading
+                    contactBody
+                  }
                   courses {
                     id
                     title
@@ -391,9 +437,11 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                       }
                     }
                     author_display {
+                      id
                       title
                       description
                       subtitle
+                      display
                       photo {
                         url
                       }
@@ -420,28 +468,6 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                         }
                       }
                     }
-                  }
-                  landing_page {
-                    contact_email
-                    title_and_description {
-                      description
-                      title
-                    }
-                    primary_button {
-                      text
-                      color
-                      text_color
-                    }
-                    cta_section {
-                      title
-                      description
-                    }
-                    cta_button {
-                      text
-                      color
-                      text_color
-                    }
-                    video_id
                   }
                 }
               }
@@ -493,6 +519,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                   title: name
                   description: bio
                   subtitle
+                  display
                   photo: author_image {
                     childImageSharp {
                       fluid(maxWidth: 500, quality: 100) {

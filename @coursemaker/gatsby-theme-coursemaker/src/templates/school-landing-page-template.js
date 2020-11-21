@@ -1,34 +1,68 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
+import ReactMarkdown from "react-markdown";
 
 import Layout from "../components/layout";
 import Button from "../components/button";
 import Courses from "../components/courses";
+import Author from "../components/author";
+import React from "react";
+
+// TODO: CTA button defaults
+// "/#courses"
+
+// TODO: add video/image
 
 const SchoolLandingPage = ({ pageContext = {} }) => {
+  const school = pageContext.school;
   const passedCourses = pageContext.courses;
-  const landingPage = pageContext.school.landing_page;
+  const landingPage = school?.landing_page;
+  console.log(pageContext);
 
-  const title = pageContext.school.name;
-  const description = landingPage?.title_and_description?.description;
-  const primary_button = pageContext.school.landing_page?.primary_button;
-  const cta_button = landingPage?.cta_button;
-  const cta_section_title = landingPage?.cta_section?.title;
-  const cta_section_description = landingPage?.cta_section?.description;
-  const contactEmail = pageContext.school?.landing_page?.contact_email;
+  // Section 1 - Intro
+  const title = (landingPage) ? landingPage.title : school.name;
+  const subtitle = landingPage?.subtitle;
+  const initialCTA = landingPage?.initialCTA;
+
+  // Section 2 - Media
+  const videoId = landingPage?.video_id;
+  const imageId = landingPage?.image;
+
+  // Section 3 - Overview
+  const overviewHeading = landingPage?.overviewHeading;
+  const overviewBody = landingPage?.overviewBody;  // markdown
+  const overviewCTA = landingPage?.overviewCTA;
+
+  // Section 4: Courses
+
+  // Section 5 - Testimonials
+  const testimonialsHeading = landingPage?.testimonialsHeading;
+  const testimonialsBody = landingPage?.testimonialsBody;  // markdown
+
+  // Section 6 - FAQ
+  const faqHeading = landingPage?.faqHeading;
+  const faqBody = landingPage?.faqBody;  // markdown
+
+  // Section 7 - CTA
+  const closingCTA = landingPage?.closingCTA;
+
+  // Section 8 - Contact
+  const contactHeading = landingPage?.contactHeading;
+  const contactBody = landingPage?.contactBody;
 
   return (
     <Layout pageContext={pageContext}>
       <section className="py-8 pb-8 text-center md:pt-30">
         <div className="container">
           <h1 className="mb-4">{title}</h1>
+          <h3 className="mb-4">{subtitle}</h3>
           <p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12" />
 
           <Button
-            to="/#courses"
-            text={primary_button.text}
-            color={primary_button.color}
-            text_color={primary_button.text_color}
+            to={initialCTA?.link}
+            text={initialCTA?.text}
+            color={initialCTA?.color}
+            text_color={initialCTA?.textColor}
             variant="primary"
           />
 
@@ -52,70 +86,78 @@ const SchoolLandingPage = ({ pageContext = {} }) => {
         </div>
       </section>
 
+      {overviewHeading &&
       <section id="overview" className="py-8 text-center bg-gray-100 md:py-24">
         <div className="container">
           <div className="mx-auto inner lg:w-7/12">
-            <h2 className="mb-4 lg:mb-6">Overview</h2>
+            <h2 className="mb-4 lg:mb-6">{overviewHeading}</h2>
             <div className="leading-loose text-gray-700 space-y-6">
-              <p>{description}</p>
+              <ReactMarkdown source={overviewBody}/>
             </div>
             <div className="mt-8 btn-wrapper">
               <Button
-                to="/#courses"
-                text={primary_button.text}
-                color={cta_button.color}
-                text_color={cta_button.text_color}
-                variant="primary"
+                  to={overviewCTA?.link}
+                  text={overviewCTA?.text}
+                  color={overviewCTA?.color}
+                  text_color={overviewCTA?.textColor}
+                  variant="primary"
               />
             </div>
           </div>
         </div>
       </section>
+      }
 
       <Courses courses={passedCourses} />
 
-      {/*
-      <section
-        id="author"
-        className="py-8 text-center text-white bg-gray-900 lg:py-24"
-      >
+      {testimonialsHeading &&
+      <section id="testimonials" className="py-8 text-center bg-gray-100 md:py-24">
         <div className="container">
-          <div className="mx-auto inner lg:w-5/12">
-            <h2 className="mb-4 md:mb-6">{cta_section.title}</h2>
-            <div className="leading-loose text-gray-200 space-y-6">
-              <p>{cta_section.description}</p>
-            </div>
-            <div className="mt-8 btn-wrapper">
-              <Button
-                to="/#courses"
-                text={cta_button.text}
-                color={cta_button.color}
-                text_color={cta_button.text_color}
-                variant="secondary"
-              />
+          <div className="mx-auto inner lg:w-7/12">
+            <h2 className="mb-4 lg:mb-6">{testimonialsHeading}</h2>
+            <div className="leading-loose text-gray-700 space-y-6">
+              <ReactMarkdown source={testimonialsBody}/>
             </div>
           </div>
         </div>
       </section>
-      */}
+      }
+
+      {faqHeading &&
+      <section id="faqs" className="py-8 text-center bg-gray-100 md:py-24">
+        <div className="container">
+          <div className="mx-auto inner lg:w-7/12">
+            <h2 className="mb-4 lg:mb-6">{faqHeading}</h2>
+            <div className="leading-loose text-gray-700 space-y-6">
+              <ReactMarkdown source={faqBody}/>
+            </div>
+          </div>
+        </div>
+      </section>
+      }
+
+      {closingCTA && (
+          <section
+              id="cta"
+              className="py-8 text-center text-white bg-gray-900 lg:py-24"
+          >
+            <div className="container">
+              <div className="mx-auto inner lg:w-6/12">
+                <Button text="Purchase" to="./checkout" />
+              </div>
+            </div>
+          </section>
+      )}
 
       <section className="py-16 text-center bg-gray-100 md:py-24">
         <div className="container">
           <div className="mx-auto inner lg:w-5/12">
             <h2 className="mb-4 md:mb-6">Questions?</h2>
             <div className="text-xl text-gray-700 space-y-6">
-              {contactEmail && (
+              {contactHeading && (
               <p>
-                <span>Any questions? Send an email to</span>
+                <span>{contactHeading}</span>
                 <br />
-                  <a
-                    href={`mailto:${contactEmail}`}
-                    sx={{
-                      color: "primary",
-                    }}
-                  >
-                    {contactEmail}
-                  </a>
               </p>
               )}
             </div>

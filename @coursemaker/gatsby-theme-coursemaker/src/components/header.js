@@ -4,7 +4,8 @@ import { Link } from "gatsby";
 import { jsx } from "theme-ui";
 import { logout, isAuthenticated } from "../auth/auth";
 
-
+// style variant
+// https://dev.to/pagepro_agency/how-to-build-gatsby-theme-with-theme-ui-2b94
 const Header = ({ school }) => {
 
   let homeLinks = [

@@ -8,16 +8,19 @@ const Card = ({ course }) => {
     ? course.slug
     : "/" + slugify(course.title, { strict: true, lower: true });
   const courseAuthor = course.author_display?.title || "";
-
+  console.log(course)
   let courseImage;
-  if (course.course_image == null)
+  if (course.course_image == null || course.course_image == undefined || course.course_image?.url == "") {
     // default
-    courseImage = { src: "https://picsum.photos/300/300" };
-  else if (course.course_image.childImageSharp != null)
-    courseImage = course.course_image.childImageSharp.fluid;
-  else if (course.course_image.url)
+    courseImage = {src: "https://picsum.photos/300/300"};
+  } else if (course.course_image.childImageSharp != null) {
+    courseImage = course.course_image.childImageSharp?.fluid;
+  } else if (course.course_image.url) {
     // strapi hack
-    courseImage = { src: course.course_image.url };
+    courseImage = {src: course.course_image?.url};
+  }
+
+  console.log(courseImage)
 
   return (
     <Link
