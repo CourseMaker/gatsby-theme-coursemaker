@@ -4,15 +4,16 @@ import Img from "gatsby-image";
 
 /*...props*/
 const LandingImage = ({ landing }) => {
-  let courseImage;
-  if (landing == null)
+  console.log(landing);
+  let landingImage;
+  if (landing == null || landing == undefined || landing?.url == "")
     // default
-    courseImage = { src: "https://picsum.photos/300/300" };
+    landingImage = { src: "https://picsum.photos/300/300" };
   else if (landing.childImageSharp != null)
-    courseImage = landing.childImageSharp.fluid;
+    landingImage = landing.childImageSharp.fluid;
   else if (landing)
     // strapi hack
-    courseImage = { src: landing.url };
+    landingImage = { src: landing?.url };
 
   if (landing)
     return (
@@ -21,7 +22,7 @@ const LandingImage = ({ landing }) => {
           <div className="md:flex">
             <Img
               className="object-cover h-40 mx-auto lg:w-3/4"
-              fluid={courseImage}
+              fluid={landingImage}
               alt="cover image"
               imgStyle={{ objectPosition: "center", objectFit: "contain" }}
             />

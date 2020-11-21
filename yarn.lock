@@ -9824,13 +9824,6 @@ gatsby-remark-copy-linked-files@^2.3.12:
     probe-image-size "^5.0.0"
     unist-util-visit "^1.4.1"
 
-gatsby-remark-graph@^0.2.3:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/gatsby-remark-graph/-/gatsby-remark-graph-0.2.3.tgz#67c2f5d92f9ad117b7755ba7c26bf14df23ce72e"
-  integrity sha512-M2kmceKSVSFMVY5S0RHFbgXI/t6H7RiHvTwxq5xFdJTFJZqfPfhi6o4W/cEXR5A3GlOqXMJ6LBcLPb9dYgI6sQ==
-  dependencies:
-    unist-util-visit "^1.1.3"
-
 gatsby-remark-images@^3.3.27:
   version "3.3.31"
   resolved "https://registry.yarnpkg.com/gatsby-remark-images/-/gatsby-remark-images-3.3.31.tgz#3205529ead0f4a0520aee9c2235faaa71c1f5eeb"
@@ -10790,16 +10783,9 @@ graphql-type-json@^0.3.2:
   resolved "https://registry.yarnpkg.com/graphql-type-json/-/graphql-type-json-0.3.2.tgz#f53a851dbfe07bd1c8157d24150064baab41e115"
   integrity sha512-J+vjof74oMlCWXSvt0DOf2APEdZOCdubEvGDUAlqH//VBYcOYsGgRW7Xzorr44LvkjiuvecWc8fChxuZZbChtg==
 
-graphql@^14.6.0, "graphql@github:getcoursemaker/graphql-js#disable-validation-dist":
+graphql@^14.6.0, graphql@^14.7.0, "graphql@github:getcoursemaker/graphql-js#disable-validation-dist":
   version "14.6.0"
   resolved "https://codeload.github.com/getcoursemaker/graphql-js/tar.gz/3206475af69254b160379bf6a6beba9f9272ac34"
-  dependencies:
-    iterall "^1.2.2"
-
-graphql@^14.7.0:
-  version "14.7.0"
-  resolved "https://registry.yarnpkg.com/graphql/-/graphql-14.7.0.tgz#7fa79a80a69be4a31c27dda824dc04dac2035a72"
-  integrity sha512-l0xWZpoPKpppFzMfvVyFmp9vLN7w/ZZJPefUicMCepfJeQ8sMcztloGYY9DfjVPo6tIUDzU5Hw3MUbIjj9AVVA==
   dependencies:
     iterall "^1.2.2"
 
@@ -21270,7 +21256,7 @@ unist-util-visit@2.0.3, unist-util-visit@^2.0.0, unist-util-visit@^2.0.2:
     unist-util-is "^4.0.0"
     unist-util-visit-parents "^3.0.0"
 
-unist-util-visit@^1.0.0, unist-util-visit@^1.1.0, unist-util-visit@^1.1.3, unist-util-visit@^1.3.0, unist-util-visit@^1.4.1:
+unist-util-visit@^1.0.0, unist-util-visit@^1.1.0, unist-util-visit@^1.3.0, unist-util-visit@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/unist-util-visit/-/unist-util-visit-1.4.1.tgz#4724aaa8486e6ee6e26d7ff3c8685960d560b1e3"
   integrity sha512-AvGNk7Bb//EmJZyhtRUnNMEpId/AZ5Ph/KUpTI09WHQuDZHKovQ1oEv3mfmKpWKtoMzyMC4GLBm1Zy5k12fjIw==

@@ -8,7 +8,6 @@ const Card = ({ course }) => {
     ? course.slug
     : "/" + slugify(course.title, { strict: true, lower: true });
   const courseAuthor = course.author_display?.title || "";
-  console.log(course)
   let courseImage;
   if (course.course_image == null || course.course_image == undefined || course.course_image?.url == "") {
     // default
@@ -19,8 +18,6 @@ const Card = ({ course }) => {
     // strapi hack
     courseImage = {src: course.course_image?.url};
   }
-
-  console.log(courseImage)
 
   return (
     <Link

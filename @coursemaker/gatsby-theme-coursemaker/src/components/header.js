@@ -23,6 +23,14 @@ const Header = ({ school }) => {
     ];
   }
 
+  let themeStyles = school?.schoolThemeStyle;
+  if (!themeStyles) {
+    themeStyles = {
+      "primary": "green",
+      "secondary": "blue"
+    }
+  }
+
   const [toggle, setTogggle] = useState(false);
   const toggleHeader = () => {
     setTogggle(!toggle);
@@ -33,7 +41,7 @@ const Header = ({ school }) => {
           className="sticky top-0 z-20 shadow-md"
           sx={{
             color: "background",
-            backgroundColor: "primary",
+            backgroundColor: `primary_${themeStyles.primary}`,
           }}
       >
         <div className="container mx-auto">

@@ -57,14 +57,14 @@ module.exports = (themeOptions) => {
                   strict: `ignore`,
                 }
               },
-              {
-                resolve: 'gatsby-remark-graph',
-                options: {
-                  // this is the language in your code-block that triggers mermaid parsing
-                  language: 'mermaid', // default
-                  theme: 'default' // could also be dark, forest, or neutral
-                }
-              },
+              // {
+              //   resolve: 'gatsby-remark-graph',
+              //   options: {
+              //     // this is the language in your code-block that triggers mermaid parsing
+              //     language: 'mermaid', // default
+              //     theme: 'default' // could also be dark, forest, or neutral
+              //   }
+              // },
               { resolve: `gatsby-remark-copy-linked-files` },
               { resolve: `gatsby-remark-smartypants` },
 
@@ -75,16 +75,16 @@ module.exports = (themeOptions) => {
         {
         resolve: 'gatsby-transformer-remark',
         options: {
-          plugins: [
-            {
-              resolve: 'gatsby-remark-graph',
-              options: {
-                // this is the language in your code-block that triggers mermaid parsing
-                language: 'mermaid', // default
-                theme: 'default' // could also be dark, forest, or neutral
-              }
-            }
-          ]
+          // plugins: [
+          //   {
+          //     resolve: 'gatsby-remark-graph',
+          //     options: {
+          //       // this is the language in your code-block that triggers mermaid parsing
+          //       language: 'mermaid', // default
+          //       theme: 'default' // could also be dark, forest, or neutral
+          //     }
+          //   }
+          // ]
         }
       },
       {

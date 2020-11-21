@@ -2,8 +2,10 @@ export default {
   colors: {
     primary_green: "#48bb78",
     primary_blue: "#3366ff",
+    primary_white: "#ffffff",
     secondary_green: "#48bb78",
     secondary_blue: "#3366ff",
+    secondary_white: "#ffffff",
     muted: "grey",
     text: "purple",
     background: "white",

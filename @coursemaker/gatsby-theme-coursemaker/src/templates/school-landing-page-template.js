@@ -7,9 +7,14 @@ import Button from "../components/button";
 import Courses from "../components/courses";
 import Author from "../components/author";
 import React from "react";
+import CourseVideo from "../components/video_course";
+import LandingImage from "../components/image_landing";
 
-// TODO: CTA button defaults
+// TODO: CTA button defaults (initial and overview)
 // "/#courses"
+// primary defaults
+// footer colors
+// rename course video ID using landing page for video_course component
 
 // TODO: add video/image
 
@@ -17,12 +22,26 @@ const SchoolLandingPage = ({ pageContext = {} }) => {
   const school = pageContext.school;
   const passedCourses = pageContext.courses;
   const landingPage = school?.landing_page;
-  console.log(pageContext);
+  let themeStyles = school?.schoolThemeStyle;
+  if (!themeStyles) {
+    themeStyles = {
+      "primary": "green",
+      "secondary": "blue"
+    }
+  }
 
   // Section 1 - Intro
   const title = (landingPage) ? landingPage.title : school.name;
   const subtitle = landingPage?.subtitle;
-  const initialCTA = landingPage?.initialCTA;
+  let initialCTA = landingPage?.initialCTA;
+  if (!initialCTA){
+    initialCTA = {
+      "text": "View Courses",
+      "color": "green",
+      "link": "/#courses",
+      "textColor": "white"
+    }
+  }
 
   // Section 2 - Media
   const videoId = landingPage?.video_id;
@@ -49,6 +68,7 @@ const SchoolLandingPage = ({ pageContext = {} }) => {
   // Section 8 - Contact
   const contactHeading = landingPage?.contactHeading;
   const contactBody = landingPage?.contactBody;
+  console.log(landingPage)
 
   return (
     <Layout pageContext={pageContext}>
@@ -63,7 +83,7 @@ const SchoolLandingPage = ({ pageContext = {} }) => {
             text={initialCTA?.text}
             color={initialCTA?.color}
             text_color={initialCTA?.textColor}
-            variant="primary"
+            variant={`primary_${themeStyles.primary}`}
           />
 
           <div className="mt-12 scroll-to">
@@ -106,6 +126,11 @@ const SchoolLandingPage = ({ pageContext = {} }) => {
           </div>
         </div>
       </section>
+      }
+
+      {/*{<CourseVideo course={course} />}*/}
+      {landingPage?.image?.url &&
+        <LandingImage landing={landingPage?.image} />
       }
 
       <Courses courses={passedCourses} />
