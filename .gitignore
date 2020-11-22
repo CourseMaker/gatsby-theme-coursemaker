@@ -109,3 +109,6 @@ public
 .DS_Store
 
 my_notes/
+
+# Local Netlify folder
+.netlify
