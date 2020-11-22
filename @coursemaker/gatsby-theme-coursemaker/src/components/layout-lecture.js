@@ -46,7 +46,7 @@ const LayoutLecture = ({
           <div className="lg:w-9/12">
             {children}
             <div className="hidden lg:block">
-              <Footer />
+              <Footer school={pageContext.school} />
             </div>
           </div>
 

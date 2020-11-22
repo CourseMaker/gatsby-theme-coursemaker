@@ -17,7 +17,7 @@ const Layout = ({ children, pageContext }) => (
     >
       This site uses cookies ...
     </CookieConsent>
-    <Footer />
+    <Footer school={pageContext.school}/>
   </>
 );
 

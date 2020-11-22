@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer renders correctly 1`] = `
+<footer
+  className="py-8 text-sm css-t471a7-Footer"
+>
+  <div
+    className="container"
+  >
+    <div
+      className="flex justify-between"
+    >
+      <p
+        className="text-center text-gray-500"
+      >
+        Powered by
+        <a
+          className="font-bold css-dqoh9t-Footer"
+          href="https://coursemaker.org"
+        >
+           
+          CourseMaker
+        </a>
+      </p>
+      <div
+        className="flex ml-auto text-gray-500 space-x-5"
+      >
+        <a
+          className="css-dqoh9t-Footer"
+          href="/terms"
+        >
+          Terms
+        </a>
+        <a
+          className="css-dqoh9t-Footer"
+          href="/privacy"
+        >
+          Privacy
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+`;

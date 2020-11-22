@@ -2,7 +2,7 @@
 
 exports[`Header renders correctly 1`] = `
 <header
-  className="sticky top-0 z-20 shadow-md css-186uef-Header"
+  className="sticky top-0 z-20 shadow-md css-jmaku1-Header"
 >
   <div
     className="container mx-auto"

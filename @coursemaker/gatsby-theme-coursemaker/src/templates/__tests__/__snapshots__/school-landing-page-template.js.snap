@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CoursePaymentPage displays membership purchase text 1`] = `
+exports[`SchoolLandingPage renders correctly 1`] = `
 Array [
   <header
     className="sticky top-0 z-20 shadow-md css-jmaku1-Header"
@@ -73,45 +73,73 @@ Array [
   </header>,
   <main>
     <section
-      className="py-16 pb-8 text-center md:pt-24"
+      className="py-8 pb-8 text-center md:pt-30"
     >
       <div
         className="container"
       >
         <h1
           className="mb-4"
+        />
+        <h3
+          className="mb-4"
+        />
+        <p
+          className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12"
+        />
+        <a
+          className="btn btn-lg css-i9sah9-Button"
+          href="/#courses"
+          text="View Courses"
         >
-          Testing and Monitoring Machine Learning Models
-        </h1>
+          View Courses
+        </a>
+        <div
+          className="mt-12 scroll-to"
+        >
+          <svg
+            className="block w-6 mx-auto"
+            data-name="Layer 1"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M20.59 7.66l-8.69 8.68-8.49-8.48"
+              fill="none"
+              stroke="#999"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+            />
+          </svg>
+        </div>
       </div>
+    </section>
+    <p>
+      No courses available
+    </p>
+    <section
+      className="py-16 text-center bg-gray-100 md:py-24"
+    >
       <div
         className="container"
       >
-        <h3
-          className="mb-4"
+        <div
+          className="mx-auto inner lg:w-5/12"
         >
-           
-          $19.95
-        </h3>
+          <h2
+            className="mb-4 md:mb-6"
+          >
+            Questions?
+          </h2>
+          <div
+            className="text-xl text-gray-700 space-y-6"
+          />
+          <div
+            className="mt-8 btn-wrapper"
+          />
+        </div>
       </div>
-      <button
-        disabled={false}
-        onClick={[Function]}
-        style={
-          Object {
-            "backgroundColor": "rgb(255, 178, 56)",
-            "borderRadius": "6px",
-            "boxShadow": "2px 5px 10px rgba(0,0,0,.1)",
-            "color": "#000",
-            "fontSize": "13px",
-            "letterSpacing": "1.5px",
-            "padding": "12px 60px",
-            "textAlign": "center",
-          }
-        }
-      >
-        Purchase Course
-      </button>
     </section>
   </main>,
   <div
@@ -211,7 +239,7 @@ Array [
 ]
 `;
 
-exports[`CoursePaymentPage handles inactive price 1`] = `
+exports[`SchoolLandingPage renders correctly with missing fields 1`] = `
 Array [
   <header
     className="sticky top-0 z-20 shadow-md css-jmaku1-Header"
@@ -284,258 +312,94 @@ Array [
   </header>,
   <main>
     <section
-      className="py-16 pb-8 text-center md:pt-24"
+      className="py-8 pb-8 text-center md:pt-30"
     >
       <div
         className="container"
       >
         <h1
           className="mb-4"
-        >
-          Testing and Monitoring Machine Learning Models
-        </h1>
-      </div>
-      <div
-        className="container"
-      >
+        />
         <h3
           className="mb-4"
-        >
-          
-           
-          
-        </h3>
-      </div>
-      <button
-        disabled={false}
-        onClick={[Function]}
-        style={
-          Object {
-            "backgroundColor": "rgb(255, 178, 56)",
-            "borderRadius": "6px",
-            "boxShadow": "2px 5px 10px rgba(0,0,0,.1)",
-            "color": "#000",
-            "fontSize": "13px",
-            "letterSpacing": "1.5px",
-            "padding": "12px 60px",
-            "textAlign": "center",
-          }
-        }
-      >
-        Purchase Course
-      </button>
-    </section>
-  </main>,
-  <div
-    className="CookieConsent"
-    style={
-      Object {
-        "alignItems": "baseline",
-        "background": "#353535",
-        "bottom": "0",
-        "color": "white",
-        "display": "flex",
-        "flexWrap": "wrap",
-        "justifyContent": "space-between",
-        "left": "0",
-        "position": "fixed",
-        "width": "100%",
-        "zIndex": "999",
-      }
-    }
-  >
-    <div
-      className=""
-      style={
-        Object {
-          "flex": "1 0 300px",
-          "margin": "15px",
-        }
-      }
-    >
-      This site uses cookies ...
-    </div>
-    <div
-      className=""
-    >
-      <button
-        className=""
-        id="rcc-confirm-button"
-        onClick={[Function]}
-        style={
-          Object {
-            "background": "#ffd42d",
-            "border": "0",
-            "borderRadius": "0px",
-            "boxShadow": "none",
-            "color": "black",
-            "cursor": "pointer",
-            "flex": "0 0 auto",
-            "margin": "15px",
-            "padding": "5px 10px",
-          }
-        }
-      >
-        Accept
-      </button>
-    </div>
-  </div>,
-  <footer
-    className="py-8 text-sm css-t471a7-Footer"
-  >
-    <div
-      className="container"
-    >
-      <div
-        className="flex justify-between"
-      >
+        />
         <p
-          className="text-center text-gray-500"
+          className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12"
+        />
+        <a
+          className="btn btn-lg css-i9sah9-Button"
+          href="/#courses"
+          text="View Courses"
         >
-          Powered by
-          <a
-            className="font-bold css-dqoh9t-Footer"
-            href="https://coursemaker.org"
-          >
-             
-            CourseMaker
-          </a>
-        </p>
+          View Courses
+        </a>
         <div
-          className="flex ml-auto text-gray-500 space-x-5"
+          className="mt-12 scroll-to"
         >
-          <a
-            className="css-dqoh9t-Footer"
-            href="/terms"
+          <svg
+            className="block w-6 mx-auto"
+            data-name="Layer 1"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            Terms
-          </a>
-          <a
-            className="css-dqoh9t-Footer"
-            href="/privacy"
-          >
-            Privacy
-          </a>
+            <path
+              d="M20.59 7.66l-8.69 8.68-8.49-8.48"
+              fill="none"
+              stroke="#999"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+            />
+          </svg>
         </div>
       </div>
-    </div>
-  </footer>,
-]
-`;
-
-exports[`CoursePaymentPage renders one-time purchase text correctly 1`] = `
-Array [
-  <header
-    className="sticky top-0 z-20 shadow-md css-jmaku1-Header"
-  >
-    <div
-      className="container mx-auto"
-    >
-      <div
-        className="flex flex-wrap items-center lg:h-24"
-      >
-        <a
-          className="inline-flex items-center h-24 text-lg logo lg:h-auto"
-          href="/"
-        >
-          <span
-            className="font-semibold"
-          >
-            dsacademy2
-          </span>
-        </a>
-        <nav
-          className="items-center order-3 w-full ml-auto list-none lg:flex lg:space-y-0 space-y-3 
-						lg:space-x-6 lg:order-1 lg:w-auto py-8 lg:py-0 border-t lg:border-t-0 border-white border-opacity-25 
-						hidden"
-        >
-          <li>
-            <a
-              className=""
-              href="/"
-            >
-              Home
-            </a>
-          </li>
-          <li>
-            <a
-              className=""
-              href="/courses"
-            >
-              My Courses
-            </a>
-          </li>
-          <li>
-            <a
-              className=""
-              href="/"
-              onClick={[Function]}
-            >
-              Logout
-            </a>
-          </li>
-        </nav>
-        <button
-          className="block w-8 h-6 ml-auto cursor-pointer lg:hidden burger-menu 
-						"
-          onClick={[Function]}
-          tabIndex={0}
-        >
-          <div
-            className="bar"
-          />
-          <div
-            className="bar"
-          />
-          <div
-            className="bar"
-          />
-        </button>
-      </div>
-    </div>
-  </header>,
-  <main>
+    </section>
+    <p>
+      No courses available
+    </p>
     <section
-      className="py-16 pb-8 text-center md:pt-24"
+      className="py-8 text-center bg-gray-100 md:py-24"
+      id="faqs"
     >
       <div
         className="container"
       >
-        <h1
-          className="mb-4"
+        <div
+          className="mx-auto inner lg:w-7/12"
         >
-          Testing and Monitoring Machine Learning Models
-        </h1>
+          <h2
+            className="mb-4 lg:mb-6"
+          >
+            test heading
+          </h2>
+          <div
+            className="leading-loose text-gray-700 space-y-6"
+          />
+        </div>
       </div>
+    </section>
+    <section
+      className="py-16 text-center bg-gray-100 md:py-24"
+    >
       <div
         className="container"
       >
-        <h3
-          className="mb-4"
+        <div
+          className="mx-auto inner lg:w-5/12"
         >
-          One-time purchase of: 
-           
-          $19.95
-        </h3>
+          <h2
+            className="mb-4 md:mb-6"
+          >
+            Questions?
+          </h2>
+          <div
+            className="text-xl text-gray-700 space-y-6"
+          />
+          <div
+            className="mt-8 btn-wrapper"
+          />
+        </div>
       </div>
-      <button
-        disabled={false}
-        onClick={[Function]}
-        style={
-          Object {
-            "backgroundColor": "rgb(255, 178, 56)",
-            "borderRadius": "6px",
-            "boxShadow": "2px 5px 10px rgba(0,0,0,.1)",
-            "color": "#000",
-            "fontSize": "13px",
-            "letterSpacing": "1.5px",
-            "padding": "12px 60px",
-            "textAlign": "center",
-          }
-        }
-      >
-        Purchase Course
-      </button>
     </section>
   </main>,
   <div
