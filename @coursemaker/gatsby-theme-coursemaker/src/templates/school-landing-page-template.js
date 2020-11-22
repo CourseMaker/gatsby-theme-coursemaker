@@ -68,7 +68,6 @@ const SchoolLandingPage = ({ pageContext = {} }) => {
   // Section 8 - Contact
   const contactHeading = landingPage?.contactHeading;
   const contactBody = landingPage?.contactBody;
-  console.log(landingPage)
 
   return (
     <Layout pageContext={pageContext}>
