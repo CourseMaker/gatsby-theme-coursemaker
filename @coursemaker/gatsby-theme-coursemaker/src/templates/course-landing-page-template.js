@@ -1,11 +1,9 @@
 import React from "react";
-import ReactMarkdown from "react-markdown";
 
 import Layout from "../components/layout";
 import Button from "../components/button";
 import Section from "../components/section";
 import Author from "../components/author";
-import CTA from "../components/cta";
 import LandingVideo from "../components/landing_page/landing-video";
 import LandingImage from "../components/image_landing";
 import {jsx} from "theme-ui";
@@ -18,6 +16,7 @@ const CourseLandingPage = ({ pageContext = {} }) => {
   const school = pageContext.school;
   const course = pageContext.course;
   const landingPage = course?.landing_page;
+  console.log(landingPage);
   let themeStyles = school?.schoolThemeStyle;
   if (!themeStyles) {
     themeStyles = {
@@ -29,6 +28,7 @@ const CourseLandingPage = ({ pageContext = {} }) => {
   // Section 1 - Intro
   const title = (landingPage) ? landingPage.title : course.title;
   const subtitle = landingPage?.subtitle;
+  console.log(landingPage);
   let initialCTA = landingPage?.initialCTA;
   if (!initialCTA){
     initialCTA = {

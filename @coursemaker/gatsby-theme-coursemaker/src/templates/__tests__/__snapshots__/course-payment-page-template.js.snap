@@ -147,6 +147,7 @@ Array [
       className=""
     >
       <button
+        aria-label="Accept cookies"
         className=""
         id="rcc-confirm-button"
         onClick={[Function]}
@@ -359,6 +360,7 @@ Array [
       className=""
     >
       <button
+        aria-label="Accept cookies"
         className=""
         id="rcc-confirm-button"
         onClick={[Function]}
@@ -571,6 +573,7 @@ Array [
       className=""
     >
       <button
+        aria-label="Accept cookies"
         className=""
         id="rcc-confirm-button"
         onClick={[Function]}

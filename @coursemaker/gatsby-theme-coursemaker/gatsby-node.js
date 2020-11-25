@@ -167,8 +167,18 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
         subtitle: { type: `String` },
         video_id: { type: `String` },
         price: { type: `Int` }, // price in cents
-        description_overview: { type: `String` },
-        description: { type: `String` },
+        initialCTAText: { type: `String` },
+        initialCTAColor: { type: `String` },
+        initialCTALink: { type: `String` },
+        initialCTATextColor: { type: `String` },
+        overviewHeading: { type: `String` },
+        overviewBody: { type: `String` },
+        overviewCTAText: { type: `String` },
+        overviewCTAColor: { type: `String` },
+        overviewCTALink: { type: `String` },
+        overviewCTATextColor: { type: `String` },
+        testimonialsHeading: { type: `String` },
+        testimonialsBody: { type: `String` },
         slug: {
           type: `String!`,
         },
@@ -212,7 +222,7 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
               ["slug"]
             ),
         },
-        course_image: {
+        courseImage: {
           type: `File`,
         },
       },
@@ -255,15 +265,26 @@ exports.onCreateNode = (
             basePath: coursesPath,
           });
       const fieldData = {
+        // landing page
         title: node.frontmatter.title,
         tags: node.frontmatter.tags,
         lastUpdated: node.frontmatter.lastUpdated,
-        course_image: node.frontmatter.courseImage,
-        video_id: node.frontmatter.VideoID,
+        courseImage: node.frontmatter.courseImage,
+        videoID: node.frontmatter.videoID,
         premium: node.frontmatter.premium,
         subtitle: node.frontmatter.subtitle,
-        description_overview: node.frontmatter.description_overview,
-        description: node.frontmatter.description,
+        initialCTAText: node.frontmatter.initialCTAText,
+        initialCTAColor: node.frontmatter.initialCTAColor,
+        initialCTALink: node.frontmatter.initialCTALink,
+        initialCTATextColor: node.frontmatter.initialCTATextColor,
+        overviewHeading: node.frontmatter.overviewHeading,
+        overviewBody: node.frontmatter.overviewBody,
+        overviewCTAText: node.frontmatter.overviewCTAText,
+        overviewCTAColor: node.frontmatter.overviewCTAColor,
+        overviewCTALink: node.frontmatter.overviewCTALink,
+        overviewCTATextColor: node.frontmatter.overviewCTATextColor,
+        testimonialsHeading: node.frontmatter.testimonialsHeading,
+        testimonialsBody: node.frontmatter.testimonialsBody,
         author: node.frontmatter.author,
         slug,
       };
@@ -529,6 +550,34 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
           allCourse {
             edges {
               node {
+                slug
+                title
+                id
+                subtitle
+                initialCTAText
+                initialCTAColor
+                initialCTALink
+                initialCTATextColor
+                videoID
+                courseImage {
+                  childImageSharp {
+                    fluid(maxWidth: 500, quality: 100) {
+                      base64
+                      aspectRatio
+                      src
+                      srcSet
+                      sizes
+                    }
+                  }
+                }
+                overviewHeading
+                overviewBody
+                overviewCTAText
+                overviewCTAColor
+                overviewCTALink
+                overviewCTATextColor
+                testimonialsHeading
+                testimonialsBody
                 sections: Sections {
                   lectures: Lectures {
                     id
@@ -542,9 +591,6 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                   title
                   slug
                 }
-                slug
-                title
-                id
                 author_display: author {
                   title: name
                   description: bio
@@ -559,18 +605,6 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                         srcSet
                         sizes
                       }
-                    }
-                  }
-                }
-                video_id
-                course_image {
-                  childImageSharp {
-                    fluid(maxWidth: 500, quality: 100) {
-                      base64
-                      aspectRatio
-                      src
-                      srcSet
-                      sizes
                     }
                   }
                 }

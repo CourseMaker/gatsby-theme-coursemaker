@@ -7,9 +7,9 @@ exports[`CTA renders correctly for membership purchase 1`] = `
   <a
     className="btn btn-lg css-1v6n45o-Button"
     href="./checkout"
-    text="Purchase Membership2"
+    text="Purchase Membership"
   >
-    Purchase Membership2
+    Purchase Membership
   </a>
 </div>
 `;

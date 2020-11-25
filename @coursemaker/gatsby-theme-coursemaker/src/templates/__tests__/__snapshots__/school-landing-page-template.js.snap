@@ -115,32 +115,39 @@ Array [
         </div>
       </div>
     </section>
-    <p>
-      No courses available
-    </p>
     <section
-      className="py-16 text-center bg-gray-100 md:py-24"
+      className="pt-16 bg-gray-100 lg:pt-32"
+      id="video"
     >
       <div
         className="container"
       >
         <div
-          className="mx-auto inner lg:w-5/12"
+          className="mx-auto lg:w-9/12"
         >
-          <h2
-            className="mb-4 md:mb-6"
+          <div
+            className="shadow-xl md:shadow-2xl responsive-video"
           >
-            Questions?
-          </h2>
-          <div
-            className="text-xl text-gray-700 space-y-6"
-          />
-          <div
-            className="mt-8 btn-wrapper"
-          />
+            <div
+              className="bg-black video-wrapper"
+            >
+              <iframe
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen={true}
+                frameBorder="0"
+                height="315"
+                src="https://www.youtube.com/embed/test_url"
+                title="video"
+                width="560"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </section>
+    <p>
+      No courses available
+    </p>
   </main>,
   <div
     className="CookieConsent"
@@ -175,6 +182,7 @@ Array [
       className=""
     >
       <button
+        aria-label="Accept cookies"
         className=""
         id="rcc-confirm-button"
         onClick={[Function]}
@@ -378,29 +386,6 @@ Array [
         </div>
       </div>
     </section>
-    <section
-      className="py-16 text-center bg-gray-100 md:py-24"
-    >
-      <div
-        className="container"
-      >
-        <div
-          className="mx-auto inner lg:w-5/12"
-        >
-          <h2
-            className="mb-4 md:mb-6"
-          >
-            Questions?
-          </h2>
-          <div
-            className="text-xl text-gray-700 space-y-6"
-          />
-          <div
-            className="mt-8 btn-wrapper"
-          />
-        </div>
-      </div>
-    </section>
   </main>,
   <div
     className="CookieConsent"
@@ -435,6 +420,7 @@ Array [
       className=""
     >
       <button
+        aria-label="Accept cookies"
         className=""
         id="rcc-confirm-button"
         onClick={[Function]}
