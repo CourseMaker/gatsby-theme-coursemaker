@@ -165,7 +165,7 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
         id: { type: `ID!` },
         title: { type: `String!` },
         subtitle: { type: `String` },
-        course_video_id: { type: `String` },
+        video_id: { type: `String` },
         price: { type: `Int` }, // price in cents
         description_overview: { type: `String` },
         description: { type: `String` },
@@ -259,7 +259,7 @@ exports.onCreateNode = (
         tags: node.frontmatter.tags,
         lastUpdated: node.frontmatter.lastUpdated,
         course_image: node.frontmatter.courseImage,
-        course_video_id: node.frontmatter.courseVideoID,
+        video_id: node.frontmatter.VideoID,
         premium: node.frontmatter.premium,
         subtitle: node.frontmatter.subtitle,
         description_overview: node.frontmatter.description_overview,
@@ -562,7 +562,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                     }
                   }
                 }
-                course_video_id
+                video_id
                 course_image {
                   childImageSharp {
                     fluid(maxWidth: 500, quality: 100) {
@@ -613,12 +613,16 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
     dataSources.local.courses = localData.data.allCourse.edges.map(
       normalize.local.courses
     );
+    dataSources.local.courses = localData.data.allCourse.edges.map(
+        normalize.normalizeCourseLandingPage
+    );
+
   } catch (error) {
     reporter.panic("error loading docs", error);
   }
 
   // combine courses to pass to school for ease of debugging
-  allCourses = [...dataSources.local.courses, ...dataSources.cms.courses];
+  let allCourses = [...dataSources.local.courses, ...dataSources.cms.courses];
 
   // school object is precise, however.
   let liveSchool;

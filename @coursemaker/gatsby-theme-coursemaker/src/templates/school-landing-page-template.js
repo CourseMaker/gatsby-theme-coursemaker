@@ -6,7 +6,7 @@ import Layout from "../components/layout";
 import Button from "../components/button";
 import Courses from "../components/courses";
 import Author from "../components/author";
-import Video from "../components/video";
+import LandingVideo from "../components/landing_page/landing-video";
 import React from "react";
 import LandingImage from "../components/image_landing";
 import OverviewSection from "../components/landing_page/overview-section";
@@ -90,7 +90,7 @@ const SchoolLandingPage = ({ pageContext = {} }) => {
         </div>
       </section>
 
-      {<Video videoID={videoID} />}
+      {<LandingVideo videoID={videoID} />}
       {landingPage?.image?.url &&
         <LandingImage landing={landingPage?.image} />
       }

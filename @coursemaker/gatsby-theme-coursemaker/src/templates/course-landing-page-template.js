@@ -6,7 +6,7 @@ import Button from "../components/button";
 import Section from "../components/section";
 import Author from "../components/author";
 import CTA from "../components/cta";
-import Video from "../components/video";
+import LandingVideo from "../components/landing_page/landing-video";
 import LandingImage from "../components/image_landing";
 import {jsx} from "theme-ui";
 import OverviewSection from "../components/landing_page/overview-section";
@@ -95,7 +95,7 @@ const CourseLandingPage = ({ pageContext = {} }) => {
           </div>
         </section>
 
-      {<Video videoID={videoID} />}
+      {<LandingVideo videoID={videoID} />}
       {landingPage?.image?.url &&
         <LandingImage landing={landingPage?.image} />
       }

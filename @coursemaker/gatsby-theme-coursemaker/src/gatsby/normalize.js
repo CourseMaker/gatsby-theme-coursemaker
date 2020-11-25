@@ -28,6 +28,14 @@ exports.normalizePrices = (course) => {
   return course;
 }
 
+exports.normalizeCourseLandingPage = ({ node: course}) => {
+  let landing_page = {};
+  landing_page.video_id = course?.video_id;
+
+  course.landing_page = landing_page;
+  return course;
+}
+
 module.exports.local = {
   courses: ({ node: course }) => {
     return { ...course };
