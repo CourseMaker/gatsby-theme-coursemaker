@@ -80,7 +80,7 @@ const Lecture = ({ pageContext = {} }) => {
       currentCourse={currentCourse}
     >
       {/* video */}
-      {<Video lecture={lecture} />}
+      {<Video videoID={lecture?.video_id} />}
 
       {/* course header */}
       <div className="pt-5 border-b border-gray-300">

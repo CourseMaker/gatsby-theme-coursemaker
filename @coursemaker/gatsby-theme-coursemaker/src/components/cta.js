@@ -7,7 +7,7 @@ const CTA = ({priceInfo}) => {
   if (priceInfo?.product_type == 'single_course' && priceInfo?.active){
     ctaText = 'Purchase Course'
   } else if (priceInfo?.product_type == 'school_membership' && priceInfo?.active) {
-    ctaText = 'Purchase Membership2'
+    ctaText = 'Purchase Membership'
   }
 
   return (

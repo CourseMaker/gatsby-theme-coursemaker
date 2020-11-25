@@ -446,9 +446,39 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                         url
                       }
                     }
-                    course_video_id
-                    course_image {
-                      url
+                    landing_page {
+                      title
+                      subtitle
+                      initialCTA {
+                        color
+                        link
+                        text
+                        textColor
+                      }
+                      video_id
+                      image {
+                        url
+                      }
+                      overviewHeading
+                      overviewBody
+                      overviewCTA {
+                        color
+                        link
+                        text
+                        textColor
+                      }
+                      testimonialsHeading
+                      testimonialsBody
+                      faqHeading
+                      faqBody
+                      closingCTA {
+                        color
+                        link
+                        text
+                        textColor
+                      }
+                      contactHeading
+                      contactBody
                     }
                     sections {
                       id
