@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
-import ReactMarkdown from "react-markdown";
 
 import Layout from "../components/layout";
 import Button from "../components/button";

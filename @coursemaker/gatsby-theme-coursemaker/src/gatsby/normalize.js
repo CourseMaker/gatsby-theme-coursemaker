@@ -56,6 +56,17 @@ exports.normalizeCourseLandingPage = ({ node: course}) => {
   landing_page.testimonialsHeading = course?.testimonialsHeading;
   landing_page.testimonialsBody = course?.testimonialsBody;
 
+  //section 6
+  landing_page.faqHeading = course?.faqHeading;
+  landing_page.faqBody = course?.faqBody;
+  
+  // section 7
+  landing_page.closingCTA = {};
+  landing_page.closingCTA.text = course?.closingCTAText;
+  landing_page.closingCTA.color = course?.closingCTAColor;
+  landing_page.closingCTA.link = course?.closingCTALink;
+  landing_page.closingCTA.textColor = course?.closingCTATextColor;
+
   course.landing_page = landing_page;
   return course;
 }

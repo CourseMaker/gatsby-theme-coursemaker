@@ -2,7 +2,6 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import {jsx} from "theme-ui";
-import Layout from "../layout";
 
 const ContactSection = ({ landingPage }) => {
     if (landingPage == null)
@@ -17,7 +16,7 @@ const ContactSection = ({ landingPage }) => {
                     <div className="mx-auto inner lg:w-5/12">
                         <h2 className="mb-4 md:mb-6">{contactHeading}</h2>
                         <div className="text-xl text-gray-700 space-y-6">
-                            <p>{contactBody}</p>
+                            <ReactMarkdown source={contactBody}/>
                         </div>
                         <div className="mt-8 btn-wrapper"/>
                     </div>

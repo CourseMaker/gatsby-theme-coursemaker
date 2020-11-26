@@ -37,7 +37,7 @@ const Card = ({ course }) => {
           <p className="font-light leading-relaxed text-gray-700">
             {course.description_overview}
           </p>
-          <div className="mt-4 text-sm btn btn-sm btn-default">Learn more</div>
+          <div className="mt-4 text-sm btn btn-sm btn-default">View Course</div>
         </div>
       </div>
     </Link>

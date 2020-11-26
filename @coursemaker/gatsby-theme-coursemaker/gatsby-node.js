@@ -179,6 +179,14 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
         overviewCTATextColor: { type: `String` },
         testimonialsHeading: { type: `String` },
         testimonialsBody: { type: `String` },
+        faqHeading: { type: `String` },
+        faqBody: { type: `String` },
+        closingCTAText: { type: `String` },
+        closingCTAColor: { type: `String` },
+        closingCTALink: { type: `String` },
+        closingCTATextColor: { type: `String` },
+        contactHeading: { type: `String` },
+        contactBody: { type: `String` },
         slug: {
           type: `String!`,
         },
@@ -285,6 +293,14 @@ exports.onCreateNode = (
         overviewCTATextColor: node.frontmatter.overviewCTATextColor,
         testimonialsHeading: node.frontmatter.testimonialsHeading,
         testimonialsBody: node.frontmatter.testimonialsBody,
+        faqHeading: node.frontmatter.faqHeading,
+        faqBody: node.frontmatter.faqBody,
+        closingCTAText: node.frontmatter.closingCTAText,
+        closingCTAColor: node.frontmatter.closingCTAColor,
+        closingCTALink: node.frontmatter.closingCTALink,
+        closingCTATextColor: node.frontmatter.closingCTATextColor,
+        contactHeading: node.frontmatter.contactHeading,
+        contactBody: node.frontmatter.contactBody,
         author: node.frontmatter.author,
         slug,
       };
@@ -578,6 +594,14 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                 overviewCTATextColor
                 testimonialsHeading
                 testimonialsBody
+                faqHeading
+                faqBody
+                closingCTAText
+                closingCTAColor
+                closingCTALink
+                closingCTATextColor
+                contactHeading
+                contactBody
                 sections: Sections {
                   lectures: Lectures {
                     id
@@ -614,25 +638,28 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
           site {
             siteMetadata {
               landing_page {
-                contact_email
-                title_and_description {
-                  title
-                  description
-                }
-                primary_button {
-                  text
-                  color
-                  text_color
-                }
-                cta_button {
-                  text
-                  color
-                  text_color
-                }
-                cta_section {
-                  title
-                  description
-                }
+                title
+                subtitle
+                initialCTAText
+                initialCTAColor
+                initialCTALink
+                initialCTATextColor
+                overviewHeading
+                overviewBody
+                overviewCTAText
+                overviewCTAColor
+                overviewCTALink
+                overviewCTATextColor
+                testimonialsHeading
+                testimonialsBody
+                faqHeading
+                faqBody
+                closingCTAText
+                closingCTAColor
+                closingCTALink
+                closingCTATextColor
+                contactHeading
+                contactBody
               }
               name: title
               useAuth

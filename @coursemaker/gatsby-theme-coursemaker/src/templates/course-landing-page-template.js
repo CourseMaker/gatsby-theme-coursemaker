@@ -16,7 +16,6 @@ const CourseLandingPage = ({ pageContext = {} }) => {
   const school = pageContext.school;
   const course = pageContext.course;
   const landingPage = course?.landing_page;
-  console.log(landingPage);
   let themeStyles = school?.schoolThemeStyle;
   if (!themeStyles) {
     themeStyles = {
@@ -140,7 +139,13 @@ const CourseLandingPage = ({ pageContext = {} }) => {
         >
           <div className="container">
             <div className="mx-auto inner lg:w-6/12">
-              <Button text="Purchase" to="./checkout" />
+              <Button
+                  to={`./${closingCTA?.link}`}
+                  text={closingCTA?.text}
+                  color={closingCTA?.color}
+                  text_color={closingCTA?.textColor}
+                  variant={`primary_${themeStyles.primary}`}
+              />
             </div>
           </div>
         </section>
