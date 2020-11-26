@@ -165,10 +165,28 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
         id: { type: `ID!` },
         title: { type: `String!` },
         subtitle: { type: `String` },
-        course_video_id: { type: `String` },
+        video_id: { type: `String` },
         price: { type: `Int` }, // price in cents
-        description_overview: { type: `String` },
-        description: { type: `String` },
+        initialCTAText: { type: `String` },
+        initialCTAColor: { type: `String` },
+        initialCTALink: { type: `String` },
+        initialCTATextColor: { type: `String` },
+        overviewHeading: { type: `String` },
+        overviewBody: { type: `String` },
+        overviewCTAText: { type: `String` },
+        overviewCTAColor: { type: `String` },
+        overviewCTALink: { type: `String` },
+        overviewCTATextColor: { type: `String` },
+        testimonialsHeading: { type: `String` },
+        testimonialsBody: { type: `String` },
+        faqHeading: { type: `String` },
+        faqBody: { type: `String` },
+        closingCTAText: { type: `String` },
+        closingCTAColor: { type: `String` },
+        closingCTALink: { type: `String` },
+        closingCTATextColor: { type: `String` },
+        contactHeading: { type: `String` },
+        contactBody: { type: `String` },
         slug: {
           type: `String!`,
         },
@@ -212,7 +230,7 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
               ["slug"]
             ),
         },
-        course_image: {
+        courseImage: {
           type: `File`,
         },
       },
@@ -255,15 +273,34 @@ exports.onCreateNode = (
             basePath: coursesPath,
           });
       const fieldData = {
+        // landing page
         title: node.frontmatter.title,
         tags: node.frontmatter.tags,
         lastUpdated: node.frontmatter.lastUpdated,
-        course_image: node.frontmatter.courseImage,
-        course_video_id: node.frontmatter.courseVideoID,
+        courseImage: node.frontmatter.courseImage,
+        videoID: node.frontmatter.videoID,
         premium: node.frontmatter.premium,
         subtitle: node.frontmatter.subtitle,
-        description_overview: node.frontmatter.description_overview,
-        description: node.frontmatter.description,
+        initialCTAText: node.frontmatter.initialCTAText,
+        initialCTAColor: node.frontmatter.initialCTAColor,
+        initialCTALink: node.frontmatter.initialCTALink,
+        initialCTATextColor: node.frontmatter.initialCTATextColor,
+        overviewHeading: node.frontmatter.overviewHeading,
+        overviewBody: node.frontmatter.overviewBody,
+        overviewCTAText: node.frontmatter.overviewCTAText,
+        overviewCTAColor: node.frontmatter.overviewCTAColor,
+        overviewCTALink: node.frontmatter.overviewCTALink,
+        overviewCTATextColor: node.frontmatter.overviewCTATextColor,
+        testimonialsHeading: node.frontmatter.testimonialsHeading,
+        testimonialsBody: node.frontmatter.testimonialsBody,
+        faqHeading: node.frontmatter.faqHeading,
+        faqBody: node.frontmatter.faqBody,
+        closingCTAText: node.frontmatter.closingCTAText,
+        closingCTAColor: node.frontmatter.closingCTAColor,
+        closingCTALink: node.frontmatter.closingCTALink,
+        closingCTATextColor: node.frontmatter.closingCTATextColor,
+        contactHeading: node.frontmatter.contactHeading,
+        contactBody: node.frontmatter.contactBody,
         author: node.frontmatter.author,
         slug,
       };
@@ -446,9 +483,39 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                         url
                       }
                     }
-                    course_video_id
-                    course_image {
-                      url
+                    landing_page {
+                      title
+                      subtitle
+                      initialCTA {
+                        color
+                        link
+                        text
+                        textColor
+                      }
+                      video_id
+                      image {
+                        url
+                      }
+                      overviewHeading
+                      overviewBody
+                      overviewCTA {
+                        color
+                        link
+                        text
+                        textColor
+                      }
+                      testimonialsHeading
+                      testimonialsBody
+                      faqHeading
+                      faqBody
+                      closingCTA {
+                        color
+                        link
+                        text
+                        textColor
+                      }
+                      contactHeading
+                      contactBody
                     }
                     sections {
                       id
@@ -499,6 +566,42 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
           allCourse {
             edges {
               node {
+                slug
+                title
+                id
+                subtitle
+                initialCTAText
+                initialCTAColor
+                initialCTALink
+                initialCTATextColor
+                videoID
+                image: courseImage {
+                  childImageSharp {
+                    fluid(maxWidth: 500, quality: 100) {
+                      base64
+                      aspectRatio
+                      src
+                      srcSet
+                      sizes
+                    }
+                  }
+                }
+                overviewHeading
+                overviewBody
+                overviewCTAText
+                overviewCTAColor
+                overviewCTALink
+                overviewCTATextColor
+                testimonialsHeading
+                testimonialsBody
+                faqHeading
+                faqBody
+                closingCTAText
+                closingCTAColor
+                closingCTALink
+                closingCTATextColor
+                contactHeading
+                contactBody
                 sections: Sections {
                   lectures: Lectures {
                     id
@@ -512,9 +615,6 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                   title
                   slug
                 }
-                slug
-                title
-                id
                 author_display: author {
                   title: name
                   description: bio
@@ -532,43 +632,34 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                     }
                   }
                 }
-                course_video_id
-                course_image {
-                  childImageSharp {
-                    fluid(maxWidth: 500, quality: 100) {
-                      base64
-                      aspectRatio
-                      src
-                      srcSet
-                      sizes
-                    }
-                  }
-                }
               }
             }
           }
           site {
             siteMetadata {
               landing_page {
-                contact_email
-                title_and_description {
-                  title
-                  description
-                }
-                primary_button {
-                  text
-                  color
-                  text_color
-                }
-                cta_button {
-                  text
-                  color
-                  text_color
-                }
-                cta_section {
-                  title
-                  description
-                }
+                title
+                subtitle
+                initialCTAText
+                initialCTAColor
+                initialCTALink
+                initialCTATextColor
+                overviewHeading
+                overviewBody
+                overviewCTAText
+                overviewCTAColor
+                overviewCTALink
+                overviewCTATextColor
+                testimonialsHeading
+                testimonialsBody
+                faqHeading
+                faqBody
+                closingCTAText
+                closingCTAColor
+                closingCTALink
+                closingCTATextColor
+                contactHeading
+                contactBody
               }
               name: title
               useAuth
@@ -583,12 +674,16 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
     dataSources.local.courses = localData.data.allCourse.edges.map(
       normalize.local.courses
     );
+    dataSources.local.courses = localData.data.allCourse.edges.map(
+        normalize.normalizeCourseLandingPage
+    );
+
   } catch (error) {
     reporter.panic("error loading docs", error);
   }
 
   // combine courses to pass to school for ease of debugging
-  allCourses = [...dataSources.local.courses, ...dataSources.cms.courses];
+  let allCourses = [...dataSources.local.courses, ...dataSources.cms.courses];
 
   // school object is precise, however.
   let liveSchool;

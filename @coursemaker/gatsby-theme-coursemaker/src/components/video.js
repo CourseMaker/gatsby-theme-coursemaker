@@ -2,10 +2,11 @@
 import { jsx } from "theme-ui";
 
 /*...props*/
-const Video = ({ lecture }) => {
-  const video_src = lecture.video_id
-    ? "https://www.youtube.com/embed/" + lecture.video_id
-    : null;
+const Video = ({ videoID }) => {
+    let video_src = null;
+    if (videoID) {
+        video_src = "https://www.youtube.com/embed/" + videoID;
+    }
 
   if (video_src != null)
     return (

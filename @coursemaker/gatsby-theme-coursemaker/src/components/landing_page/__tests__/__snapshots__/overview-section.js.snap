@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OverviewSection renders correctly 1`] = `
+<section
+  className="py-8 text-center bg-gray-100 md:py-24"
+  id="overview"
+>
+  <div
+    className="container"
+  >
+    <div
+      className="mx-auto inner lg:w-7/12"
+    >
+      <h2
+        className="mb-4 lg:mb-6"
+      >
+        Course Overview
+      </h2>
+      <div
+        className="leading-loose text-gray-700 space-y-6"
+      >
+        <p>
+          The 
+          <strong>
+            complete
+          </strong>
+           guide to this theme!
+        </p>
+      </div>
+      <div
+        className="mt-8 btn-wrapper"
+      >
+        <a
+          className="btn btn-lg css-rc3wh8-Button"
+          href="#curriculum"
+          text="View Curriculum"
+        >
+          View Curriculum
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+`;
+
+exports[`OverviewSection renders correctly with missing landing page fields 1`] = `
+<section
+  className="py-8 text-center bg-gray-100 md:py-24"
+  id="overview"
+>
+  <div
+    className="container"
+  >
+    <div
+      className="mx-auto inner lg:w-7/12"
+    >
+      <h2
+        className="mb-4 lg:mb-6"
+      >
+        Course Overview
+      </h2>
+      <div
+        className="leading-loose text-gray-700 space-y-6"
+      >
+        <p>
+          The 
+          <strong>
+            complete
+          </strong>
+           guide to this theme!
+        </p>
+      </div>
+      <div
+        className="mt-8 btn-wrapper"
+      >
+        <a
+          className="btn btn-lg css-rc3wh8-Button"
+          href="#curriculum"
+          text="View Curriculum"
+        >
+          View Curriculum
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+`;
+
+exports[`OverviewSection renders correctly with null landing page 1`] = `null`;

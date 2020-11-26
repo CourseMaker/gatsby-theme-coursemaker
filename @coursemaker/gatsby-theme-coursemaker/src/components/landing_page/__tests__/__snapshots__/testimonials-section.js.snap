@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TestimonialsSection renders correctly 1`] = `null`;
+
+exports[`TestimonialsSection renders correctly with missing landing page fields 1`] = `null`;
+
+exports[`TestimonialsSection renders correctly with null landing page 1`] = `null`;

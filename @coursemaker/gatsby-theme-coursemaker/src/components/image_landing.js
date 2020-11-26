@@ -4,7 +4,6 @@ import Img from "gatsby-image";
 
 /*...props*/
 const LandingImage = ({ landing }) => {
-  console.log(landing);
   let landingImage;
   if (landing == null || landing == undefined || landing?.url == "")
     // default

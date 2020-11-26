@@ -1,67 +1,104 @@
 import React from "react";
-import ReactMarkdown from "react-markdown";
 
 import Layout from "../components/layout";
 import Button from "../components/button";
 import Section from "../components/section";
 import Author from "../components/author";
-import CTA from "../components/cta";
-import CourseVideo from "../components/video_course";
+import LandingVideo from "../components/landing_page/landing-video";
 import LandingImage from "../components/image_landing";
+import {jsx} from "theme-ui";
+import OverviewSection from "../components/landing_page/overview-section";
+import TestimonialsSection from "../components/landing_page/testimonials-section";
+import FAQSection from "../components/landing_page/faqs-section";
+import ContactSection from "../components/landing_page/contact-section";
 
 const CourseLandingPage = ({ pageContext = {} }) => {
+  const school = pageContext.school;
   const course = pageContext.course;
-  const cta_section = course?.cta_section;
+  const landingPage = course?.landing_page;
+  let themeStyles = school?.schoolThemeStyle;
+  if (!themeStyles) {
+    themeStyles = {
+      "primary": "green",
+      "secondary": "blue"
+    }
+  }
+
+  // Section 1 - Intro
+  const title = (landingPage) ? landingPage.title : course.title;
+  const subtitle = landingPage?.subtitle;
+  let initialCTA = landingPage?.initialCTA;
+  if (!initialCTA){
+    initialCTA = {
+      "text": "Purchase Course",
+      "color": "green",
+      "link": "checkout",
+      "textColor": "white"
+    }
+  }
+
+  // Section 2 - Media
+  const videoID = landingPage?.video_id;
+  const imageID = landingPage?.image;
+
+  // Section 3 - Overview
+
+  // Section 4 - Curriculum
+
+  // Section 5 - Testimonials
+
+  // Section 6 - Author(s)
   const { author_display } = course;
 
+  // Section 6 - FAQ
+
+  // Section 7 - CTA
+  const closingCTA = landingPage?.closingCTA;
+
+  // Section 8 - Contact
+
   return (
-    <Layout pageContext={pageContext}>
-      <section className="py-8 pb-8 text-center md:pt-24">
-        <div className="container">
-          <h1 className="mb-4">{course.title}</h1>
-          <p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-5/12">
-            {course.description_overview}
-          </p>
+      <Layout pageContext={pageContext}>
+        <section className="py-8 pb-8 text-center md:pt-30">
+          <div className="container">
+            <h1 className="mb-4">{title}</h1>
+            <h3 className="mb-4">{subtitle}</h3>
+            <p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12" />
 
-          <Button text="Curriculum" to="./curriculum" />
+            <Button
+                to={`./${initialCTA?.link}`}
+                text={initialCTA?.text}
+                color={initialCTA?.color}
+                text_color={initialCTA?.textColor}
+                variant={`primary_${themeStyles.primary}`}
+            />
 
-          <div className="mt-12 scroll-to">
-            <svg
-              className="block w-6 mx-auto"
-              data-name="Layer 1"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill="none"
-                stroke="#999"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M20.59 7.66l-8.69 8.68-8.49-8.48"
-              />
-            </svg>
-          </div>
-        </div>
-      </section>
-
-      {<CourseVideo course={course} />}
-      {<LandingImage landing={course.course_image} />}
-
-      <section
-        id="overview"
-        className="py-8 text-center bg-gray-100 md:pt-24 md:pb-32"
-      >
-        <div className="container">
-          <div className="mx-auto inner lg:w-8/12">
-            <h2 className="mb-4 lg:mb-6">Overview</h2>
-            <div className="leading-loose text-left text-gray-700 space-y-6">
-              <ReactMarkdown source={course.description} />
+            <div className="mt-12 scroll-to">
+              <svg
+                  className="block w-6 mx-auto"
+                  data-name="Layer 1"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                    fill="none"
+                    stroke="#999"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M20.59 7.66l-8.69 8.68-8.49-8.48"
+                />
+              </svg>
             </div>
-            {<CTA priceInfo={course.price_info} />}
           </div>
-        </div>
-      </section>
+        </section>
+
+      {<LandingVideo videoID={videoID} />}
+      {landingPage?.image?.url &&
+        <LandingImage landing={landingPage?.image} />
+      }
+
+      {<OverviewSection landingPage={landingPage} />}
 
       <section id="course" className="pt-12 pb-12 lg:py-10 lg:pb-22">
         <div className="container mx-auto">
@@ -88,46 +125,33 @@ const CourseLandingPage = ({ pageContext = {} }) => {
         </div>
       </section>
 
-      {cta_section && (
+      {<TestimonialsSection landingPage={landingPage} />}
+
+      {<Author author_display={author_display} />}
+
+      {<FAQSection landingPage={landingPage} />}
+
+      {closingCTA && (
         <section
-          id="cta"
-          className="py-8 text-center text-white bg-gray-900 lg:py-24"
+            id="cta"
+            className="py-8 text-center text-white bg-gray-900 lg:py-24"
         >
           <div className="container">
             <div className="mx-auto inner lg:w-6/12">
-              <h2 className="mb-4 md:mb-6">{cta_section?.title}</h2>
-              <div className="leading-loose text-gray-200 space-y-6">
-                <ReactMarkdown source={cta_section?.description} />
-              </div>
-              <Button text="Purchase" to="./checkout" />
+              <Button
+                  to={`./${closingCTA?.link}`}
+                  text={closingCTA?.text}
+                  color={closingCTA?.color}
+                  text_color={closingCTA?.textColor}
+                  variant={`primary_${themeStyles.primary}`}
+              />
             </div>
           </div>
         </section>
       )}
 
-      {<Author author_display={author_display} />}
+      {<ContactSection landingPage={landingPage} />}
 
-      {/*<section className="py-8 text-center bg-gray-100 md:py-24">*/}
-      {/*  <div className="container">*/}
-      {/*    <div className="mx-auto inner lg:w-5/12">*/}
-      {/*      <h2 className="mb-4 md:mb-6">Questions?</h2>*/}
-      {/*      <div className="text-xl text-gray-700 space-y-6">*/}
-      {/*        {author_display?.title && (*/}
-      {/*        <p>*/}
-      {/*          <span>Any questions? Send an email to</span>*/}
-      {/*          <br />*/}
-      {/*            <a href={`mailto:${author.email}`} className="link">*/}
-      {/*              {author.email}*/}
-      {/*            </a>*/}
-      {/*        </p>*/}
-      {/*        )}*/}
-      {/*      </div>*/}
-      {/*      <div className="mt-8 btn-wrapper">*/}
-      {/*        <Button text="Curriculum" to="./curriculum" />*/}
-      {/*      </div>*/}
-      {/*    </div>*/}
-      {/*  </div>*/}
-      {/*</section>*/}
     </Layout>
   );
 };

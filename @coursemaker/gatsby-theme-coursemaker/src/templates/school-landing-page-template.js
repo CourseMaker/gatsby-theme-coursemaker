@@ -1,22 +1,18 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
-import ReactMarkdown from "react-markdown";
 
 import Layout from "../components/layout";
 import Button from "../components/button";
 import Courses from "../components/courses";
 import Author from "../components/author";
+import LandingVideo from "../components/landing_page/landing-video";
 import React from "react";
-import CourseVideo from "../components/video_course";
 import LandingImage from "../components/image_landing";
+import OverviewSection from "../components/landing_page/overview-section";
+import TestimonialsSection from "../components/landing_page/testimonials-section";
+import FAQSection from "../components/landing_page/faqs-section";
+import ContactSection from "../components/landing_page/contact-section";
 
-// TODO: CTA button defaults (initial and overview)
-// "/#courses"
-// primary defaults
-// footer colors
-// rename course video ID using landing page for video_course component
-
-// TODO: add video/image
 
 const SchoolLandingPage = ({ pageContext = {} }) => {
   const school = pageContext.school;
@@ -44,30 +40,18 @@ const SchoolLandingPage = ({ pageContext = {} }) => {
   }
 
   // Section 2 - Media
-  const videoId = landingPage?.video_id;
-  const imageId = landingPage?.image;
+  const videoID = landingPage?.video_id;
+  const imageID = landingPage?.image;
 
   // Section 3 - Overview
-  const overviewHeading = landingPage?.overviewHeading;
-  const overviewBody = landingPage?.overviewBody;  // markdown
-  const overviewCTA = landingPage?.overviewCTA;
-
   // Section 4: Courses
-
   // Section 5 - Testimonials
-  const testimonialsHeading = landingPage?.testimonialsHeading;
-  const testimonialsBody = landingPage?.testimonialsBody;  // markdown
-
   // Section 6 - FAQ
-  const faqHeading = landingPage?.faqHeading;
-  const faqBody = landingPage?.faqBody;  // markdown
 
   // Section 7 - CTA
   const closingCTA = landingPage?.closingCTA;
 
   // Section 8 - Contact
-  const contactHeading = landingPage?.contactHeading;
-  const contactBody = landingPage?.contactBody;
 
   return (
     <Layout pageContext={pageContext}>
@@ -105,60 +89,18 @@ const SchoolLandingPage = ({ pageContext = {} }) => {
         </div>
       </section>
 
-      {overviewHeading &&
-      <section id="overview" className="py-8 text-center bg-gray-100 md:py-24">
-        <div className="container">
-          <div className="mx-auto inner lg:w-7/12">
-            <h2 className="mb-4 lg:mb-6">{overviewHeading}</h2>
-            <div className="leading-loose text-gray-700 space-y-6">
-              <ReactMarkdown source={overviewBody}/>
-            </div>
-            <div className="mt-8 btn-wrapper">
-              <Button
-                  to={overviewCTA?.link}
-                  text={overviewCTA?.text}
-                  color={overviewCTA?.color}
-                  text_color={overviewCTA?.textColor}
-                  variant="primary"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-      }
-
-      {/*{<CourseVideo course={course} />}*/}
+      {<LandingVideo videoID={videoID} />}
       {landingPage?.image?.url &&
         <LandingImage landing={landingPage?.image} />
       }
 
+      {<OverviewSection landingPage={landingPage} />}
+
       <Courses courses={passedCourses} />
 
-      {testimonialsHeading &&
-      <section id="testimonials" className="py-8 text-center bg-gray-100 md:py-24">
-        <div className="container">
-          <div className="mx-auto inner lg:w-7/12">
-            <h2 className="mb-4 lg:mb-6">{testimonialsHeading}</h2>
-            <div className="leading-loose text-gray-700 space-y-6">
-              <ReactMarkdown source={testimonialsBody}/>
-            </div>
-          </div>
-        </div>
-      </section>
-      }
+      {<TestimonialsSection landingPage={landingPage} />}
 
-      {faqHeading &&
-      <section id="faqs" className="py-8 text-center bg-gray-100 md:py-24">
-        <div className="container">
-          <div className="mx-auto inner lg:w-7/12">
-            <h2 className="mb-4 lg:mb-6">{faqHeading}</h2>
-            <div className="leading-loose text-gray-700 space-y-6">
-              <ReactMarkdown source={faqBody}/>
-            </div>
-          </div>
-        </div>
-      </section>
-      }
+      {<FAQSection landingPage={landingPage} />}
 
       {closingCTA && (
           <section
@@ -173,22 +115,7 @@ const SchoolLandingPage = ({ pageContext = {} }) => {
           </section>
       )}
 
-      <section className="py-16 text-center bg-gray-100 md:py-24">
-        <div className="container">
-          <div className="mx-auto inner lg:w-5/12">
-            <h2 className="mb-4 md:mb-6">Questions?</h2>
-            <div className="text-xl text-gray-700 space-y-6">
-              {contactHeading && (
-              <p>
-                <span>{contactHeading}</span>
-                <br />
-              </p>
-              )}
-            </div>
-            <div className="mt-8 btn-wrapper" />
-          </div>
-        </div>
-      </section>
+      {<ContactSection landingPage={landingPage} />}
     </Layout>
   );
 };

@@ -68,6 +68,7 @@ const createCourses = (school, courses, createPage) => {
       component: courseTemplate,
       context: {
         course: course,
+        school: school
       },
     });
 
