@@ -4,7 +4,6 @@ import { jsx } from "theme-ui";
 /*...props*/
 const Video = ({ videoID }) => {
     let video_src = null;
-    console.log(videoID)
     if (videoID) {
         video_src = "https://www.youtube.com/embed/" + videoID;
     }

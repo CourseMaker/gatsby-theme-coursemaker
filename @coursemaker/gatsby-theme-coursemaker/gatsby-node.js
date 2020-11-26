@@ -575,7 +575,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                 initialCTALink
                 initialCTATextColor
                 videoID
-                courseImage {
+                image: courseImage {
                   childImageSharp {
                     fluid(maxWidth: 500, quality: 100) {
                       base64

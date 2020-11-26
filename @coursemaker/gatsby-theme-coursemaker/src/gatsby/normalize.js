@@ -41,7 +41,7 @@ exports.normalizeCourseLandingPage = ({ node: course}) => {
 
   // section 2
   landing_page.video_id = course?.videoID;
-  landing_page.image = course?.courseImage;
+  landing_page.image = course?.image;
 
   // section 3
   landing_page.overviewHeading = course?.overviewHeading;
