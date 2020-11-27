@@ -460,6 +460,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                     id
                     title
                     school_prices {
+                      id
                       active
                       currency
                       name
