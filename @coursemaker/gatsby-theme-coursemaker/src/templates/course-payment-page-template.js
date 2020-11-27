@@ -13,6 +13,7 @@ const CoursePaymentPage = ({ pageContext = {} }) => {
   const course = pageContext.course;
   const school = pageContext.school;
   const priceInfo = course.price_info;
+  console.log(course);
 
   let priceText = '';
   let recurrence = '';
