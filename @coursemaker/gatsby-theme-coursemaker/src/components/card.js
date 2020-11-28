@@ -3,10 +3,14 @@ import { Link } from "gatsby";
 import slugify from "slugify";
 import Img from "gatsby-image";
 
-const Card = ({ course }) => {
+const Card = ({ course, paid = false }) => {
   let slug = course.slug
     ? course.slug
     : "/" + slugify(course.title, { strict: true, lower: true });
+
+  if (paid == true){
+    slug = slug + 'curriculum';
+  }
   const courseAuthor = course.author_display?.title || "";
   let courseImage;
   console.log(course);
