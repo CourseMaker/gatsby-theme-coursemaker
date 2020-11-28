@@ -23,7 +23,7 @@ const CoursesPage = ({ pageContext = {} }) => {
 
   return (
     <Layout pageContext={pageContext}>
-      <Courses courses={displayCourses} />
+      <Courses courses={displayCourses} paid={true} />
     </Layout>
   );
 };

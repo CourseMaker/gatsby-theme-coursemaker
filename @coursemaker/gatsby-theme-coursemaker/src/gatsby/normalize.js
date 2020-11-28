@@ -1,17 +1,5 @@
 require("dotenv").config();
 
-exports.normalizeImageUrl = (course) => {
-  let course_image = { url: "" };
-  if (course.course_image)
-    course.course_image = { url: course.course_image.url };
-  else {
-    console.log("\u001B[33m", `No course_image for "${course.title}"`);
-    course.course_image = course_image;
-  }
-
-  return course;
-};
-
 exports.normalizePrices = (course) => {
   let priceInfo = {};
   if (course.school_prices == null) {

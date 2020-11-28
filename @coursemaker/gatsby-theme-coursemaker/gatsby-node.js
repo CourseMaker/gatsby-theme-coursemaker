@@ -460,6 +460,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                     id
                     title
                     school_prices {
+                      id
                       active
                       currency
                       name
@@ -543,12 +544,8 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
         `,
         { build_id }
       );
-      // TODO: normalize
       cmsData.data.cms.siteBuild.school.useAuth = false;
       cmsData.data.cms.siteBuild.school.enablePayments = false;
-      dataSources.cms.courses = cmsData.data.cms.siteBuild.school.courses.map(
-        normalize.normalizeImageUrl
-      );
       dataSources.cms.courses = cmsData.data.cms.siteBuild.school.courses.map(
           normalize.normalizePrices
       );
