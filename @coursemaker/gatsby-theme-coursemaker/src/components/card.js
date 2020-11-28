@@ -13,7 +13,6 @@ const Card = ({ course, paid = false }) => {
   }
   const courseAuthor = course.author_display?.title || "";
   let courseImage;
-  console.log(course);
   if (course?.landing_page?.image == null || course?.landing_page?.image?.url == "") {
     // default
     courseImage = {src: "https://picsum.photos/300/300"};
