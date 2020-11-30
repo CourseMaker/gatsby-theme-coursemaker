@@ -28,7 +28,7 @@ exports.normalizeCourseLandingPage = ({ node: course}) => {
   landing_page.initialCTA.textColor = course?.initialCTATextColor;
 
   // section 2
-  landing_page.video_id = course?.videoID;
+  landing_page.video_id = course?.video_id;
   landing_page.image = course?.image;
 
   // section 3
