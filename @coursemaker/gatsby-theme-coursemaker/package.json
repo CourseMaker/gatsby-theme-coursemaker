@@ -5,7 +5,7 @@
     "type": "git",
     "url": "https://github.com/CourseMaker/gatsby-theme-coursemaker.git"
   },
-  "version": "0.1.46",
+  "version": "0.1.47",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -84,6 +84,7 @@
     "react-moment": "^0.9.7",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
+    "react-toastify": "^6.1.0",
     "remark-slug": "^5.1.2",
     "serialize-javascript": "^3.0.0",
     "tailwindcss": "^1.8.10",

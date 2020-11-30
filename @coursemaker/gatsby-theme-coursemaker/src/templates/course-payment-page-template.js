@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { navigate } from "gatsby";
-import Layout from "../components/layout-payment";
+import Layout from "../components/layout";
 import Checkout from "../components/checkout";
 import {isAuthenticated} from "../auth/auth";
 
