@@ -165,7 +165,7 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
         id: { type: `ID!` },
         title: { type: `String!` },
         subtitle: { type: `String` },
-        video_id: { type: `String` },
+        videoID: { type: `String` },
         price: { type: `Int` }, // price in cents
         initialCTAText: { type: `String` },
         initialCTAColor: { type: `String` },
@@ -571,7 +571,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                 initialCTAColor
                 initialCTALink
                 initialCTATextColor
-                videoID
+                video_id: videoID
                 image: courseImage {
                   childImageSharp {
                     fluid(maxWidth: 500, quality: 100) {
