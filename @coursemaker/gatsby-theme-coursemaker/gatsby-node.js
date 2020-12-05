@@ -484,7 +484,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                         url
                       }
                     }
-                    landing_page {
+                    landing_page: course_landing_page {
                       title
                       subtitle
                       initialCTA {
