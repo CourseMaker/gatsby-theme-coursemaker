@@ -37,6 +37,7 @@ module.exports = (themeOptions) => {
         closingCTATextColor: "white",
         contactHeading: "Contact",
         contactBody: "update me",
+        videoID: null,
       },
     },
     plugins: [
