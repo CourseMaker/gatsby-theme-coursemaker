@@ -14,7 +14,7 @@ const CoursesPage = ({ pageContext = {} }) => {
 
   let displayCourses = courses;
 
-  if (process.env.GATSBY_ENABLE_PAYMENTS === true){
+  if (process.env.GATSBY_ENABLE_PAYMENTS === true) {
     let enrolledCourses = coursesFromJWT();
     displayCourses = courses.filter((course) =>
       enrolledCourses.includes(parseInt(course.id))

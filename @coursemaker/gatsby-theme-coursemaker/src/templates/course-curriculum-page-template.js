@@ -15,12 +15,13 @@ const Curriculum = ({ pageContext = {} }) => {
     .flat(1);
   let orderedSections;
   if (course.sections.length === 0 || course.sections === undefined) {
-    orderedSections = []
+    orderedSections = [];
   } else {
-    orderedSections = _.orderBy(course?.sections,
+    orderedSections = _.orderBy(
+      course?.sections,
       course?.sections?.[0].hasOwnProperty("order") ? "order" : "id",
       "asc"
-    )
+    );
   }
 
   return (
@@ -44,7 +45,7 @@ const Curriculum = ({ pageContext = {} }) => {
 
             <h2 className="mt-12 mb-6 leading-tight">Curriculum</h2>
             <div className="curriculum-list space-y-10">
-              {orderedSections.length > 0 ?
+              {orderedSections.length > 0 ? (
                 orderedSections.map((section, index) => {
                   return (
                     <Section
@@ -55,8 +56,10 @@ const Curriculum = ({ pageContext = {} }) => {
                       slug={course.slug}
                     />
                   );
-                }) : <p>No sections yet</p>
-              }
+                })
+              ) : (
+                <p>No sections yet</p>
+              )}
             </div>
           </div>
         </div>
