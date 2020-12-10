@@ -4,12 +4,15 @@ import { InlineMath, BlockMath } from "react-katex";
 import RemarkMathPlugin from "remark-math";
 import "katex/dist/katex.min.css";
 
-const _mapProps = (props) => ({
+import Highlighter from "../../helpers/SyntaxHighlighter/SyntaxHighlighter";
+
+const _mapProps = (props, editable) => ({
   ...props,
   escapeHtml: false,
   plugins: [RemarkMathPlugin],
   renderers: {
     ...props.renderers,
+    code: (code) => <Highlighter codeString={code} language="jsx" />,
     math: (opts) => <BlockMath math={opts.value} />,
     inlineMath: (opts) => <InlineMath math={opts.value} />,
   },
