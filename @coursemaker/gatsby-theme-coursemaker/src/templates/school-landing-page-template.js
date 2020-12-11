@@ -15,6 +15,7 @@ import ContactSection from "../components/landing_page/contact-section";
 
 
 const SchoolLandingPage = ({ pageContext = {} }) => {
+  console.error('+++++++++', pageContext)
   const school = pageContext.school;
   const passedCourses = pageContext.courses;
   const landingPage = school?.landing_page;
