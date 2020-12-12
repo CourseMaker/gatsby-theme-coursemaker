@@ -657,6 +657,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                 closingCTATextColor
                 contactHeading
                 contactBody
+                video_id: videoID
               }
               name: title
               useAuth

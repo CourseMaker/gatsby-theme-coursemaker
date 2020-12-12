@@ -15,6 +15,20 @@ cta_description_string =
   "There has never been an easier way to make an online course. \n" +
   "And it's free.";
 
+overview_body_string =
+    "You'll notice that I am **markdown**. \n" +
+    "That means that \n" +
+    "#### There might be H4s \n" +
+    "*or maybe something in italics like this. The sentence might be quite a long one that goes on for a while and " +
+    "that's just fine.*"
+
+faq_body_string =
+    "You'll notice that I am **markdown**. \n" +
+    "That means that \n" +
+    "## There might be H2s \n" +
+    "*or maybe something in italics like this. The sentence might be quite a long one that goes on for a while and " +
+    "that's just fine.*"
+
 module.exports = {
   siteMetadata: {
     title: "Demo Site Cool School",
@@ -26,7 +40,7 @@ module.exports = {
       initialCTALink: "#courses",
       initialCTATextColor: "white",
       overviewHeading: "Welcome",
-      overviewBody: "update me",
+      overviewBody: overview_body_string,
       overviewCTAText: "View Courses",
       overviewCTAColor: "green",
       overviewCTALink: "#courses",
@@ -34,13 +48,14 @@ module.exports = {
       testimonialsHeading: "Testimonials",
       testimonialsBody: "update me",
       faqHeading: "FAQs",
-      faqBody: "update me",
+      faqBody: faq_body_string,
       closingCTAText: "Purchase Course",
       closingCTAColor: "orange",
       closingCTALink: "checkout",
       closingCTATextColor: "white",
       contactHeading: "Contact",
       contactBody: "update me",
+      videoID: "ts8c0FjkHDk"
     },
     stripe_public_key: process.env.GATSBY_STRIPE_PUBLISHABLE_KEY,
   },
