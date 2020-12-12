@@ -701,4 +701,22 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
       courses: allCourses,
     },
   });
+
+  // Create school terms page
+  createPage({
+    path: `/terms`,
+    component: require.resolve("./src/templates/terms.js"),
+    context: {
+      school: liveSchool,
+    },
+  });
+
+  // Create school privacy page
+  createPage({
+    path: `/privacy`,
+    component: require.resolve("./src/templates/privacy.js"),
+    context: {
+      school: liveSchool,
+    },
+  });
 };
