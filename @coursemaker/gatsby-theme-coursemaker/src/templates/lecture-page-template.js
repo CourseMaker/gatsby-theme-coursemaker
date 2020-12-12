@@ -58,7 +58,6 @@ const Lecture = ({ pageContext = {} }) => {
   else
     lecture_body = (
       <Markdown source={lecture.body_markdown} />
-      // <Markdown source="Given a **formula** below\n$$\ns = ut + \\frac{1}{2}at^{2}\n$$\nCalculate the value of $s$ when $u = 10\\frac{m}{s}$ and $a = 2\\frac{m}{s^{2}}$ at $t = 1s$" />
     );
 
   const addLectureToComplete = async (lecture) => {

@@ -5,7 +5,6 @@ import RemarkMathPlugin from "remark-math";
 import "katex/dist/katex.min.css";
 
 import Highlighter from "../../helpers/SyntaxHighlighter/SyntaxHighlighter";
-import RemarkGraph from "../../helpers/RemarkGraph/RemarkGraph";
 
 const _mapProps = (props, editable) => ({
   ...props,
@@ -16,11 +15,7 @@ const _mapProps = (props, editable) => ({
     code: (code) => {
       console.log(code)
       console.log(editable)
-      if (code.language === "mermaid") {
-        return <RemarkGraph graphData={code} />;
-      } else {
-        return <Highlighter codeString={code} language="{code.language}" />;
-      }
+      return <Highlighter codeString={code} language={code.language} />;
     },
     math: (opts) => <BlockMath math={opts.value} />,
     inlineMath: (opts) => <InlineMath math={opts.value} />,

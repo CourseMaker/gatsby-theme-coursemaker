@@ -1,32 +1,35 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
 import Highlight, { defaultProps } from "prism-react-renderer";
-import theme from "prism-react-renderer/themes/nightOwl";
+import nightOwl from "prism-react-renderer/themes/nightOwl";
+import dracula from "prism-react-renderer/themes/dracula";
+import github from "prism-react-renderer/themes/github";
+import vsDark from "prism-react-renderer/themes/vsDark";
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from "react-live";
 import scope from "../../scope";
-// import styled from "styled-components";
+import styled from "styled-components";
 
 const SyntaxHighlighter = ({ codeString, language }) => {
   const parsedCode = `${codeString.value}`;
-  // const Line = styled.div`
-  //     display: table-row;
-  // `;
-  //
-  // const LineNo = styled.span`
-  //     display: table-cell;
-  //     text-align: right;
-  //     padding-right: 1em;
-  //     user-select: none;
-  //     opacity: 0.5;
-  //   `;
-  //
-  // const LineContent = styled.span`
-  //   display: table-cell;
-  //   `;
+  const Line = styled.div`
+      display: table-row;
+  `;
+
+  const LineNo = styled.span`
+      display: table-cell;
+      text-align: right;
+      padding-right: 1em;
+      user-select: none;
+      opacity: 0.5;
+    `;
+
+  const LineContent = styled.span`
+    display: table-cell;
+    `;
   
   if (codeString !== undefined && codeString.language === "editable")
     return (
-      <LiveProvider code={parsedCode} theme={theme} scope={scope}>
+      <LiveProvider code={parsedCode} theme={dracula} scope={scope}>
         <LiveEditor />
         <LiveError />
         <LivePreview
@@ -47,7 +50,7 @@ const SyntaxHighlighter = ({ codeString, language }) => {
       {...defaultProps}
       code={parsedCode}
       language={language}
-      theme={theme}
+      theme={vsDark}
     >
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <pre
@@ -56,14 +59,14 @@ const SyntaxHighlighter = ({ codeString, language }) => {
           sx={{ p: 2, overflowX: "scroll", variant: "prism-highlight" }}
         >
           {tokens.map((line, i) => (
-            <div {...getLineProps({ line, key: i })}>
-                {/*<LineNo>{i + 1}</LineNo>*/}
-                {/*<LineContent>*/}
+            <Line {...getLineProps({ line, key: i })}>
+                <LineNo>{i + 1}</LineNo>
+                <LineContent>
                   {line.map((token, key) => (
                     <span {...getTokenProps({ token, key })} />
                   ))}
-                {/*</LineContent>*/}
-            </div>
+                </LineContent>
+            </Line>
           ))}
         </pre>
       )}
