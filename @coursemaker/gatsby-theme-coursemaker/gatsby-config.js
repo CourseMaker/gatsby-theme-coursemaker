@@ -118,6 +118,7 @@ module.exports = (themeOptions) => {
           environments: ["production", "development"],
         },
       },
+      `gatsby-plugin-force-trailing-slashes`,
       `gatsby-plugin-theme-ui`,
       `gatsby-transformer-yaml`,
       {

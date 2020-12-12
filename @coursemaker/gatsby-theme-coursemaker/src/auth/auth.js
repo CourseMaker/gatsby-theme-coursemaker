@@ -21,8 +21,6 @@ const tokens = {
   expiresAt: false,
 };
 
-let user = {};
-
 export const login = () => {
   if (!isBrowser) return;
   auth.authorize();
@@ -40,7 +38,6 @@ const setSession = (cb = () => {}) => (err, authResult) => {
     tokens.accessToken = authResult.accessToken;
     tokens.idToken = authResult.idToken;
     tokens.expiresAt = expiresAt;
-    user = authResult.idTokenPayload;
     localStorage.setItem("isLoggedIn", "true");
     navigate("/account");
     cb();
@@ -51,10 +48,6 @@ export const handleAuthentication = () => {
   if (!isBrowser) return;
   auth.parseHash(setSession());
 };
-
-// export const getProfile = () => {
-//   return user;
-// };
 
 export const silentAuth = (callback) => {
   if (!isAuthenticated()) return callback();
@@ -72,7 +65,7 @@ export const isAuthenticated = () => {
     return;
   }
 
-  if (process.env.GATSBY_ENABLE_AUTH != "true"){
+  if (process.env.GATSBY_ENABLE_AUTH !== "true"){
     return true;
   }
 
@@ -92,7 +85,7 @@ export const coursesFromJWT = () => {
 export const isAuthorized = (courseID) => {
   if (!isBrowser) return;
 
-  if (!process.env.GATSBY_ENABLE_AUTH != "true"){
+  if (!process.env.GATSBY_ENABLE_AUTH !== "true"){
     return true;
   }
 
