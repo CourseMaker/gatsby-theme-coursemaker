@@ -14,10 +14,12 @@ const _mapProps = (props, editable) => ({
   renderers: {
     ...props.renderers,
     code: (code) => {
+      console.log(code)
+      console.log(editable)
       if (code.language === "mermaid") {
         return <RemarkGraph graphData={code} />;
       } else {
-        return <Highlighter codeString={code} language="jsx" />;
+        return <Highlighter codeString={code} language="{code.language}" />;
       }
     },
     math: (opts) => <BlockMath math={opts.value} />,

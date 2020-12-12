@@ -4,9 +4,25 @@ import Highlight, { defaultProps } from "prism-react-renderer";
 import theme from "prism-react-renderer/themes/nightOwl";
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from "react-live";
 import scope from "../../scope";
+// import styled from "styled-components";
 
 const SyntaxHighlighter = ({ codeString, language }) => {
   const parsedCode = `${codeString.value}`;
+  // const Line = styled.div`
+  //     display: table-row;
+  // `;
+  //
+  // const LineNo = styled.span`
+  //     display: table-cell;
+  //     text-align: right;
+  //     padding-right: 1em;
+  //     user-select: none;
+  //     opacity: 0.5;
+  //   `;
+  //
+  // const LineContent = styled.span`
+  //   display: table-cell;
+  //   `;
   
   if (codeString !== undefined && codeString.language === "editable")
     return (
@@ -41,9 +57,12 @@ const SyntaxHighlighter = ({ codeString, language }) => {
         >
           {tokens.map((line, i) => (
             <div {...getLineProps({ line, key: i })}>
-              {line.map((token, key) => (
-                <span {...getTokenProps({ token, key })} />
-              ))}
+                {/*<LineNo>{i + 1}</LineNo>*/}
+                {/*<LineContent>*/}
+                  {line.map((token, key) => (
+                    <span {...getTokenProps({ token, key })} />
+                  ))}
+                {/*</LineContent>*/}
             </div>
           ))}
         </pre>
