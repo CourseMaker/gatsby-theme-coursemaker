@@ -53,7 +53,8 @@ const SyntaxHighlighter = ({ codeString, language }) => {
       theme={vsDark}
     >
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
-        <pre
+      <div className="gatsby-highlight" data-language={language}>
+          <pre
           className={className}
           style={style}
           sx={{ p: 2, overflowX: "scroll", variant: "prism-highlight" }}
@@ -69,6 +70,7 @@ const SyntaxHighlighter = ({ codeString, language }) => {
             </Line>
           ))}
         </pre>
+      </div>
       )}
     </Highlight>
   );
