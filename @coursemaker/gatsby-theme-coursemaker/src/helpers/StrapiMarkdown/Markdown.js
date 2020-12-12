@@ -13,8 +13,6 @@ const _mapProps = (props, editable) => ({
   renderers: {
     ...props.renderers,
     code: (code) => {
-      console.log(code)
-      console.log(editable)
       return <Highlighter codeString={code} language={code.language} />;
     },
     math: (opts) => <BlockMath math={opts.value} />,
