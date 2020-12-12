@@ -37,6 +37,7 @@ module.exports = (themeOptions) => {
         closingCTATextColor: "white",
         contactHeading: "Contact",
         contactBody: "update me",
+        videoID: null,
       },
     },
     plugins: [
@@ -117,6 +118,7 @@ module.exports = (themeOptions) => {
           environments: ["production", "development"],
         },
       },
+      `gatsby-plugin-force-trailing-slashes`,
       `gatsby-plugin-theme-ui`,
       `gatsby-transformer-yaml`,
       {
