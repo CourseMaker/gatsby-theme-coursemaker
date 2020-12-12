@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { Link } from "gatsby";
-import ReactMarkdown from "react-markdown";
+import Markdown from "../helpers/StrapiMarkdown/Markdown";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 import _ from "lodash";
 import { navigate } from "gatsby";
-import "katex/dist/katex.min.css"
+import "katex/dist/katex.min.css";
 
 import LayoutLecture from "../components/layout-lecture";
 import Breadcrumbs from "../components/course-breadcrumbs";
@@ -21,7 +21,11 @@ const Lecture = ({ pageContext = {} }) => {
   const lecture = pageContext.lecture;
 
   let allLectures;
-  if (currentCourse == null || currentCourse?.sections === undefined || currentCourse?.sections.length == 0) {
+  if (
+    currentCourse == null ||
+    currentCourse?.sections === undefined ||
+    currentCourse?.sections.length == 0
+  ) {
     allLectures = [];
   } else {
     allLectures = currentCourse?.sections
@@ -46,13 +50,15 @@ const Lecture = ({ pageContext = {} }) => {
       if (i === allLectures.length - 1) nextLecture = false;
     }
   });
-
   let lecture_body;
   if (lecture.body)
     // local source
     lecture_body = <MDXRenderer>{lecture.body}</MDXRenderer>;
   // strapi
-  else lecture_body = <ReactMarkdown source={lecture.body_markdown} />;
+  else
+    lecture_body = (
+      <Markdown source={lecture.body_markdown} />
+    );
 
   const addLectureToComplete = async (lecture) => {
     let state = readLocalStorage(currentCourse.slug);

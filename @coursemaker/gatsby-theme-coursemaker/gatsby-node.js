@@ -547,7 +547,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
       cmsData.data.cms.siteBuild.school.useAuth = false;
       cmsData.data.cms.siteBuild.school.enablePayments = false;
       dataSources.cms.courses = cmsData.data.cms.siteBuild.school.courses.map(
-          normalize.normalizePrices
+        normalize.normalizePrices
       );
       dataSources.cms.school = cmsData.data.cms.siteBuild.school;
     } catch (error) {
@@ -673,9 +673,8 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
       normalize.local.courses
     );
     dataSources.local.courses = localData.data.allCourse.edges.map(
-        normalize.normalizeCourseLandingPage
+      normalize.normalizeCourseLandingPage
     );
-
   } catch (error) {
     reporter.panic("error loading docs", error);
   }
