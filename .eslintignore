@@ -1,0 +1,11 @@
+@coursemaker/gatsby-theme-coursemaker/node_modules
+@coursemaker/gatsby-theme-coursemaker/src
+@coursemaker/gatsby-theme-coursemaker/bootstrapping
+@coursemaker/gatsby-theme-coursemaker/payments
+@coursemaker/gatsby-theme-coursemaker/gatsby-browser.js
+@coursemaker/gatsby-theme-coursemaker/tailwind.config.js
+course_demo_site
+node_modules
+.cache
+public
+dist
