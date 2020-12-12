@@ -24,7 +24,7 @@ const Lecture = ({ pageContext = {} }) => {
   if (
     currentCourse == null ||
     currentCourse?.sections === undefined ||
-    currentCourse?.sections.length == 0
+    currentCourse?.sections.length === 0
   ) {
     allLectures = [];
   } else {
