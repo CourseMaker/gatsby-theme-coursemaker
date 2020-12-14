@@ -4,7 +4,6 @@ import Lecture from "./lecture";
 
 /* allLectures */
 const Section = ({ lecture, size, data, slug }) => {
-  console.log(data)
   const [toggle, setTogggle] = useState(true);
   const toggleSection = (/*e*/) => {
     setTogggle(!toggle);

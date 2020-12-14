@@ -44,8 +44,6 @@ const Lecture = ({ pageContext = {} }) => {
       })
       .flat(1);
   }
-  console.log(currentCourse);
-  console.log(allLectures);
   let nextLecture;
   let prevLecture;
 
