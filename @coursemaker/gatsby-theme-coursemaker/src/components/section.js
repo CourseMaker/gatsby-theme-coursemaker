@@ -80,7 +80,7 @@ const Section = ({ lecture, size, data, slug }) => {
           data?.lectures,
           data?.lectures?.[0].hasOwnProperty("order") ? "order" : "id",
           "asc"
-        ).map((lecture /*index*/) => {
+        ).map((lecture) => {
           return (
             <Lecture
               lecture={currentLecture}
