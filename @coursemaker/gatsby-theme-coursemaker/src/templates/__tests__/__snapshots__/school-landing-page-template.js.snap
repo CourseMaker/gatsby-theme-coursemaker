@@ -204,6 +204,9 @@ Array [
       </button>
     </div>
   </div>,
+  <div
+    className="Toastify"
+  />,
   <footer
     className="py-8 text-sm css-t471a7-Footer"
   >
@@ -442,6 +445,9 @@ Array [
       </button>
     </div>
   </div>,
+  <div
+    className="Toastify"
+  />,
   <footer
     className="py-8 text-sm css-t471a7-Footer"
   >

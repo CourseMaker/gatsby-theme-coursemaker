@@ -5,6 +5,7 @@ const { createFilePath } = require('gatsby-source-filesystem');
 const withDefaults = require('./bootstrapping/default-options');
 const sanitizeSlug = require('./bootstrapping/sanitize-slug');
 const normalize = require('./src/gatsby/normalize');
+
 const sortBy = require(`lodash/sortBy`);
 require('dotenv').config();
 

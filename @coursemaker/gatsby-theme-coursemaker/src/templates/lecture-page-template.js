@@ -29,16 +29,21 @@ const Lecture = ({ pageContext = {} }) => {
     allLectures = [];
   } else {
     allLectures = currentCourse?.sections
-      ?.map((section) =>
-        _.orderBy(
-          section?.lectures,
-          section?.lectures?.[0].hasOwnProperty("order") ? "order" : "id",
-          "asc"
-        ).map((item) => item)
-      )
+      ?.map((section) => {
+        if (section.lectures.length) {
+          return (
+            _.orderBy(
+                section?.lectures,
+                section?.lectures?.[0].hasOwnProperty("order") ? "order" : "id",
+                "asc"
+            ).map((item) => item)
+          )
+        } else {
+          return (section.lectures.map((item) => item))
+        }
+      })
       .flat(1);
   }
-
   let nextLecture;
   let prevLecture;
 

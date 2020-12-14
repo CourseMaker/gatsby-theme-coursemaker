@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "clean": "yarn workspace course_demo_site gatsby clean && yarn workspace @coursemaker/gatsby-theme-coursemaker gatsby clean",
-    "local": "yarn workspace course_demo_site gatsby develop",
+    "local": "GATSBY_EXPERIMENTAL_LAZY_DEVJS=true yarn workspace course_demo_site gatsby develop",
     "build": "yarn workspace course_demo_site gatsby build",
     "test": "jest",
     "lint": "eslint .",
@@ -27,7 +27,6 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
-    "babel-jest": "^26.6.3",
     "eslint": "^7.11.0",
     "eslint-plugin-html": "^6.1.1",
     "eslint-config-airbnb": "^18.0.1",
