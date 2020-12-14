@@ -4,6 +4,7 @@ import Lecture from "./lecture";
 
 /* allLectures */
 const Section = ({ lecture, size, data, slug }) => {
+  console.log(data)
   const [toggle, setTogggle] = useState(true);
   const toggleSection = (/*e*/) => {
     setTogggle(!toggle);
@@ -75,7 +76,7 @@ const Section = ({ lecture, size, data, slug }) => {
         </button>
       </div>
       <div className={toggle ? "block" : "hidden"}>
-        {_.orderBy(
+        {data.lectures.length && _.orderBy(
           data?.lectures,
           data?.lectures?.[0].hasOwnProperty("order") ? "order" : "id",
           "asc"

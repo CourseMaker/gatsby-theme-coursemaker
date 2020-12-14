@@ -43,7 +43,7 @@ const Lecture = ({ lecture, size, data, slug }) => {
                 {progressVal < 100 ? (
                   <div
                     className="absolute bottom-0 left-0 h-1 bg-blue-700 rounded-bl transform translate-y-px -translate-x-px"
-                    style={{ width: progressVal + "%" }}
+                    style={{ width: 0 + "%" }}
                   />
                 ) : (
                   <div className="absolute top-0 right-0 w-4 h-4 bg-blue-700 rounded-full checkmark transform -translate-y-1 translate-x-1" />
