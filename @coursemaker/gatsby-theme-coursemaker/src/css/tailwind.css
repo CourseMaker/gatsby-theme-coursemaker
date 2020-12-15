@@ -27,7 +27,7 @@ h3 {
 }
 
 .btn-default {
-  @apply text-white bg-green-500;
+  @apply text-black bg-yellow-400;
 }
 
 .btn-white {
@@ -36,6 +36,10 @@ h3 {
 
 .btn-gray {
   @apply text-gray-600 bg-gray-300;
+}
+
+.background-green {
+  @apply bg-green-500;
 }
 
 /* mobile */

@@ -25,4 +25,15 @@ const Button = ({
   </Link>
 );
 
+export const Anchor = ({
+  to = "/",
+  color = "primary",
+  text_color = "yellow",
+  ...props
+}) => (
+  <a href={to} className={`font-semibold text-yellow-300`} {...props}>
+    {props.children}
+  </a>
+);
+
 export default Button;

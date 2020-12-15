@@ -7,16 +7,16 @@ exports.normalizePrices = (course) => {
     return course;
   }
 
-  course.school_prices.map(price => {
+  course.school_prices.map((price) => {
     if (price.courses[0].id == course.id && price.active) {
       priceInfo = price;
     }
   });
   course.price_info = priceInfo;
   return course;
-}
+};
 
-exports.normalizeCourseLandingPage = ({ node: course}) => {
+exports.normalizeCourseLandingPage = ({ node: course }) => {
   let landing_page = {};
   // section 1
   landing_page.title = course?.title;
@@ -46,8 +46,9 @@ exports.normalizeCourseLandingPage = ({ node: course}) => {
 
   //section 6
   landing_page.faqHeading = course?.faqHeading;
+  landing_page.faqSubHeading = course?.faqSubHeading;
   landing_page.faqBody = course?.faqBody;
-  
+
   // section 7
   landing_page.closingCTA = {};
   landing_page.closingCTA.text = course?.closingCTAText;
@@ -57,7 +58,7 @@ exports.normalizeCourseLandingPage = ({ node: course}) => {
 
   course.landing_page = landing_page;
   return course;
-}
+};
 
 module.exports.local = {
   courses: ({ node: course }) => {
