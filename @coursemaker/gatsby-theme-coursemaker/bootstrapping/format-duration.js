@@ -1,6 +1,6 @@
 module.exports = {
     toSeconds: (duration) => {
-        if (isNaN(duration)) {
+        if (duration.isNaN()) {
             const addZero = (number) => (number.length === 1 ? `0${number}` : number);
             const split = duration.split(':');
 

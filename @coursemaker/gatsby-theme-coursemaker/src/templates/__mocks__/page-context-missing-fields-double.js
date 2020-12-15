@@ -3,7 +3,7 @@ const pageContextMissingFieldsDouble = {
     "id": "102",
         "school_prices": [
         {
-            "active": true,
+            "is_active": true,
             "currency": "USD",
             "name": "Testing and Monitoring Price",
             "product_type": "single_course",
@@ -19,7 +19,7 @@ const pageContextMissingFieldsDouble = {
             ]
         },
         {
-            "active": null,
+            "is_active": null,
             "currency": "USD",
             "name": "Testing and Monitoring Price",
             "product_type": "single_course",
@@ -35,7 +35,7 @@ const pageContextMissingFieldsDouble = {
             ]
         },
         {
-            "active": false,
+            "is_active": false,
             "currency": "USD",
             "name": "Testing and Monitoring Price",
             "product_type": "single_course",
@@ -62,7 +62,7 @@ const pageContextMissingFieldsDouble = {
         "url": "https://s3_urlamazonaws.com/dsacademy2/course/Testing-and-Monitoring-Machine-Learning-Models/media/public/image-course-landing-image.ebook_cover.png2020-10-07T20:25:12.483754"
     },
         "price_info": {
-        "active": true,
+        "is_active": true,
             "currency": "USD",
             "name": "Testing and Monitoring Price",
             "product_type": "single_course",
@@ -89,7 +89,7 @@ const pageContextMissingFieldsDouble = {
                 "title": "Testing and Monitoring Machine Learning Models",
                 "school_prices": [
                     {
-                        "active": null,
+                        "is_active": null,
                         "currency": "USD",
                         "name": "Testing and Monitoring Price",
                         "product_type": "single_course",
@@ -318,7 +318,7 @@ const pageContextMissingFieldsDouble = {
                     }
                 ],
                 "price_info": {
-                    "active": null,
+                    "is_active": null,
                     "currency": "USD",
                     "name": "Testing and Monitoring Price",
                     "product_type": "single_course",
@@ -346,7 +346,7 @@ const pageContextMissingFieldsDouble = {
                 },
                 "sections": [],
                 "price_info": {
-                    "active": null,
+                    "is_active": null,
                     "currency": "USD",
                     "name": "Testing and Monitoring Price",
                     "product_type": "single_course",
@@ -379,7 +379,7 @@ const pageContextMissingFieldsDouble = {
                 },
                 "sections": [],
                 "price_info": {
-                    "active": null,
+                    "is_active": null,
                     "currency": "USD",
                     "name": "Testing and Monitoring Price",
                     "product_type": "single_course",

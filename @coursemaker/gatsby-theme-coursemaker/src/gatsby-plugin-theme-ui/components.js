@@ -1,5 +1,5 @@
-import Code from "../components/code";
+import Code from '../components/code';
 
 export default {
-  pre: Code,
+    pre: Code,
 };
