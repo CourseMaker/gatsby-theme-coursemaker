@@ -240,7 +240,7 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId, createContentDig
     // if the relativeDirectory does not contain "section"
     // this means we are in the course root dir
     // in this scenario we just create the course node
-    relDir = fileNode.relativeDirectory.toLocaleLowerCase();
+    const relDir = fileNode.relativeDirectory.toLocaleLowerCase();
     if (!relDir.includes('section')) {
         if (fileNode.name === `index`) {
             const slug = node.frontmatter.slug
@@ -440,7 +440,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                                         title
                                         school_prices {
                                             id
-                                            active
+                                            is_active
                                             currency
                                             name
                                             product_type

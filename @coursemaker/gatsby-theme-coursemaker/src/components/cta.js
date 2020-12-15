@@ -4,9 +4,9 @@ import Button from "./button";
 
 const CTA = ({priceInfo}) => {
   let ctaText = 'Get Access'
-  if (priceInfo?.product_type == 'single_course' && priceInfo?.active){
+  if (priceInfo?.product_type == 'single_course' && priceInfo?.is_active){
     ctaText = 'Purchase Course'
-  } else if (priceInfo?.product_type == 'school_membership' && priceInfo?.active) {
+  } else if (priceInfo?.product_type == 'school_membership' && priceInfo?.is_active) {
     ctaText = 'Purchase Membership'
   }
 
