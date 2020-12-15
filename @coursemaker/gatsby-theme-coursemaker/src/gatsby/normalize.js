@@ -8,7 +8,7 @@ exports.normalizePrices = (course) => {
     }
 
     course.school_prices.map((price) => {
-        if (price.courses[0].id == course.id && price.active) {
+        if (price.courses[0].id == course.id && price.is_active) {
             priceInfo = price;
         }
     });

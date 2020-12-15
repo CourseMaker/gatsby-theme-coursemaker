@@ -4,7 +4,7 @@ const pageContextDouble = {
         "title": "Testing and Monitoring Machine Learning Models",
         "school_prices": [
         {
-            "active": true,
+            "is_active": true,
             "currency": "USD",
             "name": "Testing and Monitoring Price",
             "product_type": "single_course",
@@ -20,7 +20,7 @@ const pageContextDouble = {
             ]
         },
         {
-            "active": null,
+            "is_active": null,
             "currency": "USD",
             "name": "Testing and Monitoring Price",
             "product_type": "single_course",
@@ -36,7 +36,7 @@ const pageContextDouble = {
             ]
         },
         {
-            "active": false,
+            "is_active": false,
             "currency": "USD",
             "name": "Testing and Monitoring Price",
             "product_type": "single_course",
@@ -269,7 +269,7 @@ const pageContextDouble = {
         }
     ],
         "price_info": {
-        "active": true,
+        "is_active": true,
             "currency": "USD",
             "name": "Testing and Monitoring Price",
             "product_type": "single_course",
@@ -296,7 +296,7 @@ const pageContextDouble = {
             "title": "Testing and Monitoring Machine Learning Models",
             "school_prices": [
                 {
-                    "active": null,
+                    "is_active": null,
                     "currency": "USD",
                     "name": "Testing and Monitoring Price",
                     "product_type": "single_course",
@@ -529,7 +529,7 @@ const pageContextDouble = {
                 }
             ],
             "price_info": {
-                "active": null,
+                "is_active": null,
                 "currency": "USD",
                 "name": "Testing and Monitoring Price",
                 "product_type": "single_course",
@@ -557,7 +557,7 @@ const pageContextDouble = {
             },
             "sections": [],
             "price_info": {
-                "active": null,
+                "is_active": null,
                 "currency": "USD",
                 "name": "Testing and Monitoring Price",
                 "product_type": "single_course",
@@ -590,7 +590,7 @@ const pageContextDouble = {
             },
             "sections": [],
             "price_info": {
-                "active": null,
+                "is_active": null,
                 "currency": "USD",
                 "name": "Testing and Monitoring Price",
                 "product_type": "single_course",
