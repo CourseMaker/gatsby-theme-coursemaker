@@ -16,10 +16,10 @@ const CoursePaymentPage = ({ pageContext = {} }) => {
 
   let priceText = '';
   let recurrence = '';
-  if (priceInfo?.product_type == 'single_course' && priceInfo?.active){
+  if (priceInfo?.product_type == 'single_course' && priceInfo?.is_active){
     priceText = priceInfo?.unit_amount_readable;
     recurrence = 'One-time purchase of: '
-  } else if (priceInfo?.product_type == 'school_membership' && priceInfo?.active) {
+  } else if (priceInfo?.product_type == 'school_membership' && priceInfo?.is_active) {
     priceText = priceInfo?.unit_amount_readable;
     recurrence = priceInfo?.recurring_interval;
   }

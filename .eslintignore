@@ -1,8 +1,5 @@
 @coursemaker/gatsby-theme-coursemaker/node_modules
 @coursemaker/gatsby-theme-coursemaker/src/components
-@coursemaker/gatsby-theme-coursemaker/src/__mocks__
-@coursemaker/gatsby-theme-coursemaker/src/__tests__
-@coursemaker/gatsby-theme-coursemaker/src/auth
 @coursemaker/gatsby-theme-coursemaker/src/css
 @coursemaker/gatsby-theme-coursemaker/src/graphQL
 @coursemaker/gatsby-theme-coursemaker/src/helpers
