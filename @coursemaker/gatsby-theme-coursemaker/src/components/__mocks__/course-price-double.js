@@ -1,5 +1,5 @@
 const priceInfoDouble = {
-            "active": true,
+            "is_active": true,
             "currency": "USD",
             "name": "Testing and Monitoring Price",
             "product_type": "single_course",
