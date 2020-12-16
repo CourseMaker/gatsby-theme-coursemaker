@@ -13,9 +13,12 @@ import TestimonialsSection from "../components/landing_page/testimonials-section
 import AuthorSection from "../components/landing_page/author-section";
 import FAQSection from "../components/landing_page/faqs-section";
 import ContactSection from "../components/landing_page/contact-section";
+import FooterContent from "../components/landing_page/footer-section";
+import Guarantee from "../components/landing_page/guarantee";
 import { SchoolImg } from "../images";
 
 const SchoolLandingPage = ({ pageContext = {} }) => {
+  console.error("+++++++++", pageContext);
   const school = pageContext.school;
   const passedCourses = pageContext.courses;
   const landingPage = school?.landing_page;
@@ -34,14 +37,14 @@ const SchoolLandingPage = ({ pageContext = {} }) => {
   if (!initialCTA) {
     initialCTA = {
       text: "View Courses",
-      color: "green",
+      color: "#F7E476",
       link: "/#courses",
-      textColor: "white",
+      textColor: "black",
     };
   }
 
   // Section 2 - Media
-  const videoID = landingPage?.video_id;
+  const videoID = landingPage?.videoID;
   const imageID = landingPage?.image;
 
   // Section 3 - Overview
@@ -81,33 +84,18 @@ const SchoolLandingPage = ({ pageContext = {} }) => {
           </div>
         </div>
       </section>
-
       {<LandingVideo videoID={videoID} />}
       {landingPage?.image?.url && <LandingImage landing={landingPage?.image} />}
-
       {<OverviewSection landingPage={landingPage} />}
-
       <Courses courses={passedCourses} />
-
       {<TestimonialsSection landingPage={landingPage} />}
       {<AuthorSection landingPage={landingPage} />}
-
       {<FAQSection landingPage={landingPage} />}
 
-      {closingCTA && (
-        <section
-          id="cta"
-          className="py-8 text-center text-white bg-gray-900 lg:py-24"
-        >
-          <div className="container">
-            <div className="mx-auto inner lg:w-6/12">
-              <Button text="Purchase" to="./checkout" />
-            </div>
-          </div>
-        </section>
-      )}
+      {<Guarantee landingPage={landingPage} />}
 
       {<ContactSection landingPage={landingPage} />}
+      {<FooterContent landingPage={landingPage} />}
     </Layout>
   );
 };

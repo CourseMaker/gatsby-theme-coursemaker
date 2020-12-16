@@ -27,11 +27,11 @@ exports.normalizeCourseLandingPage = ({ node: course }) => {
   landing_page.initialCTA.link = course?.initialCTALink;
   landing_page.initialCTA.textColor = course?.initialCTATextColor;
 
-  // section 2
-  landing_page.video_id = course?.video_id;
+  // section 0
+  landing_page.videoID = course?.videoID;
   landing_page.image = course?.image;
 
-  // section 3
+  // section 2
   landing_page.overviewHeading = course?.overviewHeading;
   landing_page.overviewBody = course?.overviewBody;
   landing_page.overviewCTA = {};
@@ -40,16 +40,20 @@ exports.normalizeCourseLandingPage = ({ node: course }) => {
   landing_page.overviewCTA.link = course?.overviewCTALink;
   landing_page.overviewCTA.textColor = course?.overviewCTATextColor;
 
-  // section 5
+  // section 4
   landing_page.testimonialsHeading = course?.testimonialsHeading;
   landing_page.testimonialsBody = course?.testimonialsBody;
+  // section 5
+  landing_page.landingAuthorTitle = course?.landingAuthorTitle;
+  landing_page.landingAuthorSub = course?.landingAuthorSub;
+  landing_page.landingAuthorDesc = course?.landingAuthorDesc;
 
   //section 6
   landing_page.faqHeading = course?.faqHeading;
   landing_page.faqSubHeading = course?.faqSubHeading;
   landing_page.faqBody = course?.faqBody;
 
-  // section 7
+  // section 8
   landing_page.closingCTA = {};
   landing_page.closingCTA.text = course?.closingCTAText;
   landing_page.closingCTA.color = course?.closingCTAColor;

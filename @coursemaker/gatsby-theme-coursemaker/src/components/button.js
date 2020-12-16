@@ -12,7 +12,7 @@ const Button = ({
 }) => (
   <Link
     to={to}
-    className={`btn btn-${size}`}
+    className={`btn btn-${size} `}
     sx={{
       mx: 1,
       variant: `buttons.${variant}`,

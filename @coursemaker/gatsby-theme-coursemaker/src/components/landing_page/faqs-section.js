@@ -4,7 +4,6 @@ import ReactMarkdown from "react-markdown";
 import { jsx } from "theme-ui";
 
 const FAQSection = ({ landingPage }) => {
-  console.log("landingPage", landingPage);
   if (landingPage == null) return null;
   const faqHeading = landingPage?.faqHeading;
   const faqSubHeading = landingPage?.faqSubHeading;
@@ -12,7 +11,7 @@ const FAQSection = ({ landingPage }) => {
 
   if (faqHeading) {
     return (
-      <section id="faqs" className="py-8 text-center bg-gray-100 md:py-24">
+      <section id="faqs" className="py-8 text-center md:py-24">
         <div className="container">
           <div className="mx-auto inner lg:w-7/12">
             <h2 className="mb-4 lg:mb-6">{faqHeading}</h2>

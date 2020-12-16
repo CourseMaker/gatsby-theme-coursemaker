@@ -167,6 +167,9 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
         subtitle: { type: `String` },
         videoID: { type: `String` },
         price: { type: `Int` }, // price in cents
+        landingAuthorTitle: { type: `String` },
+        landingAuthorSub: { type: `String` },
+        landingAuthorDesc: { type: `String` },
         initialCTAText: { type: `String` },
         initialCTAColor: { type: `String` },
         initialCTALink: { type: `String` },
@@ -182,6 +185,7 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
         faqHeading: { type: `String` },
         faqSubHeading: { type: `String` },
         faqBody: { type: `String` },
+        videoID: { type: `String` },
         closingCTAText: { type: `String` },
         closingCTAColor: { type: `String` },
         closingCTALink: { type: `String` },
@@ -284,6 +288,9 @@ exports.onCreateNode = (
         videoID: node.frontmatter.videoID,
         premium: node.frontmatter.premium,
         subtitle: node.frontmatter.subtitle,
+        landingAuthorTitle: node.frontmatter.landingAuthorTitle,
+        landingAuthorSub: node.frontmatter.landingAuthorSub,
+        landingAuthorDesc: node.frontmatter.landingAuthorDesc,
         initialCTAText: node.frontmatter.initialCTAText,
         initialCTAColor: node.frontmatter.initialCTAColor,
         initialCTALink: node.frontmatter.initialCTALink,
@@ -430,6 +437,10 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                   landing_page {
                     title
                     subtitle
+                    landingAuthorTitle
+                    landingAuthorSub
+                    landingAuthorDesc
+                    videoID
                     initialCTA {
                       color
                       link
@@ -494,6 +505,10 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                     landing_page: course_landing_page {
                       title
                       subtitle
+                      landingAuthorTitle
+                      landingAuthorSub
+                      landingAuthorDesc
+                      videoID
                       initialCTA {
                         color
                         link
@@ -576,11 +591,14 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                 title
                 id
                 subtitle
+                landingAuthorTitle
+                landingAuthorSub
+                landingAuthorDesc
                 initialCTAText
                 initialCTAColor
                 initialCTALink
                 initialCTATextColor
-                video_id: videoID
+                videoID
                 image: courseImage {
                   childImageSharp {
                     fluid(maxWidth: 500, quality: 100) {
@@ -648,6 +666,9 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
               landing_page {
                 title
                 subtitle
+                landingAuthorTitle
+                landingAuthorSub
+                landingAuthorDesc
                 initialCTAText
                 initialCTAColor
                 initialCTALink
@@ -663,6 +684,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                 faqHeading
                 faqSubHeading
                 faqBody
+                videoID
                 closingCTAText
                 closingCTAColor
                 closingCTALink

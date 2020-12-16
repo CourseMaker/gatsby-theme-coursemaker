@@ -5,7 +5,6 @@ import { jsx } from "theme-ui";
 import Img from "gatsby-image";
 
 const TestimonialsSection = ({ landingPage }) => {
-  console.log("landing page", landingPage);
   if (landingPage == null) return null;
   const testimonialsHeading = landingPage?.testimonialsHeading;
   const testimonialsBody = landingPage?.testimonialsBody; // markdown
