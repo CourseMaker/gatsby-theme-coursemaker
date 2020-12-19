@@ -6,7 +6,6 @@ import { jsx } from "theme-ui";
 const FAQSection = ({ landingPage }) => {
   if (landingPage == null) return null;
   const faqHeading = landingPage?.faqHeading;
-  const faqSubHeading = landingPage?.faqSubHeading;
   const faqBody = landingPage?.faqBody; // markdown
 
   if (faqHeading) {
@@ -15,8 +14,7 @@ const FAQSection = ({ landingPage }) => {
         <div className="container">
           <div className="mx-auto inner lg:w-7/12">
             <h2 className="mb-4 lg:mb-6">{faqHeading}</h2>
-            <h4 className="mb-4 lg:mb-6 font-bold">{faqSubHeading}</h4>
-            <div className="leading-loose text-gray-700 space-y-6">
+            <div className="leading-loose text-left text-gray-700 space-y-6">
               <ReactMarkdown source={faqBody} />
             </div>
           </div>

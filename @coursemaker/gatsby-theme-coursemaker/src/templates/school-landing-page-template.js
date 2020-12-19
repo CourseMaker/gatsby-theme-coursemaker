@@ -18,7 +18,6 @@ import Guarantee from "../components/landing_page/guarantee";
 import { SchoolImg } from "../images";
 
 const SchoolLandingPage = ({ pageContext = {} }) => {
-  console.error("+++++++++", pageContext);
   const school = pageContext.school;
   const passedCourses = pageContext.courses;
   const landingPage = school?.landing_page;
@@ -32,6 +31,7 @@ const SchoolLandingPage = ({ pageContext = {} }) => {
 
   // Section 1 - Intro
   const title = landingPage ? landingPage.title : school.name;
+  const bgHeadImg = landingPage?.bgImg;
   const subtitle = landingPage?.subtitle;
   let initialCTA = landingPage?.initialCTA;
   if (!initialCTA) {
@@ -92,7 +92,13 @@ const SchoolLandingPage = ({ pageContext = {} }) => {
       {<AuthorSection landingPage={landingPage} />}
       {<FAQSection landingPage={landingPage} />}
 
-      {<Guarantee landingPage={landingPage} />}
+      {
+        <Guarantee
+          landingPage={landingPage}
+          themeStyles={themeStyles}
+          initialCTA={initialCTA}
+        />
+      }
 
       {<ContactSection landingPage={landingPage} />}
       {<FooterContent landingPage={landingPage} />}

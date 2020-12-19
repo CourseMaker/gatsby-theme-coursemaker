@@ -3,6 +3,7 @@
  *
  * See: https://www.gatsbyjs.org/docs/gatsby-config/
  */
+
 require("dotenv").config();
 const useStrapi = process.env.GATSBY_USE_STRAPI;
 
@@ -33,12 +34,10 @@ module.exports = {
   siteMetadata: {
     title: "Demo Site Cool School",
     landing_page: {
-      title: "Los Mejores pequeplanes cerca de ti",
+      title: "Los Mejores pequeplanes cerca de ti12",
       subtitle:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-      landingAuthorTitle: "Chris 1",
-      landingAuthorSub: "Chris 2",
-      landingAuthorDesc: "Chris 3",
+      bgImg: "Image Will Go here.",
       initialCTAText: "View Courses",
       initialCTAColor: "yellow",
       initialCTALink: "#courses",
@@ -53,21 +52,19 @@ module.exports = {
       testimonialsHeading: "Testimonials",
       testimonialsBody: "update me",
       faqHeading: "Frequently Asked Questions",
-      faqSubHeading:
-        "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
       faqBody:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop.",
       landingAuthorTitle: "Chris",
-      landingAuthorSub: "Teacher",
       landingAuthorDesc:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eleifend nibh vel blandit interdum. Phasellus vel sodales justo, vel maximus tellus. Nulla semper risus nec massa tincidunt.",
       closingCTAText: "Purchase Course",
       closingCTAColor: "orange",
+      guaranteeBtnText: "Enroll CTA",
+      guaranteeTitle: "Share what you know.\n Sign up free today.",
       closingCTALink: "checkout",
       closingCTATextColor: "white",
       contactHeading: "Questions?",
       contactBody: "Any Questions? Send us an email to",
-      contactEmail: "chris@coursemaker.org",
       videoID: "ScMzIvxBSi4",
     },
     stripe_public_key: process.env.GATSBY_STRIPE_PUBLISHABLE_KEY,

@@ -10,18 +10,18 @@ const FooterContent = ({ landingPage }) => {
         <div className="container md:px-32">
           <div class="grid grid-cols-2 md:grid-cols-4 text-white ">
             <div class="md:mx-auto mb-4">
-              <ul>
+              <ul className="leading-loose">
                 <li className="font-bold mb-2 text-lg">Main Menu</li>
                 <li>Home</li>
                 <li>Promotions</li>
                 <li>Size and Format</li>
                 <li>Custom Join</li>
-                <li>Personalized JoinJoinJoin</li>
+                <li>Personalized Join</li>
                 <li>How to Join</li>
               </ul>
             </div>
             <div class="md:mx-auto mb-4 ">
-              <ul>
+              <ul className="leading-loose">
                 <li className="font-bold mb-2 text-lg">Contacts</li>
                 <li>Facebook</li>
                 <li>Twitter</li>
@@ -31,7 +31,7 @@ const FooterContent = ({ landingPage }) => {
               </ul>
             </div>
             <div class="md:mx-auto mb-4">
-              <ul>
+              <ul className="leading-loose">
                 <li className="font-bold mb-2 text-lg">Category</li>
                 <li>Bayl</li>
                 <li>Anak kecll</li>
@@ -40,7 +40,7 @@ const FooterContent = ({ landingPage }) => {
               </ul>
             </div>
             <div class="md:mx-auto">
-              <ul>
+              <ul className="leading-loose">
                 <li className="font-bold mb-2 md-4 text-lg">
                   Terms and Conditions
                 </li>
@@ -57,7 +57,7 @@ const FooterContent = ({ landingPage }) => {
       </section>
       <div className="bg-gray-800 text-white text-center h-12 p-0">
         <span className="h-12 flex justify-center items-center">
-          2020. All rights reserved.
+          &#169; 2020. All rights reserved.
         </span>
       </div>
     </>

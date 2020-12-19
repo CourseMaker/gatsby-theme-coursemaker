@@ -18,9 +18,10 @@ exports.normalizePrices = (course) => {
 
 exports.normalizeCourseLandingPage = ({ node: course }) => {
   let landing_page = {};
-  // section 1
+  // section 1 3
   landing_page.title = course?.title;
   landing_page.subtitle = course?.subtitle;
+  landing_page.bgImg = course?.bgImg;
   landing_page.initialCTA = {};
   landing_page.initialCTA.text = course?.initialCTAText;
   landing_page.initialCTA.color = course?.initialCTAColor;
@@ -45,13 +46,14 @@ exports.normalizeCourseLandingPage = ({ node: course }) => {
   landing_page.testimonialsBody = course?.testimonialsBody;
   // section 5
   landing_page.landingAuthorTitle = course?.landingAuthorTitle;
-  landing_page.landingAuthorSub = course?.landingAuthorSub;
   landing_page.landingAuthorDesc = course?.landingAuthorDesc;
 
   //section 6
   landing_page.faqHeading = course?.faqHeading;
-  landing_page.faqSubHeading = course?.faqSubHeading;
   landing_page.faqBody = course?.faqBody;
+  //section 7
+  landing_page.guaranteeTitle = course?.guaranteeTitle;
+  landing_page.guaranteeBtnText = course?.guaranteeBtnText;
 
   // section 8
   landing_page.closingCTA = {};

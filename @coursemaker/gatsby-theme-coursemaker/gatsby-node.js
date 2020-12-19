@@ -165,10 +165,12 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
         id: { type: `ID!` },
         title: { type: `String!` },
         subtitle: { type: `String` },
+        bgImg: { type: `String` },
         videoID: { type: `String` },
+        guaranteeTitle: { type: `String` },
+        guaranteeBtnText: { type: `String` },
         price: { type: `Int` }, // price in cents
         landingAuthorTitle: { type: `String` },
-        landingAuthorSub: { type: `String` },
         landingAuthorDesc: { type: `String` },
         initialCTAText: { type: `String` },
         initialCTAColor: { type: `String` },
@@ -183,7 +185,6 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
         testimonialsHeading: { type: `String` },
         testimonialsBody: { type: `String` },
         faqHeading: { type: `String` },
-        faqSubHeading: { type: `String` },
         faqBody: { type: `String` },
         videoID: { type: `String` },
         closingCTAText: { type: `String` },
@@ -192,7 +193,6 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
         closingCTATextColor: { type: `String` },
         contactHeading: { type: `String` },
         contactBody: { type: `String` },
-        contactEmail: { type: `String` },
         slug: {
           type: `String!`,
         },
@@ -287,9 +287,9 @@ exports.onCreateNode = (
         courseImage: node.frontmatter.courseImage,
         videoID: node.frontmatter.videoID,
         premium: node.frontmatter.premium,
+        bgImg: node.frontmatter.bgImg,
         subtitle: node.frontmatter.subtitle,
         landingAuthorTitle: node.frontmatter.landingAuthorTitle,
-        landingAuthorSub: node.frontmatter.landingAuthorSub,
         landingAuthorDesc: node.frontmatter.landingAuthorDesc,
         initialCTAText: node.frontmatter.initialCTAText,
         initialCTAColor: node.frontmatter.initialCTAColor,
@@ -304,7 +304,8 @@ exports.onCreateNode = (
         testimonialsHeading: node.frontmatter.testimonialsHeading,
         testimonialsBody: node.frontmatter.testimonialsBody,
         faqHeading: node.frontmatter.faqHeading,
-        faqSubHeading: node.frontmatter.faqSubHeading,
+        guaranteeTitle: node.frontmatter.guaranteeTitle,
+        guaranteeBtnText: node.frontmatter.guaranteeBtnText,
         faqBody: node.frontmatter.faqBody,
         closingCTAText: node.frontmatter.closingCTAText,
         closingCTAColor: node.frontmatter.closingCTAColor,
@@ -312,7 +313,6 @@ exports.onCreateNode = (
         closingCTATextColor: node.frontmatter.closingCTATextColor,
         contactHeading: node.frontmatter.contactHeading,
         contactBody: node.frontmatter.contactBody,
-        contactEmail: node.frontmatter.contactEmail,
         author: node.frontmatter.author,
         slug,
       };
@@ -437,8 +437,10 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                   landing_page {
                     title
                     subtitle
+                    bgImg
+                    guaranteeTitle
+                    guaranteeBtnText
                     landingAuthorTitle
-                    landingAuthorSub
                     landingAuthorDesc
                     videoID
                     initialCTA {
@@ -462,7 +464,6 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                     testimonialsHeading
                     testimonialsBody
                     faqHeading
-                    faqSubHeading
                     faqBody
                     closingCTA {
                       color
@@ -472,7 +473,6 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                     }
                     contactHeading
                     contactBody
-                    contactEmail
                   }
                   courses {
                     id
@@ -505,9 +505,11 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                     landing_page: course_landing_page {
                       title
                       subtitle
+                      bgImg
                       landingAuthorTitle
-                      landingAuthorSub
                       landingAuthorDesc
+                      guaranteeTitle
+                      guaranteeBtnText
                       videoID
                       initialCTA {
                         color
@@ -530,7 +532,6 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                       testimonialsHeading
                       testimonialsBody
                       faqHeading
-                      faqSubHeading
                       faqBody
                       closingCTA {
                         color
@@ -540,7 +541,6 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                       }
                       contactHeading
                       contactBody
-                      contactEmail
                     }
                     sections {
                       id
@@ -592,7 +592,6 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                 id
                 subtitle
                 landingAuthorTitle
-                landingAuthorSub
                 landingAuthorDesc
                 initialCTAText
                 initialCTAColor
@@ -619,7 +618,6 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                 testimonialsHeading
                 testimonialsBody
                 faqHeading
-                faqSubHeading
                 faqBody
                 closingCTAText
                 closingCTAColor
@@ -627,7 +625,6 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                 closingCTATextColor
                 contactHeading
                 contactBody
-                contactEmail
                 sections: Sections {
                   lectures: Lectures {
                     id
@@ -666,8 +663,8 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
               landing_page {
                 title
                 subtitle
+                bgImg
                 landingAuthorTitle
-                landingAuthorSub
                 landingAuthorDesc
                 initialCTAText
                 initialCTAColor
@@ -682,16 +679,16 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                 testimonialsHeading
                 testimonialsBody
                 faqHeading
-                faqSubHeading
                 faqBody
                 videoID
+                guaranteeTitle
+                guaranteeBtnText
                 closingCTAText
                 closingCTAColor
                 closingCTALink
                 closingCTATextColor
                 contactHeading
                 contactBody
-                contactEmail
               }
               name: title
               useAuth
