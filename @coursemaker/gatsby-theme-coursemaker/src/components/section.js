@@ -80,15 +80,19 @@ const Section = ({ lecture, size, data, slug }) => {
           data?.lectures?.[0].hasOwnProperty("order") ? "order" : "id",
           "asc"
         ).map((lecture) => {
-          return (
-            <Lecture
-              lecture={currentLecture}
-              slug={slug}
-              data={lecture}
-              size={size}
-              key={lecture.id}
-            />
-          );
+          if (lecture?.active) {
+            return (
+                <Lecture
+                    lecture={currentLecture}
+                    slug={slug}
+                    data={lecture}
+                    size={size}
+                    key={lecture.id}
+                />
+            );
+          } else {
+            return null;
+          }
         })}
       </div>
     </div>
