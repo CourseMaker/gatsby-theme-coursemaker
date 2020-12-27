@@ -85,16 +85,18 @@ const createCourses = (school, courses, createPage) => {
         }
 
         allCourseLectures.forEach((lecture) => {
-            createPage({
-                path: `/courses${slug}lectures/${lecture.id}`,
-                component: lectureTemplate,
-                context: {
-                    course,
-                    lecture,
-                    allLectures: allCourseLectures,
-                    school,
-                },
-            });
+            if (lecture.active) {
+                createPage({
+                    path: `/courses${slug}lectures/${lecture.id}`,
+                    component: lectureTemplate,
+                    context: {
+                        course,
+                        lecture,
+                        allLectures: allCourseLectures,
+                        school,
+                    },
+                });
+            }
         });
     });
 };

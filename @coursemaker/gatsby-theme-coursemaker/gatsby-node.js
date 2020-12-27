@@ -74,6 +74,10 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
                 slug: {
                     type: `String!`,
                 },
+                active: {
+                    type: `Boolean`,
+                    defaultValue: true,
+                },
                 video: {
                     type: `String`,
                 },
@@ -338,12 +342,17 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId, createContentDig
             let videoDuration;
             // TODO: get video duration
             if (video && !duration) videoDuration = 1000;
+            let { active } = node.frontmatter;
+            if (active == null) {
+                active = true;
+            }
             const fieldData = {
                 title,
                 duration: duration || videoDuration,
                 video,
                 slug,
                 number,
+                active,
             };
             createNode({
                 ...fieldData,
@@ -506,6 +515,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                                                 title
                                                 order
                                                 video_id
+                                                active
                                                 body_text
                                                 body_markdown
                                                 file_attachment {
@@ -581,6 +591,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                                         id
                                         slug
                                         title
+                                        active
                                         video_id: video
                                         order: number
                                         body

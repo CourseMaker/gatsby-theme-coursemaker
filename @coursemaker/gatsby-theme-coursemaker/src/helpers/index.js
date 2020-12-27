@@ -1,17 +1,14 @@
 export function isValidJSON(string) {
-  return /^[\],:{}\s]*$/.test(
-    string
-      .replace(/\\["\\\/bfnrtu]/g, "@")
-      .replace(
-        /"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,
-        "]"
-      )
-      .replace(/(?:^|:|,)(?:\s*\[)+/g, "")
-  );
+    return /^[\],:{}\s]*$/.test(
+        string
+            .replace(/\\["\\\/bfnrtu]/g, '@')
+            .replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']')
+            .replace(/(?:^|:|,)(?:\s*\[)+/g, '')
+    );
 }
 
 export function isValidStringify(value) {
-  return (typeof value === "object" && value !== null) || Array.isArray(value);
+    return (typeof value === 'object' && value !== null) || Array.isArray(value);
 }
 
 /*
