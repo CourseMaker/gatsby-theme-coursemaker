@@ -76,7 +76,7 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
                 },
                 active: {
                     type: `Boolean`,
-                    defaultValue: true
+                    defaultValue: true,
                 },
                 video: {
                     type: `String`,
@@ -342,9 +342,9 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId, createContentDig
             let videoDuration;
             // TODO: get video duration
             if (video && !duration) videoDuration = 1000;
-            let active = node.frontmatter.active;
-            if (active == null){
-                active = true
+            let { active } = node.frontmatter;
+            if (active == null) {
+                active = true;
             }
             const fieldData = {
                 title,
@@ -352,7 +352,7 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId, createContentDig
                 video,
                 slug,
                 number,
-                active
+                active,
             };
             createNode({
                 ...fieldData,
