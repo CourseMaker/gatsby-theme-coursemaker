@@ -56,6 +56,7 @@
     "gatsby-plugin-stylus": "^2.3.10",
     "gatsby-plugin-theme-ui": "^0.2.43",
     "gatsby-remark-copy-linked-files": "^2.3.12",
+    "gatsby-remark-draw": "^1.0.16",
     "gatsby-remark-images": "^3.3.27",
     "gatsby-remark-katex": "^3.3.14",
     "gatsby-remark-prismjs": "^3.9.0",

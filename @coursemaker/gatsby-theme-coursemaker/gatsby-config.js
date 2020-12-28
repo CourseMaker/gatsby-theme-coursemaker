@@ -44,13 +44,13 @@ module.exports = (themeOptions) => {
                     options: {
                         extensions: [`.mdx`, `.md`],
                         gatsbyRemarkPlugins: [
-                            {
-                                resolve: `gatsby-remark-images`,
-                                options: {
-                                    maxWidth: 1380,
-                                    linkImagesToOriginal: false,
-                                },
-                            },
+                            // {
+                            //     resolve: `gatsby-remark-sequence`,
+                            //     options: {
+                            //         // see more details on https://github.com/bramp/js-sequence-diagrams
+                            //         'theme': 'hand',
+                            //     }
+                            // },
                             {
                                 resolve: `gatsby-remark-katex`,
                                 options: {
@@ -58,11 +58,28 @@ module.exports = (themeOptions) => {
                                 },
                             },
                             {
-                                resolve: `gatsby-remark-sequence`,
+                                resolve: 'gatsby-remark-draw',
                                 options: {
-                                    // see more details on https://github.com/bramp/js-sequence-diagrams
-                                    'theme': 'hand',
+                                    dot: {
+                                        edgeAttributes: {
+                                            'arrowtail': 'empty',
+                                                'arrowhead': 'empty'
+                                        }
+                                    },
+                                    bob: {
+                                        fontFamily: 'verdana'
+                                    },
+                                    mermaid: {
+                                        theme: 'forest'
+                                    }
                                 }
+                            },
+                            {
+                                resolve: `gatsby-remark-images`,
+                                options: {
+                                    maxWidth: 1380,
+                                    linkImagesToOriginal: false,
+                                },
                             },
                             // {
                             //   resolve: 'gatsby-remark-graph',
@@ -82,12 +99,18 @@ module.exports = (themeOptions) => {
                 resolve: 'gatsby-transformer-remark',
                 options: {
                     plugins: [
+                        // {
+                        //     resolve: `gatsby-remark-sequence`,
+                        //     options: {
+                        //         // see more details on https://github.com/bramp/js-sequence-diagrams
+                        //         'theme': 'hand',
+                        //     }
+                        // },
                         {
-                            resolve: `gatsby-remark-sequence`,
+                            resolve: `gatsby-remark-katex`,
                             options: {
-                                // see more details on https://github.com/bramp/js-sequence-diagrams
-                                'theme': 'hand',
-                            }
+                                strict: `ignore`,
+                            },
                         },
                         // {
                         //   resolve: 'gatsby-remark-graph',
