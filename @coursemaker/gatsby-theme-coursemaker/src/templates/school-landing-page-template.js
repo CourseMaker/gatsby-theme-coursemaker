@@ -14,7 +14,8 @@ import FAQSection from "../components/landing_page/faqs-section";
 import ContactSection from "../components/landing_page/contact-section";
 
 
-const SchoolLandingPage = ({ pageContext = {} }) => {
+const SchoolLandingPage = ({ props, pageContext = {} }) => {
+  console.log(props)
   const school = pageContext.school;
   const passedCourses = pageContext.courses;
   const landingPage = school?.landing_page;
