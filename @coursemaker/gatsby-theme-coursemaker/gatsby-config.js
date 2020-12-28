@@ -57,6 +57,13 @@ module.exports = (themeOptions) => {
                                     strict: `ignore`,
                                 },
                             },
+                            {
+                                resolve: `gatsby-remark-sequence`,
+                                options: {
+                                    // see more details on https://github.com/bramp/js-sequence-diagrams
+                                    'theme': 'hand',
+                                }
+                            },
                             // {
                             //   resolve: 'gatsby-remark-graph',
                             //   options: {
@@ -75,6 +82,13 @@ module.exports = (themeOptions) => {
                 resolve: 'gatsby-transformer-remark',
                 options: {
                     plugins: [
+                        {
+                            resolve: `gatsby-remark-sequence`,
+                            options: {
+                                // see more details on https://github.com/bramp/js-sequence-diagrams
+                                'theme': 'hand',
+                            }
+                        },
                         // {
                         //   resolve: 'gatsby-remark-graph',
                         //   options: {
