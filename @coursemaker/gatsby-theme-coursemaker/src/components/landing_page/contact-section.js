@@ -15,7 +15,7 @@ const ContactSection = ({ landingPage }) => {
                 <div className="container">
                     <div className="mx-auto inner lg:w-5/12">
                         <h2 className="mb-4 md:mb-6">{contactHeading}</h2>
-                        <div className="text-xl text-gray-700 space-y-6">
+                        <div className="text-left text-gray-700 space-y-6">
                             <ReactMarkdown source={contactBody}/>
                         </div>
                         <div className="mt-8 btn-wrapper"/>
