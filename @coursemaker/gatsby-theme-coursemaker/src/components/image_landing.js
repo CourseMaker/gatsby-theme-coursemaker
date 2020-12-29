@@ -14,7 +14,6 @@ const LandingImage = ({ landing }) => {
     // strapi hack
     landingImage = { src: landing?.url };
 
-  console.log(landingImage)
   if (landing)
     return (
       <section id="landingImage" className="py-5 bg-gray-100">
