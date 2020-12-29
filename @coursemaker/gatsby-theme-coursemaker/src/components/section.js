@@ -75,11 +75,11 @@ const Section = ({ lecture, size, data, slug }) => {
         </button>
       </div>
       <div className={toggle ? "block" : "hidden"}>
-        {_.orderBy(
+        {data.lectures.length && _.orderBy(
           data?.lectures,
           data?.lectures?.[0].hasOwnProperty("order") ? "order" : "id",
           "asc"
-        ).map((lecture /*index*/) => {
+        ).map((lecture) => {
           return (
             <Lecture
               lecture={currentLecture}

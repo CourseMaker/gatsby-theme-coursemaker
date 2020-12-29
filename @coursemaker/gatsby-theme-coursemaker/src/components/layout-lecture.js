@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 
 import Header from "./header";
+import Footer from "./footer";
 import Section from "./section";
 import { bakeLocalStorage, readLocalStorage } from "../helpers/storage";
 import _ from "lodash";
@@ -28,9 +29,9 @@ const LayoutLecture = ({
     scrollContainer.current.scrollTop = readLocalStorage("scroll")?.y || 0;
   }, []);
 
-  let allLectures = currentCourse?.sections
-    ?.map((section) => section?.lectures?.map((item) => item))
-    .flat(1);
+  let allLectures = currentCourse?.sections?.map(
+    (section) => section?.lectures?.map(
+      (item) => item)).flat(1);
 
   const scroll = () => {
     let y = scrollContainer?.current?.scrollTop;
@@ -42,7 +43,12 @@ const LayoutLecture = ({
       <Header school={pageContext.school} />
       <section id="lecture">
         <div className="flex-wrap lg:flex">
-          <div className="lg:w-9/12">{children}</div>
+          <div className="lg:w-9/12">
+            {children}
+            <div className="hidden lg:block">
+              <Footer school={pageContext.school} />
+            </div>
+          </div>
 
           <div className="order-last w-full border-t border-gray-300 lg:border-t-0 lg:mt-10 lg:order-none lg:w-3/12 lg:mt-0">
             <div className="container lg:max-w-full">
@@ -69,11 +75,8 @@ const LayoutLecture = ({
                 </div>
                 {lectureList && (
                   <div className="curriculum-list space-y-6 lg:space-y-0">
-                    {_.orderBy(
-                      currentCourse?.sections,
-                      currentCourse?.sections?.[0].hasOwnProperty("order")
-                        ? "order"
-                        : "id",
+                    {_.orderBy(currentCourse?.sections,
+                      currentCourse?.sections?.[0].hasOwnProperty("order") ? "order": "id",
                       "asc"
                     ).map((section, index) => {
                       return (
@@ -95,6 +98,9 @@ const LayoutLecture = ({
           </div>
         </div>
       </section>
+      <div className="block lg:hidden">
+        <Footer />
+      </div>
     </>
   );
 };

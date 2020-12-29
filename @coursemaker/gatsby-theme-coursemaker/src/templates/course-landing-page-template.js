@@ -6,7 +6,7 @@ import Section from "../components/section";
 import Author from "../components/author";
 import LandingVideo from "../components/landing_page/landing-video";
 import LandingImage from "../components/image_landing";
-import {jsx} from "theme-ui";
+import { jsx } from "theme-ui";
 import OverviewSection from "../components/landing_page/overview-section";
 import TestimonialsSection from "../components/landing_page/testimonials-section";
 import FAQSection from "../components/landing_page/faqs-section";
@@ -19,22 +19,22 @@ const CourseLandingPage = ({ pageContext = {} }) => {
   let themeStyles = school?.schoolThemeStyle;
   if (!themeStyles) {
     themeStyles = {
-      "primary": "green",
-      "secondary": "blue"
-    }
+      primary: "green",
+      secondary: "blue",
+    };
   }
 
   // Section 1 - Intro
-  const title = (landingPage) ? landingPage.title : course.title;
+  const title = landingPage ? landingPage.title : course.title;
   const subtitle = landingPage?.subtitle;
   let initialCTA = landingPage?.initialCTA;
-  if (!initialCTA){
+  if (!initialCTA) {
     initialCTA = {
-      "text": "Purchase Course",
-      "color": "green",
-      "link": "checkout",
-      "textColor": "white"
-    }
+      text: "Purchase Course",
+      color: "green",
+      link: "checkout",
+      textColor: "white",
+    };
   }
 
   // Section 2 - Media
@@ -58,45 +58,42 @@ const CourseLandingPage = ({ pageContext = {} }) => {
   // Section 8 - Contact
 
   return (
-      <Layout pageContext={pageContext}>
-        <section className="py-8 pb-8 text-center md:pt-30">
-          <div className="container">
-            <h1 className="mb-4">{title}</h1>
-            <h3 className="mb-4">{subtitle}</h3>
-            <p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12" />
+    <Layout pageContext={pageContext}>
+      <section className="py-8 pb-8 text-center md:pt-30">
+        <div className="container">
+          <h1 className="mb-4">{title}</h1>
+          <h3 className="mb-4">{subtitle}</h3>
+          <p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12" />
+          <Button
+            to={`./${initialCTA?.link}`}
+            text={initialCTA?.text}
+            color={initialCTA?.color}
+            text_color={initialCTA?.textColor}
+            variant={`primary_${themeStyles.primary}`}
+          />
 
-            <Button
-                to={`./${initialCTA?.link}`}
-                text={initialCTA?.text}
-                color={initialCTA?.color}
-                text_color={initialCTA?.textColor}
-                variant={`primary_${themeStyles.primary}`}
-            />
-
-            <div className="mt-12 scroll-to">
-              <svg
-                  className="block w-6 mx-auto"
-                  data-name="Layer 1"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                    fill="none"
-                    stroke="#999"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M20.59 7.66l-8.69 8.68-8.49-8.48"
-                />
-              </svg>
-            </div>
+          <div className="mt-12 scroll-to">
+            <svg
+              className="block w-6 mx-auto"
+              data-name="Layer 1"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill="none"
+                stroke="#999"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M20.59 7.66l-8.69 8.68-8.49-8.48"
+              />
+            </svg>
           </div>
-        </section>
+        </div>
+      </section>
 
       {<LandingVideo videoID={videoID} />}
-      {landingPage?.image?.url &&
-        <LandingImage landing={landingPage?.image} />
-      }
+      {landingPage?.image?.url && <LandingImage landing={landingPage?.image} />}
 
       {<OverviewSection landingPage={landingPage} />}
 
@@ -133,17 +130,17 @@ const CourseLandingPage = ({ pageContext = {} }) => {
 
       {closingCTA && (
         <section
-            id="cta"
-            className="py-8 text-center text-white bg-gray-900 lg:py-24"
+          id="cta"
+          className="py-8 text-center text-white bg-gray-900 lg:py-24"
         >
           <div className="container">
             <div className="mx-auto inner lg:w-6/12">
               <Button
-                  to={`./${closingCTA?.link}`}
-                  text={closingCTA?.text}
-                  color={closingCTA?.color}
-                  text_color={closingCTA?.textColor}
-                  variant={`primary_${themeStyles.primary}`}
+                to={`./${closingCTA?.link}`}
+                text={closingCTA?.text}
+                color={closingCTA?.color}
+                text_color={closingCTA?.textColor}
+                variant={`primary_${themeStyles.primary}`}
               />
             </div>
           </div>
@@ -151,7 +148,6 @@ const CourseLandingPage = ({ pageContext = {} }) => {
       )}
 
       {<ContactSection landingPage={landingPage} />}
-
     </Layout>
   );
 };

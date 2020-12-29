@@ -92,13 +92,13 @@ const SchoolLandingPage = ({ pageContext = {} }) => {
       {<AuthorSection landingPage={landingPage} />}
       {<FAQSection landingPage={landingPage} />}
 
-      {
+      {/* {
         <Guarantee
           landingPage={landingPage}
           themeStyles={themeStyles}
           initialCTA={initialCTA}
         />
-      }
+      } */}
 
       {<ContactSection landingPage={landingPage} />}
       {<FooterContent landingPage={landingPage} />}

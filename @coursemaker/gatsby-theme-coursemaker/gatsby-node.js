@@ -5,7 +5,7 @@ const { createFilePath } = require("gatsby-source-filesystem");
 const withDefaults = require("./bootstrapping/default-options");
 const sanitizeSlug = require("./bootstrapping/sanitize-slug");
 const normalize = require("./src/gatsby/normalize");
-// const { toSeconds, toHoursMinutes, } = require("./bootstrapping/format-duration");
+
 const sortBy = require(`lodash/sortBy`);
 require("dotenv").config();
 
@@ -15,7 +15,9 @@ const { createCourses, createSchool } = require("./src/gatsby/pageCreator");
 exports.onPreBootstrap = ({ store }, themeOptions) => {
   const { program } = store.getState();
 
-  const { authorsPath, coursesPath /*useStrapi*/ } = withDefaults(themeOptions);
+  const { authorsPath, coursesPath /* useStrapi */ } = withDefaults(
+    themeOptions
+  );
 
   const dirs = [
     path.join(program.directory, coursesPath),
@@ -266,11 +268,9 @@ exports.onCreateNode = (
   // if the relativeDirectory does not contain "section"
   // this means we are in the course root dir
   // in this scenario we just create the course node
-  relDir = fileNode.relativeDirectory.toLocaleLowerCase();
+  const relDir = fileNode.relativeDirectory.toLocaleLowerCase();
   if (!relDir.includes("section")) {
     if (fileNode.name === `index`) {
-      // create course node
-      console.log("Creating course node...");
       const slug = node.frontmatter.slug
         ? sanitizeSlug(node.frontmatter.slug)
         : createFilePath({
@@ -278,7 +278,6 @@ exports.onCreateNode = (
             getNode,
             basePath: coursesPath,
           });
-      console.log("node.frontmatter", node.frontmatter);
       const fieldData = {
         // landing page
         title: node.frontmatter.title,
@@ -407,7 +406,8 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
     local: { authors: [], courses: [], school: {} },
     cms: { authors: [], courses: [], school: {} },
   };
-  console.log("use strapi: " + useStrapi);
+  /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
+  console.warn(`use strapi: ${useStrapi}`);
   if (useStrapi === "true") {
     // TODO: move queries to separate files like this: https://github.com/narative/gatsby-theme-novela/blob/master/%40narative/gatsby-theme-novela/src/gatsby/node/createPages.js#L95
     try {
@@ -711,7 +711,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
   }
 
   // combine courses to pass to school for ease of debugging
-  let allCourses = [...dataSources.local.courses, ...dataSources.cms.courses];
+  const allCourses = [...dataSources.local.courses, ...dataSources.cms.courses];
 
   // school object is precise, however.
   let liveSchool;
@@ -730,6 +730,24 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
     context: {
       school: liveSchool,
       courses: allCourses,
+    },
+  });
+
+  // Create school terms page
+  createPage({
+    path: `/terms`,
+    component: require.resolve("./src/templates/terms.js"),
+    context: {
+      school: liveSchool,
+    },
+  });
+
+  // Create school privacy page
+  createPage({
+    path: `/privacy`,
+    component: require.resolve("./src/templates/privacy.js"),
+    context: {
+      school: liveSchool,
     },
   });
 };

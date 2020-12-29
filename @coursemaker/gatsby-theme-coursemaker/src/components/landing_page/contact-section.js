@@ -2,8 +2,6 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import { jsx } from "theme-ui";
-import { Anchor } from "../../components/button";
-import { Contact } from "../../images";
 
 const ContactSection = ({ landingPage }) => {
   if (landingPage == null) return null;
@@ -12,16 +10,14 @@ const ContactSection = ({ landingPage }) => {
 
   if (contactHeading) {
     return (
-      <section className="text-center">
-        <div className="flex justify-center">
-          <div className="background-green w-full h-64 flex">
-            <div className="m-auto inner lg:w-5/12">
-              <h2 className="text-white">{contactHeading}</h2>
-              <div className="text-xl text-white font-thin space-y-6">
-                <ReactMarkdown source={contactBody} />
-              </div>
-              <div className="mt-8 btn-wrapper" />
+      <section className="py-16 text-center background-green md:py-24">
+        <div className="container">
+          <div className="mx-auto inner lg:w-5/12">
+            <h2 className="mb-4 md:mb-6 text-white">{contactHeading}</h2>
+            <div className="text-xl text-white font-thin space-y-6">
+              <ReactMarkdown source={contactBody} />
             </div>
+            <div className="mt-8 btn-wrapper" />
           </div>
         </div>
       </section>

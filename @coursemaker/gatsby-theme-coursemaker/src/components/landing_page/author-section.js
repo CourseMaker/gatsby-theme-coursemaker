@@ -9,6 +9,7 @@ const AuthorSection = ({ landingPage }) => {
   const landingAuthorTitle = landingPage?.landingAuthorTitle;
   const landingAuthorDesc = landingPage?.landingAuthorDesc; // markdown
 
+  console.log("landing page +++", landingPage);
   if (landingAuthorTitle) {
     return (
       <section id="testimonials" className="bg-gray-100 py-12 text-center ">

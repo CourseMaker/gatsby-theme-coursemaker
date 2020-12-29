@@ -3,8 +3,6 @@ import { jsx } from "theme-ui";
 import Img from "gatsby-image";
 import ReactMarkdown from "react-markdown";
 
-import Button from "./button";
-
 /*...props*/
 const Author = ({ author_display }) => {
   let authorImage;

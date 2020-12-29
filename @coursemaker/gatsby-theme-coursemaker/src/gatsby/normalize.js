@@ -8,7 +8,7 @@ exports.normalizePrices = (course) => {
   }
 
   course.school_prices.map((price) => {
-    if (price.courses[0].id == course.id && price.active) {
+    if (price.courses[0].id == course.id && price.is_active) {
       priceInfo = price;
     }
   });
@@ -67,26 +67,18 @@ exports.normalizeCourseLandingPage = ({ node: course }) => {
 };
 
 module.exports.local = {
-  courses: ({ node: course }) => {
-    return { ...course };
-  },
-  school: ({ node: school }) => {
-    return { ...school };
-  },
+  courses: ({ node: course }) => ({ ...course }),
+  school: ({ node: school }) => ({ ...school }),
 };
 
 module.exports.cms = {
-  courses: ({ node: course }) => {
-    return {
-      ...course,
-      course_image: normalizeImageUrl(course),
-      course_video: normalizeVideoUrl(course),
-    };
-  },
-  school: ({ node: school }) => {
-    return {
-      ...school,
-      meta: "strapi",
-    };
-  },
+  courses: ({ node: course }) => ({
+    ...course,
+    course_image: normalizeImageUrl(course),
+    course_video: normalizeVideoUrl(course),
+  }),
+  school: ({ node: school }) => ({
+    ...school,
+    meta: "strapi",
+  }),
 };
