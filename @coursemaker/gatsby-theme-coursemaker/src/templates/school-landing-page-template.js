@@ -61,13 +61,15 @@ const SchoolLandingPage = ({ pageContext = {} }) => {
           <h3 className="mb-4">{subtitle}</h3>
           <p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12" />
 
-          <Button
-            to={initialCTA?.link}
-            text={initialCTA?.text}
-            color={initialCTA?.color}
-            text_color={initialCTA?.textColor}
-            variant={`primary_${themeStyles.primary}`}
-          />
+          {initialCTA?.color &&
+            <Button
+                to={initialCTA?.link}
+                text={initialCTA?.text}
+                color={initialCTA?.color}
+                text_color={initialCTA?.textColor}
+                variant={`primary_${themeStyles.primary}`}
+            />
+          }
 
           <div className="mt-12 scroll-to">
             <svg
@@ -90,7 +92,8 @@ const SchoolLandingPage = ({ pageContext = {} }) => {
       </section>
 
       {<LandingVideo videoID={videoID} />}
-      {landingPage?.image?.url &&
+
+      {landingPage?.image &&
         <LandingImage landing={landingPage?.image} />
       }
 
