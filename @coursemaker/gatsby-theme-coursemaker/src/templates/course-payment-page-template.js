@@ -8,7 +8,7 @@ const CoursePaymentPage = ({ pageContext = {} }) => {
   // TODO: pass course price from front matter
   // TODO: pass stripe key from site config
   useEffect(() => {
-    if (!isAuthenticated()) navigate("/login");
+    if (!isAuthenticated()) navigate("/register");
   });
   const course = pageContext.course;
   const school = pageContext.school;
