@@ -17,11 +17,11 @@ const OverviewSection = ({ landingPage }) => {
                 <div className="container">
                     <div className="mx-auto inner lg:w-7/12">
                         <h2 className="mb-4 lg:mb-6">{overviewHeading}</h2>
-                        <div className="leading-loose text-gray-700 space-y-6">
+                        <div className="text-left text-gray-700 space-y-6">
                             <ReactMarkdown source={overviewBody}/>
                         </div>
                         <div className="mt-8 btn-wrapper">
-                            {overviewCTA?.link &&
+                            {overviewCTA?.link && overviewCTA?.color &&
                                 <Button
                                     to={overviewCTA?.link}
                                     text={overviewCTA?.text}

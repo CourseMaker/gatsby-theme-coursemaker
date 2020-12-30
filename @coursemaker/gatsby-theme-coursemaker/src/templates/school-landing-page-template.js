@@ -14,10 +14,9 @@ import FAQSection from "../components/landing_page/faqs-section";
 import ContactSection from "../components/landing_page/contact-section";
 
 
-const SchoolLandingPage = ({ props, pageContext = {} }) => {
-  console.log(props)
-  const school = pageContext.school;
-  const passedCourses = pageContext.courses;
+const SchoolLandingPage = ({ pageContext }) => {
+  const school = pageContext?.school;
+  const passedCourses = pageContext?.courses;
   const landingPage = school?.landing_page;
   let themeStyles = school?.schoolThemeStyle;
   if (!themeStyles) {
@@ -62,13 +61,15 @@ const SchoolLandingPage = ({ props, pageContext = {} }) => {
           <h3 className="mb-4">{subtitle}</h3>
           <p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12" />
 
-          <Button
-            to={initialCTA?.link}
-            text={initialCTA?.text}
-            color={initialCTA?.color}
-            text_color={initialCTA?.textColor}
-            variant={`primary_${themeStyles.primary}`}
-          />
+          {initialCTA?.color &&
+            <Button
+                to={initialCTA?.link}
+                text={initialCTA?.text}
+                color={initialCTA?.color}
+                text_color={initialCTA?.textColor}
+                variant={`primary_${themeStyles.primary}`}
+            />
+          }
 
           <div className="mt-12 scroll-to">
             <svg
@@ -91,7 +92,8 @@ const SchoolLandingPage = ({ props, pageContext = {} }) => {
       </section>
 
       {<LandingVideo videoID={videoID} />}
-      {landingPage?.image?.url &&
+
+      {landingPage?.image &&
         <LandingImage landing={landingPage?.image} />
       }
 

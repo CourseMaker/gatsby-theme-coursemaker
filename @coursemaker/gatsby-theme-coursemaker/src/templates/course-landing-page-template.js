@@ -13,6 +13,7 @@ import FAQSection from "../components/landing_page/faqs-section";
 import ContactSection from "../components/landing_page/contact-section";
 
 const CourseLandingPage = ({ pageContext = {} }) => {
+  console.log(pageContext);
   const school = pageContext.school;
   const course = pageContext.course;
   const landingPage = course?.landing_page;
@@ -93,7 +94,7 @@ const CourseLandingPage = ({ pageContext = {} }) => {
       </section>
 
       {<LandingVideo videoID={videoID} />}
-      {landingPage?.image?.url && <LandingImage landing={landingPage?.image} />}
+      {landingPage?.image && <LandingImage landing={landingPage?.image} />}
 
       {<OverviewSection landingPage={landingPage} />}
 

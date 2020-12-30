@@ -18,7 +18,7 @@ const LandingImage = ({ landing }) => {
     return (
       <section id="landingImage" className="py-5 bg-gray-100">
         <div className="container">
-          <div className="md:flex">
+          <div className="md">
             <Img
               className="object-cover h-40 mx-auto lg:w-3/4"
               fluid={landingImage}

@@ -129,6 +129,9 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
                 slug: {
                     type: `String!`,
                 },
+                number: {
+                    type: `Int`,
+                },
                 body: {
                     type: `String!`,
                     resolve: mdxResolverPassthrough(`body`),
@@ -312,9 +315,10 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId, createContentDig
                 getNode,
                 basePath: coursesPath,
             });
-            const { title } = node.frontmatter;
+            const { title, number } = node.frontmatter;
             const fieldData = {
                 title,
+                number,
                 slug,
             };
             createNode({
@@ -598,6 +602,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                                     }
                                     id
                                     title
+                                    order: number
                                     slug
                                 }
                                 author_display: author {
@@ -655,10 +660,13 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                 }
             `
         );
-        // TODO: normalize
         dataSources.local.school = localData.data.site.siteMetadata;
         dataSources.local.courses = localData.data.allCourse.edges.map(normalize.local.courses);
         dataSources.local.courses = localData.data.allCourse.edges.map(normalize.normalizeCourseLandingPage);
+
+        // TODO: images defined in siteMetaData do not get set as File nodes.
+        //  Hack here is reusing the image from the course.
+        dataSources.local.school.landing_page.image = dataSources.local.courses[0].landing_page?.image;
     } catch (error) {
         reporter.panic('error loading docs', error);
     }
