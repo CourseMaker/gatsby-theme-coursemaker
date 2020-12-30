@@ -14,9 +14,10 @@ import FAQSection from "../components/landing_page/faqs-section";
 import ContactSection from "../components/landing_page/contact-section";
 
 
-const SchoolLandingPage = ({ pageContext = {} }) => {
-  const school = pageContext.school;
-  const passedCourses = pageContext.courses;
+const SchoolLandingPage = ({ pageContext }) => {
+  console.log(pageContext)
+  const school = pageContext?.school;
+  const passedCourses = pageContext?.courses;
   const landingPage = school?.landing_page;
   let themeStyles = school?.schoolThemeStyle;
   if (!themeStyles) {

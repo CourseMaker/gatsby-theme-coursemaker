@@ -55,7 +55,8 @@ module.exports = {
       closingCTATextColor: "white",
       contactHeading: "Contact",
       contactBody: "update me",
-      videoID: "ts8c0FjkHDk"
+      videoID: "ts8c0FjkHDk",
+      image: "./school/authors/assets/cover.jpg"
     },
     stripe_public_key: process.env.GATSBY_STRIPE_PUBLISHABLE_KEY,
   },
