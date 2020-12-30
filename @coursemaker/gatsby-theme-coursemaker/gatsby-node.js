@@ -129,6 +129,9 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
                 slug: {
                     type: `String!`,
                 },
+                number: {
+                    type: `Int`,
+                },
                 body: {
                     type: `String!`,
                     resolve: mdxResolverPassthrough(`body`),
@@ -312,9 +315,10 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId, createContentDig
                 getNode,
                 basePath: coursesPath,
             });
-            const { title } = node.frontmatter;
+            const { title, number } = node.frontmatter;
             const fieldData = {
                 title,
+                number,
                 slug,
             };
             createNode({
@@ -598,6 +602,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                                     }
                                     id
                                     title
+                                    order: number
                                     slug
                                 }
                                 author_display: author {
