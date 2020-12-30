@@ -6,7 +6,7 @@ import Layout from "../components/layout";
 import {jsx} from "theme-ui";
 
 const PaymentSuccess = () => (
-  <Layout>
+  <Layout pageTitle='success'>
     <div className="container">
       <h1>Payment Success!</h1>
       <Link

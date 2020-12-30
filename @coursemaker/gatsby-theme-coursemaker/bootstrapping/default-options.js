@@ -8,7 +8,7 @@ module.exports = ({
     useAuth = process.env.GATSBY_USE_AUTH || false,
     enablePayments = process.env.GATSBY_ENABLE_PAYMENTS || false,
     // replace "UA-XXXXXXXXX-X" with your own Tracking ID
-    gaTrackingId = 'UPDATE ME',
+    gaTrackingId = process.env.GATSBY_GA_ID || '',
     // stripeClientId = "UPDATE ME",
 }) => ({
     basePath,

@@ -1,18 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
-import { Location } from '@reach/router';
 import schemaGenerator from '../helpers/schemaGenerator';
 
 const SEO = ({
                   siteTitle,
                   siteDescription,
-                  siteUrl,
+                  canonical,
                   pageTitle,
                   pageTitleFull = pageTitle ? `${siteTitle}: ${pageTitle}` : siteTitle,
               }) => {
-    let location = '';
-    let canonical = '';
+    let location = typeof window !== 'undefined' ? window.location.href : '';
+    let siteUrl = '';
+    let realCanonical = canonical;
+    if (process.env.GATSBY_USE_STRAPI){
+        realCanonical = `https://${canonical}.coursemaker.org`
+    }
+    console.log(siteTitle);
+    console.log(siteDescription);
+    console.log(canonical);
+    console.log(pageTitle);
+    console.log(pageTitleFull);
+    console.log(location);
     return (
         <Helmet>
             <html lang="en"/>
@@ -43,9 +52,9 @@ const SEO = ({
             <meta content={siteTitle} property="og:site_name"/>
             <meta content="summary_large_image" name="twitter:card"/>
             <meta content={pageTitleFull} name="twitter:text:title"/>
-            <meta content={canonical} property="og:url"/>
-            <meta content={canonical} name="twitter:url"/>
-            <link rel="canonical" href={canonical}/>
+            <meta content={realCanonical} property="og:url"/>
+            <meta content={realCanonical} name="twitter:url"/>
+            <link rel="canonical" href={realCanonical}/>
 
             <meta content="1024" name="twitter:image:width"/>
             <meta content="512" name="twitter:image:height"/>
@@ -142,7 +151,7 @@ const SEO = ({
                 {JSON.stringify(
                     schemaGenerator({
                         location,
-                        canonical,
+                        realCanonical,
                         siteUrl,
                         pageTitle,
                         siteTitle,
@@ -158,7 +167,6 @@ const SEO = ({
 SEO.propTypes = {
     siteTitle: PropTypes.string,
     siteDescription: PropTypes.string,
-    siteUrl: PropTypes.string,
     canonical: PropTypes.string,
     pageTitle: PropTypes.string,
     pageTitleFull: PropTypes.string,
@@ -166,3 +174,15 @@ SEO.propTypes = {
 
 
 export default SEO;
+
+const query = graphql`
+    query SEO {
+        site {
+            siteMetadata {
+                defaultTitle: title
+                defaultDescription: subtitle
+                siteUrl: sub_domain
+            }
+        }
+    }
+`

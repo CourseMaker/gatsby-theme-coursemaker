@@ -409,7 +409,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                                         secondaryColor
                                     }
                                     settings {
-                                        google_analytics_tracking_id
+                                        sub_domain
                                     }
                                     favicon {
                                         url
@@ -627,6 +627,9 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                     }
                     site {
                         siteMetadata {
+                            settings {
+                                sub_domain
+                            }
                             landing_page {
                                 title
                                 subtitle

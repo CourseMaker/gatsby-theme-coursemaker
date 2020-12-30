@@ -9,14 +9,13 @@ import Header from "./header";
 import Footer from "./footer";
 import SEO from "./seo"
 
-const Layout = ({ children, pageContext }) => {
+const Layout = ({ children, pageContext, pageTitle = '' }) => {
     return (
         <>
-            <SEO siteTitle={pageContext.school.title}
-                 siteDescription={pageContext.school.subtitle}
-                 siteUrl={pageContext.school?.domain}
+            <SEO siteTitle={pageContext.school.name}
+                 siteDescription={pageContext.school?.subtitle}
                  canonical={pageContext.school?.sub_domain}
-                 pageTitle={pageContext.school.title}
+                 pageTitle={pageTitle}
             />
             <Header school={pageContext.school} />
             <main>{children}</main>

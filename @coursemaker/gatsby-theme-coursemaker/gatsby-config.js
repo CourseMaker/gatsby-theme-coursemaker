@@ -5,12 +5,16 @@ module.exports = (themeOptions) => {
     const options = withDefaults(themeOptions);
     const { mdxOtherwiseConfigured = false, mdx: legacyConfigureMdxFlag = true } = themeOptions; // keep mdx flag so we don't introduce a breaking change
 
+    console.log(options.gaTrackingId);
     return {
         siteMetadata: {
             title: 'My Cool School (update in gatsby-config)',
             strapiPluginOrFake: options.useStrapi,
             useAuth: options.useAuth,
             enablePayments: options.enablePayments, // required for paid courses
+            settings: {
+                sub_domain: ''
+            },
             landing_page: {
                 title: 'Demo Site (update in gatsby-config)',
                 subtitle: 'Build your online course with open source',
@@ -144,14 +148,14 @@ module.exports = (themeOptions) => {
                 resolve: `gatsby-plugin-google-analytics`,
                 options: {
                     // replace "UA-XXXXXXXXX-X" with your own Tracking ID
-                    trackingId: themeOptions.gaTrackingId,
+                    trackingId: options.gaTrackingId,
                 },
             },
             {
                 resolve: `gatsby-plugin-gdpr-cookies`,
                 options: {
                     googleAnalytics: {
-                        trackingId: themeOptions.gaTrackingId, // leave empty if you want to disable the tracker
+                        trackingId: options.gaTrackingId, // leave empty if you want to disable the tracker
                         cookieName: 'gatsby-gdpr-google-analytics', // default
                         anonymize: true, // default
                     },

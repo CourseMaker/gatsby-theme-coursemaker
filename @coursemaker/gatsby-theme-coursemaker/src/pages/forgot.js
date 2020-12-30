@@ -3,7 +3,7 @@ import React from "react";
 import Layout from "../components/layout";
 
 const Forgot = () => (
-  <Layout>
+  <Layout pageTitle='forgot'>
     <div className="container">
       <h1>Forgot Your Password?</h1>
         <h3>Please email your course admin</h3>
