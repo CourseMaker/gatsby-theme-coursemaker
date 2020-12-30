@@ -5,7 +5,7 @@
     "type": "git",
     "url": "https://github.com/CourseMaker/gatsby-theme-coursemaker.git"
   },
-  "version": "0.1.60",
+  "version": "0.1.61",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
