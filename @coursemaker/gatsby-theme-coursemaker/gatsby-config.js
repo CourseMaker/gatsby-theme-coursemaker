@@ -143,25 +143,34 @@ module.exports = (themeOptions) => {
             {
                 resolve: `gatsby-plugin-google-analytics`,
                 options: {
-                    // replace "UA-XXXXXXXXX-X" with your own Tracking ID
-                    trackingId: themeOptions.gaTrackingId,
-                },
+                    // The property ID; the tracking code won't be generated without it
+                    trackingId: options.gaTrackingId,
+                    // Defines where to place the tracking script - `true` in the head and `false` in the body
+                    head: true,
+                    // Delays sending pageview hits on route update (in milliseconds)
+                    pageTransitionDelay: 0,
+                    // Defers execution of google analytics script after page load
+                    defer: false,
+                    // Any additional optional fields
+                    sampleRate: 100,
+                    siteSpeedSampleRate: 10
+                }
             },
             {
                 resolve: `gatsby-plugin-gdpr-cookies`,
                 options: {
                     googleAnalytics: {
-                        trackingId: themeOptions.gaTrackingId, // leave empty if you want to disable the tracker
+                        trackingId: '', // leave empty if you want to disable the tracker
                         cookieName: 'gatsby-gdpr-google-analytics', // default
                         anonymize: true, // default
                     },
                     googleTagManager: {
-                        trackingId: 'YOUR_GOOGLE_TAG_MANAGER_TRACKING_ID', // leave empty if you want to disable the tracker
+                        trackingId: '', // leave empty if you want to disable the tracker
                         cookieName: 'gatsby-gdpr-google-tagmanager', // default
                         dataLayerName: 'dataLayer', // default
                     },
                     facebookPixel: {
-                        pixelId: 'YOUR_FACEBOOK_PIXEL_ID', // leave empty if you want to disable the tracker
+                        pixelId: '', // leave empty if you want to disable the tracker
                         cookieName: 'gatsby-gdpr-facebook-pixel', // default
                     },
                     // defines the environments where the tracking should be available  - default is ["production"]
