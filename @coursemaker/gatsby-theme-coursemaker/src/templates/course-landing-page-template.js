@@ -11,6 +11,8 @@ import OverviewSection from "../components/landing_page/overview-section";
 import TestimonialsSection from "../components/landing_page/testimonials-section";
 import FAQSection from "../components/landing_page/faqs-section";
 import ContactSection from "../components/landing_page/contact-section";
+import Icon from "../components/icon";
+import svg from '../images/icons/icon-courses.svg';
 
 const CourseLandingPage = ({ pageContext = {} }) => {
   console.log(pageContext);
@@ -60,53 +62,57 @@ const CourseLandingPage = ({ pageContext = {} }) => {
 
   return (
     <Layout pageContext={pageContext}>
-      <section className="py-8 pb-8 text-center md:pt-30">
+			<section className="py-16 md:py-20">
         <div className="container">
-          <h1 className="mb-4">{title}</h1>
-          <h3 className="mb-4">{subtitle}</h3>
-          <p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12" />
-          <Button
-            to={`./${initialCTA?.link}`}
-            text={initialCTA?.text}
-            color={initialCTA?.color}
-            text_color={initialCTA?.textColor}
-            variant={`primary_${themeStyles.primary}`}
-          />
 
-          <div className="mt-12 scroll-to">
-            <svg
-              className="block w-6 mx-auto"
-              data-name="Layer 1"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill="none"
-                stroke="#999"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M20.59 7.66l-8.69 8.68-8.49-8.48"
-              />
-            </svg>
-          </div>
+					<div className="flex-wrap items-center md:flex">
+						<div className="text-center border-gray-300 md:w-1/2 md:border-r left-side lg:pr-20 md:pr-16 md:text-left">
+							<h1 className="mb-4 leading-tight md:mb-6">{title}</h1>
+							<h3 className="mb-4 font-sans font-light opacity-50">{subtitle}</h3>
+							<p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12" />
+
+							{initialCTA?.color &&
+								<Button
+										to={initialCTA?.link}
+										text={initialCTA?.text}
+										color={initialCTA?.color}
+										text_color={initialCTA?.textColor}
+										variant={`primary_${themeStyles.primary}`}
+								/>
+							}
+
+						</div>{/* left-side */}
+
+						<div className="mt-10 md:w-1/2 right-side md:mt-0">
+							{landingPage?.image &&
+								<LandingImage landing={landingPage?.image} />
+							}
+
+						</div>{/* right-side  */}
+					</div>{/* flex */}
+
         </div>
       </section>
 
       {<LandingVideo videoID={videoID} />}
-      {landingPage?.image && <LandingImage landing={landingPage?.image} />}
 
       {<OverviewSection landingPage={landingPage} />}
 
-      <section id="course" className="pt-12 pb-12 lg:py-10 lg:pb-22">
+			<section id="course" className="py-16 bg-gray-200 md:py-24">
         <div className="container mx-auto">
           <div className="mx-auto inner lg:w-8/12">
-            <h2 className="mt-12 mb-6 leading-tight">Curriculum</h2>
+						<div className="mb-12 text-center">
+							<Icon source={svg} />
+							<h2>Curriculum</h2>
+						</div>
             <div className="curriculum-list space-y-6">
-              {course.sections.map((section) => {
+              {course.sections.map((section, index) => {
                 let allLectures = course?.sections
                   ?.map((section) => section?.lectures?.map((item) => item))
                   .flat(1);
+
+								let isCollapse = true;
+								if(index > 2) isCollapse = false;
 
                 return (
                   <Section
@@ -115,6 +121,7 @@ const CourseLandingPage = ({ pageContext = {} }) => {
                     key={section.id}
                     allLectures={allLectures}
                     slug={course.slug}
+										isCollapse={isCollapse}
                   />
                 );
               })}
@@ -125,9 +132,9 @@ const CourseLandingPage = ({ pageContext = {} }) => {
 
       {<TestimonialsSection landingPage={landingPage} />}
 
-      {<Author author_display={author_display} />}
-
       {<FAQSection landingPage={landingPage} />}
+
+      {<Author author_display={author_display} />}
 
       {closingCTA && (
         <section

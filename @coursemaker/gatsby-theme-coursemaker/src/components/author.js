@@ -19,12 +19,12 @@ const Author = ({ author_display }) => {
 
   if (author_display?.photo)
     return (
-      <section id="author" className="py-12 bg-gray-100">
+      <section id="author" className="py-16">
         <div className="container">
           <div className="lg:items-center md:inline-flex lg:px-16 justify-content-center">
             <div className="md:flex">
               <Img
-                className="block object-cover w-48 h-48 bg-gray-500 rounded-full author-photo lg:h-64 lg:w-64"
+                className="block object-cover w-48 h-48 rounded-full author-photo lg:h-64 lg:w-64"
                 fluid={authorImage}
                 alt="cover image"
                 imgStyle={{ objectPosition: "center", objectFit: "contain" }}

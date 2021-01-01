@@ -44,9 +44,9 @@ const Header = ({ school }) => {
           }}
       >
         <div className="container mx-auto">
-          <div className="flex flex-wrap items-center lg:h-24">
+          <div className="flex flex-wrap items-center">
             <Link
-                className="inline-flex items-center h-24 text-lg logo lg:h-auto"
+							className="inline-flex items-center h-20 text-lg md:h-24 logo"
                 to="/"
             >
               <span className="font-semibold">{school?.name}</span>

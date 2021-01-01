@@ -10,7 +10,7 @@ const LandingVideo = ({ videoID }) => {
 
   if (video_src != null) {
       return (
-          <section id="video" className="pt-16 bg-gray-100 lg:pt-32">
+					<section id="video" className="py-16 bg-gray-200 md:py-32">
               <div className="container">
                   <div className="mx-auto lg:w-9/12">
                       <div className="shadow-xl md:shadow-2xl responsive-video">

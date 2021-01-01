@@ -56,47 +56,39 @@ const SchoolLandingPage = ({ pageContext }) => {
 
   return (
     <Layout pageContext={pageContext}>
-      <section className="py-8 pb-8 text-center md:pt-30">
+			<section className="py-16 md:py-20">
         <div className="container">
-          <h1 className="mb-4">{title}</h1>
-          <h3 className="mb-4">{subtitle}</h3>
-          <p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12" />
 
-          {initialCTA?.color &&
-            <Button
-                to={initialCTA?.link}
-                text={initialCTA?.text}
-                color={initialCTA?.color}
-                text_color={initialCTA?.textColor}
-                variant={`primary_${themeStyles.primary}`}
-            />
-          }
+					<div className="flex-wrap items-center md:flex">
+						<div className="text-center border-gray-300 md:w-1/2 md:border-r left-side lg:pr-20 md:pr-16 md:text-left">
+							<h1 className="mb-4 leading-tight md:mb-6">{title}</h1>
+							<h3 className="mb-4 font-sans font-light opacity-50">{subtitle}</h3>
+							<p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12" />
 
-          <div className="mt-12 scroll-to">
-            <svg
-              className="block w-6 mx-auto"
-              data-name="Layer 1"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill="none"
-                stroke="#999"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M20.59 7.66l-8.69 8.68-8.49-8.48"
-              />
-            </svg>
-          </div>
+							{initialCTA?.color &&
+								<Button
+										to={initialCTA?.link}
+										text={initialCTA?.text}
+										color={initialCTA?.color}
+										text_color={initialCTA?.textColor}
+										variant={`primary_${themeStyles.primary}`}
+								/>
+							}
+
+						</div>{/* left-side */}
+
+						<div className="mt-10 md:w-1/2 right-side md:mt-0">
+							{landingPage?.image &&
+								<LandingImage landing={landingPage?.image} />
+							}
+
+						</div>{/* right-side  */}
+					</div>{/* flex */}
+
         </div>
       </section>
 
       {<LandingVideo videoID={videoID} />}
-
-      {landingPage?.image &&
-        <LandingImage landing={landingPage?.image} />
-      }
 
       {<OverviewSection landingPage={landingPage} />}
 

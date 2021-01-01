@@ -28,20 +28,22 @@ const Card = ({ course, paid = false }) => {
       to={`/courses${slug}`}
       className="block overflow-hidden bg-white border-t border-gray-200 rounded-lg shadow md:shadow-md transition transition-shadow duration-300 hover:shadow-lg"
     >
-      <div className="md:flex">
-        <Img
-          className="object-cover w-full h-40 md:h-64 md:w-1/2"
-          fluid={courseImage}
-          alt="cover image"
-          imgStyle={{ objectPosition: "center", objectFit: "contain" }}
-        />
-        <div className="p-6 md:px-10 md:py-8 md:w-1/2">
+      <div className="items-center md:flex">
+				<div className="py-6 md:w-1/2 md:py-0">
+					<Img
+						className="block object-cover w-10/12 mx-auto"
+						fluid={courseImage}
+						alt="cover image"
+						imgStyle={{ objectPosition: "center", objectFit: "contain" }}
+					/>
+				</div>
+				<div className="p-6 border-t border-gray-200 md:border-l md:border-t-0 md:px-10 md:py-8 md:w-1/2">
           <h4 className="mb-1 text-xl font-semibold">{course.title}</h4>
-          <h4 className="mb-6 font-normal text-gray-900">By {courseAuthor}</h4>
-          <p className="font-light leading-relaxed text-gray-700">
+          <h4 className="mb-6 font-normal text-gray-700">By {courseAuthor}</h4>
+          <p className="leading-relaxed opacity-50">
             {course?.landing_page?.subtitle}
           </p>
-          <div className="mt-4 text-sm btn btn-sm btn-default">View Course</div>
+          <div className="mt-6 text-sm btn btn-sm btn-default">View Course</div>
         </div>
       </div>
     </Link>

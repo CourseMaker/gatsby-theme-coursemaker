@@ -88,6 +88,7 @@ const LayoutLecture = ({
                           key={section.id}
                           course={currentCourse}
                           slug={slug}
+													isCollapse={true}
                         />
                       );
                     })}

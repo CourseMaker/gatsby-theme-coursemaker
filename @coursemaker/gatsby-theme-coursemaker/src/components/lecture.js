@@ -77,7 +77,7 @@ const Lecture = ({ lecture, size, data, slug }) => {
           }}
           to={`../${data.id}`}
           className={`${
-            lecture.id === data.id ? "bg-green-100" : "hover:bg-gray-100"
+            lecture.id === data.id ? "bg-green-200" : "hover:bg-gray-100"
           } 
           transition transition-all duration-300 bg-white bg-gray-100 hover:bg-gray-100	relative block p-4 `}
         >
