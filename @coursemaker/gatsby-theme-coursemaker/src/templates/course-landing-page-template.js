@@ -97,9 +97,9 @@ const CourseLandingPage = ({ pageContext = {} }) => {
                 {!landingPage?.image &&
                 <div className="flex-wrap items-center md:flex">
                     <div
-                        className="text-center border-gray-300 md:w-3/4 md:border-r left-side lg:pr-20 md:pr-16 md:text-left">
-                        <h1 className="mb-4 leading-tight md:mb-6">{title}</h1>
-                        <h3 className="mb-4 font-sans font-light opacity-50">{subtitle}</h3>
+                        className="text-center items-center border-gray-300">
+                        <h1 className="mb-4 text-center leading-tight md:mb-6">{title}</h1>
+                        <h3 className="mb-4 text-center font-sans font-light opacity-50">{subtitle}</h3>
                         <p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12"/>
 
                         {initialCTA?.color &&

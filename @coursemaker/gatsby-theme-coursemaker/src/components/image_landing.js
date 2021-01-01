@@ -18,7 +18,7 @@ const LandingImage = ({ landing }) => {
     return (
 			<div>
 				<Img
-					className="object-cover w-3/4 mx-auto"
+					className="object-cover h-40 mx-auto w-3/4"
 					fluid={landingImage}
 					alt="cover image"
 					imgStyle={{ objectPosition: "center", objectFit: "contain" }}
