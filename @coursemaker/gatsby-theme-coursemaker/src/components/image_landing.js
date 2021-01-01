@@ -16,18 +16,14 @@ const LandingImage = ({ landing }) => {
 
   if (landing)
     return (
-      <section id="landingImage" className="py-5 bg-gray-100">
-        <div className="container">
-          <div className="md">
-            <Img
-              className="object-cover h-40 mx-auto lg:w-3/4"
-              fluid={landingImage}
-              alt="cover image"
-              imgStyle={{ objectPosition: "center", objectFit: "contain" }}
-            />
-          </div>
-        </div>
-      </section>
+			<div>
+				<Img
+					className="object-cover h-40 mx-auto w-3/4"
+					fluid={landingImage}
+					alt="cover image"
+					imgStyle={{ objectPosition: "center", objectFit: "contain" }}
+				/>
+			</div>
     );
   return <div />;
 };

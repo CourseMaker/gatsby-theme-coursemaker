@@ -35,5 +35,8 @@ module.exports = {
     },
     variants: {
         borderWidth: ['responsive', 'last', 'hover', 'focus'],
+				extend: {
+					backgroundColor: ['even'],
+			}
     },
 };
