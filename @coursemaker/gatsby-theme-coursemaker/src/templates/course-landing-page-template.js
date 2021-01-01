@@ -15,7 +15,6 @@ import Icon from "../components/icon";
 import svg from '../images/icons/icon-courses.svg';
 
 const CourseLandingPage = ({ pageContext = {} }) => {
-  console.log(pageContext);
   const school = pageContext.school;
   const course = pageContext.course;
   const landingPage = course?.landing_page;

@@ -15,9 +15,6 @@ const Author = ({ author_display }) => {
     // strapi hack
     authorImage = { src: author_display?.photo[0].url };
 
-  console.log(authorImage)
-  console.log(author_display)
-
   if (author_display?.photo)
     return (
       <section id="author" className="py-16">
