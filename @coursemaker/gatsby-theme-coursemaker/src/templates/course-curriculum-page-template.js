@@ -9,6 +9,13 @@ const Curriculum = ({ pageContext = {} }) => {
   const school = pageContext.school;
   const course = pageContext.course;
   const { author_display } = course;
+  let themeStyles = school?.schoolThemeStyle;
+  if (!themeStyles) {
+    themeStyles = {
+      primary: "orange",
+      secondary: "blue",
+    };
+  }
 
   let allLectures = course?.sections?.map(
     (section) => section?.lectures?.map((item) => item))
@@ -25,10 +32,10 @@ const Curriculum = ({ pageContext = {} }) => {
   }
 
   return (
-    <Layout pageContext={pageContext}>
+    <Layout themeStyles={themeStyles} pageContext={pageContext}>
       <section className="pt-5">
         <div className="container mx-auto">
-          <Breadcrumbs school={school} course={course} />
+          <Breadcrumbs themeStyles={themeStyles} school={school} course={course} />
         </div>
       </section>
 
@@ -54,6 +61,8 @@ const Curriculum = ({ pageContext = {} }) => {
                       key={section.id}
                       allLectures={allLectures}
                       slug={course.slug}
+											isCollapse={true}
+											themeStyles={themeStyles}
                     />
                   );
                 })

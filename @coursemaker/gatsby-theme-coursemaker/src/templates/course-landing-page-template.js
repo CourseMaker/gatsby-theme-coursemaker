@@ -21,7 +21,7 @@ const CourseLandingPage = ({ pageContext = {} }) => {
   let themeStyles = school?.schoolThemeStyle;
   if (!themeStyles) {
     themeStyles = {
-      primary: "green",
+      primary: "red",
       secondary: "blue",
     };
   }
@@ -60,7 +60,7 @@ const CourseLandingPage = ({ pageContext = {} }) => {
   // Section 8 - Contact
 
   return (
-    <Layout pageContext={pageContext}>
+    <Layout themeStyles={themeStyles} pageContext={pageContext}>
         <section className="py-16 md:py-20">
             <div className="container">
                 {landingPage?.image &&
@@ -75,9 +75,7 @@ const CourseLandingPage = ({ pageContext = {} }) => {
                         <Button
                             to={initialCTA?.link}
                             text={initialCTA?.text}
-                            color={initialCTA?.color}
-                            text_color={initialCTA?.textColor}
-                            variant={`primary_${themeStyles.primary}`}
+                            color={themeStyles.primary}
                         />
                         }
 
@@ -120,13 +118,13 @@ const CourseLandingPage = ({ pageContext = {} }) => {
 
       {<LandingVideo videoID={videoID} />}
 
-      {<OverviewSection landingPage={landingPage} />}
+      {<OverviewSection themeStyles={themeStyles} landingPage={landingPage} />}
 
 			<section id="course" className="py-16 bg-gray-200 md:py-24">
         <div className="container mx-auto">
           <div className="mx-auto inner lg:w-8/12">
 						<div className="mb-12 text-center">
-							<Icon source={svg} />
+							<Icon color={themeStyles.primary} source={svg} />
 							<h2>Curriculum</h2>
 						</div>
             <div className="curriculum-list space-y-6">
@@ -146,6 +144,7 @@ const CourseLandingPage = ({ pageContext = {} }) => {
                     allLectures={allLectures}
                     slug={course.slug}
 										isCollapse={isCollapse}
+										themeStyles={themeStyles}
                   />
                 );
               })}
@@ -154,11 +153,11 @@ const CourseLandingPage = ({ pageContext = {} }) => {
         </div>
       </section>
 
-      {<TestimonialsSection landingPage={landingPage} />}
+      {<TestimonialsSection themeStyles={themeStyles} landingPage={landingPage} />}
 
-      {<FAQSection landingPage={landingPage} />}
+      {<FAQSection themeStyles={themeStyles} landingPage={landingPage} />}
 
-      {<Author author_display={author_display} />}
+      {<Author themeStyles={themeStyles} author_display={author_display} />}
 
       {closingCTA && (
         <section
@@ -170,16 +169,14 @@ const CourseLandingPage = ({ pageContext = {} }) => {
               <Button
                 to={`./${closingCTA?.link}`}
                 text={closingCTA?.text}
-                color={closingCTA?.color}
-                text_color={closingCTA?.textColor}
-                variant={`primary_${themeStyles.primary}`}
+                color={themeStyles.secondary}
               />
             </div>
           </div>
         </section>
       )}
 
-      {<ContactSection landingPage={landingPage} />}
+      {<ContactSection themeStyles={themeStyles} landingPage={landingPage} />}
     </Layout>
   );
 };

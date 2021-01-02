@@ -9,13 +9,13 @@ import Header from "./header";
 import Footer from "./footer";
 import {Helmet} from "react-helmet";
 
-const Layout = ({ children, pageContext }) => (
+const Layout = ({ children, pageContext, themeStyles }) => (
   <>
     <Helmet>
       <html lang="en" />
       <script src="https://js.stripe.com/v3/" />
     </Helmet>
-    <Header school={pageContext.school} />
+    <Header themeStyles={themeStyles} school={pageContext.school} />
     <main>{children}</main>
     <CookieConsent
       location="bottom"
@@ -26,7 +26,7 @@ const Layout = ({ children, pageContext }) => (
       This site uses cookies ...
     </CookieConsent>
     <ToastContainer />
-    <Footer school={pageContext.school}/>
+    <Footer themeStyles={themeStyles} school={pageContext.school}/>
   </>
 );
 

@@ -5,7 +5,7 @@ import {jsx} from "theme-ui";
 import svg from '../../images/icons/icon-contact.svg';
 import Icon from "../icon";
 
-const ContactSection = ({ landingPage }) => {
+const ContactSection = ({ themeStyles, landingPage }) => {
     if (landingPage == null)
         return null;
     const contactHeading = landingPage?.contactHeading;
@@ -17,7 +17,7 @@ const ContactSection = ({ landingPage }) => {
                 <div className="container">
                     <div className="mx-auto inner lg:w-5/12">
 											<div className="mb-12">
-												<Icon source={svg} />
+												<Icon color={themeStyles.primary} source={svg} />
                         <h2>{contactHeading}</h2>
 											</div>
                         <div className="text-left text-gray-700 space-y-6">

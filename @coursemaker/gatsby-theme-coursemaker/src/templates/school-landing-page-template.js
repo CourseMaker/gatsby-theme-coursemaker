@@ -21,7 +21,7 @@ const SchoolLandingPage = ({ pageContext }) => {
   let themeStyles = school?.schoolThemeStyle;
   if (!themeStyles) {
     themeStyles = {
-      "primary": "green",
+      "primary": "blue",
       "secondary": "blue"
     }
   }
@@ -54,7 +54,7 @@ const SchoolLandingPage = ({ pageContext }) => {
   // Section 8 - Contact
 
   return (
-    <Layout pageContext={pageContext}>
+    <Layout themeStyles={themeStyles} pageContext={pageContext}>
 			<section className="py-16 md:py-20">
         <div className="container">
             {landingPage?.image &&
@@ -69,9 +69,7 @@ const SchoolLandingPage = ({ pageContext }) => {
                     <Button
                         to={initialCTA?.link}
                         text={initialCTA?.text}
-                        color={initialCTA?.color}
-                        text_color={initialCTA?.textColor}
-                        variant={`primary_${themeStyles.primary}`}
+                        color={themeStyles.primary}
                     />
                     }
 
@@ -115,13 +113,13 @@ const SchoolLandingPage = ({ pageContext }) => {
 
       {<LandingVideo videoID={videoID} />}
 
-      {<OverviewSection landingPage={landingPage} />}
+      {<OverviewSection themeStyles={themeStyles} landingPage={landingPage} />}
 
-      <Courses courses={passedCourses} />
+      <Courses themeStyles={themeStyles} courses={passedCourses} />
 
-      {<TestimonialsSection landingPage={landingPage} />}
+      {<TestimonialsSection themeStyles={themeStyles} landingPage={landingPage} />}
 
-      {<FAQSection landingPage={landingPage} />}
+      {<FAQSection themeStyles={themeStyles} landingPage={landingPage} />}
 
       {closingCTA && (
           <section
@@ -136,7 +134,7 @@ const SchoolLandingPage = ({ pageContext }) => {
           </section>
       )}
 
-      {<ContactSection landingPage={landingPage} />}
+      {<ContactSection themeStyles={themeStyles} landingPage={landingPage} />}
     </Layout>
   );
 };

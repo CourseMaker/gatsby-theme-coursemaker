@@ -7,6 +7,13 @@ import { isAuthenticated, coursesFromJWT } from "../auth/auth";
 
 const CoursesPage = ({ pageContext = {} }) => {
   const courses = pageContext.courses;
+  let themeStyles = pageContext.school?.schoolThemeStyle;
+  if (!themeStyles) {
+    themeStyles = {
+      primary: "green",
+      secondary: "blue",
+    };
+  }
 
   useEffect(() => {
     if (!isAuthenticated()) navigate("/login");
@@ -22,8 +29,8 @@ const CoursesPage = ({ pageContext = {} }) => {
   }
 
   return (
-    <Layout pageContext={pageContext}>
-      <Courses courses={displayCourses} paid={true} />
+    <Layout themeStyles={themeStyles} pageContext={pageContext}>
+      <Courses themeStyles={themeStyles} courses={displayCourses} paid={true} />
     </Layout>
   );
 };

@@ -5,7 +5,7 @@ import { jsx } from "theme-ui";
 import { logout, isAuthenticated } from "../auth/auth";
 
 
-const Header = ({ school }) => {
+const Header = ({ school, themeStyles }) => {
 
   let homeLinks = [
     ["Overview", "/#overview"],
@@ -22,27 +22,13 @@ const Header = ({ school }) => {
     ];
   }
 
-  let themeStyles = school?.schoolThemeStyle;
-  if (!themeStyles) {
-    themeStyles = {
-      "primary": "green",
-      "secondary": "blue"
-    }
-  }
-
   const [toggle, setTogggle] = useState(false);
   const toggleHeader = () => {
     setTogggle(!toggle);
   };
 
   return (
-      <header
-          className="sticky top-0 z-20 shadow-md"
-          sx={{
-            color: "background",
-            backgroundColor: `primary_${themeStyles.primary}`,
-          }}
-      >
+      <header className={`sticky top-0 z-20 shadow-md text-white bg-${themeStyles.primary}-500`}>
         <div className="container mx-auto">
           <div className="flex flex-wrap items-center">
             <Link
