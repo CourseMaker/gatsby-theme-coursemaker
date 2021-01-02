@@ -11,11 +11,9 @@ const Author = ({ author_display }) => {
     authorImage = { src: "https://picsum.photos/300/300" };
   else if (author_display?.photo.childImageSharp != null)
     authorImage = author_display.photo.childImageSharp.fluid;
-  else if (author_display?.photo)
+  else if (author_display?.photo.length)
     // strapi hack
-    authorImage = { src: author_display?.photo.url };
-
-  console.log(authorImage)
+    authorImage = { src: author_display?.photo[0].url };
 
   if (author_display?.photo)
     return (
@@ -24,7 +22,7 @@ const Author = ({ author_display }) => {
           <div className="lg:items-center md:inline-flex lg:px-16 justify-content-center">
             <div className="md:flex">
               <Img
-                className="block object-cover w-48 h-48 rounded-full author-photo lg:h-64 lg:w-64"
+                className="block object-cover h-40 mx-auto rounded-full author-photo"
                 fluid={authorImage}
                 alt="cover image"
                 imgStyle={{ objectPosition: "center", objectFit: "contain" }}

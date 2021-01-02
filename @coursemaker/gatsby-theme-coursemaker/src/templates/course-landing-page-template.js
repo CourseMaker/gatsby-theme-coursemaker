@@ -15,7 +15,6 @@ import Icon from "../components/icon";
 import svg from '../images/icons/icon-courses.svg';
 
 const CourseLandingPage = ({ pageContext = {} }) => {
-  console.log(pageContext);
   const school = pageContext.school;
   const course = pageContext.course;
   const landingPage = course?.landing_page;
@@ -62,34 +61,59 @@ const CourseLandingPage = ({ pageContext = {} }) => {
 
   return (
     <Layout pageContext={pageContext}>
-			<section className="py-16 md:py-20">
-        <div className="container">
+        <section className="py-16 md:py-20">
+            <div className="container">
+                {landingPage?.image &&
+                <div className="flex-wrap items-center md:flex">
+                    <div
+                        className="text-center border-gray-300 md:w-1/2 md:border-r left-side lg:pr-20 md:pr-16 md:text-left">
+                        <h1 className="mb-4 leading-tight md:mb-6">{title}</h1>
+                        <h3 className="mb-4 font-sans font-light opacity-50">{subtitle}</h3>
+                        <p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12"/>
 
-					<div className="flex-wrap items-center md:flex">
-						<div className="text-center border-gray-300 md:w-1/2 md:border-r left-side lg:pr-20 md:pr-16 md:text-left">
-							<h1 className="mb-4 leading-tight md:mb-6">{title}</h1>
-							<h3 className="mb-4 font-sans font-light opacity-50">{subtitle}</h3>
-							<p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12" />
+                        {initialCTA?.color &&
+                        <Button
+                            to={initialCTA?.link}
+                            text={initialCTA?.text}
+                            color={initialCTA?.color}
+                            text_color={initialCTA?.textColor}
+                            variant={`primary_${themeStyles.primary}`}
+                        />
+                        }
 
-							{initialCTA?.color &&
-								<Button
-										to={initialCTA?.link}
-										text={initialCTA?.text}
-										color={initialCTA?.color}
-										text_color={initialCTA?.textColor}
-										variant={`primary_${themeStyles.primary}`}
-								/>
-							}
+                    </div>
+                    {/* left-side */}
 
-						</div>{/* left-side */}
+                    <div className="mt-10 md:w-1/2 right-side md:mt-0">
+                        {landingPage?.image &&
+                        <LandingImage landing={landingPage?.image}/>
+                        }
 
-						<div className="mt-10 md:w-1/2 right-side md:mt-0">
-							{landingPage?.image &&
-								<LandingImage landing={landingPage?.image} />
-							}
+                    </div>
+                    {/* right-side  */}
+                </div>
+                }
+                {!landingPage?.image &&
+                <div className="flex-wrap items-center md:flex">
+                    <div
+                        className="items-center text-center border-gray-300">
+                        <h1 className="mb-4 leading-tight text-center md:mb-6">{title}</h1>
+                        <h3 className="mb-4 font-sans font-light text-center opacity-50">{subtitle}</h3>
+                        <p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12"/>
 
-						</div>{/* right-side  */}
-					</div>{/* flex */}
+                        {initialCTA?.color &&
+                        <Button
+                            to={initialCTA?.link}
+                            text={initialCTA?.text}
+                            color={initialCTA?.color}
+                            text_color={initialCTA?.textColor}
+                            variant={`primary_${themeStyles.primary}`}
+                        />
+                        }
+
+                    </div>
+                </div>
+                }
 
         </div>
       </section>

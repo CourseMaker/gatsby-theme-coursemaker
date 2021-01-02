@@ -31,7 +31,7 @@ const Card = ({ course, paid = false }) => {
       <div className="items-center md:flex">
 				<div className="py-6 md:w-1/2 md:py-0">
 					<Img
-						className="block object-cover w-10/12 mx-auto"
+						className="block object-cover w-10/12 h-40 mx-auto"
 						fluid={courseImage}
 						alt="cover image"
 						imgStyle={{ objectPosition: "center", objectFit: "contain" }}
