@@ -10,7 +10,7 @@ const Courses = ({ courses, paid = false, themeStyles }) => {
       <div className="container mx-auto">
         <div className="mx-auto lg:w-3/4">
 					<div className="mb-12 text-center">
-						<Icon color={themeStyles.primary} source={svg} />
+						<Icon color={themeStyles.primaryColor} source={svg} />
 						<h2>Courses</h2>
 					</div>
           <div className="card-list md:space-y-8 space-y-6">

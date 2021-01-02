@@ -131,7 +131,7 @@ const Lecture = ({ pageContext = {} }) => {
                     await addLectureToComplete(nextLecture);
                   }}
                   to={`../${nextLecture.id}`}
-                  className={`btn bg-${themeStyles.primary}-500 text-white`}
+                  className={`btn bg-${themeStyles.primaryColor}-500 text-white`}
                 >
                   Next
                 </Link>

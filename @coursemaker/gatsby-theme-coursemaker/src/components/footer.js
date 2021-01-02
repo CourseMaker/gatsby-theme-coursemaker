@@ -12,14 +12,14 @@ const Footer = ({ themeStyles }) => {
               Powered by
               <a
                   href="https://coursemaker.org"
-                  className={`font-bold text-${themeStyles.primary}-500`}
+                  className={`font-bold text-${themeStyles.primaryColor}-500`}
               >
                 {" "}
                 CourseMaker
               </a>
             </p>
 
-            <div className={`flex ml-auto space-x-5 text-${themeStyles.primary}-500`}>
+            <div className={`flex ml-auto space-x-5 text-${themeStyles.primaryColor}-500`}>
               <Link to="/terms" >
                 Terms
               </Link>

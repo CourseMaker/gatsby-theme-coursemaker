@@ -18,6 +18,7 @@ const SchoolLandingPage = ({ pageContext }) => {
   const school = pageContext?.school;
   const passedCourses = pageContext?.courses;
   const landingPage = school?.landing_page;
+  console.log(pageContext);
   let themeStyles = school?.schoolThemeStyle;
   if (!themeStyles) {
     themeStyles = {
@@ -69,7 +70,7 @@ const SchoolLandingPage = ({ pageContext }) => {
                     <Button
                         to={initialCTA?.link}
                         text={initialCTA?.text}
-                        color={themeStyles.primary}
+                        color={themeStyles.primaryColor}
                     />
                     }
 
@@ -100,7 +101,7 @@ const SchoolLandingPage = ({ pageContext }) => {
                         text={initialCTA?.text}
                         color={initialCTA?.color}
                         text_color={initialCTA?.textColor}
-                        variant={`primary_${themeStyles.primary}`}
+                        variant={`primary_${themeStyles.primaryColor}`}
                     />
                     }
 

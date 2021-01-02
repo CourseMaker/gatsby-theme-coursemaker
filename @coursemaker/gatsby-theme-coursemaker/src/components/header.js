@@ -28,7 +28,7 @@ const Header = ({ school, themeStyles }) => {
   };
 
   return (
-      <header className={`sticky top-0 z-20 shadow-md text-white bg-${themeStyles.primary}-500`}>
+      <header className={`sticky top-0 z-20 shadow-md text-white bg-${themeStyles.primaryColor}-500`}>
         <div className="container mx-auto">
           <div className="flex flex-wrap items-center">
             <Link

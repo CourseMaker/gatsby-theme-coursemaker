@@ -75,7 +75,7 @@ const CourseLandingPage = ({ pageContext = {} }) => {
                         <Button
                             to={initialCTA?.link}
                             text={initialCTA?.text}
-                            color={themeStyles.primary}
+                            color={themeStyles.primaryColor}
                         />
                         }
 
@@ -105,7 +105,7 @@ const CourseLandingPage = ({ pageContext = {} }) => {
                             text={initialCTA?.text}
                             color={initialCTA?.color}
                             text_color={initialCTA?.textColor}
-                            variant={`primary_${themeStyles.primary}`}
+                            variant={`primary_${themeStyles.primaryColor}`}
                         />
                         }
 
@@ -124,7 +124,7 @@ const CourseLandingPage = ({ pageContext = {} }) => {
         <div className="container mx-auto">
           <div className="mx-auto inner lg:w-8/12">
 						<div className="mb-12 text-center">
-							<Icon color={themeStyles.primary} source={svg} />
+							<Icon color={themeStyles.primaryColor} source={svg} />
 							<h2>Curriculum</h2>
 						</div>
             <div className="curriculum-list space-y-6">
