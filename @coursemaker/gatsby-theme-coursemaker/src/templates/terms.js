@@ -4,11 +4,20 @@ import ReactMarkdown from "react-markdown";
 import Layout from "../components/layout";
 
 const Terms = ({pageContext}) => {
+
   let school = pageContext.school;
   const terms_and_conditions = school?.terms_and_conditions;
 
+	let themeStyles = pageContext.school?.schoolThemeStyle;
+	if (!themeStyles) {
+		themeStyles = {
+			"primary": "purple",
+			"secondary": "blue"
+		}
+	}
+
   return (
-    <Layout>
+    <Layout themeStyles={themeStyles}>
       <section className="bg-indigo-100 section-header">
         <div className="container mx-auto lg:w-7/12">
           <div className="py-8 md:py-12">

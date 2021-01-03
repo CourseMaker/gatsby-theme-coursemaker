@@ -169,7 +169,7 @@ const CourseLandingPage = ({ pageContext = {} }) => {
               <Button
                 to={`./${closingCTA?.link}`}
                 text={closingCTA?.text}
-                color={themeStyles.secondary}
+                color={themeStyles.primary}
               />
             </div>
           </div>

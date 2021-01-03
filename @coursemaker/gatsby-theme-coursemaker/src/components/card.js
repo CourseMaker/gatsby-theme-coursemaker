@@ -28,14 +28,17 @@ const Card = ({ course, paid = false, themeStyles }) => {
       to={`/courses${slug}`}
       className="block overflow-hidden bg-white border-t border-gray-200 rounded-lg shadow md:shadow-md transition transition-shadow duration-300 hover:shadow-lg"
     >
-      <div className="items-center md:flex">
+      <div className="md:flex">
 				<div className="py-6 md:w-1/2 md:py-0">
+					{/*
 					<Img
 						className="block object-cover w-10/12 h-40 mx-auto"
 						fluid={courseImage}
 						alt="cover image"
 						imgStyle={{ objectPosition: "center", objectFit: "contain" }}
 					/>
+					*/}
+					<img className="block object-cover w-full h-full" src={courseImage.src} alt="Cover Image" />
 				</div>
 				<div className="p-6 border-t border-gray-200 md:border-l md:border-t-0 md:px-10 md:py-8 md:w-1/2">
           <h4 className="mb-1 text-xl font-semibold">{course.title}</h4>

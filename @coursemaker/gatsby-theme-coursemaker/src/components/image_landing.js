@@ -14,15 +14,19 @@ const LandingImage = ({ landing }) => {
     // strapi hack
     landingImage = { src: landing?.url };
 
+	console.log(landingImage);
   if (landing)
     return (
 			<div>
+				{/*
 				<Img
 					className="object-cover w-3/4 h-40 mx-auto"
 					fluid={landingImage}
 					alt="cover image"
 					imgStyle={{ objectPosition: "center", objectFit: "contain" }}
 				/>
+				*/}
+				<img class="block mx-auto w-3/4" src={landingImage.src} alt="Cover Image" />
 			</div>
     );
   return <div />;
