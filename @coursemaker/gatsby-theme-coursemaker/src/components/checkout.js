@@ -52,7 +52,7 @@ const Checkout = ({ school, course, themeStyles }) => {
 		<div>
 			<button
 				disabled={loading}
-				className={`btn text-white bg-${themeStyles.primary}-500 text-lg btn-lg`}
+				className={`btn text-white bg-${themeStyles.primaryColor}-500 text-lg btn-lg`}
 				style={
 					loading ? {buttonDisabledStyles} : {}
 				}

@@ -10,8 +10,8 @@ const RegistrationPage = ({ pageContext }) => {
   let themeStyles = pageContext.school?.schoolThemeStyle;
   if (!themeStyles) {
     themeStyles = {
-      "primary": "purple",
-      "secondary": "blue"
+      "primaryColor": "purple",
+      "secondaryColor": "blue"
     }
   }
 
@@ -43,7 +43,7 @@ const RegistrationPage = ({ pageContext }) => {
 								<input
 									type="submit"
 									value="Sign up"
-									className={`block w-full text-center btn btn-lg text-white bg-${themeStyles.primary}-500`}
+									className={`block w-full text-center btn btn-lg text-white bg-${themeStyles.primaryColor}-500`}
 								/>
 							</div>
 						</form>
@@ -51,7 +51,7 @@ const RegistrationPage = ({ pageContext }) => {
 							<span>Already have an account? </span>
 							<Link
 								to="/login"
-								className={`text-${themeStyles.primary}-500`}
+								className={`text-${themeStyles.primaryColor}-500`}
 							>
 								Login
 							</Link>

@@ -69,7 +69,7 @@ const LayoutLecture = ({
                   </div>
                   <div className="relative h-2 overflow-hidden bg-gray-400 rounded-lg">
                     <div
-                      className={`absolute top-0 bottom-0 left-0 h-2 bg-${themeStyles.primary}-500`}
+                      className={`absolute top-0 bottom-0 left-0 h-2 bg-${themeStyles.primaryColor}-500`}
                       style={{ width: `${progress}%` }}
                     />
                   </div>

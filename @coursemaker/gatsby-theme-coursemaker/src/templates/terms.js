@@ -11,8 +11,8 @@ const Terms = ({pageContext}) => {
 	let themeStyles = pageContext.school?.schoolThemeStyle;
 	if (!themeStyles) {
 		themeStyles = {
-			"primary": "purple",
-			"secondary": "blue"
+            "primaryColor": "purple",
+			"secondaryColor": "blue"
 		}
 	}
 

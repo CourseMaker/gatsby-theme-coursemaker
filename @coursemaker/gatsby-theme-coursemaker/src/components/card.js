@@ -46,7 +46,7 @@ const Card = ({ course, paid = false, themeStyles }) => {
           <p className="leading-relaxed opacity-50">
             {course?.landing_page?.subtitle}
           </p>
-          <div className={`mt-6 text-sm btn btn-sm text-white bg-${themeStyles.primary}-500`}>View Course</div>
+          <div className={`mt-6 text-sm btn btn-sm text-white bg-${themeStyles.primaryColor}-500`}>View Course</div>
         </div>
       </div>
     </Link>

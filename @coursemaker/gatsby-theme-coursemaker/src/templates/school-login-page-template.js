@@ -10,8 +10,8 @@ const LoginPage = ({ pageContext }) => {
   let themeStyles = pageContext.school?.schoolThemeStyle;
   if (!themeStyles) {
     themeStyles = {
-      "primary": "purple",
-      "secondary": "blue"
+      "primaryColor": "purple",
+      "secondaryColor": "blue"
     }
   }
 
@@ -42,12 +42,12 @@ const LoginPage = ({ pageContext }) => {
 								<input
 									type="submit"
 									value="Sign in"
-									className={`block w-full text-center btn btn-lg text-white bg-${themeStyles.primary}-500`}
+									className={`block w-full text-center btn btn-lg text-white bg-${themeStyles.primaryColor}-500`}
 								/>
 								<div className="text-center">
 									<Link
 										to="/forgot"
-										className={`text-${themeStyles.primary}-500`}
+										className={`text-${themeStyles.primaryColor}-500`}
 									>
 										Forgot Password?
 									</Link>
@@ -58,7 +58,7 @@ const LoginPage = ({ pageContext }) => {
 							<span>Don't have an account? </span>
 							<Link
 								to="/register"
-								className={`text-${themeStyles.primary}-500`}
+								className={`text-${themeStyles.primaryColor}-500`}
 							>
 								Sign up
 							</Link>
