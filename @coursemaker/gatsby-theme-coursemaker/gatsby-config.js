@@ -389,6 +389,7 @@ module.exports = (themeOptions) => {
                         /lg:rounded-none/,
                         /xl:w-6\/12/,
                         /xl:w-5\/12/,
+                        /rounded-full/,
                     ],
                 },
             },
