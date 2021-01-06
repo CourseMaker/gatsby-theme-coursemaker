@@ -7,16 +7,16 @@ import Input from "../components/input";
 /*{ pageContext }*/
 const RegistrationPage = ({ pageContext }) => {
 
-  let themeStyles = pageContext.school?.schoolThemeStyle;
-  if (!themeStyles) {
-    themeStyles = {
+  let schoolThemeStyle = pageContext.school?.schoolThemeStyle;
+  if (!schoolThemeStyle) {
+    schoolThemeStyle = {
       "primaryColor": "purple",
       "secondaryColor": "blue"
     }
   }
 
 	return (
-		<Layout themeStyles={themeStyles}>
+		<Layout schoolThemeStyle={schoolThemeStyle}>
 			<section className="py-16 bg-indigo-100 md:py-24">
 				<div className="container">
 					<div className="mb-8 text-center">
@@ -43,7 +43,7 @@ const RegistrationPage = ({ pageContext }) => {
 								<input
 									type="submit"
 									value="Sign up"
-									className={`block w-full text-center btn btn-lg text-white bg-${themeStyles.primaryColor}-500`}
+									className={`block w-full text-center btn btn-lg text-white bg-${schoolThemeStyle.primaryColor}-500`}
 								/>
 							</div>
 						</form>
@@ -51,7 +51,7 @@ const RegistrationPage = ({ pageContext }) => {
 							<span>Already have an account? </span>
 							<Link
 								to="/login"
-								className={`text-${themeStyles.primaryColor}-500`}
+								className={`text-${schoolThemeStyle.primaryColor}-500`}
 							>
 								Login
 							</Link>

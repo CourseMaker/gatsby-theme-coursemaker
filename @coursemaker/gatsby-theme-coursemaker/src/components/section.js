@@ -3,7 +3,7 @@ import _ from "lodash";
 import Lecture from "./lecture";
 
 /* allLectures */
-const Section = ({ lecture, size, data, slug, isCollapse, themeStyles }) => {
+const Section = ({ lecture, size, data, slug, isCollapse, schoolThemeStyle }) => {
   const [toggle, setTogggle] = useState(isCollapse);
   const toggleSection = () => {
     setTogggle(!toggle);
@@ -88,7 +88,7 @@ const Section = ({ lecture, size, data, slug, isCollapse, themeStyles }) => {
                     data={lecture}
                     size={size}
                     key={lecture.id}
-										themeStyles={themeStyles}
+										schoolThemeStyle={schoolThemeStyle}
                 />
             );
           } else {

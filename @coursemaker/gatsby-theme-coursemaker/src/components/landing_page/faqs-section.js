@@ -5,8 +5,8 @@ import {jsx} from "theme-ui";
 import svg from '../../images/icons/icon-faqs.svg';
 import Icon from "../icon";
 
-const FAQSection = ({ themeStyles, landingPage }) => {
-    if (landingPage == null)
+const FAQSection = ({ schoolThemeStyle, landingPage }) => {
+    if (landingPage == null || landingPage?.faqHeading == null)
         return null;
     const faqHeading = landingPage?.faqHeading;
     const faqBody = landingPage?.faqBody;  // markdown
@@ -17,7 +17,7 @@ const FAQSection = ({ themeStyles, landingPage }) => {
                 <div className="container">
                     <div className="mx-auto inner lg:w-7/12">
 												<div className="mb-12">
-													<Icon color={themeStyles.primaryColor} source={svg} />
+													<Icon color={schoolThemeStyle.primaryColor} source={svg} />
 													<h2>{faqHeading}</h2>
 												</div>
                         <div className="text-left text-gray-700 space-y-6">

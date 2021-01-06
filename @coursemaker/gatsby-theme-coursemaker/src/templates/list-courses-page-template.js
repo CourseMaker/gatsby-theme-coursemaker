@@ -7,9 +7,9 @@ import { isAuthenticated, coursesFromJWT } from "../auth/auth";
 
 const CoursesPage = ({ pageContext = {} }) => {
   const courses = pageContext.courses;
-  let themeStyles = pageContext.school?.schoolThemeStyle;
-  if (!themeStyles) {
-    themeStyles = {
+  let schoolThemeStyle = pageContext.school?.schoolThemeStyle;
+  if (!schoolThemeStyle) {
+    schoolThemeStyle = {
       primaryColor: "green",
       secondaryColor: "blue",
     };
@@ -29,8 +29,8 @@ const CoursesPage = ({ pageContext = {} }) => {
   }
 
   return (
-    <Layout themeStyles={themeStyles} pageContext={pageContext}>
-      <Courses themeStyles={themeStyles} courses={displayCourses} paid={true} />
+    <Layout schoolThemeStyle={schoolThemeStyle} pageContext={pageContext}>
+      <Courses schoolThemeStyle={schoolThemeStyle} courses={displayCourses} paid={true} />
     </Layout>
   );
 };

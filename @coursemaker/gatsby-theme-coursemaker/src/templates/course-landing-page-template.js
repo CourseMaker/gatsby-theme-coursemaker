@@ -18,9 +18,9 @@ const CourseLandingPage = ({ pageContext = {} }) => {
   const school = pageContext.school;
   const course = pageContext.course;
   const landingPage = course?.landing_page;
-  let themeStyles = school?.schoolThemeStyle;
-  if (!themeStyles) {
-    themeStyles = {
+  let schoolThemeStyle = school?.schoolThemeStyle;
+  if (!schoolThemeStyle) {
+    schoolThemeStyle = {
       primaryColor: "red",
       secondaryColor: "blue",
     };
@@ -60,7 +60,7 @@ const CourseLandingPage = ({ pageContext = {} }) => {
   // Section 8 - Contact
 
   return (
-    <Layout themeStyles={themeStyles} pageContext={pageContext}>
+    <Layout schoolThemeStyle={schoolThemeStyle} pageContext={pageContext}>
         <section className="py-16 md:py-20">
             <div className="container">
                 {landingPage?.image &&
@@ -75,7 +75,7 @@ const CourseLandingPage = ({ pageContext = {} }) => {
                         <Button
                             to={initialCTA?.link}
                             text={initialCTA?.text}
-                            color={themeStyles.primaryColor}
+                            color={schoolThemeStyle.primaryColor}
                         />
                         }
 
@@ -105,7 +105,7 @@ const CourseLandingPage = ({ pageContext = {} }) => {
                             text={initialCTA?.text}
                             color={initialCTA?.color}
                             text_color={initialCTA?.textColor}
-                            variant={`primary_${themeStyles.primaryColor}`}
+                            variant={`primary_${schoolThemeStyle.primaryColor}`}
                         />
                         }
 
@@ -118,13 +118,13 @@ const CourseLandingPage = ({ pageContext = {} }) => {
 
       {<LandingVideo videoID={videoID} />}
 
-      {<OverviewSection themeStyles={themeStyles} landingPage={landingPage} />}
+      {<OverviewSection schoolThemeStyle={schoolThemeStyle} landingPage={landingPage} />}
 
 			<section id="course" className="py-16 bg-gray-200 md:py-24">
         <div className="container mx-auto">
           <div className="mx-auto inner lg:w-8/12">
 						<div className="mb-12 text-center">
-							<Icon color={themeStyles.primaryColor} source={svg} />
+							<Icon color={schoolThemeStyle.primaryColor} source={svg} />
 							<h2>Curriculum</h2>
 						</div>
             <div className="curriculum-list space-y-6">
@@ -144,7 +144,7 @@ const CourseLandingPage = ({ pageContext = {} }) => {
                     allLectures={allLectures}
                     slug={course.slug}
 										isCollapse={isCollapse}
-										themeStyles={themeStyles}
+										schoolThemeStyle={schoolThemeStyle}
                   />
                 );
               })}
@@ -153,11 +153,11 @@ const CourseLandingPage = ({ pageContext = {} }) => {
         </div>
       </section>
 
-      {<TestimonialsSection themeStyles={themeStyles} landingPage={landingPage} />}
+      {<TestimonialsSection schoolThemeStyle={schoolThemeStyle} landingPage={landingPage} />}
 
-      {<FAQSection themeStyles={themeStyles} landingPage={landingPage} />}
+      {<FAQSection schoolThemeStyle={schoolThemeStyle} landingPage={landingPage} />}
 
-      {<Author themeStyles={themeStyles} author_display={author_display} />}
+      {<Author schoolThemeStyle={schoolThemeStyle} author_display={author_display} />}
 
       {closingCTA && (
         <section
@@ -169,14 +169,14 @@ const CourseLandingPage = ({ pageContext = {} }) => {
               <Button
                 to={`./${closingCTA?.link}`}
                 text={closingCTA?.text}
-                color={themeStyles.primaryColor}
+                color={schoolThemeStyle.primaryColor}
               />
             </div>
           </div>
         </section>
       )}
 
-      {<ContactSection themeStyles={themeStyles} landingPage={landingPage} />}
+      {<ContactSection schoolThemeStyle={schoolThemeStyle} landingPage={landingPage} />}
     </Layout>
   );
 };

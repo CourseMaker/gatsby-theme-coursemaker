@@ -5,8 +5,8 @@ import {jsx} from "theme-ui";
 import svg from '../../images/icons/icon-contact.svg';
 import Icon from "../icon";
 
-const ContactSection = ({ themeStyles, landingPage }) => {
-    if (landingPage == null)
+const ContactSection = ({ schoolThemeStyle, landingPage }) => {
+    if (landingPage == null || landingPage?.contactHeading == null)
         return null;
     const contactHeading = landingPage?.contactHeading;
     const contactBody = landingPage?.contactBody;
@@ -17,7 +17,7 @@ const ContactSection = ({ themeStyles, landingPage }) => {
                 <div className="container">
                     <div className="mx-auto inner lg:w-5/12">
 											<div className="mb-12">
-												<Icon color={themeStyles.primaryColor} source={svg} />
+												<Icon color={schoolThemeStyle.primaryColor} source={svg} />
                         <h2>{contactHeading}</h2>
 											</div>
                         <div className="text-left text-gray-700 space-y-6">

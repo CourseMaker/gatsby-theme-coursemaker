@@ -18,7 +18,7 @@ const buttonDisabledStyles = {
 };
 
 /*{ school, course }*/
-const Checkout = ({ school, course, themeStyles }) => {
+const Checkout = ({ school, course, schoolThemeStyle }) => {
 
   const [loading, setLoading] = useState(false);
   const redirectToCheckout = async (event) => {
@@ -52,7 +52,7 @@ const Checkout = ({ school, course, themeStyles }) => {
 		<div>
 			<button
 				disabled={loading}
-				className={`btn text-white bg-${themeStyles.primaryColor}-500 text-lg btn-lg`}
+				className={`btn text-white bg-${schoolThemeStyle.primaryColor}-500 text-lg btn-lg`}
 				style={
 					loading ? {buttonDisabledStyles} : {}
 				}

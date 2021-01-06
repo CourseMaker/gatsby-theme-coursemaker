@@ -5,7 +5,20 @@ import { jsx } from "theme-ui";
 import { logout, isAuthenticated } from "../auth/auth";
 
 
-const Header = ({ school, themeStyles }) => {
+const Header = ({ school, schoolThemeStyle }) => {
+
+  console.log(school);
+  console.log(schoolThemeStyle)
+
+  let schoolName = "";
+  if(school?.name){
+    schoolName = school?.name;
+  }
+
+  let pageschoolThemeStyle = {"primaryColor": "blue"}
+  if(schoolThemeStyle?.primaryColor){
+    pageschoolThemeStyle = schoolThemeStyle;
+  }
 
   let homeLinks = [
     ["Overview", "/#overview"],
@@ -28,14 +41,14 @@ const Header = ({ school, themeStyles }) => {
   };
 
   return (
-      <header className={`sticky top-0 z-20 shadow-md text-white bg-${themeStyles.primaryColor}-500`}>
+      <header className={`sticky top-0 z-20 shadow-md text-white bg-${pageschoolThemeStyle.primaryColor}-500`}>
         <div className="container mx-auto">
           <div className="flex flex-wrap items-center">
             <Link
 							className="inline-flex items-center h-20 text-lg md:h-24 logo"
                 to="/"
             >
-              <span className="font-semibold">{school?.name}</span>
+              <span className="font-semibold">{schoolName}</span>
             </Link>
 
             <nav

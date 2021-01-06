@@ -8,16 +8,16 @@ const Terms = ({pageContext}) => {
   let school = pageContext.school;
   const terms_and_conditions = school?.terms_and_conditions;
 
-	let themeStyles = pageContext.school?.schoolThemeStyle;
-	if (!themeStyles) {
-		themeStyles = {
+	let schoolThemeStyle = pageContext.school?.schoolThemeStyle;
+	if (!schoolThemeStyle) {
+		schoolThemeStyle = {
             "primaryColor": "purple",
 			"secondaryColor": "blue"
 		}
 	}
 
   return (
-    <Layout themeStyles={themeStyles}>
+    <Layout schoolThemeStyle={schoolThemeStyle}>
       <section className="bg-indigo-100 section-header">
         <div className="container mx-auto lg:w-7/12">
           <div className="py-8 md:py-12">

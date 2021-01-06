@@ -15,7 +15,7 @@ const LayoutLecture = ({
   totalLectures,
   currentCourse,
   pageContext,
-	themeStyles
+	schoolThemeStyle
 }) => {
   let slug = currentCourse.slug;
   const course = readLocalStorage(slug);
@@ -41,13 +41,13 @@ const LayoutLecture = ({
 
   return (
     <>
-      <Header themeStyles={themeStyles} school={pageContext.school} />
+      <Header schoolThemeStyle={schoolThemeStyle} school={pageContext.school} />
       <section id="lecture">
         <div className="flex-wrap lg:flex">
           <div className="lg:w-9/12">
             {children}
             <div className="hidden lg:block">
-              <Footer themeStyles={themeStyles} />
+              <Footer schoolThemeStyle={schoolThemeStyle} />
             </div>
           </div>
 
@@ -69,7 +69,7 @@ const LayoutLecture = ({
                   </div>
                   <div className="relative h-2 overflow-hidden bg-gray-400 rounded-lg">
                     <div
-                      className={`absolute top-0 bottom-0 left-0 h-2 bg-${themeStyles.primaryColor}-500`}
+                      className={`absolute top-0 bottom-0 left-0 h-2 bg-${schoolThemeStyle.primaryColor}-500`}
                       style={{ width: `${progress}%` }}
                     />
                   </div>
@@ -90,7 +90,7 @@ const LayoutLecture = ({
                           course={currentCourse}
                           slug={slug}
 													isCollapse={true}
-													themeStyles={themeStyles}
+													schoolThemeStyle={schoolThemeStyle}
                         />
                       );
                     })}
@@ -102,7 +102,7 @@ const LayoutLecture = ({
         </div>
       </section>
       <div className="block lg:hidden">
-        <Footer themeStyles={themeStyles} />
+        <Footer schoolThemeStyle={schoolThemeStyle} />
       </div>
     </>
   );

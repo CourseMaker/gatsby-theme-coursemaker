@@ -3,7 +3,7 @@ import { Link } from "gatsby";
 import slugify from "slugify";
 import Img from "gatsby-image";
 
-const Card = ({ course, paid = false, themeStyles }) => {
+const Card = ({ course, paid = false, schoolThemeStyle }) => {
   let slug = course.slug
     ? course.slug
     : "/" + slugify(course.title, { strict: true, lower: true });
@@ -46,7 +46,7 @@ const Card = ({ course, paid = false, themeStyles }) => {
           <p className="leading-relaxed opacity-50">
             {course?.landing_page?.subtitle}
           </p>
-          <div className={`mt-6 text-sm btn btn-sm text-white bg-${themeStyles.primaryColor}-500`}>View Course</div>
+          <div className={`mt-6 text-sm btn btn-sm text-white bg-${schoolThemeStyle.primaryColor}-500`}>View Course</div>
         </div>
       </div>
     </Link>

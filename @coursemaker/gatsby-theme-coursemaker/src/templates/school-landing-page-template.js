@@ -18,9 +18,9 @@ const SchoolLandingPage = ({ pageContext }) => {
   const school = pageContext?.school;
   const passedCourses = pageContext?.courses;
   const landingPage = school?.landing_page;
-  let themeStyles = school?.schoolThemeStyle;
-  if (!themeStyles) {
-    themeStyles = {
+  let schoolThemeStyle = school?.schoolThemeStyle;
+  if (!schoolThemeStyle) {
+    schoolThemeStyle = {
       "primaryColor": "blue",
       "secondaryColor": "blue"
     }
@@ -54,7 +54,7 @@ const SchoolLandingPage = ({ pageContext }) => {
   // Section 8 - Contact
 
   return (
-    <Layout themeStyles={themeStyles} pageContext={pageContext}>
+    <Layout schoolThemeStyle={schoolThemeStyle} pageContext={pageContext}>
 			<section className="py-16 md:py-20">
         <div className="container">
             {landingPage?.image &&
@@ -69,7 +69,7 @@ const SchoolLandingPage = ({ pageContext }) => {
                     <Button
                         to={initialCTA?.link}
                         text={initialCTA?.text}
-                        color={themeStyles.primaryColor}
+                        color={schoolThemeStyle.primaryColor}
                     />
                     }
 
@@ -100,7 +100,7 @@ const SchoolLandingPage = ({ pageContext }) => {
                         text={initialCTA?.text}
                         color={initialCTA?.color}
                         text_color={initialCTA?.textColor}
-                        variant={`primary_${themeStyles.primaryColor}`}
+                        variant={`primary_${schoolThemeStyle.primaryColor}`}
                     />
                     }
 
@@ -113,13 +113,13 @@ const SchoolLandingPage = ({ pageContext }) => {
 
       {<LandingVideo videoID={videoID} />}
 
-      {<OverviewSection themeStyles={themeStyles} landingPage={landingPage} />}
+      {<OverviewSection schoolThemeStyle={schoolThemeStyle} landingPage={landingPage} />}
 
-      <Courses themeStyles={themeStyles} courses={passedCourses} />
+      <Courses schoolThemeStyle={schoolThemeStyle} courses={passedCourses} />
 
-      {<TestimonialsSection themeStyles={themeStyles} landingPage={landingPage} />}
+      {<TestimonialsSection schoolThemeStyle={schoolThemeStyle} landingPage={landingPage} />}
 
-      {<FAQSection themeStyles={themeStyles} landingPage={landingPage} />}
+      {<FAQSection schoolThemeStyle={schoolThemeStyle} landingPage={landingPage} />}
 
       {closingCTA && (
           <section
@@ -134,7 +134,7 @@ const SchoolLandingPage = ({ pageContext }) => {
           </section>
       )}
 
-      {<ContactSection themeStyles={themeStyles} landingPage={landingPage} />}
+      {<ContactSection schoolThemeStyle={schoolThemeStyle} landingPage={landingPage} />}
     </Layout>
   );
 };

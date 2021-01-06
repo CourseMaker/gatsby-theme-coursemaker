@@ -4,7 +4,7 @@ import { useLocation } from "@reach/router";
 
 import { bakeLocalStorage, readLocalStorage } from "../helpers/storage";
 
-const Lecture = ({ lecture, size, data, slug, themeStyles }) => {
+const Lecture = ({ lecture, size, data, slug, schoolThemeStyle }) => {
   const { title, id } = data;
   const random = (min, max) => Math.random() * (max - min) + min;
 
@@ -62,8 +62,8 @@ const Lecture = ({ lecture, size, data, slug, themeStyles }) => {
                 to={`${
                   lastpath === "curriculum" ? "../lectures" : "./lectures"
                 }/${id}`}
-                className={`px-2 py-1 text-xs text-white bg-${themeStyles.primaryColor}-500 rounded shadow  
-                cursor-pointer transition-all duration-300 hover:bg-${themeStyles.primaryColor}-400 transition `}
+                className={`px-2 py-1 text-xs text-white bg-${schoolThemeStyle.primaryColor}-500 rounded shadow  
+                cursor-pointer transition-all duration-300 hover:bg-${schoolThemeStyle.primaryColor}-400 transition `}
               >
                 {type === "video" ? "View" : "Download"}
               </Link>
@@ -80,7 +80,7 @@ const Lecture = ({ lecture, size, data, slug, themeStyles }) => {
           {lecture.id === data.id &&
             <div
               style={{ width: "4px" }}
-							className={`absolute top-0 bottom-0 left-0 bg-${themeStyles.primaryColor}-500`}></div>
+							className={`absolute top-0 bottom-0 left-0 bg-${schoolThemeStyle.primaryColor}-500`}></div>
           }
           <div className="flex">
             <div className="flex items-center left-side">

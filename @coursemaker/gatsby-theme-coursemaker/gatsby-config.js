@@ -11,6 +11,10 @@ module.exports = (themeOptions) => {
             strapiPluginOrFake: options.useStrapi,
             useAuth: options.useAuth,
             enablePayments: options.enablePayments, // required for paid courses
+            schoolThemeStyle: {
+                "primaryColor": "blue",
+                "secondaryColor": "blue"
+            },
             landing_page: {
                 title: 'Demo Site (update in gatsby-config)',
                 subtitle: 'Build your online course with open source',

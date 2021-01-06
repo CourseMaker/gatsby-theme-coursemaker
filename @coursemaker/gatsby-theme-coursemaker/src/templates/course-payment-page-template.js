@@ -14,9 +14,9 @@ const CoursePaymentPage = ({ pageContext = {} }) => {
   const school = pageContext.school;
   const priceInfo = course.price_info;
 
-	let themeStyles = pageContext.school?.schoolThemeStyle;
-	if (!themeStyles) {
-		themeStyles = {
+	let schoolThemeStyle = pageContext.school?.schoolThemeStyle;
+	if (!schoolThemeStyle) {
+		schoolThemeStyle = {
             "primaryColor": "purple",
 			"secondaryColor": "blue"
 		}
@@ -33,13 +33,13 @@ const CoursePaymentPage = ({ pageContext = {} }) => {
   }
 
   return (
-    <Layout themeStyles={themeStyles} pageContext={pageContext}>
+    <Layout schoolThemeStyle={schoolThemeStyle} pageContext={pageContext}>
 			<section className="py-16 text-center md:py-24">
         <div className="container">
 					<div className="mx-auto lg:w-10/12">
 						<h1 className="mb-4">{course.title}</h1>
 						<h3 className="mb-4">{recurrence} {priceText}</h3>
-						<Checkout themeStyles={themeStyles} school={school} course={course} />
+						<Checkout schoolThemeStyle={schoolThemeStyle} school={school} course={course} />
 					</div>
         </div>
       </section>
