@@ -4,7 +4,7 @@ import { useLocation } from "@reach/router";
 
 import { bakeLocalStorage, readLocalStorage } from "../helpers/storage";
 
-const Lecture = ({ lecture, size, data, slug }) => {
+const Lecture = ({ lecture, size, data, slug, schoolThemeStyle }) => {
   const { title, id } = data;
   const random = (min, max) => Math.random() * (max - min) + min;
 
@@ -62,8 +62,8 @@ const Lecture = ({ lecture, size, data, slug }) => {
                 to={`${
                   lastpath === "curriculum" ? "../lectures" : "./lectures"
                 }/${id}`}
-                className={`px-2 py-1 text-xs text-white bg-green-500 rounded shadow  
-                cursor-pointer transition-all duration-300 hover:bg-green-400 transition `}
+                className={`px-2 py-1 text-xs text-white bg-${schoolThemeStyle.primaryColor}-500 rounded shadow  
+                cursor-pointer transition-all duration-300 hover:bg-${schoolThemeStyle.primaryColor}-400 transition `}
               >
                 {type === "video" ? "View" : "Download"}
               </Link>
@@ -76,17 +76,12 @@ const Lecture = ({ lecture, size, data, slug }) => {
             await addLectureToComplete(lecture);
           }}
           to={`../${data.id}`}
-          className={`${
-            lecture.id === data.id ? "bg-green-200" : "hover:bg-gray-100"
-          } 
-          transition transition-all duration-300 bg-white bg-gray-100 hover:bg-gray-100	relative block p-4 `}
-        >
-          {lecture.id === data.id && (
+          className="relative block p-4 bg-white bg-gray-100 transition transition-all duration-300 hover:bg-gray-100">
+          {lecture.id === data.id &&
             <div
               style={{ width: "4px" }}
-              className="absolute top-0 bottom-0 left-0 bg-green-500"
-            />
-          )}
+							className={`absolute top-0 bottom-0 left-0 bg-${schoolThemeStyle.primaryColor}-500`}></div>
+          }
           <div className="flex">
             <div className="flex items-center left-side">
               <div

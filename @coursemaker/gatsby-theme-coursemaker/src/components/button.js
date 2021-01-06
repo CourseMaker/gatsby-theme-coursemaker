@@ -12,13 +12,7 @@ const Button = ({
 }) => (
   <Link
     to={to}
-    className={`btn text-${size} btn-${size}`}
-    sx={{
-      mx: 1,
-      variant: `buttons.${variant}`,
-      bg: color,
-      color: text_color,
-    }}
+    className={`btn text-white bg-${color}-500 text-${size} btn-${size}`}
     {...props}
   >
     {props.text}

@@ -22,7 +22,7 @@ const Author = ({ author_display }) => {
           <div className="lg:items-center md:inline-flex lg:px-16 justify-content-center">
             <div className="md:flex">
               <Img
-                className="block object-cover mx-auto h-40 rounded-full author-photo"
+                className="block object-cover h-40 mx-auto rounded-full author-photo"
                 fluid={authorImage}
                 alt="cover image"
                 imgStyle={{ objectPosition: "center", objectFit: "contain" }}

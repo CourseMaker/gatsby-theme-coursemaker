@@ -20,6 +20,14 @@ const Lecture = ({ pageContext = {} }) => {
   const currentCourse = pageContext.course;
   const lecture = pageContext.lecture;
 
+  let schoolThemeStyle = pageContext.school?.schoolThemeStyle;
+  if (!schoolThemeStyle) {
+    schoolThemeStyle = {
+      primaryColor: "purple",
+      secondaryColor: "blue",
+    };
+  }
+
   let allLectures;
   if (
     currentCourse == null ||
@@ -84,6 +92,7 @@ const Lecture = ({ pageContext = {} }) => {
 
   return (
     <LayoutLecture
+			schoolThemeStyle={schoolThemeStyle}
       pageContext={pageContext}
       lecture={lecture}
       lectureList={allLectures}
@@ -101,6 +110,7 @@ const Lecture = ({ pageContext = {} }) => {
               school={pageContext.school}
               course={currentCourse}
               lecture={lecture}
+							schoolThemeStyle={schoolThemeStyle}
             />
           }
           <div className="items-end justify-between pt-4 pb-6 lg:flex">
@@ -121,7 +131,7 @@ const Lecture = ({ pageContext = {} }) => {
                     await addLectureToComplete(nextLecture);
                   }}
                   to={`../${nextLecture.id}`}
-                  className="btn btn-default"
+                  className={`btn bg-${schoolThemeStyle.primaryColor}-500 text-white`}
                 >
                   Next
                 </Link>

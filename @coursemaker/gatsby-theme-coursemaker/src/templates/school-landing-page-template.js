@@ -18,11 +18,11 @@ const SchoolLandingPage = ({ pageContext }) => {
   const school = pageContext?.school;
   const passedCourses = pageContext?.courses;
   const landingPage = school?.landing_page;
-  let themeStyles = school?.schoolThemeStyle;
-  if (!themeStyles) {
-    themeStyles = {
-      "primary": "green",
-      "secondary": "blue"
+  let schoolThemeStyle = school?.schoolThemeStyle;
+  if (!schoolThemeStyle) {
+    schoolThemeStyle = {
+      "primaryColor": "blue",
+      "secondaryColor": "blue"
     }
   }
 
@@ -54,7 +54,7 @@ const SchoolLandingPage = ({ pageContext }) => {
   // Section 8 - Contact
 
   return (
-    <Layout pageContext={pageContext}>
+    <Layout schoolThemeStyle={schoolThemeStyle} pageContext={pageContext}>
 			<section className="py-16 md:py-20">
         <div className="container">
             {landingPage?.image &&
@@ -69,9 +69,7 @@ const SchoolLandingPage = ({ pageContext }) => {
                     <Button
                         to={initialCTA?.link}
                         text={initialCTA?.text}
-                        color={initialCTA?.color}
-                        text_color={initialCTA?.textColor}
-                        variant={`primary_${themeStyles.primary}`}
+                        color={schoolThemeStyle.primaryColor}
                     />
                     }
 
@@ -91,9 +89,9 @@ const SchoolLandingPage = ({ pageContext }) => {
             {!landingPage?.image &&
             <div className="flex-wrap items-center md:flex">
                 <div
-                    className="text-center items-center border-gray-300">
-                    <h1 className="mb-4 text-center leading-tight md:mb-6">{title}</h1>
-                    <h3 className="mb-4 text-center font-sans font-light opacity-50">{subtitle}</h3>
+                    className="items-center text-center border-gray-300">
+                    <h1 className="mb-4 leading-tight text-center md:mb-6">{title}</h1>
+                    <h3 className="mb-4 font-sans font-light text-center opacity-50">{subtitle}</h3>
                     <p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12"/>
 
                     {initialCTA?.color &&
@@ -102,7 +100,7 @@ const SchoolLandingPage = ({ pageContext }) => {
                         text={initialCTA?.text}
                         color={initialCTA?.color}
                         text_color={initialCTA?.textColor}
-                        variant={`primary_${themeStyles.primary}`}
+                        variant={`primary_${schoolThemeStyle.primaryColor}`}
                     />
                     }
 
@@ -115,13 +113,13 @@ const SchoolLandingPage = ({ pageContext }) => {
 
       {<LandingVideo videoID={videoID} />}
 
-      {<OverviewSection landingPage={landingPage} />}
+      {<OverviewSection schoolThemeStyle={schoolThemeStyle} landingPage={landingPage} />}
 
-      <Courses courses={passedCourses} />
+      <Courses schoolThemeStyle={schoolThemeStyle} courses={passedCourses} />
 
-      {<TestimonialsSection landingPage={landingPage} />}
+      {<TestimonialsSection schoolThemeStyle={schoolThemeStyle} landingPage={landingPage} />}
 
-      {<FAQSection landingPage={landingPage} />}
+      {<FAQSection schoolThemeStyle={schoolThemeStyle} landingPage={landingPage} />}
 
       {closingCTA && (
           <section
@@ -136,7 +134,7 @@ const SchoolLandingPage = ({ pageContext }) => {
           </section>
       )}
 
-      {<ContactSection landingPage={landingPage} />}
+      {<ContactSection schoolThemeStyle={schoolThemeStyle} landingPage={landingPage} />}
     </Layout>
   );
 };

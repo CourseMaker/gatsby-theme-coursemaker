@@ -3,7 +3,7 @@ import { Link } from "gatsby";
 import slugify from "slugify";
 import Img from "gatsby-image";
 
-const Card = ({ course, paid = false }) => {
+const Card = ({ course, paid = false, schoolThemeStyle }) => {
   let slug = course.slug
     ? course.slug
     : "/" + slugify(course.title, { strict: true, lower: true });
@@ -30,12 +30,15 @@ const Card = ({ course, paid = false }) => {
     >
       <div className="items-center md:flex">
 				<div className="py-6 md:w-1/2 md:py-0">
+					{/*
 					<Img
-						className="block object-cover h-40 w-10/12 mx-auto"
+						className="block object-cover w-10/12 h-40 mx-auto"
 						fluid={courseImage}
 						alt="cover image"
 						imgStyle={{ objectPosition: "center", objectFit: "contain" }}
 					/>
+					*/}
+					<img className="block w-11/12 mx-auto lg:w-10/12" src={courseImage.src} alt="Cover Image" />
 				</div>
 				<div className="p-6 border-t border-gray-200 md:border-l md:border-t-0 md:px-10 md:py-8 md:w-1/2">
           <h4 className="mb-1 text-xl font-semibold">{course.title}</h4>
@@ -43,7 +46,7 @@ const Card = ({ course, paid = false }) => {
           <p className="leading-relaxed opacity-50">
             {course?.landing_page?.subtitle}
           </p>
-          <div className="mt-6 text-sm btn btn-sm btn-default">View Course</div>
+          <div className={`mt-6 text-sm btn btn-sm text-white bg-${schoolThemeStyle.primaryColor}-500`}>View Course</div>
         </div>
       </div>
     </Link>

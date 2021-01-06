@@ -3,7 +3,7 @@ import _ from "lodash";
 import Lecture from "./lecture";
 
 /* allLectures */
-const Section = ({ lecture, size, data, slug, isCollapse }) => {
+const Section = ({ lecture, size, data, slug, isCollapse, schoolThemeStyle }) => {
   const [toggle, setTogggle] = useState(isCollapse);
   const toggleSection = () => {
     setTogggle(!toggle);
@@ -25,7 +25,7 @@ const Section = ({ lecture, size, data, slug, isCollapse }) => {
     >
       <div
         className={
-          "relative " +
+          "relative pr-12 " +
           (size === "big"
             ? "py-3 md:py-4 px-4 md:px-6 md:flex items-center"
             : "p-4")
@@ -33,7 +33,7 @@ const Section = ({ lecture, size, data, slug, isCollapse }) => {
       >
         <div
           className={
-            "font-bold " + (size === "big" ? "text-lg md:text-2xl" : "")
+            "font-bold " + (size === "big" ? "text-lg md:text-2xl" : "leading-tight mb-1")
           }
         >
           {data.title}
@@ -88,6 +88,7 @@ const Section = ({ lecture, size, data, slug, isCollapse }) => {
                     data={lecture}
                     size={size}
                     key={lecture.id}
+										schoolThemeStyle={schoolThemeStyle}
                 />
             );
           } else {

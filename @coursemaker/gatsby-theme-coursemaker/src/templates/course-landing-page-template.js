@@ -13,16 +13,17 @@ import FAQSection from "../components/landing_page/faqs-section";
 import ContactSection from "../components/landing_page/contact-section";
 import Icon from "../components/icon";
 import svg from '../images/icons/icon-courses.svg';
+import _ from "lodash";
 
 const CourseLandingPage = ({ pageContext = {} }) => {
   const school = pageContext.school;
   const course = pageContext.course;
   const landingPage = course?.landing_page;
-  let themeStyles = school?.schoolThemeStyle;
-  if (!themeStyles) {
-    themeStyles = {
-      primary: "green",
-      secondary: "blue",
+  let schoolThemeStyle = school?.schoolThemeStyle;
+  if (!schoolThemeStyle) {
+    schoolThemeStyle = {
+      primaryColor: "red",
+      secondaryColor: "blue",
     };
   }
 
@@ -59,8 +60,22 @@ const CourseLandingPage = ({ pageContext = {} }) => {
 
   // Section 8 - Contact
 
+  let allLectures = course?.sections?.map(
+      (section) => section?.lectures?.map((item) => item))
+      .flat(1);
+  let orderedSections;
+  if (course.sections.length === 0 || course.sections === undefined) {
+    orderedSections = [];
+  } else {
+    orderedSections = _.orderBy(
+        course?.sections,
+        course?.sections?.[0].hasOwnProperty("order") ? "order" : "id",
+        "asc"
+    );
+  }
+
   return (
-    <Layout pageContext={pageContext}>
+    <Layout schoolThemeStyle={schoolThemeStyle} pageContext={pageContext}>
         <section className="py-16 md:py-20">
             <div className="container">
                 {landingPage?.image &&
@@ -75,9 +90,7 @@ const CourseLandingPage = ({ pageContext = {} }) => {
                         <Button
                             to={initialCTA?.link}
                             text={initialCTA?.text}
-                            color={initialCTA?.color}
-                            text_color={initialCTA?.textColor}
-                            variant={`primary_${themeStyles.primary}`}
+                            color={schoolThemeStyle.primaryColor}
                         />
                         }
 
@@ -96,9 +109,9 @@ const CourseLandingPage = ({ pageContext = {} }) => {
                 {!landingPage?.image &&
                 <div className="flex-wrap items-center md:flex">
                     <div
-                        className="text-center items-center border-gray-300">
-                        <h1 className="mb-4 text-center leading-tight md:mb-6">{title}</h1>
-                        <h3 className="mb-4 text-center font-sans font-light opacity-50">{subtitle}</h3>
+                        className="items-center text-center border-gray-300">
+                        <h1 className="mb-4 leading-tight text-center md:mb-6">{title}</h1>
+                        <h3 className="mb-4 font-sans font-light text-center opacity-50">{subtitle}</h3>
                         <p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12"/>
 
                         {initialCTA?.color &&
@@ -107,57 +120,56 @@ const CourseLandingPage = ({ pageContext = {} }) => {
                             text={initialCTA?.text}
                             color={initialCTA?.color}
                             text_color={initialCTA?.textColor}
-                            variant={`primary_${themeStyles.primary}`}
+                            variant={`primary_${schoolThemeStyle.primaryColor}`}
                         />
                         }
 
                     </div>
                 </div>
                 }
+
         </div>
       </section>
 
       {<LandingVideo videoID={videoID} />}
 
-      {<OverviewSection landingPage={landingPage} />}
+      {<OverviewSection schoolThemeStyle={schoolThemeStyle} landingPage={landingPage} />}
 
 			<section id="course" className="py-16 bg-gray-200 md:py-24">
         <div className="container mx-auto">
           <div className="mx-auto inner lg:w-8/12">
 						<div className="mb-12 text-center">
-							<Icon source={svg} />
+							<Icon color={schoolThemeStyle.primaryColor} source={svg} />
 							<h2>Curriculum</h2>
 						</div>
             <div className="curriculum-list space-y-6">
-              {course.sections.map((section, index) => {
-                let allLectures = course?.sections
-                  ?.map((section) => section?.lectures?.map((item) => item))
-                  .flat(1);
-
-								let isCollapse = true;
-								if(index > 2) isCollapse = false;
-
-                return (
-                  <Section
-                    data={section}
-                    size="big"
-                    key={section.id}
-                    allLectures={allLectures}
-                    slug={course.slug}
-										isCollapse={isCollapse}
-                  />
-                );
-              })}
+              {orderedSections.length > 0 ? (
+                  orderedSections.map((section, index) => {
+                    return (
+                        <Section
+                            data={section}
+                            size="big"
+                            key={section.id}
+                            allLectures={allLectures}
+                            slug={course.slug}
+                            isCollapse={true}
+                            schoolThemeStyle={schoolThemeStyle}
+                        />
+                    );
+                  })
+              ) : (
+                  <p>No sections yet</p>
+              )}
             </div>
           </div>
         </div>
       </section>
 
-      {<TestimonialsSection landingPage={landingPage} />}
+      {<TestimonialsSection schoolThemeStyle={schoolThemeStyle} landingPage={landingPage} />}
 
-      {<FAQSection landingPage={landingPage} />}
+      {<FAQSection schoolThemeStyle={schoolThemeStyle} landingPage={landingPage} />}
 
-      {<Author author_display={author_display} />}
+      {<Author schoolThemeStyle={schoolThemeStyle} author_display={author_display} />}
 
       {closingCTA && (
         <section
@@ -169,16 +181,14 @@ const CourseLandingPage = ({ pageContext = {} }) => {
               <Button
                 to={`./${closingCTA?.link}`}
                 text={closingCTA?.text}
-                color={closingCTA?.color}
-                text_color={closingCTA?.textColor}
-                variant={`primary_${themeStyles.primary}`}
+                color={schoolThemeStyle.primaryColor}
               />
             </div>
           </div>
         </section>
       )}
 
-      {<ContactSection landingPage={landingPage} />}
+      {<ContactSection schoolThemeStyle={schoolThemeStyle} landingPage={landingPage} />}
     </Layout>
   );
 };

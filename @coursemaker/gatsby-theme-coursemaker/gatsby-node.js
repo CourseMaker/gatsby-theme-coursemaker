@@ -627,6 +627,9 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                     }
                     site {
                         siteMetadata {
+                            schoolThemeStyle {
+                                primaryColor
+                            }
                             landing_page {
                                 title
                                 subtitle

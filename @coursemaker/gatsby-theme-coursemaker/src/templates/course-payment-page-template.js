@@ -14,6 +14,14 @@ const CoursePaymentPage = ({ pageContext = {} }) => {
   const school = pageContext.school;
   const priceInfo = course.price_info;
 
+	let schoolThemeStyle = pageContext.school?.schoolThemeStyle;
+	if (!schoolThemeStyle) {
+		schoolThemeStyle = {
+            "primaryColor": "purple",
+			"secondaryColor": "blue"
+		}
+	}
+
   let priceText = '';
   let recurrence = '';
   if (priceInfo?.product_type == 'single_course' && priceInfo?.is_active){
@@ -23,16 +31,17 @@ const CoursePaymentPage = ({ pageContext = {} }) => {
     priceText = priceInfo?.unit_amount_readable;
     recurrence = priceInfo?.recurring_interval;
   }
+
   return (
-    <Layout pageContext={pageContext}>
-      <section className="py-16 pb-8 text-center md:pt-24">
+    <Layout schoolThemeStyle={schoolThemeStyle} pageContext={pageContext}>
+			<section className="py-16 text-center md:py-24">
         <div className="container">
-          <h1 className="mb-4">{course.title}</h1>
+					<div className="mx-auto lg:w-10/12">
+						<h1 className="mb-4">{course.title}</h1>
+						<h3 className="mb-4">{recurrence} {priceText}</h3>
+						<Checkout schoolThemeStyle={schoolThemeStyle} school={school} course={course} />
+					</div>
         </div>
-        <div className="container">
-          <h3 className="mb-4">{recurrence} {priceText}</h3>
-        </div>
-        <Checkout school={school} course={course} />
       </section>
     </Layout>
   );

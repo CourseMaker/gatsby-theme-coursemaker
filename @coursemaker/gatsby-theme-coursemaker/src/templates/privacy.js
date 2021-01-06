@@ -7,8 +7,16 @@ const Privacy = ({pageContext}) => {
   let school = pageContext.school;
   const privacy_policy = school?.privacy_policy;
 
+	let schoolThemeStyle = pageContext.school?.schoolThemeStyle;
+	if (!schoolThemeStyle) {
+		schoolThemeStyle = {
+            "primaryColor": "purple",
+			"secondaryColor": "blue"
+		}
+	}
+
   return (
-    <Layout>
+    <Layout schoolThemeStyle={schoolThemeStyle}>
       <section className="bg-indigo-100 section-header">
         <div className="container mx-auto lg:w-7/12">
           <div className="py-8 md:py-12">

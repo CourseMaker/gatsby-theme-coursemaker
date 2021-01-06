@@ -12,7 +12,7 @@ const PaymentSuccess = () => (
       <Link
           to="/courses"
           sx={{
-              color: `primary_green`,
+              color: `primary_blue`,
           }}
           >Go to the courses
       </Link>
