@@ -13,6 +13,7 @@ import FAQSection from "../components/landing_page/faqs-section";
 import ContactSection from "../components/landing_page/contact-section";
 import Icon from "../components/icon";
 import svg from '../images/icons/icon-courses.svg';
+import _ from "lodash";
 
 const CourseLandingPage = ({ pageContext = {} }) => {
   const school = pageContext.school;
@@ -58,6 +59,20 @@ const CourseLandingPage = ({ pageContext = {} }) => {
   const closingCTA = landingPage?.closingCTA;
 
   // Section 8 - Contact
+
+  let allLectures = course?.sections?.map(
+      (section) => section?.lectures?.map((item) => item))
+      .flat(1);
+  let orderedSections;
+  if (course.sections.length === 0 || course.sections === undefined) {
+    orderedSections = [];
+  } else {
+    orderedSections = _.orderBy(
+        course?.sections,
+        course?.sections?.[0].hasOwnProperty("order") ? "order" : "id",
+        "asc"
+    );
+  }
 
   return (
     <Layout schoolThemeStyle={schoolThemeStyle} pageContext={pageContext}>
@@ -128,26 +143,23 @@ const CourseLandingPage = ({ pageContext = {} }) => {
 							<h2>Curriculum</h2>
 						</div>
             <div className="curriculum-list space-y-6">
-              {course.sections.map((section, index) => {
-                let allLectures = course?.sections
-                  ?.map((section) => section?.lectures?.map((item) => item))
-                  .flat(1);
-
-								let isCollapse = true;
-								if(index > 2) isCollapse = false;
-
-                return (
-                  <Section
-                    data={section}
-                    size="big"
-                    key={section.id}
-                    allLectures={allLectures}
-                    slug={course.slug}
-										isCollapse={isCollapse}
-										schoolThemeStyle={schoolThemeStyle}
-                  />
-                );
-              })}
+              {orderedSections.length > 0 ? (
+                  orderedSections.map((section, index) => {
+                    return (
+                        <Section
+                            data={section}
+                            size="big"
+                            key={section.id}
+                            allLectures={allLectures}
+                            slug={course.slug}
+                            isCollapse={true}
+                            schoolThemeStyle={schoolThemeStyle}
+                        />
+                    );
+                  })
+              ) : (
+                  <p>No sections yet</p>
+              )}
             </div>
           </div>
         </div>
