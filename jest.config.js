@@ -1,9 +1,3 @@
-const path = require(`path`);
-const glob = require(`glob`);
-const fs = require(`fs`);
-
-const pkgs = glob.sync(`./@coursemaker/gatsby-theme-coursemaker`).map((p) => p.replace(/^\./, `<rootDir>`));
-
 module.exports = {
     transform: {
         '^.+\\.jsx?$': `<rootDir>/jest-preprocess.js`,

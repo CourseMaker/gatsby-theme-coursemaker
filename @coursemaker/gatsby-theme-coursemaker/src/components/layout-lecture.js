@@ -15,7 +15,7 @@ const LayoutLecture = ({
   totalLectures,
   currentCourse,
   pageContext,
-	schoolThemeStyle
+  schoolThemeStyle = null
 }) => {
   let slug = currentCourse.slug;
   const course = readLocalStorage(slug);
