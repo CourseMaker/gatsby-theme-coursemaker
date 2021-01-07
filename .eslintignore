@@ -1,9 +1,5 @@
 @coursemaker/gatsby-theme-coursemaker/node_modules
 @coursemaker/gatsby-theme-coursemaker/src/components
-@coursemaker/gatsby-theme-coursemaker/src/css
-@coursemaker/gatsby-theme-coursemaker/src/graphQL
-@coursemaker/gatsby-theme-coursemaker/src/images
-@coursemaker/gatsby-theme-coursemaker/src/templates
 course_demo_site
 node_modules
 .cache

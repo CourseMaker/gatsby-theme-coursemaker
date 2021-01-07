@@ -1,20 +1,20 @@
-import { graphql } from "gatsby";
+import { graphql } from 'gatsby';
 
 export const CourseMDXFragment = graphql`
-  fragment CourseMDXFragment on Course {
-    id
-    title
-    slug
-    sections: Sections {
-      id
-      slug
-      title
-      lectures: Lectures {
+    fragment CourseMDXFragment on Course {
         id
-        slug
         title
-        number
-      }
+        slug
+        sections: Sections {
+            id
+            slug
+            title
+            lectures: Lectures {
+                id
+                slug
+                title
+                number
+            }
+        }
     }
-  }
 `;
