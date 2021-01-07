@@ -9,7 +9,7 @@ import { Helmet } from 'react-helmet';
 import Header from './header';
 import Footer from './footer';
 
-const Layout = ({ children, pageContext = null, schoolThemeStyle = null }) => (
+const Layout = ({ children, pageContext = null, schoolThemeStyle = { primaryColor: 'blue' } }) => (
     <>
         <Helmet>
             <html lang="en" />

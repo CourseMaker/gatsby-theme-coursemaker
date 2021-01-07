@@ -15,12 +15,8 @@ const LayoutLecture = ({
     totalLectures,
     currentCourse,
     pageContext,
-    schoolThemeStyle = null,
+    schoolThemeStyle = { primaryColor: 'blue' },
 }) => {
-    let pageThemeStyle = { primaryColor: 'blue' };
-    if (schoolThemeStyle) {
-        pageThemeStyle = schoolThemeStyle;
-    }
     const { slug } = currentCourse;
     const course = readLocalStorage(slug);
     const completedLectures = course?.items?.length;
@@ -40,13 +36,13 @@ const LayoutLecture = ({
 
     return (
         <>
-            <Header schoolThemeStyle={pageThemeStyle} school={pageContext.school} />
+            <Header schoolThemeStyle={schoolThemeStyle} school={pageContext.school} />
             <section id="lecture">
                 <div className="flex-wrap lg:flex">
                     <div className="lg:w-9/12">
                         {children}
                         <div className="hidden lg:block">
-                            <Footer schoolThemeStyle={pageThemeStyle} />
+                            <Footer schoolThemeStyle={schoolThemeStyle} />
                         </div>
                     </div>
 
@@ -68,7 +64,7 @@ const LayoutLecture = ({
                                     </div>
                                     <div className="relative h-2 overflow-hidden bg-gray-400 rounded-lg">
                                         <div
-                                            className={`absolute top-0 bottom-0 left-0 h-2 bg-${pageThemeStyle?.primaryColor}-500`}
+                                            className={`absolute top-0 bottom-0 left-0 h-2 bg-${schoolThemeStyle?.primaryColor}-500`}
                                             style={{ width: `${progress}%` }}
                                         />
                                     </div>
@@ -89,7 +85,7 @@ const LayoutLecture = ({
                                                 course={currentCourse}
                                                 slug={slug}
                                                 isCollapse
-                                                schoolThemeStyle={pageThemeStyle}
+                                                schoolThemeStyle={schoolThemeStyle}
                                             />
                                         ))}
                                     </div>
@@ -100,7 +96,7 @@ const LayoutLecture = ({
                 </div>
             </section>
             <div className="block lg:hidden">
-                <Footer schoolThemeStyle={pageThemeStyle} />
+                <Footer schoolThemeStyle={schoolThemeStyle} />
             </div>
         </>
     );
