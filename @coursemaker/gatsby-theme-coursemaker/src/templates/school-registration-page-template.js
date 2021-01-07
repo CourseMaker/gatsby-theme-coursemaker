@@ -10,7 +10,7 @@ const RegistrationPage = ({ pageContext }) => {
   let schoolThemeStyle = pageContext.school?.schoolThemeStyle;
   if (!schoolThemeStyle) {
     schoolThemeStyle = {
-      "primaryColor": "purple",
+      "primaryColor": "blue",
       "secondaryColor": "blue"
     }
   }

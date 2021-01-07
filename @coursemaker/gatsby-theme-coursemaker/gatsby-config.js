@@ -12,8 +12,8 @@ module.exports = (themeOptions) => {
             useAuth: options.useAuth,
             enablePayments: options.enablePayments, // required for paid courses
             schoolThemeStyle: {
-                "primaryColor": "blue",
-                "secondaryColor": "blue"
+                primaryColor: 'blue',
+                secondaryColor: 'blue',
             },
             landing_page: {
                 title: 'Demo Site (update in gatsby-config)',
@@ -157,8 +157,8 @@ module.exports = (themeOptions) => {
                     defer: false,
                     // Any additional optional fields
                     sampleRate: 100,
-                    siteSpeedSampleRate: 10
-                }
+                    siteSpeedSampleRate: 10,
+                },
             },
             {
                 resolve: `gatsby-plugin-gdpr-cookies`,

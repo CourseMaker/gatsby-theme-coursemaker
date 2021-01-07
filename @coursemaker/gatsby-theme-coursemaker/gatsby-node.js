@@ -670,10 +670,9 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
         // TODO: images defined in siteMetaData do not get set as File nodes.
         //  Hack here is reusing the image from the course.
         dataSources.local.school.landing_page.image = '';
-        if (dataSources.local.courses.length){
+        if (dataSources.local.courses.length) {
             dataSources.local.school.landing_page.image = dataSources.local.courses[0]?.landing_page?.image;
         }
-
     } catch (error) {
         reporter.panic('error loading docs', error);
     }
