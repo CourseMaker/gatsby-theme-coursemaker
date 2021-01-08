@@ -3,7 +3,6 @@ import React from 'react';
 import { jsx } from 'theme-ui';
 import _ from 'lodash';
 import Layout from '../components/layout';
-import Button from '../components/button';
 import Section from '../components/section';
 import Author from '../components/author';
 import LandingVideo from '../components/landing_page/landing-video';
@@ -14,6 +13,7 @@ import FAQSection from '../components/landing_page/faqs-section';
 import ContactSection from '../components/landing_page/contact-section';
 import Icon from '../components/icon';
 import svg from '../images/icons/icon-courses.svg';
+import CTA from "../components/cta";
 
 const CourseLandingPage = ({ pageContext = {} }) => {
     const { school } = pageContext;
@@ -22,7 +22,7 @@ const CourseLandingPage = ({ pageContext = {} }) => {
     let schoolThemeStyle = school?.schoolThemeStyle;
     if (!schoolThemeStyle) {
         schoolThemeStyle = {
-            primaryColor: 'red',
+            primaryColor: 'blue',
             secondaryColor: 'blue',
         };
     }
@@ -34,7 +34,7 @@ const CourseLandingPage = ({ pageContext = {} }) => {
     if (!initialCTA) {
         initialCTA = {
             text: 'Purchase Course',
-            color: 'green',
+            color: 'blue',
             link: 'checkout',
             textColor: 'white',
         };
@@ -83,13 +83,7 @@ const CourseLandingPage = ({ pageContext = {} }) => {
                                 <h3 className="mb-4 font-sans font-light opacity-50">{subtitle}</h3>
                                 <p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12" />
 
-                                {initialCTA?.color && (
-                                    <Button
-                                        to={initialCTA?.link}
-                                        text={initialCTA?.text}
-                                        color={schoolThemeStyle.primaryColor}
-                                    />
-                                )}
+                                <CTA cta={initialCTA} priceInfo={course?.price_info} />
                             </div>
                             {/* left-side */}
 
@@ -106,15 +100,7 @@ const CourseLandingPage = ({ pageContext = {} }) => {
                                 <h3 className="mb-4 font-sans font-light text-center opacity-50">{subtitle}</h3>
                                 <p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12" />
 
-                                {initialCTA?.color && (
-                                    <Button
-                                        to={initialCTA?.link}
-                                        text={initialCTA?.text}
-                                        color={initialCTA?.color}
-                                        text_color={initialCTA?.textColor}
-                                        variant={`primary_${schoolThemeStyle.primaryColor}`}
-                                    />
-                                )}
+                                <CTA cta={initialCTA} priceInfo={course?.price_info} />                                )}
                             </div>
                         </div>
                     )}
@@ -163,11 +149,7 @@ const CourseLandingPage = ({ pageContext = {} }) => {
                 <section id="cta" className="py-8 text-center text-white bg-gray-900 lg:py-24">
                     <div className="container">
                         <div className="mx-auto inner lg:w-6/12">
-                            <Button
-                                to={`./${closingCTA?.link}`}
-                                text={closingCTA?.text}
-                                color={schoolThemeStyle.primaryColor}
-                            />
+                            <CTA cta={closingCTA} priceInfo={course?.price_info} />
                         </div>
                     </div>
                 </section>

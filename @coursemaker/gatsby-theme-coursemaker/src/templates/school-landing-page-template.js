@@ -5,7 +5,7 @@ import React from 'react';
 import Layout from '../components/layout';
 import Button from '../components/button';
 import Courses from '../components/courses';
-import Author from '../components/author';
+import CTA from '../components/cta';
 import LandingVideo from '../components/landing_page/landing-video';
 import LandingImage from '../components/image_landing';
 import OverviewSection from '../components/landing_page/overview-section';
@@ -32,7 +32,7 @@ const SchoolLandingPage = ({ pageContext }) => {
     if (!initialCTA) {
         initialCTA = {
             text: 'View Courses',
-            color: 'green',
+            color: 'blue',
             link: '/#courses',
             textColor: 'white',
         };
@@ -67,7 +67,7 @@ const SchoolLandingPage = ({ pageContext }) => {
                                     <Button
                                         to={initialCTA?.link}
                                         text={initialCTA?.text}
-                                        color={schoolThemeStyle.primaryColor}
+                                        color={schoolThemeStyle?.primaryColor}
                                     />
                                 )}
                             </div>
@@ -91,11 +91,10 @@ const SchoolLandingPage = ({ pageContext }) => {
                                     <Button
                                         to={initialCTA?.link}
                                         text={initialCTA?.text}
-                                        color={initialCTA?.color}
-                                        text_color={initialCTA?.textColor}
-                                        variant={`primary_${schoolThemeStyle.primaryColor}`}
+                                        color={schoolThemeStyle?.primaryColor}
                                     />
                                 )}
+
                             </div>
                         </div>
                     )}
@@ -111,16 +110,6 @@ const SchoolLandingPage = ({ pageContext }) => {
             {<TestimonialsSection schoolThemeStyle={schoolThemeStyle} landingPage={landingPage} />}
 
             {<FAQSection schoolThemeStyle={schoolThemeStyle} landingPage={landingPage} />}
-
-            {closingCTA && (
-                <section id="cta" className="py-8 text-center text-white bg-gray-900 lg:py-24">
-                    <div className="container">
-                        <div className="mx-auto inner lg:w-6/12">
-                            <Button text="Purchase" to="./checkout" />
-                        </div>
-                    </div>
-                </section>
-            )}
 
             {<ContactSection schoolThemeStyle={schoolThemeStyle} landingPage={landingPage} />}
         </Layout>
