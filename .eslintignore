@@ -1,6 +1,8 @@
 @coursemaker/gatsby-theme-coursemaker/node_modules
-@coursemaker/gatsby-theme-coursemaker/src/components
-course_demo_site
+@coursemaker/gatsby-theme-coursemaker/src/components/section.js
+course_demo_site/node_modules
+course_demo_site/public
+course_demo_site/.netlify
 node_modules
 .cache
 public
