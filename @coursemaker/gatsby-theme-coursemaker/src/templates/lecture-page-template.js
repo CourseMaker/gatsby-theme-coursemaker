@@ -28,23 +28,7 @@ const LectureTemplate = ({ pageContext = {} }) => {
         };
     }
 
-    let allLectures;
-    if (currentCourse == null || currentCourse?.sections === undefined || currentCourse?.sections.length === 0) {
-        allLectures = [];
-    } else {
-        allLectures = currentCourse?.sections
-            ?.map((section) => {
-                if (section.lectures.length) {
-                    return _.orderBy(
-                        section?.lectures,
-                        section?.lectures?.[0].hasOwnProperty('order') ? 'order' : 'id',
-                        'asc'
-                    ).map((item) => item);
-                }
-                return section.lectures.map((item) => item);
-            })
-            .flat(1);
-    }
+    let allLectures = pageContext?.allLectures;
     let nextLecture;
     let prevLecture;
 

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { jsx } from 'theme-ui';
-import _ from 'lodash';
 import Layout from '../components/layout';
 import Section from '../components/section';
 import Author from '../components/author';
@@ -18,6 +17,7 @@ import CTA from "../components/cta";
 const CourseLandingPage = ({ pageContext = {} }) => {
     const { school } = pageContext;
     const { course } = pageContext;
+    const allCourseLectures = pageContext?.allCourseLectures;
     const landingPage = course?.landing_page;
     let schoolThemeStyle = school?.schoolThemeStyle;
     if (!schoolThemeStyle) {
@@ -59,18 +59,6 @@ const CourseLandingPage = ({ pageContext = {} }) => {
     const closingCTA = landingPage?.closingCTA;
 
     // Section 8 - Contact
-
-    const allLectures = course?.sections?.map((section) => section?.lectures?.map((item) => item)).flat(1);
-    let orderedSections;
-    if (course.sections.length === 0 || course.sections === undefined) {
-        orderedSections = [];
-    } else {
-        orderedSections = _.orderBy(
-            course?.sections,
-            course?.sections?.[0].hasOwnProperty('order') ? 'order' : 'id',
-            'asc'
-        );
-    }
 
     return (
         <Layout schoolThemeStyle={schoolThemeStyle} pageContext={pageContext}>
@@ -119,13 +107,13 @@ const CourseLandingPage = ({ pageContext = {} }) => {
                             <h2>Curriculum</h2>
                         </div>
                         <div className="curriculum-list space-y-6">
-                            {orderedSections.length > 0 ? (
-                                orderedSections.map((section, index) => (
+                            {course?.sections.length > 0 ? (
+                                course?.sections.map((section, index) => (
                                     <Section
                                         data={section}
                                         size="big"
                                         key={section.id}
-                                        allLectures={allLectures}
+                                        allLectures={allCourseLectures}
                                         slug={course.slug}
                                         isCollapse
                                         schoolThemeStyle={schoolThemeStyle}

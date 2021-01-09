@@ -8,6 +8,7 @@ import Breadcrumbs from '../components/course-breadcrumbs';
 const Curriculum = ({ pageContext = {} }) => {
     const { school } = pageContext;
     const { course } = pageContext;
+    const allCourseLectures = pageContext?.allCourseLectures;
     const { author_display } = course;
     let schoolThemeStyle = school?.schoolThemeStyle;
     if (!schoolThemeStyle) {
@@ -15,18 +16,6 @@ const Curriculum = ({ pageContext = {} }) => {
             primaryColor: 'blue',
             secondaryColor: 'blue',
         };
-    }
-
-    const allLectures = course?.sections?.map((section) => section?.lectures?.map((item) => item)).flat(1);
-    let orderedSections;
-    if (course.sections.length === 0 || course.sections === undefined) {
-        orderedSections = [];
-    } else {
-        orderedSections = _.orderBy(
-            course?.sections,
-            course?.sections?.[0].hasOwnProperty('order') ? 'order' : 'id',
-            'asc'
-        );
     }
 
     return (
@@ -46,13 +35,13 @@ const Curriculum = ({ pageContext = {} }) => {
 
                         <h2 className="mt-12 mb-6 leading-tight">Curriculum</h2>
                         <div className="curriculum-list space-y-10">
-                            {orderedSections.length > 0 ? (
-                                orderedSections.map((section, index) => (
+                            {course?.sections.length > 0 ? (
+                                course?.sections.map((section, index) => (
                                     <Section
                                         data={section}
                                         size="big"
                                         key={section.id}
-                                        allLectures={allLectures}
+                                        allLectures={allCourseLectures}
                                         slug={course.slug}
                                         isCollapse
                                         schoolThemeStyle={schoolThemeStyle}

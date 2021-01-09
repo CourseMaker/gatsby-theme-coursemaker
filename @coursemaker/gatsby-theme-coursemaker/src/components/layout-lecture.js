@@ -69,11 +69,7 @@ const LayoutLecture = ({
                                 </div>
                                 {lectureList && (
                                     <div className="curriculum-list space-y-6 lg:space-y-0">
-                                        {_.orderBy(
-                                            currentCourse?.sections,
-                                            currentCourse?.sections?.[0].hasOwnProperty('order') ? 'order' : 'id',
-                                            'asc'
-                                        ).map((section, index) => (
+                                        {currentCourse?.sections.map((section, index) => (
                                             <Section
                                                 lecture={lecture}
                                                 data={section}

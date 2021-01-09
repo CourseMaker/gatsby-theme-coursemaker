@@ -1,3 +1,5 @@
+const _ = require("lodash");
+
 const slugify = require(`slugify`);
 // These templates are simply data-fetching wrappers that import components
 const courseTemplate = require.resolve(`../../src/templates/course-landing-page-template.js`);
@@ -45,16 +47,6 @@ const createCourses = (school, courses, createPage) => {
         // Individual course landing pages
         const slug = course.slug ? course.slug : `/${slugify(course.title, { strict: true, lower: true })}/`;
         course.slug = slug;
-        // const nextCourse = i === courses.length - 1 ? null : courses[i + 1];
-        // const previousCourse = i === 0 ? null : courses[i - 1];
-        createPage({
-            path: `/courses${slug}`,
-            component: courseTemplate,
-            context: {
-                course,
-                school,
-            },
-        });
 
         // Payment pages
         createPage({
@@ -66,6 +58,34 @@ const createCourses = (school, courses, createPage) => {
             },
         });
 
+        let allCourseLectures = [];
+        if (course?.sections == null || course?.sections?.length === 0) {
+            allCourseLectures = [];
+        } else {
+            allCourseLectures = course?.sections.map((section) => {
+                if (section.lectures.length) {
+                    let iteratee = 'order' in section?.lectures[0] ? 'order' : 'id';
+                    return _.orderBy(
+                        section?.lectures,
+                        iteratee,
+                        'asc'
+                    ).map((item) => item);
+                }
+                return section.lectures.map((item) => item);
+            })
+            .flat(1)
+        }
+
+        createPage({
+            path: `/courses${slug}`,
+            component: courseTemplate,
+            context: {
+                course,
+                school,
+                allCourseLectures
+            },
+        });
+
         // Curriculum pages
         createPage({
             path: `/courses${slug}curriculum`,
@@ -73,17 +93,11 @@ const createCourses = (school, courses, createPage) => {
             context: {
                 course,
                 school,
+                allCourseLectures
             },
         });
 
         // Individual lectures pages
-        let allCourseLectures = [];
-        if (course.sections) {
-            course.sections.forEach((section) => {
-                allCourseLectures = allCourseLectures.concat(section.lectures);
-            });
-        }
-
         allCourseLectures.forEach((lecture) => {
             if (lecture.active) {
                 let tempOrder = lecture?.order || ""
