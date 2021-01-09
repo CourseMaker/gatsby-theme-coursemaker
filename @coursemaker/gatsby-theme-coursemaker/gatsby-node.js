@@ -527,9 +527,6 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                                                     url
                                                     name
                                                 }
-                                                section {
-                                                    id
-                                                }
                                             }
                                         }
                                     }

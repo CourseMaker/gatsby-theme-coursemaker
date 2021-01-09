@@ -20,7 +20,7 @@ const LayoutLecture = ({
     const { slug } = currentCourse;
     const course = readLocalStorage(slug);
     const completedLectures = course?.items?.length;
-    const progress = completedLectures >= 0 ? parseInt((completedLectures / lectureList?.length) * 100) : null;
+    const progress = completedLectures >= 0 ? parseInt((completedLectures / lectureList?.length) * 100) : 0;
     const scrollContainer = useRef(null);
 
     useEffect(() => {
