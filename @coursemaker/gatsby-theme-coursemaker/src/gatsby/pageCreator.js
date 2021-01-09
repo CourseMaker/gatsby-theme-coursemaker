@@ -86,8 +86,10 @@ const createCourses = (school, courses, createPage) => {
 
         allCourseLectures.forEach((lecture) => {
             if (lecture.active) {
+                let tempOrder = lecture?.order || ""
+                let lecture_slug = `${lecture.id}${tempOrder}`;
                 createPage({
-                    path: `/courses${slug}lectures/${lecture.id}`,
+                    path: `/courses${slug}lectures/${lecture_slug}`,
                     component: lectureTemplate,
                     context: {
                         course,

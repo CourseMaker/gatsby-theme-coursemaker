@@ -12,7 +12,7 @@ const Curriculum = ({ pageContext = {} }) => {
     let schoolThemeStyle = school?.schoolThemeStyle;
     if (!schoolThemeStyle) {
         schoolThemeStyle = {
-            primaryColor: 'orange',
+            primaryColor: 'blue',
             secondaryColor: 'blue',
         };
     }

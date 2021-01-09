@@ -22,7 +22,7 @@ const Lecture = ({ pageContext = {} }) => {
     let schoolThemeStyle = pageContext.school?.schoolThemeStyle;
     if (!schoolThemeStyle) {
         schoolThemeStyle = {
-            primaryColor: 'purple',
+            primaryColor: 'blue',
             secondaryColor: 'blue',
         };
     }
@@ -104,12 +104,27 @@ const Lecture = ({ pageContext = {} }) => {
 
                         {/* .controls */}
                         <div className="flex mt-5 controls space-x-6 lg:mt-0">
-                            {prevLecture && (
+                            {prevLecture && prevLecture?.order ? (
+                                <Link to={`../${prevLecture.id}${prevLecture.order}`} className="btn btn-gray">
+                                    Previous
+                                </Link>
+                            ) : (
                                 <Link to={`../${prevLecture.id}`} className="btn btn-gray">
                                     Previous
                                 </Link>
-                            )}
-                            {nextLecture && (
+                            )
+                            }
+                            {nextLecture && nextLecture?.order ? (
+                                <Link
+                                    onClick={async () => {
+                                        await addLectureToComplete(nextLecture);
+                                    }}
+                                    to={`../${nextLecture.id}${nextLecture.order}`}
+                                    className={`btn bg-${schoolThemeStyle.primaryColor}-500 text-white`}
+                                >
+                                    Next
+                                </Link>
+                            ) : (
                                 <Link
                                     onClick={async () => {
                                         await addLectureToComplete(nextLecture);

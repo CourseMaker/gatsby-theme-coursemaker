@@ -8,6 +8,11 @@ const Lecture = ({ lecture, size, data, slug, schoolThemeStyle }) => {
     const { title, id } = data;
     const random = (min, max) => Math.random() * (max - min) + min;
 
+    let lectureSlug = id;
+    if (data?.order){
+        lectureSlug = `${id}${data.order}`;
+    }
+
     // dummy data. needs to change later
     const progressVal = random(10, 100);
     const type = 'video';
@@ -59,7 +64,7 @@ const Lecture = ({ lecture, size, data, slug, schoolThemeStyle }) => {
                                 onClick={async () => {
                                     await addLectureToComplete(lecture);
                                 }}
-                                to={`${lastpath === 'curriculum' ? '../lectures' : './lectures'}/${id}`}
+                                to={`${lastpath === 'curriculum' ? '../lectures' : './lectures'}/${lectureSlug}`}
                                 className={`px-2 py-1 text-xs text-white bg-${schoolThemeStyle.primaryColor}-500 rounded shadow  
                 cursor-pointer transition-all duration-300 hover:bg-${schoolThemeStyle.primaryColor}-400 transition `}
                             >
@@ -73,7 +78,7 @@ const Lecture = ({ lecture, size, data, slug, schoolThemeStyle }) => {
                     onClick={async () => {
                         await addLectureToComplete(lecture);
                     }}
-                    to={`../${data.id}`}
+                    to={`../${lectureSlug}`}
                     className="relative block p-4 bg-white bg-gray-100 transition transition-all duration-300 hover:bg-gray-100"
                 >
                     {lecture.id === data.id && (
