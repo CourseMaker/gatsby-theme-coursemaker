@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
 import { Link, navigate } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
-import _ from 'lodash';
-import Markdown from '../helpers/StrapiMarkdown/Markdown';
 
 import 'katex/dist/katex.min.css';
 
+import Markdown from '../helpers/StrapiMarkdown/Markdown';
 import LayoutLecture from '../components/layout-lecture';
 import Breadcrumbs from '../components/course-breadcrumbs';
 import Video from '../components/video';
@@ -29,17 +28,23 @@ const LectureTemplate = ({ pageContext = {} }) => {
     }
 
     let allLectures = pageContext?.allLectures;
-    let nextLecture;
-    let prevLecture;
+    let nextLecture = pageContext?.nextLecture;
+    let previousLecture = pageContext?.previousLecture;
+    
+    let nextLectureSlug = '../curriculum';
+    if (nextLecture && nextLecture.hasOwnProperty('order') && nextLecture.order !== null){
+        nextLectureSlug = `../${nextLecture.id}${nextLecture.order}`;
+    } else if (nextLecture && !nextLecture?.order) {
+        nextLectureSlug = `../${nextLecture.id}`;
+    }
 
-    allLectures.forEach((item, i) => {
-        if (item.id === lecture.id) {
-            if (i <= allLectures.length - 1) nextLecture = allLectures[i + 1];
-            if (i > 0) prevLecture = allLectures[i - 1];
-            if (i === 0) prevLecture = false;
-            if (i === allLectures.length - 1) nextLecture = false;
-        }
-    });
+    let previousLectureSlug = '../../curriculum';
+    if (previousLecture && previousLecture.hasOwnProperty('order') && previousLecture.order !== null){
+        previousLectureSlug = `../${previousLecture.id}${previousLecture.order}`;
+    } else if (previousLecture && !previousLecture?.order) {
+        previousLectureSlug = `../${previousLecture.id}`;
+    }
+    
     let lecture_body;
     if (lecture.body)
         // local source
@@ -89,37 +94,18 @@ const LectureTemplate = ({ pageContext = {} }) => {
 
                         {/* .controls */}
                         <div className="flex mt-5 controls space-x-6 lg:mt-0">
-                            {prevLecture && prevLecture?.order ? (
-                                <Link to={`../${prevLecture.id}${prevLecture.order}`} className="btn btn-gray">
-                                    Previous
-                                </Link>
-                            ) : (
-                                <Link to={`../${prevLecture.id}`} className="btn btn-gray">
-                                    Previous
-                                </Link>
-                            )
-                            }
-                            {nextLecture && nextLecture?.order ? (
-                                <Link
-                                    onClick={async () => {
-                                        await addLectureToComplete(nextLecture);
-                                    }}
-                                    to={`../${nextLecture.id}${nextLecture.order}`}
-                                    className={`btn bg-${schoolThemeStyle.primaryColor}-500 text-white`}
-                                >
-                                    Next
-                                </Link>
-                            ) : (
-                                <Link
-                                    onClick={async () => {
-                                        await addLectureToComplete(nextLecture);
-                                    }}
-                                    to={`../${nextLecture.id}`}
-                                    className={`btn bg-${schoolThemeStyle.primaryColor}-500 text-white`}
-                                >
-                                    Next
-                                </Link>
-                            )}
+                            <Link to={previousLectureSlug} className="btn btn-gray">
+                                Previous
+                            </Link>
+                            <Link
+                                onClick={async () => {
+                                    await addLectureToComplete(nextLecture);
+                                }}
+                                to={nextLectureSlug}
+                                className={`btn bg-${schoolThemeStyle.primaryColor}-500 text-white`}
+                            >
+                                Next
+                            </Link>
                         </div>
                     </div>
                 </div>
