@@ -27,8 +27,6 @@ const LayoutLecture = ({
         scrollContainer.current.scrollTop = readLocalStorage('scroll')?.y || 0;
     }, []);
 
-    const allLectures = currentCourse?.sections?.map((section) => section?.lectures?.map((item) => item)).flat(1);
-
     const scroll = () => {
         const y = scrollContainer?.current?.scrollTop;
         bakeLocalStorage('scroll', { y });
@@ -77,7 +75,6 @@ const LayoutLecture = ({
                                             'asc'
                                         ).map((section, index) => (
                                             <Section
-                                                allLectures={allLectures}
                                                 lecture={lecture}
                                                 data={section}
                                                 size="small"

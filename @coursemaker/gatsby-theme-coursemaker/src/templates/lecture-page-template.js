@@ -12,12 +12,13 @@ import Video from '../components/video';
 import { isAuthorized } from '../auth/auth';
 import { bakeLocalStorage, readLocalStorage } from '../helpers/storage';
 
-const Lecture = ({ pageContext = {} }) => {
+const LectureTemplate = ({ pageContext = {} }) => {
     useEffect(() => {
         if (!isAuthorized(pageContext.course.id)) navigate(`/courses${pageContext.course.slug}checkout`);
     });
     const currentCourse = pageContext.course;
     const { lecture } = pageContext;
+    console.log(pageContext);
 
     let schoolThemeStyle = pageContext.school?.schoolThemeStyle;
     if (!schoolThemeStyle) {
@@ -152,4 +153,4 @@ const Lecture = ({ pageContext = {} }) => {
     );
 };
 
-export default Lecture;
+export default LectureTemplate;
