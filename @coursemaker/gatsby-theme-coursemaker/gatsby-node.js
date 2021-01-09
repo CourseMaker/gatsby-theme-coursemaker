@@ -667,8 +667,11 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
             `
         );
         dataSources.local.school = localData.data.site.siteMetadata;
+        // this order matters
+        dataSources.local.courses = localData.data.allCourse.edges.map(normalize.setSectionOrder);
         dataSources.local.courses = localData.data.allCourse.edges.map(normalize.local.courses);
         dataSources.local.courses = localData.data.allCourse.edges.map(normalize.normalizeCourseLandingPage);
+
 
         // TODO: images defined in siteMetaData do not get set as File nodes.
         //  Hack here is reusing the image from the course.

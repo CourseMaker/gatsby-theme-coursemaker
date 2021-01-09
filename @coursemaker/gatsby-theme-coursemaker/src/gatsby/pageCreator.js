@@ -65,6 +65,8 @@ const createCourses = (school, courses, createPage) => {
             allCourseLectures = course?.sections.map((section) => {
                 let filteredSectionLectures;
                 if (section.lectures.length) {
+                    // Important to filter the non-active lectures, otherwise all the
+                    // previousLecture / nextLecture logic goes out of sync
                     filteredSectionLectures = section?.lectures.filter(function (lecture) {
                         return lecture?.active;
                     });

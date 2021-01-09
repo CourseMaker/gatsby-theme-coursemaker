@@ -19,6 +19,10 @@ const orderSections = (course) => {
     return course;
 };
 
+exports.setSectionOrder = (course) => {
+    return orderSections(course)
+}
+
 
 exports.normalizePrices = (course) => {
     course = orderSections(course);
