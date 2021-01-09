@@ -88,7 +88,7 @@ const Section = ({ lecture, size, data, slug, isCollapse, schoolThemeStyle }) =>
                     data={lecture}
                     size={size}
                     key={lecture.id}
-										schoolThemeStyle={schoolThemeStyle}
+                    schoolThemeStyle={schoolThemeStyle}
                 />
             );
           } else {

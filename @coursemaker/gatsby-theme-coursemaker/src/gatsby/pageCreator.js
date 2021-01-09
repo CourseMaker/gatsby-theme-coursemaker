@@ -1,3 +1,5 @@
+const _ = require("lodash");
+
 const slugify = require(`slugify`);
 // These templates are simply data-fetching wrappers that import components
 const courseTemplate = require.resolve(`../../src/templates/course-landing-page-template.js`);
@@ -45,16 +47,6 @@ const createCourses = (school, courses, createPage) => {
         // Individual course landing pages
         const slug = course.slug ? course.slug : `/${slugify(course.title, { strict: true, lower: true })}/`;
         course.slug = slug;
-        // const nextCourse = i === courses.length - 1 ? null : courses[i + 1];
-        // const previousCourse = i === 0 ? null : courses[i - 1];
-        createPage({
-            path: `/courses${slug}`,
-            component: courseTemplate,
-            context: {
-                course,
-                school,
-            },
-        });
 
         // Payment pages
         createPage({
@@ -66,6 +58,40 @@ const createCourses = (school, courses, createPage) => {
             },
         });
 
+        let allCourseLectures = [];
+        if (course?.sections == null || course?.sections?.length === 0) {
+            allCourseLectures = [];
+        } else {
+            allCourseLectures = course?.sections.map((section) => {
+                let filteredSectionLectures;
+                if (section.lectures.length) {
+                    // Important to filter the non-active lectures, otherwise all the
+                    // previousLecture / nextLecture logic goes out of sync
+                    filteredSectionLectures = section?.lectures.filter(function (lecture) {
+                        return lecture?.active;
+                    });
+                    let iteratee = 'order' in filteredSectionLectures[0] ? 'order' : 'id';
+                    return _.orderBy(
+                        filteredSectionLectures,
+                        iteratee,
+                        'asc'
+                    ).map((item) => item);
+                }
+                return filteredSectionLectures;
+            })
+            .flat(1)
+        }
+
+        createPage({
+            path: `/courses${slug}`,
+            component: courseTemplate,
+            context: {
+                course,
+                school,
+                allCourseLectures
+            },
+        });
+
         // Curriculum pages
         createPage({
             path: `/courses${slug}curriculum`,
@@ -73,26 +99,30 @@ const createCourses = (school, courses, createPage) => {
             context: {
                 course,
                 school,
+                allCourseLectures
             },
         });
 
         // Individual lectures pages
-        let allCourseLectures = [];
-        if (course.sections) {
-            course.sections.forEach((section) => {
-                allCourseLectures = allCourseLectures.concat(section.lectures);
-            });
-        }
-
-        allCourseLectures.forEach((lecture) => {
-            if (lecture.active) {
+        allCourseLectures.forEach((lecture, i) => {
+            let nextLecture;
+            let previousLecture;
+            if (lecture?.active) {
+                if (i <= allCourseLectures.length - 1) nextLecture = allCourseLectures[i + 1];
+                if (i > 0) previousLecture = allCourseLectures[i - 1];
+                if (i === 0) previousLecture = false;
+                if (i === allCourseLectures.length - 1) nextLecture = false;
+                let tempOrder = ('order' in lecture && lecture.order !== null) ? lecture.order : "";
+                let lecture_slug = `${lecture.id}${tempOrder.toString()}`;
                 createPage({
-                    path: `/courses${slug}lectures/${lecture.id}`,
+                    path: `/courses${slug}lectures/${lecture_slug}`,
                     component: lectureTemplate,
                     context: {
                         course,
                         lecture,
                         allLectures: allCourseLectures,
+                        nextLecture,
+                        previousLecture,
                         school,
                     },
                 });

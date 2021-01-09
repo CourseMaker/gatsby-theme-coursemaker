@@ -27,8 +27,6 @@ const LayoutLecture = ({
         scrollContainer.current.scrollTop = readLocalStorage('scroll')?.y || 0;
     }, []);
 
-    const allLectures = currentCourse?.sections?.map((section) => section?.lectures?.map((item) => item)).flat(1);
-
     const scroll = () => {
         const y = scrollContainer?.current?.scrollTop;
         bakeLocalStorage('scroll', { y });
@@ -71,13 +69,8 @@ const LayoutLecture = ({
                                 </div>
                                 {lectureList && (
                                     <div className="curriculum-list space-y-6 lg:space-y-0">
-                                        {_.orderBy(
-                                            currentCourse?.sections,
-                                            currentCourse?.sections?.[0].hasOwnProperty('order') ? 'order' : 'id',
-                                            'asc'
-                                        ).map((section, index) => (
+                                        {currentCourse?.sections.map((section, index) => (
                                             <Section
-                                                allLectures={allLectures}
                                                 lecture={lecture}
                                                 data={section}
                                                 size="small"

@@ -10,7 +10,7 @@ const CoursesPage = ({ pageContext = {} }) => {
     let schoolThemeStyle = pageContext.school?.schoolThemeStyle;
     if (!schoolThemeStyle) {
         schoolThemeStyle = {
-            primaryColor: 'green',
+            primaryColor: 'blue',
             secondaryColor: 'blue',
         };
     }
