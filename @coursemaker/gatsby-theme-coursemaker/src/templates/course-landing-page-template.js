@@ -13,6 +13,7 @@ import ContactSection from '../components/landing_page/contact-section';
 import Icon from '../components/icon';
 import svg from '../images/icons/icon-courses.svg';
 import CTA from "../components/cta";
+import Button from "../components/button";
 
 const CourseLandingPage = ({ pageContext = {} }) => {
     const { school } = pageContext;
@@ -82,14 +83,15 @@ const CourseLandingPage = ({ pageContext = {} }) => {
                         </div>
                     )}
                     {!landingPage?.image && (
-                        <div className="flex-wrap items-center md:flex">
-                            <div className="items-center text-center border-gray-300">
-                                <h1 className="mb-4 leading-tight text-center md:mb-6">{title}</h1>
-                                <h3 className="mb-4 font-sans font-light text-center opacity-50">{subtitle}</h3>
-                                <p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12" />
-
-                                <CTA cta={initialCTA} priceInfo={course?.price_info} />                                )}
-                            </div>
+                        <div>
+                            <h1 className="mb-4 text-center">{title}</h1>
+                            <h3 className="mb-4 text-center">{subtitle}</h3>
+                            <p className="mx-auto text-center mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12" />
+                            {initialCTA?.color && (
+                                <div className="text-center">
+                                    <CTA cta={initialCTA} priceInfo={course?.price_info} />
+                                </div>
+                            )}
                         </div>
                     )}
                 </div>

@@ -33,16 +33,16 @@ const LectureTemplate = ({ pageContext = {} }) => {
     
     let nextLectureSlug = '../curriculum';
     if (nextLecture && nextLecture.hasOwnProperty('order') && nextLecture.order !== null){
-        nextLectureSlug = `../${nextLecture.id}${nextLecture.order}`;
+        nextLectureSlug = `${nextLecture.id}${nextLecture.order}`;
     } else if (nextLecture && !nextLecture?.order) {
-        nextLectureSlug = `../${nextLecture.id}`;
+        nextLectureSlug = `${nextLecture.id}`;
     }
 
-    let previousLectureSlug = '../../curriculum';
+    let previousLectureSlug = '../curriculum';
     if (previousLecture && previousLecture.hasOwnProperty('order') && previousLecture.order !== null){
-        previousLectureSlug = `../${previousLecture.id}${previousLecture.order}`;
+        previousLectureSlug = `${previousLecture.id}${previousLecture.order}`;
     } else if (previousLecture && !previousLecture?.order) {
-        previousLectureSlug = `../${previousLecture.id}`;
+        previousLectureSlug = `${previousLecture.id}`;
     }
     
     let lecture_body;
@@ -65,6 +65,9 @@ const LectureTemplate = ({ pageContext = {} }) => {
 
         bakeLocalStorage(currentCourse.slug, newState);
     };
+
+    console.log(previousLectureSlug)
+    console.log(schoolThemeStyle);
 
     return (
         <LayoutLecture
@@ -94,15 +97,15 @@ const LectureTemplate = ({ pageContext = {} }) => {
 
                         {/* .controls */}
                         <div className="flex mt-5 controls space-x-6 lg:mt-0">
-                            <Link to={previousLectureSlug} className="btn btn-gray">
+                            <Link to={`../${previousLectureSlug}`} className="btn btn-gray">
                                 Previous
                             </Link>
                             <Link
                                 onClick={async () => {
                                     await addLectureToComplete(nextLecture);
                                 }}
-                                to={nextLectureSlug}
-                                className={`btn bg-${schoolThemeStyle.primaryColor}-500 text-white`}
+                                to={`../${nextLectureSlug}`}
+                                className={`btn bg-${schoolThemeStyle?.primaryColor}-500 text-white`}
                             >
                                 Next
                             </Link>
