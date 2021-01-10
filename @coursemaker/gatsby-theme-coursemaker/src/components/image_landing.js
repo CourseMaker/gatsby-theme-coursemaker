@@ -13,7 +13,6 @@ const LandingImage = ({ landing }) => {
         // strapi hack
         landingImage = { src: landing?.url };
 
-    console.log(landingImage);
     if (landing)
         return (
             <div>

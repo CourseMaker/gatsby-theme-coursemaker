@@ -58,18 +58,20 @@ const SchoolLandingPage = ({ pageContext }) => {
                 <div className="container">
                     {landingPage?.image && (
                         <div className="flex-wrap items-center md:flex">
-                            <div className="text-center border-gray-300 md:w-1/2 md:border-r left-side lg:pr-20 md:pr-16 md:text-left">
-                                <h1 className="mb-4 leading-tight md:mb-6">{title}</h1>
-                                <h3 className="mb-4 font-sans font-light opacity-50">{subtitle}</h3>
-                                <p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12" />
+                            <div className="text-center border-gray-300 md:w-1/2 md:border-r left-side md:text-left">
+                                <h1 className="mb-4 text-center leading-tight md:mb-6">{title}</h1>
+                                <h3 className="mb-4 text-center font-sans font-light opacity-50">{subtitle}</h3>
+                                <p className="mx-auto text-center mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12" />
+                                    {initialCTA?.color && (
+                                        <div className="text-center">
+                                            <Button
+                                                to={initialCTA?.link}
+                                                text={initialCTA?.text}
+                                                color={schoolThemeStyle?.primaryColor}
+                                            />
+                                        </div>
+                                    )}
 
-                                {initialCTA?.color && (
-                                    <Button
-                                        to={initialCTA?.link}
-                                        text={initialCTA?.text}
-                                        color={schoolThemeStyle?.primaryColor}
-                                    />
-                                )}
                             </div>
                             {/* left-side */}
 
@@ -81,24 +83,22 @@ const SchoolLandingPage = ({ pageContext }) => {
                     )}
 
                     {!landingPage?.image && (
-                        <div className="flex-wrap items-center md:flex">
-                            <div className="items-center text-center border-gray-300">
-                                <h1 className="mb-4 leading-tight text-center md:mb-6">{title}</h1>
-                                <h3 className="mb-4 font-sans font-light text-center opacity-50">{subtitle}</h3>
-                                <p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12" />
-
-                                {initialCTA?.color && (
+                        <div>
+                            <h1 className="mb-4 text-center">{title}</h1>
+                            <h3 className="mb-4 text-center">{subtitle}</h3>
+                            <p className="mx-auto text-center mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12" />
+                            {initialCTA?.color && (
+                                <div className="text-center">
                                     <Button
                                         to={initialCTA?.link}
                                         text={initialCTA?.text}
                                         color={schoolThemeStyle?.primaryColor}
                                     />
-                                )}
-
-                            </div>
+                                </div>
+                            )}
                         </div>
-                    )}
-                </div>
+                        )}
+                    </div>
             </section>
 
             {<LandingVideo videoID={videoID} />}
