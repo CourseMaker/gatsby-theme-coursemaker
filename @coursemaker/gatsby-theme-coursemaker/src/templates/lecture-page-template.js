@@ -17,7 +17,6 @@ const LectureTemplate = ({ pageContext = {} }) => {
     });
     const currentCourse = pageContext.course;
     const { lecture } = pageContext;
-    console.log(pageContext);
 
     let schoolThemeStyle = pageContext.school?.schoolThemeStyle;
     if (!schoolThemeStyle) {
@@ -65,9 +64,6 @@ const LectureTemplate = ({ pageContext = {} }) => {
 
         bakeLocalStorage(currentCourse.slug, newState);
     };
-
-    console.log(previousLectureSlug)
-    console.log(schoolThemeStyle);
 
     return (
         <LayoutLecture

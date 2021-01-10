@@ -52,8 +52,6 @@ const SchoolLandingPage = ({ pageContext }) => {
 
     // Section 8 - Contact
 
-    console.log(landingPage)
-
     return (
         <Layout schoolThemeStyle={schoolThemeStyle} pageContext={pageContext}>
             <section className="py-16 md:py-20">
