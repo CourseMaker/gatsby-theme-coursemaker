@@ -56,7 +56,15 @@ const CourseLandingPage = ({ pageContext = {} }) => {
     // Section 6 - FAQ
 
     // Section 7 - CTA
-    const closingCTA = landingPage?.closingCTA;
+    let closingCTA = landingPage?.closingCTA;
+    if (!initialCTA) {
+        initialCTA = {
+            text: 'Purchase Course',
+            color: 'orange',
+            link: 'checkout',
+            textColor: 'white',
+        };
+    }
 
     // Section 8 - Contact
 
