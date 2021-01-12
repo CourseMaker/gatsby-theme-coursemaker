@@ -26,7 +26,7 @@ const SchoolLandingPage = ({ pageContext }) => {
     }
 
     // Section 1 - Intro
-    const title = landingPage ? landingPage.title : school.name;
+    const title = school?.name;
     const subtitle = landingPage?.subtitle;
     let initialCTA = landingPage?.initialCTA;
     if (!initialCTA) {
