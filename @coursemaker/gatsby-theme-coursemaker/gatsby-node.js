@@ -19,12 +19,6 @@ exports.onPreBootstrap = ({ store }, themeOptions) => {
     const { authorsPath, coursesPath /* useStrapi */ } = withDefaults(themeOptions);
 
     const dirs = [path.join(program.directory, coursesPath), path.join(program.directory, authorsPath)];
-
-    if (!useStrapi) {
-        dirs.forEach((dir) => {
-            if (!fs.existsSync(dir)) mkdirp.sync(dir);
-        });
-    }
 };
 
 const mdxResolverPassthrough = (fieldName) => async (source, args, context, info) => {
