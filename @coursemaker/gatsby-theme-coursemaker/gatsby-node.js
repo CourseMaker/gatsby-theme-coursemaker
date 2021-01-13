@@ -19,6 +19,7 @@ exports.onPreBootstrap = ({ store }, themeOptions) => {
     const { authorsPath, coursesPath /* useStrapi */ } = withDefaults(themeOptions);
 
     const dirs = [path.join(program.directory, coursesPath), path.join(program.directory, authorsPath)];
+    console.warn(program.directory)
 };
 
 const mdxResolverPassthrough = (fieldName) => async (source, args, context, info) => {
