@@ -14,14 +14,17 @@ const { createCourses, createSchool } = require('./src/gatsby/pageCreator');
 // Ensure that content directories exist at site-level
 exports.onPreBootstrap = ({ store }, themeOptions) => {
     const { program } = store.getState();
+    const { useStrapi } = withDefaults(themeOptions);
 
     const { authorsPath, coursesPath /* useStrapi */ } = withDefaults(themeOptions);
 
     const dirs = [path.join(program.directory, coursesPath), path.join(program.directory, authorsPath)];
 
-    dirs.forEach((dir) => {
-        if (!fs.existsSync(dir)) mkdirp.sync(dir);
-    });
+    if (!useStrapi) {
+        dirs.forEach((dir) => {
+            if (!fs.existsSync(dir)) mkdirp.sync(dir);
+        });
+    }
 };
 
 const mdxResolverPassthrough = (fieldName) => async (source, args, context, info) => {
