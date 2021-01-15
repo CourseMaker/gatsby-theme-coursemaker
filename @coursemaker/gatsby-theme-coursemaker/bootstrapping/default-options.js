@@ -1,8 +1,6 @@
 module.exports = ({
     basePath = '/',
-    contentPath = 'school',
-    coursesPath = 'school/courses',
-    authorsPath = 'school/authors',
+    contentPath = process.env.GATSBY_CONTENT_PATH || 'school',
     useExternalMDX = true,
     useStrapi = process.env.GATSBY_USE_STRAPI || false,
     useAuth = process.env.GATSBY_USE_AUTH || false,
@@ -13,8 +11,8 @@ module.exports = ({
 }) => ({
     basePath,
     contentPath,
-    coursesPath,
-    authorsPath,
+    coursesPath: contentPath + '/courses',
+    authorsPath: contentPath + '/authors',
     useExternalMDX,
     useStrapi,
     useAuth,
