@@ -11,8 +11,8 @@ module.exports = ({
 }) => ({
     basePath,
     contentPath,
-    coursesPath: contentPath + '/courses',
-    authorsPath: contentPath + '/authors',
+    coursesPath: `${contentPath}/courses`,
+    authorsPath: `${contentPath}/authors`,
     useExternalMDX,
     useStrapi,
     useAuth,

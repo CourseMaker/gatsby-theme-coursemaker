@@ -9,7 +9,7 @@ const Lecture = ({ lecture, size, data, slug, schoolThemeStyle }) => {
     const random = (min, max) => Math.random() * (max - min) + min;
 
     let lectureSlug = id;
-    if (data.hasOwnProperty('order') && data.order !== null){
+    if (data.hasOwnProperty('order') && data.order !== null) {
         lectureSlug = `${id}${data.order}`;
     }
 

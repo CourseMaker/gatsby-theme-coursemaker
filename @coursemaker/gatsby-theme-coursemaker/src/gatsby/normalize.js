@@ -1,28 +1,20 @@
-const _ = require("lodash");
+const _ = require('lodash');
 
 require('dotenv').config();
 
-
 const orderSections = (course) => {
     let orderedSections;
-    if (course?.sections == null || course?.sections.length === 0 ) {
+    if (course?.sections == null || course?.sections.length === 0) {
         orderedSections = [];
     } else {
         const iteratee = 'order' in course?.sections[0] ? 'order' : 'id';
-        orderedSections = _.orderBy(
-            course?.sections,
-            iteratee,
-            'asc'
-        );
+        orderedSections = _.orderBy(course?.sections, iteratee, 'asc');
     }
     course.sections = orderedSections;
     return course;
 };
 
-exports.setSectionOrder = (course) => {
-    return orderSections(course)
-}
-
+exports.setSectionOrder = (course) => orderSections(course);
 
 exports.normalizePrices = (course) => {
     course = orderSections(course);

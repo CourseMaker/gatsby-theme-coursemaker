@@ -12,7 +12,7 @@ import FAQSection from '../components/landing_page/faqs-section';
 import ContactSection from '../components/landing_page/contact-section';
 import Icon from '../components/icon';
 import svg from '../images/icons/icon-courses.svg';
-import CTA from "../components/cta";
+import CTA from '../components/cta';
 
 const CourseLandingPage = ({ pageContext = {} }) => {
     const { school } = pageContext;
@@ -56,7 +56,7 @@ const CourseLandingPage = ({ pageContext = {} }) => {
     // Section 6 - FAQ
 
     // Section 7 - CTA
-    let closingCTA = landingPage?.closingCTA;
+    const closingCTA = landingPage?.closingCTA;
     if (!initialCTA) {
         initialCTA = {
             text: 'Purchase Course',
