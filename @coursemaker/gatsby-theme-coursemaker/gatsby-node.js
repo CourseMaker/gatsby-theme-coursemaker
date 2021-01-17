@@ -14,14 +14,17 @@ const { createCourses, createSchool } = require('./src/gatsby/pageCreator');
 // Ensure that content directories exist at site-level
 exports.onPreBootstrap = ({ store }, themeOptions) => {
     const { program } = store.getState();
+    const { useStrapi } = withDefaults(themeOptions);
 
     const { authorsPath, coursesPath /* useStrapi */ } = withDefaults(themeOptions);
 
     const dirs = [path.join(program.directory, coursesPath), path.join(program.directory, authorsPath)];
 
-    dirs.forEach((dir) => {
-        if (!fs.existsSync(dir)) mkdirp.sync(dir);
-    });
+    if (!useStrapi) {
+        dirs.forEach((dir) => {
+            if (!fs.existsSync(dir)) mkdirp.sync(dir);
+        });
+    }
 };
 
 const mdxResolverPassthrough = (fieldName) => async (source, args, context, info) => {
@@ -128,6 +131,9 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
                 },
                 slug: {
                     type: `String!`,
+                },
+                number: {
+                    type: `Int`,
                 },
                 body: {
                     type: `String!`,
@@ -312,9 +318,10 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId, createContentDig
                 getNode,
                 basePath: coursesPath,
             });
-            const { title } = node.frontmatter;
+            const { title, number } = node.frontmatter;
             const fieldData = {
                 title,
+                number,
                 slug,
             };
             createNode({
@@ -598,6 +605,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                                     }
                                     id
                                     title
+                                    order: number
                                     slug
                                 }
                                 author_display: author {
@@ -622,6 +630,9 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                     }
                     site {
                         siteMetadata {
+                            schoolThemeStyle {
+                                primaryColor
+                            }
                             landing_page {
                                 title
                                 subtitle
@@ -655,10 +666,19 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                 }
             `
         );
-        // TODO: normalize
         dataSources.local.school = localData.data.site.siteMetadata;
+        // this order matters
+        dataSources.local.courses = localData.data.allCourse.edges.map(normalize.setSectionOrder);
         dataSources.local.courses = localData.data.allCourse.edges.map(normalize.local.courses);
         dataSources.local.courses = localData.data.allCourse.edges.map(normalize.normalizeCourseLandingPage);
+
+
+        // TODO: images defined in siteMetaData do not get set as File nodes.
+        //  Hack here is reusing the image from the course.
+        dataSources.local.school.landing_page.image = '';
+        if (dataSources.local.courses.length) {
+            dataSources.local.school.landing_page.image = dataSources.local.courses[0]?.landing_page?.image;
+        }
     } catch (error) {
         reporter.panic('error loading docs', error);
     }

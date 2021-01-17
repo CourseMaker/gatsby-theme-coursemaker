@@ -1,124 +1,119 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui";
+import { jsx } from 'theme-ui';
 
-import Layout from "../components/layout";
-import Button from "../components/button";
-import Courses from "../components/courses";
-import Author from "../components/author";
-import LandingVideo from "../components/landing_page/landing-video";
-import React from "react";
-import LandingImage from "../components/image_landing";
-import OverviewSection from "../components/landing_page/overview-section";
-import TestimonialsSection from "../components/landing_page/testimonials-section";
-import FAQSection from "../components/landing_page/faqs-section";
-import ContactSection from "../components/landing_page/contact-section";
+import React from 'react';
+import Layout from '../components/layout';
+import Button from '../components/button';
+import Courses from '../components/courses';
+import CTA from '../components/cta';
+import LandingVideo from '../components/landing_page/landing-video';
+import LandingImage from '../components/image_landing';
+import OverviewSection from '../components/landing_page/overview-section';
+import TestimonialsSection from '../components/landing_page/testimonials-section';
+import FAQSection from '../components/landing_page/faqs-section';
+import ContactSection from '../components/landing_page/contact-section';
 
-
-const SchoolLandingPage = ({ props, pageContext = {} }) => {
-  console.log(props)
-  const school = pageContext.school;
-  const passedCourses = pageContext.courses;
-  const landingPage = school?.landing_page;
-  let themeStyles = school?.schoolThemeStyle;
-  if (!themeStyles) {
-    themeStyles = {
-      "primary": "green",
-      "secondary": "blue"
+const SchoolLandingPage = ({ pageContext }) => {
+    const school = pageContext?.school;
+    const passedCourses = pageContext?.courses;
+    const landingPage = school?.landing_page;
+    let schoolThemeStyle = school?.schoolThemeStyle;
+    if (!schoolThemeStyle) {
+        schoolThemeStyle = {
+            primaryColor: 'blue',
+            secondaryColor: 'blue',
+        };
     }
-  }
 
-  // Section 1 - Intro
-  const title = (landingPage) ? landingPage.title : school.name;
-  const subtitle = landingPage?.subtitle;
-  let initialCTA = landingPage?.initialCTA;
-  if (!initialCTA){
-    initialCTA = {
-      "text": "View Courses",
-      "color": "green",
-      "link": "/#courses",
-      "textColor": "white"
+    // Section 1 - Intro
+    const title = school?.name;
+    const subtitle = landingPage?.subtitle;
+    let initialCTA = landingPage?.initialCTA;
+    if (!initialCTA) {
+        initialCTA = {
+            text: 'View Courses',
+            color: 'blue',
+            link: '/#courses',
+            textColor: 'white',
+        };
     }
-  }
 
-  // Section 2 - Media
-  const videoID = landingPage?.video_id;
-  const imageID = landingPage?.image;
+    // Section 2 - Media
+    const videoID = landingPage?.video_id;
+    const imageID = landingPage?.image;
 
-  // Section 3 - Overview
-  // Section 4: Courses
-  // Section 5 - Testimonials
-  // Section 6 - FAQ
+    // Section 3 - Overview
+    // Section 4: Courses
+    // Section 5 - Testimonials
+    // Section 6 - FAQ
 
-  // Section 7 - CTA
-  const closingCTA = landingPage?.closingCTA;
+    // Section 7 - CTA
+    const closingCTA = landingPage?.closingCTA;
 
-  // Section 8 - Contact
+    // Section 8 - Contact
 
-  return (
-    <Layout pageContext={pageContext}>
-      <section className="py-8 pb-8 text-center md:pt-30">
-        <div className="container">
-          <h1 className="mb-4">{title}</h1>
-          <h3 className="mb-4">{subtitle}</h3>
-          <p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12" />
+    return (
+        <Layout schoolThemeStyle={schoolThemeStyle} pageContext={pageContext}>
+            <section className="py-16 md:py-20">
+                <div className="container">
+                    {landingPage?.image && (
+                        <div className="flex-wrap items-center md:flex">
+                            <div className="text-center border-gray-300 md:w-1/2 md:border-r left-side md:text-left">
+                                <h1 className="mb-4 text-center leading-tight md:mb-6">{title}</h1>
+                                <h3 className="mb-4 text-center font-sans font-light opacity-50">{subtitle}</h3>
+                                <p className="mx-auto text-center mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12" />
+                                    {initialCTA?.color && (
+                                        <div className="text-center">
+                                            <Button
+                                                to={initialCTA?.link}
+                                                text={initialCTA?.text}
+                                                color={schoolThemeStyle?.primaryColor}
+                                            />
+                                        </div>
+                                    )}
 
-          <Button
-            to={initialCTA?.link}
-            text={initialCTA?.text}
-            color={initialCTA?.color}
-            text_color={initialCTA?.textColor}
-            variant={`primary_${themeStyles.primary}`}
-          />
+                            </div>
+                            {/* left-side */}
 
-          <div className="mt-12 scroll-to">
-            <svg
-              className="block w-6 mx-auto"
-              data-name="Layer 1"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill="none"
-                stroke="#999"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M20.59 7.66l-8.69 8.68-8.49-8.48"
-              />
-            </svg>
-          </div>
-        </div>
-      </section>
+                            <div className="mt-10 md:w-1/2 right-side md:mt-0">
+                                {landingPage?.image && <LandingImage landing={landingPage?.image} />}
+                            </div>
+                            {/* right-side  */}
+                        </div>
+                    )}
 
-      {<LandingVideo videoID={videoID} />}
-      {landingPage?.image?.url &&
-        <LandingImage landing={landingPage?.image} />
-      }
+                    {!landingPage?.image && (
+                        <div>
+                            <h1 className="mb-4 text-center">{title}</h1>
+                            <h3 className="mb-4 text-center">{subtitle}</h3>
+                            <p className="mx-auto text-center mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12" />
+                            {initialCTA?.color && (
+                                <div className="text-center">
+                                    <Button
+                                        to={initialCTA?.link}
+                                        text={initialCTA?.text}
+                                        color={schoolThemeStyle?.primaryColor}
+                                    />
+                                </div>
+                            )}
+                        </div>
+                        )}
+                    </div>
+            </section>
 
-      {<OverviewSection landingPage={landingPage} />}
+            {<LandingVideo videoID={videoID} />}
 
-      <Courses courses={passedCourses} />
+            {<OverviewSection schoolThemeStyle={schoolThemeStyle} landingPage={landingPage} />}
 
-      {<TestimonialsSection landingPage={landingPage} />}
+            <Courses schoolThemeStyle={schoolThemeStyle} courses={passedCourses} />
 
-      {<FAQSection landingPage={landingPage} />}
+            {<TestimonialsSection schoolThemeStyle={schoolThemeStyle} landingPage={landingPage} />}
 
-      {closingCTA && (
-          <section
-              id="cta"
-              className="py-8 text-center text-white bg-gray-900 lg:py-24"
-          >
-            <div className="container">
-              <div className="mx-auto inner lg:w-6/12">
-                <Button text="Purchase" to="./checkout" />
-              </div>
-            </div>
-          </section>
-      )}
+            {<FAQSection schoolThemeStyle={schoolThemeStyle} landingPage={landingPage} />}
 
-      {<ContactSection landingPage={landingPage} />}
-    </Layout>
-  );
+            {<ContactSection schoolThemeStyle={schoolThemeStyle} landingPage={landingPage} />}
+        </Layout>
+    );
 };
 
 export default SchoolLandingPage;

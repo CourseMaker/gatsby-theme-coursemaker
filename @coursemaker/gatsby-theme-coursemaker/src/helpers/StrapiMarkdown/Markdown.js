@@ -6,7 +6,7 @@ import 'katex/dist/katex.min.css';
 
 import Highlighter from '../SyntaxHighlighter/SyntaxHighlighter';
 
-const _mapProps = (props, editable) => ({
+const _mapProps = (props) => ({
     ...props,
     escapeHtml: false,
     plugins: [RemarkMathPlugin],
