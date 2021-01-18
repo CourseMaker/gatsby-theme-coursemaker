@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
 
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
+import { navigate } from 'gatsby';
 import Layout from '../components/layout';
 import Button from '../components/button';
 import Courses from '../components/courses';
@@ -12,23 +13,13 @@ import OverviewSection from '../components/landing_page/overview-section';
 import TestimonialsSection from '../components/landing_page/testimonials-section';
 import FAQSection from '../components/landing_page/faqs-section';
 import ContactSection from '../components/landing_page/contact-section';
-import {isAuthenticated} from "../auth/auth";
-import {navigate} from "gatsby";
+import { isAuthenticated } from '../auth/auth';
+
+const isBrowser = typeof window !== 'undefined';
 
 const SchoolLandingPage = ({ pageContext }) => {
     const school = pageContext?.school;
     const passedCourses = pageContext?.courses;
-
-    // If a school only has one course, it makes sense to simply
-    // Redirect to that course's landing page as the school landing
-    // page is better suited to sites with multiple courses.
-    useEffect(() => {
-        if (passedCourses && passedCourses.length === 1) {
-            console.log(passedCourses);
-            console.log(window.location.href)
-            navigate(`${window.location.href}courses${passedCourses[0].slug}`);
-        }
-    }, []);
 
     const landingPage = school?.landing_page;
     let schoolThemeStyle = school?.schoolThemeStyle;

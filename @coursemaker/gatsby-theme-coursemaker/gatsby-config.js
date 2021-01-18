@@ -221,6 +221,7 @@ module.exports = (themeOptions) => {
             'gatsby-plugin-stylus',
             'gatsby-plugin-react-helmet',
             strapiPluginOrFake(),
+            `gatsby-plugin-meta-redirect`, // make sure to put last in the array
         ].filter(Boolean),
     };
 };
