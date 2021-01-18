@@ -7,6 +7,7 @@ module.exports = (themeOptions) => {
 
     return {
         siteMetadata: {
+            siteUrl: 'https://example.com',
             title: 'My Cool School (update in gatsby-config)',
             strapiPluginOrFake: options.useStrapi,
             useAuth: options.useAuth,
