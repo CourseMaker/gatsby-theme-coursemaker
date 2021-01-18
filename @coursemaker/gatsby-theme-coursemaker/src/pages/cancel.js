@@ -4,9 +4,15 @@ import { Link } from 'gatsby';
 import Layout from '../components/layout';
 
 const PaymentCancel = () => {
-    const pageTitle = {pageTitle: 'Cancel'}
+    const pageContext = {
+        pageTitle: 'Cancel',
+        school: {
+            name: '',
+            subtitle: ''
+        }
+    }
     return (
-        <Layout pageContext={pageTitle}>
+        <Layout pageContext={pageContext}>
             <div className="container">
                 <h1>Payment Cancelled</h1>
                 <Link to="/courses">Go to the courses</Link>

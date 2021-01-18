@@ -4,9 +4,15 @@ import { Link } from 'gatsby';
 import Layout from '../components/layout';
 
 const NotFoundPage = () => {
-    const pageTitle = {pageTitle: 'Not Found'}
+    const pageContext = {
+        pageTitle: 'Not Found',
+        school: {
+            name: '',
+            subtitle: ''
+        }
+    }
     return (
-        <Layout pageContext={pageTitle}>
+        <Layout pageContext={pageContext}>
             <div className="container">
                 <h1>404 Error</h1>
                 <p>You just hit a route that doesn&#39;t exist...</p>

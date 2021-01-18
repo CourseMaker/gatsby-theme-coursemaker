@@ -5,24 +5,25 @@ import schemaGenerator from '../helpers/schemaGenerator';
 
 const defaultFields = {
     school: {
-        name: 'update me',
-        subtitle: 'update me'
+        name: '',
+        subtitle: ''
     },
     pageTitle: 'unknown page'
 }
 
 const SEO = ({ pageContext = defaultFields }) => {
-    const siteTitle = pageContext?.school.name;
-    const siteDescription = pageContext?.school.subtitle;
-
-    const pageTitle = pageContext.pageTitle;
+    const siteTitle = pageContext?.school?.name;
+    const siteDescription = pageContext?.school?.subtitle;
+    const pageTitle = pageContext?.pageTitle;
     const pageTitleFull = pageTitle ? `${siteTitle}: ${pageTitle}` : siteTitle
 
     let location = typeof window !== 'undefined' ? window.location.href : '';
+
+    // requires evar for OS
     let siteUrl = '';
 
     // TODO: open source users should update this field
-    const canonical = pageContext?.school.name;
+    const canonical = pageContext?.school?.name;
     let realCanonical = canonical;
     if (process.env.GATSBY_USE_STRAPI){
         realCanonical = `https://${canonical}.coursemaker.org`

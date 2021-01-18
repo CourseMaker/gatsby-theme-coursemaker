@@ -6,9 +6,15 @@ import { jsx } from 'theme-ui';
 import Layout from '../components/layout';
 
 const PaymentSuccess = () => {
-    const pageTitle = {pageTitle: 'Success'}
+    const pageContext = {
+        pageTitle: 'Payment Success',
+        school: {
+            name: '',
+            subtitle: ''
+        }
+    }
     return (
-        <Layout pageContext={pageTitle}>
+        <Layout pageContext={pageContext}>
             <div className="container">
                 <h1>Payment Success!</h1>
                 <Link

@@ -15,7 +15,7 @@ const RegistrationPage = ({ pageContext }) => {
     }
 
     return (
-        <Layout schoolThemeStyle={schoolThemeStyle}>
+        <Layout pageContext={pageContext} schoolThemeStyle={schoolThemeStyle}>
             <section className="py-16 bg-indigo-100 md:py-24">
                 <div className="container">
                     <div className="mb-8 text-center">
