@@ -630,6 +630,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                     }
                     site {
                         siteMetadata {
+                            siteUrl
                             schoolThemeStyle {
                                 primaryColor
                             }
