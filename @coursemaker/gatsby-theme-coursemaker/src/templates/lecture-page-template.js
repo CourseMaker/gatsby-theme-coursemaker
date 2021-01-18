@@ -26,24 +26,24 @@ const LectureTemplate = ({ pageContext = {} }) => {
         };
     }
 
-    let allLectures = pageContext?.allLectures;
-    let nextLecture = pageContext?.nextLecture;
-    let previousLecture = pageContext?.previousLecture;
-    
+    const allLectures = pageContext?.allLectures;
+    const nextLecture = pageContext?.nextLecture;
+    const previousLecture = pageContext?.previousLecture;
+
     let nextLectureSlug = '../curriculum';
-    if (nextLecture && nextLecture.hasOwnProperty('order') && nextLecture.order !== null){
+    if (nextLecture && nextLecture.hasOwnProperty('order') && nextLecture.order !== null) {
         nextLectureSlug = `${nextLecture.id}${nextLecture.order}`;
     } else if (nextLecture && !nextLecture?.order) {
         nextLectureSlug = `${nextLecture.id}`;
     }
 
     let previousLectureSlug = '../curriculum';
-    if (previousLecture && previousLecture.hasOwnProperty('order') && previousLecture.order !== null){
+    if (previousLecture && previousLecture.hasOwnProperty('order') && previousLecture.order !== null) {
         previousLectureSlug = `${previousLecture.id}${previousLecture.order}`;
     } else if (previousLecture && !previousLecture?.order) {
         previousLectureSlug = `${previousLecture.id}`;
     }
-    
+
     let lecture_body;
     if (lecture.body)
         // local source

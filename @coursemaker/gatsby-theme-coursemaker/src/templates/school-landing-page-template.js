@@ -62,16 +62,15 @@ const SchoolLandingPage = ({ pageContext }) => {
                                 <h1 className="mb-4 text-center leading-tight md:mb-6">{title}</h1>
                                 <h3 className="mb-4 text-center font-sans font-light opacity-50">{subtitle}</h3>
                                 <p className="mx-auto text-center mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12" />
-                                    {initialCTA?.color && (
-                                        <div className="text-center">
-                                            <Button
-                                                to={initialCTA?.link}
-                                                text={initialCTA?.text}
-                                                color={schoolThemeStyle?.primaryColor}
-                                            />
-                                        </div>
-                                    )}
-
+                                {initialCTA?.color && (
+                                    <div className="text-center">
+                                        <Button
+                                            to={initialCTA?.link}
+                                            text={initialCTA?.text}
+                                            color={schoolThemeStyle?.primaryColor}
+                                        />
+                                    </div>
+                                )}
                             </div>
                             {/* left-side */}
 
@@ -97,8 +96,8 @@ const SchoolLandingPage = ({ pageContext }) => {
                                 </div>
                             )}
                         </div>
-                        )}
-                    </div>
+                    )}
+                </div>
             </section>
 
             {<LandingVideo videoID={videoID} />}
