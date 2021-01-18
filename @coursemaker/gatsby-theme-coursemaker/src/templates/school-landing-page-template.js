@@ -1,11 +1,10 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui';
+import {jsx} from 'theme-ui';
 
 import React from 'react';
 import Layout from '../components/layout';
 import Button from '../components/button';
 import Courses from '../components/courses';
-import CTA from '../components/cta';
 import LandingVideo from '../components/landing_page/landing-video';
 import LandingImage from '../components/image_landing';
 import OverviewSection from '../components/landing_page/overview-section';
@@ -13,9 +12,11 @@ import TestimonialsSection from '../components/landing_page/testimonials-section
 import FAQSection from '../components/landing_page/faqs-section';
 import ContactSection from '../components/landing_page/contact-section';
 
+
 const SchoolLandingPage = ({ pageContext }) => {
     const school = pageContext?.school;
     const passedCourses = pageContext?.courses;
+
     const landingPage = school?.landing_page;
     let schoolThemeStyle = school?.schoolThemeStyle;
     if (!schoolThemeStyle) {

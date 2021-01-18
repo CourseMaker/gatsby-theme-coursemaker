@@ -5,8 +5,6 @@ import Checkout from '../components/checkout';
 import { isAuthenticated } from '../auth/auth';
 
 const CoursePaymentPage = ({ pageContext = {} }) => {
-    // TODO: pass course price from front matter
-    // TODO: pass stripe key from site config
     useEffect(() => {
         if (!isAuthenticated()) navigate('/register');
     });

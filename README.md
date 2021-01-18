@@ -1,12 +1,15 @@
 # gatsby-theme-coursemaker
 Make Online Courses
 
+## Theme Status: Alpha
+The theme is in alpha, and is subject to significant, breaking changes.
+
 ## 🗝 Elevator Pitch 
 This Gatsby theme allows you to create a fully-featured, commercial online course website **for free**. 
 Key features:
 - Easily create courses and lectures using tools you love (git, markdown)
 - Sales pages out of the box, with easy configuration options
-- Gated content (via integration with Auth0's free plan)
+- Gated content (via integration with Auth0's free plan and YouTube private videos)
 - Payments (via integration with Stripe Checkout)
 - Hosting (via Netlify, AWS or many other options)
 - Responsive design (looks good on mobile + tablets for your students)
@@ -18,10 +21,24 @@ we've created a course explaining how to use this theme ;)
 - Fully customizable via [gatsby shadowing](https://www.gatsbyjs.com/docs/themes/shadowing/) made even easier
 by our use of gatsby-theme-ui. 
 
+## 🚀 Hosted Option
+Don't want to host it yourself, and want access to:
+- Truly gated videos
+- Student progress reports
+- Easy payment collection integration (Stripe)
+- Discount coupons
+- File downloads
+- Course dashboard
+- Easy memberships
+- 24/7 Support
+
+Checkout [CourseMaker](https://coursemaker.org)
+
+---
 ## Installation
 
 #### Dependencies
-* Ensure node.js is installed
+* Ensure node.js >= v14 is installed
 * Install the gatsby-cli: `npm install -g gatsby-cli`
 * Create a new site: `gatsby new gatsby-site https://github.com/gatsbyjs/gatsby-starter-hello-world`
 * `cd` into your directory (in the above example it would be "gatsby-site"), then run the site: `gatsby develop`
@@ -36,8 +53,7 @@ There are many configuration options for the coursemaker theme which we discuss 
 
 ## 🚀 Configuring A Course Website
 
-*note* if you prefer a real code example, the `course_demo_site` contains just that. You can see it running
-on netlify here: TODO
+*note* if you prefer a real code example, the `course_demo_site` contains just that.
  
 ### Concepts
 
@@ -66,7 +82,6 @@ root. These include:
 
 * `courseImage` which looks in the `/assets` directory of your course folder for the file you indicate.
 This image will appear on your school and course landing pages. 
-
 
 #### 💰 Gated Content Feature
 * GATSBY_ENABLE_PAYMENTS

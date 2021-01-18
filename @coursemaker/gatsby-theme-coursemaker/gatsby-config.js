@@ -221,6 +221,7 @@ module.exports = (themeOptions) => {
             'gatsby-plugin-stylus',
             'gatsby-plugin-react-helmet',
             strapiPluginOrFake(),
+            `gatsby-plugin-meta-redirect`, // make sure to put last in the array
         ].filter(Boolean),
     };
 };
@@ -246,6 +247,8 @@ const strapiPluginOrFake = () => {
                 }),
                 // Additional options to pass to node-fetch
                 fetchOptions: {},
+                // refetch interval in seconds
+                refetchInterval: 20,
             },
         };
     return false;

@@ -695,6 +695,21 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
     // course page creation is permissive
     createCourses(liveSchool, allCourses, createPage);
 
+    // If a school only has one course, it makes sense to simply
+    // Redirect to that course's landing page as the school landing
+    // page is better suited to sites with multiple courses.
+    if (allCourses && allCourses.length === 1) {
+        const { createRedirect } = actions;
+        const soleCourseSlug = allCourses[0].slug;
+        createRedirect({
+            fromPath: '/',
+            toPath: `/courses${soleCourseSlug}`,
+            isPermanent: true,
+            force: true,
+            redirectInBrowser: true,
+        });
+    }
+
     // Create course list page
     createPage({
         path: `/courses`,
