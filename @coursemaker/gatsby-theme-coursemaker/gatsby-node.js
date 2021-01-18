@@ -14,14 +14,17 @@ const { createCourses, createSchool } = require('./src/gatsby/pageCreator');
 // Ensure that content directories exist at site-level
 exports.onPreBootstrap = ({ store }, themeOptions) => {
     const { program } = store.getState();
+    const { useStrapi } = withDefaults(themeOptions);
 
     const { authorsPath, coursesPath /* useStrapi */ } = withDefaults(themeOptions);
 
     const dirs = [path.join(program.directory, coursesPath), path.join(program.directory, authorsPath)];
 
-    dirs.forEach((dir) => {
-        if (!fs.existsSync(dir)) mkdirp.sync(dir);
-    });
+    if (!useStrapi) {
+        dirs.forEach((dir) => {
+            if (!fs.existsSync(dir)) mkdirp.sync(dir);
+        });
+    }
 };
 
 const mdxResolverPassthrough = (fieldName) => async (source, args, context, info) => {
@@ -409,7 +412,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                                         secondaryColor
                                     }
                                     settings {
-                                        sub_domain
+                                        google_analytics_tracking_id
                                     }
                                     favicon {
                                         url
@@ -627,8 +630,8 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                     }
                     site {
                         siteMetadata {
-                            settings {
-                                sub_domain
+                            schoolThemeStyle {
+                                primaryColor
                             }
                             landing_page {
                                 title
@@ -664,12 +667,17 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
             `
         );
         dataSources.local.school = localData.data.site.siteMetadata;
+        // this order matters
+        dataSources.local.courses = localData.data.allCourse.edges.map(normalize.setSectionOrder);
         dataSources.local.courses = localData.data.allCourse.edges.map(normalize.local.courses);
         dataSources.local.courses = localData.data.allCourse.edges.map(normalize.normalizeCourseLandingPage);
 
         // TODO: images defined in siteMetaData do not get set as File nodes.
         //  Hack here is reusing the image from the course.
-        dataSources.local.school.landing_page.image = dataSources.local.courses[0].landing_page?.image;
+        dataSources.local.school.landing_page.image = '';
+        if (dataSources.local.courses.length) {
+            dataSources.local.school.landing_page.image = dataSources.local.courses[0]?.landing_page?.image;
+        }
     } catch (error) {
         reporter.panic('error loading docs', error);
     }
@@ -686,6 +694,21 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
 
     // course page creation is permissive
     createCourses(liveSchool, allCourses, createPage);
+
+    // If a school only has one course, it makes sense to simply
+    // Redirect to that course's landing page as the school landing
+    // page is better suited to sites with multiple courses.
+    if (allCourses && allCourses.length === 1) {
+        const { createRedirect } = actions;
+        const soleCourseSlug = allCourses[0].slug;
+        createRedirect({
+            fromPath: '/',
+            toPath: `/courses${soleCourseSlug}`,
+            isPermanent: true,
+            force: true,
+            redirectInBrowser: true,
+        });
+    }
 
     // Create course list page
     createPage({

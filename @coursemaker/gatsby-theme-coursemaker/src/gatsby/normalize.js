@@ -1,6 +1,23 @@
+const _ = require('lodash');
+
 require('dotenv').config();
 
+const orderSections = (course) => {
+    let orderedSections;
+    if (course?.sections == null || course?.sections.length === 0) {
+        orderedSections = [];
+    } else {
+        const iteratee = 'order' in course?.sections[0] ? 'order' : 'id';
+        orderedSections = _.orderBy(course?.sections, iteratee, 'asc');
+    }
+    course.sections = orderedSections;
+    return course;
+};
+
+exports.setSectionOrder = (course) => orderSections(course);
+
 exports.normalizePrices = (course) => {
+    course = orderSections(course);
     let priceInfo = {};
     if (course.school_prices == null) {
         course.price_info = priceInfo;
