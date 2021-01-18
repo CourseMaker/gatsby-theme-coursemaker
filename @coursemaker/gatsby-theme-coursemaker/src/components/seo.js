@@ -16,24 +16,20 @@ const SEO = ({ pageContext = defaultFields }) => {
     const siteDescription = pageContext?.school?.subtitle;
     const pageTitle = pageContext?.pageTitle;
     const pageTitleFull = pageTitle ? `${siteTitle}: ${pageTitle}` : siteTitle
-
     let location = typeof window !== 'undefined' ? window.location.href : '';
-
-    // requires evar for OS
+    let realCanonical = null;
     let siteUrl = '';
-
-    // TODO: open source users should update this field
-    const canonical = pageContext?.school?.name;
-    let realCanonical = canonical;
-    if (process.env.GATSBY_USE_STRAPI){
-        realCanonical = `https://${canonical}.coursemaker.org`
+    console.log(pageContext);
+    if (process.env.GATSBY_USE_STRAPI === "true"){
+        let schoolSlug = pageContext?.school?.sub_domain;
+        realCanonical = `https://${schoolSlug}.coursemaker.org${location.pathname}`
+    } else {
+        console.log(location)
+        siteUrl = pageContext?.school?.siteUrl;
+        if (siteUrl) realCanonical = `${siteUrl}${location.pathname}`;
     }
-    console.log(siteTitle);
-    console.log(siteDescription);
-    console.log(canonical);
-    console.log(pageTitle);
-    console.log(pageTitleFull);
-    console.log(location);
+    console.log(realCanonical);
+
     return (
         <Helmet>
             <html lang="en" />
@@ -64,9 +60,9 @@ const SEO = ({ pageContext = defaultFields }) => {
             <meta content={siteTitle} property="og:site_name"/>
             <meta content="summary_large_image" name="twitter:card"/>
             <meta content={pageTitleFull} name="twitter:text:title"/>
-            <meta content={realCanonical} property="og:url"/>
-            <meta content={realCanonical} name="twitter:url"/>
-            <link rel="canonical" href={realCanonical}/>
+            {realCanonical && <meta content={realCanonical} property="og:url"/>}
+            {realCanonical && <meta content={realCanonical} name="twitter:url"/>}
+            {realCanonical && <link rel="canonical" href={realCanonical}/>}
 
             <meta content="1024" name="twitter:image:width"/>
             <meta content="512" name="twitter:image:height"/>

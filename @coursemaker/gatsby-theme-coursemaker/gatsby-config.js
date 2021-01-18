@@ -7,7 +7,7 @@ module.exports = (themeOptions) => {
 
     return {
         siteMetadata: {
-            siteUrl: 'https://example.com',
+            siteUrl: 'https://example.com',  // used as the canonical metatag (use a trailing slash)
             title: 'My Cool School (update in gatsby-config)',
             strapiPluginOrFake: options.useStrapi,
             useAuth: options.useAuth,
