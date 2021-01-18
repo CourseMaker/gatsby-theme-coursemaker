@@ -1,21 +1,17 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui';
+import {jsx} from 'theme-ui';
 
-import React, { useEffect } from 'react';
-import { navigate } from 'gatsby';
+import React from 'react';
 import Layout from '../components/layout';
 import Button from '../components/button';
 import Courses from '../components/courses';
-import CTA from '../components/cta';
 import LandingVideo from '../components/landing_page/landing-video';
 import LandingImage from '../components/image_landing';
 import OverviewSection from '../components/landing_page/overview-section';
 import TestimonialsSection from '../components/landing_page/testimonials-section';
 import FAQSection from '../components/landing_page/faqs-section';
 import ContactSection from '../components/landing_page/contact-section';
-import { isAuthenticated } from '../auth/auth';
 
-const isBrowser = typeof window !== 'undefined';
 
 const SchoolLandingPage = ({ pageContext }) => {
     const school = pageContext?.school;
