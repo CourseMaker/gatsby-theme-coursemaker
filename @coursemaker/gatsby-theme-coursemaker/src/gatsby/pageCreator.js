@@ -127,6 +127,7 @@ const createCourses = (school, courses, createPage) => {
                         nextLecture,
                         previousLecture,
                         school,
+                        pageTitle: lecture?.title
                     },
                 });
             }

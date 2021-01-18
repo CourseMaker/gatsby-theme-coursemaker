@@ -6,6 +6,7 @@ import Header from './header';
 import Footer from './footer';
 import Section from './section';
 import { bakeLocalStorage, readLocalStorage } from '../helpers/storage';
+import SEO from './seo';
 
 const LayoutLecture = ({
     children,
@@ -34,6 +35,7 @@ const LayoutLecture = ({
 
     return (
         <>
+            <SEO pageContext={pageContext}></SEO>
             <Header schoolThemeStyle={schoolThemeStyle} school={pageContext.school} />
             <section id="lecture">
                 <div className="flex-wrap lg:flex">
