@@ -246,6 +246,8 @@ const strapiPluginOrFake = () => {
                 }),
                 // Additional options to pass to node-fetch
                 fetchOptions: {},
+                // refetch interval in seconds
+                refetchInterval: 20,
             },
         };
     return false;
