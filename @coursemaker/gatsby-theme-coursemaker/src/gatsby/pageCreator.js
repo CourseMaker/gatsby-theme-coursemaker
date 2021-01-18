@@ -18,6 +18,7 @@ const createSchool = (school, courses, createPage) => {
         context: {
             school,
             courses,
+            pageTitle: school?.name
         },
     });
 
@@ -28,6 +29,7 @@ const createSchool = (school, courses, createPage) => {
         context: {
             school,
             courses,
+            pageTitle: 'Login'
         },
     });
 
@@ -38,6 +40,7 @@ const createSchool = (school, courses, createPage) => {
         context: {
             school,
             courses,
+            pageTitle: 'Sign-Up'
         },
     });
 };
@@ -55,6 +58,7 @@ const createCourses = (school, courses, createPage) => {
             context: {
                 course,
                 school,
+                pageTitle: 'Checkout'
             },
         });
 
@@ -86,6 +90,7 @@ const createCourses = (school, courses, createPage) => {
                 course,
                 school,
                 allCourseLectures,
+                pageTitle: course?.title
             },
         });
 
@@ -97,6 +102,7 @@ const createCourses = (school, courses, createPage) => {
                 course,
                 school,
                 allCourseLectures,
+                pageTitle: `Curriculum for ${course?.title}`
             },
         });
 

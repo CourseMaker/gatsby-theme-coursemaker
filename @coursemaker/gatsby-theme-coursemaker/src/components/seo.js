@@ -3,15 +3,26 @@ import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import schemaGenerator from '../helpers/schemaGenerator';
 
-const SEO = ({
-                  siteTitle,
-                  siteDescription,
-                  canonical,
-                  pageTitle,
-                  pageTitleFull = pageTitle ? `${siteTitle}: ${pageTitle}` : siteTitle,
-              }) => {
+const defaultFields = {
+    school: {
+        name: 'update me',
+        subtitle: 'update me'
+    },
+    pageTitle: 'unknown page'
+}
+
+const SEO = ({ pageContext = defaultFields }) => {
+    const siteTitle = pageContext?.school.name;
+    const siteDescription = pageContext?.school.subtitle;
+
+    const pageTitle = pageContext.pageTitle;
+    const pageTitleFull = pageTitle ? `${siteTitle}: ${pageTitle}` : siteTitle
+
     let location = typeof window !== 'undefined' ? window.location.href : '';
     let siteUrl = '';
+
+    // TODO: open source users should update this field
+    const canonical = pageContext?.school.name;
     let realCanonical = canonical;
     if (process.env.GATSBY_USE_STRAPI){
         realCanonical = `https://${canonical}.coursemaker.org`
@@ -24,7 +35,7 @@ const SEO = ({
     console.log(location);
     return (
         <Helmet>
-            <html lang="en"/>
+            <html lang="en" />
 
             <meta content="IE=edge" httpEquiv="X-UA-Compatible"/>
             <meta
@@ -165,24 +176,8 @@ const SEO = ({
 }
 
 SEO.propTypes = {
-    siteTitle: PropTypes.string,
-    siteDescription: PropTypes.string,
-    canonical: PropTypes.string,
-    pageTitle: PropTypes.string,
-    pageTitleFull: PropTypes.string,
+    pageContext: PropTypes.object
 };
 
 
 export default SEO;
-
-const query = graphql`
-    query SEO {
-        site {
-            siteMetadata {
-                defaultTitle: title
-                defaultDescription: subtitle
-                siteUrl: sub_domain
-            }
-        }
-    }
-`

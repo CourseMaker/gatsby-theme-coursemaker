@@ -5,16 +5,13 @@ import { ToastContainer } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
 
-import { Helmet } from 'react-helmet';
 import Header from './header';
 import Footer from './footer';
+import SEO from './seo';
 
 const Layout = ({ children, pageContext = null, schoolThemeStyle = { primaryColor: 'blue' } }) => (
     <>
-        <Helmet>
-            <html lang="en" />
-            <script src="https://js.stripe.com/v3/" />
-        </Helmet>
+        <SEO pageContext={pageContext}></SEO>
         <Header schoolThemeStyle={schoolThemeStyle} school={pageContext?.school} />
         <main>{children}</main>
         <CookieConsent
