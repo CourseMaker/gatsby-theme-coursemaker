@@ -1,7 +1,7 @@
 import React from 'react';
 
+import { jsx } from 'theme-ui';
 import Button from './button';
-import {jsx} from "theme-ui";
 
 const CTA = ({ cta, priceInfo }) => {
     let ctaText = 'Get Access';
@@ -19,7 +19,7 @@ const CTA = ({ cta, priceInfo }) => {
                 to={cta?.link}
                 color={cta?.color}
                 text_color={cta?.textColor}
-                variant={`primary_blue`}
+                variant="primary_blue"
             />
         </div>
     );

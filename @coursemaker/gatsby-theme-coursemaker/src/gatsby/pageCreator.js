@@ -1,4 +1,4 @@
-const _ = require("lodash");
+const _ = require('lodash');
 
 const slugify = require(`slugify`);
 // These templates are simply data-fetching wrappers that import components
@@ -62,24 +62,21 @@ const createCourses = (school, courses, createPage) => {
         if (course?.sections == null || course?.sections?.length === 0) {
             allCourseLectures = [];
         } else {
-            allCourseLectures = course?.sections.map((section) => {
-                let filteredSectionLectures;
-                if (section.lectures.length) {
-                    // Important to filter the non-active lectures, otherwise all the
-                    // previousLecture / nextLecture logic goes out of sync
-                    filteredSectionLectures = section?.lectures.filter(function (lecture) {
-                        return lecture?.active;
-                    });
-                    let iteratee = 'order' in filteredSectionLectures[0] ? 'order' : 'id';
-                    return _.orderBy(
-                        filteredSectionLectures,
-                        iteratee,
-                        'asc'
-                    ).map((item) => item);
-                }
-                return filteredSectionLectures;
-            })
-            .flat(1)
+            allCourseLectures = course?.sections
+                .map((section) => {
+                    let filteredSectionLectures;
+                    if (section.lectures.length) {
+                        // Important to filter the non-active lectures, otherwise all the
+                        // previousLecture / nextLecture logic goes out of sync
+                        filteredSectionLectures = section?.lectures.filter(function (lecture) {
+                            return lecture?.active;
+                        });
+                        const iteratee = 'order' in filteredSectionLectures[0] ? 'order' : 'id';
+                        return _.orderBy(filteredSectionLectures, iteratee, 'asc').map((item) => item);
+                    }
+                    return filteredSectionLectures;
+                })
+                .flat(1);
         }
 
         createPage({
@@ -88,7 +85,7 @@ const createCourses = (school, courses, createPage) => {
             context: {
                 course,
                 school,
-                allCourseLectures
+                allCourseLectures,
             },
         });
 
@@ -99,7 +96,7 @@ const createCourses = (school, courses, createPage) => {
             context: {
                 course,
                 school,
-                allCourseLectures
+                allCourseLectures,
             },
         });
 
@@ -112,8 +109,8 @@ const createCourses = (school, courses, createPage) => {
                 if (i > 0) previousLecture = allCourseLectures[i - 1];
                 if (i === 0) previousLecture = false;
                 if (i === allCourseLectures.length - 1) nextLecture = false;
-                let tempOrder = ('order' in lecture && lecture.order !== null) ? lecture.order : "";
-                let lecture_slug = `${lecture.id}${tempOrder.toString()}`;
+                const tempOrder = 'order' in lecture && lecture.order !== null ? lecture.order : '';
+                const lecture_slug = `${lecture.id}${tempOrder.toString()}`;
                 createPage({
                     path: `/courses${slug}lectures/${lecture_slug}`,
                     component: lectureTemplate,
