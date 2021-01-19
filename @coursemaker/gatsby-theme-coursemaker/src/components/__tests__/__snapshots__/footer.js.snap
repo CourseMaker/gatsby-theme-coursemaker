@@ -2,7 +2,7 @@
 
 exports[`Footer renders correctly 1`] = `
 <footer
-  className="py-8 text-sm css-t471a7-Footer"
+  className="py-8 text-sm"
 >
   <div
     className="container"
@@ -15,7 +15,7 @@ exports[`Footer renders correctly 1`] = `
       >
         Powered by
         <a
-          className="font-bold css-dqoh9t-Footer"
+          className="font-bold text-blue-500"
           href="https://coursemaker.org"
         >
            
@@ -23,16 +23,14 @@ exports[`Footer renders correctly 1`] = `
         </a>
       </p>
       <div
-        className="flex ml-auto text-gray-500 space-x-5"
+        className="flex ml-auto space-x-5 text-blue-500"
       >
         <a
-          className="css-dqoh9t-Footer"
           href="/terms"
         >
           Terms
         </a>
         <a
-          className="css-dqoh9t-Footer"
           href="/privacy"
         >
           Privacy

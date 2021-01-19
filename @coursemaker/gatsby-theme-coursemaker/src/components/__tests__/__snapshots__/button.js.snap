@@ -2,7 +2,7 @@
 
 exports[`Button renders correctly 1`] = `
 <a
-  className="btn btn-lg css-1v6n45o-Button"
+  className="btn text-white bg-primary-500 text-lg btn-lg"
   href="/"
 />
 `;

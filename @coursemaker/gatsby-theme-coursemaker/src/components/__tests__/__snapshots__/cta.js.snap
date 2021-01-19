@@ -5,8 +5,8 @@ exports[`CTA renders correctly for membership purchase 1`] = `
   className="mt-8 btn-wrapper"
 >
   <a
-    className="btn btn-lg css-1v6n45o-Button"
-    href="./checkout"
+    className="btn text-white bg-primary-500 text-lg btn-lg"
+    href="/"
     text="Purchase Membership"
   >
     Purchase Membership
@@ -19,8 +19,8 @@ exports[`CTA renders correctly for one-time purchase 1`] = `
   className="mt-8 btn-wrapper"
 >
   <a
-    className="btn btn-lg css-1v6n45o-Button"
-    href="./checkout"
+    className="btn text-white bg-primary-500 text-lg btn-lg"
+    href="/"
     text="Purchase Course"
   >
     Purchase Course

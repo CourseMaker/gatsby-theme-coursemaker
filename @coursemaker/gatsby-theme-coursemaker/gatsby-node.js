@@ -413,6 +413,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                                     }
                                     settings {
                                         google_analytics_tracking_id
+                                        sub_domain
                                     }
                                     favicon {
                                         url
@@ -718,7 +719,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
         context: {
             school: liveSchool,
             courses: allCourses,
-            pageTitle: 'Courses Page'
+            pageTitle: 'Courses Page',
         },
     });
 
@@ -728,7 +729,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
         component: require.resolve('./src/templates/terms.js'),
         context: {
             school: liveSchool,
-            pageTitle: 'Terms'
+            pageTitle: 'Terms',
         },
     });
 
@@ -738,7 +739,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
         component: require.resolve('./src/templates/privacy.js'),
         context: {
             school: liveSchool,
-            pageTitle: 'Privacy'
+            pageTitle: 'Privacy',
         },
     });
 };

@@ -35,7 +35,7 @@ const LayoutLecture = ({
 
     return (
         <>
-            <SEO pageContext={pageContext}></SEO>
+            <SEO pageContext={pageContext} />
             <Header schoolThemeStyle={schoolThemeStyle} school={pageContext.school} />
             <section id="lecture">
                 <div className="flex-wrap lg:flex">
