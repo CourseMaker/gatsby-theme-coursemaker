@@ -6,17 +6,10 @@ workflows:
     jobs:
       - test
 
-executors:
-  nodejs-browsers:
-    docker:
-      - image: circleci/14.15.4-browsers
-  nodejs:
-    docker:
-      - image: circleci/14.15.4
-
 jobs:
   test:
-    executor: nodejs
+    docker:
+      - image: circleci/node:14.5.0
     steps:
       - checkout
       - restore_cache:
