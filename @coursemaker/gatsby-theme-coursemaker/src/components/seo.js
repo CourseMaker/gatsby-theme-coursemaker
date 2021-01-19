@@ -19,12 +19,10 @@ const SEO = ({ pageContext = defaultFields }) => {
     let location = typeof window !== 'undefined' ? window.location : '';
     let realCanonical = null;
     let siteUrl = '';
-    console.log(pageContext);
     if (process.env.GATSBY_USE_STRAPI === "true"){
         let schoolSlug = pageContext?.school?.sub_domain;
         realCanonical = `https://${schoolSlug}.coursemaker.org${location?.pathname}`
     } else {
-        console.log(location)
         siteUrl = pageContext?.school?.siteUrl;
         if (siteUrl) {
             realCanonical = `${siteUrl}${location?.pathname}`;
@@ -32,7 +30,6 @@ const SEO = ({ pageContext = defaultFields }) => {
             realCanonical = location?.href;
         }
     }
-    console.log(realCanonical);
 
     return (
         <Helmet>
