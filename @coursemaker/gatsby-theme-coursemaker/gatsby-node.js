@@ -413,6 +413,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                                     }
                                     settings {
                                         google_analytics_tracking_id
+                                        sub_domain
                                     }
                                     favicon {
                                         url

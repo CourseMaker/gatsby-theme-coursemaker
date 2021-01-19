@@ -20,7 +20,7 @@ const SEO = ({ pageContext = defaultFields }) => {
     let realCanonical = null;
     let siteUrl = '';
     if (process.env.GATSBY_USE_STRAPI === "true"){
-        let schoolSlug = pageContext?.school?.sub_domain;
+        let schoolSlug = pageContext?.school?.settings?.sub_domain;
         realCanonical = `https://${schoolSlug}.coursemaker.org${location?.pathname}`
     } else {
         siteUrl = pageContext?.school?.siteUrl;
