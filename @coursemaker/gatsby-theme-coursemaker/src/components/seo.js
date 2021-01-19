@@ -16,17 +16,21 @@ const SEO = ({ pageContext = defaultFields }) => {
     const siteDescription = pageContext?.school?.subtitle;
     const pageTitle = pageContext?.pageTitle;
     const pageTitleFull = pageTitle ? `${siteTitle}: ${pageTitle}` : siteTitle
-    let location = typeof window !== 'undefined' ? window.location.href : '';
+    let location = typeof window !== 'undefined' ? window.location : '';
     let realCanonical = null;
     let siteUrl = '';
     console.log(pageContext);
     if (process.env.GATSBY_USE_STRAPI === "true"){
         let schoolSlug = pageContext?.school?.sub_domain;
-        realCanonical = `https://${schoolSlug}.coursemaker.org${location.pathname}`
+        realCanonical = `https://${schoolSlug}.coursemaker.org${location?.pathname}`
     } else {
         console.log(location)
         siteUrl = pageContext?.school?.siteUrl;
-        if (siteUrl) realCanonical = `${siteUrl}${location.pathname}`;
+        if (siteUrl) {
+            realCanonical = `${siteUrl}${location?.pathname}`;
+        } else {
+            realCanonical = location?.href;
+        }
     }
     console.log(realCanonical);
 
