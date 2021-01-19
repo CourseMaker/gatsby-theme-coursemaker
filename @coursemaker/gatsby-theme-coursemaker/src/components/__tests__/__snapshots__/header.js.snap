@@ -2,16 +2,16 @@
 
 exports[`Header renders correctly 1`] = `
 <header
-  className="sticky top-0 z-20 shadow-md css-jmaku1-Header"
+  className="sticky top-0 z-20 shadow-md text-white bg-blue-500"
 >
   <div
     className="container mx-auto"
   >
     <div
-      className="flex flex-wrap items-center lg:h-24"
+      className="flex flex-wrap items-center"
     >
       <a
-        className="inline-flex items-center h-24 text-lg logo lg:h-auto"
+        className="inline-flex items-center h-20 text-lg md:h-24 logo"
         href="/"
       >
         <span
