@@ -10,9 +10,9 @@ const PaymentSuccess = () => {
         pageTitle: 'Payment Success',
         school: {
             name: '',
-            subtitle: ''
-        }
-    }
+            subtitle: '',
+        },
+    };
     return (
         <Layout pageContext={pageContext}>
             <div className="container">
@@ -28,6 +28,6 @@ const PaymentSuccess = () => {
             </div>
         </Layout>
     );
-}
+};
 
 export default PaymentSuccess;

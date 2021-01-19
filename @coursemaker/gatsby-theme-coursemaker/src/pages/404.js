@@ -8,9 +8,9 @@ const NotFoundPage = () => {
         pageTitle: 'Not Found',
         school: {
             name: '',
-            subtitle: ''
-        }
-    }
+            subtitle: '',
+        },
+    };
     return (
         <Layout pageContext={pageContext}>
             <div className="container">
@@ -20,6 +20,6 @@ const NotFoundPage = () => {
             </div>
         </Layout>
     );
-}
+};
 
 export default NotFoundPage;

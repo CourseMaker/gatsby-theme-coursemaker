@@ -7,9 +7,9 @@ const Forgot = () => {
         pageTitle: 'Forgot Password',
         school: {
             name: '',
-            subtitle: ''
-        }
-    }
+            subtitle: '',
+        },
+    };
     return (
         <Layout pageContext={pageContext}>
             <div className="container">
@@ -18,6 +18,6 @@ const Forgot = () => {
             </div>
         </Layout>
     );
-}
+};
 
 export default Forgot;

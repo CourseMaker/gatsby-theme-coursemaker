@@ -11,7 +11,7 @@ import SEO from './seo';
 
 const Layout = ({ children, pageContext = null, schoolThemeStyle = { primaryColor: 'blue' } }) => (
     <>
-        <SEO pageContext={pageContext}></SEO>
+        <SEO pageContext={pageContext} />
         <Header schoolThemeStyle={schoolThemeStyle} school={pageContext?.school} />
         <main>{children}</main>
         <CookieConsent

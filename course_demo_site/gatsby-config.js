@@ -30,7 +30,7 @@ faq_body_string =
 
 module.exports = {
     siteMetadata: {
-        siteUrl: 'https://gatsby-theme-coursemaker.netlify.app/',  // use trailing slash
+        siteUrl: 'https://gatsby-theme-coursemaker.netlify.app/', // use trailing slash
         title: 'Demo Site Cool School',
         landing_page: {
             title: 'CourseMaker Demo School',

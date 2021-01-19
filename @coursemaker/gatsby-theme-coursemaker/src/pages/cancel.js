@@ -8,9 +8,9 @@ const PaymentCancel = () => {
         pageTitle: 'Cancel',
         school: {
             name: '',
-            subtitle: ''
-        }
-    }
+            subtitle: '',
+        },
+    };
     return (
         <Layout pageContext={pageContext}>
             <div className="container">
@@ -19,6 +19,6 @@ const PaymentCancel = () => {
             </div>
         </Layout>
     );
-}
+};
 
 export default PaymentCancel;

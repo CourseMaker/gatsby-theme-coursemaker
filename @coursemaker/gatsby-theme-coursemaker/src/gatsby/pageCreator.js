@@ -18,7 +18,7 @@ const createSchool = (school, courses, createPage) => {
         context: {
             school,
             courses,
-            pageTitle: school?.name
+            pageTitle: school?.name,
         },
     });
 
@@ -29,7 +29,7 @@ const createSchool = (school, courses, createPage) => {
         context: {
             school,
             courses,
-            pageTitle: 'Login'
+            pageTitle: 'Login',
         },
     });
 
@@ -40,7 +40,7 @@ const createSchool = (school, courses, createPage) => {
         context: {
             school,
             courses,
-            pageTitle: 'Sign-Up'
+            pageTitle: 'Sign-Up',
         },
     });
 };
@@ -58,7 +58,7 @@ const createCourses = (school, courses, createPage) => {
             context: {
                 course,
                 school,
-                pageTitle: 'Checkout'
+                pageTitle: 'Checkout',
             },
         });
 
@@ -90,7 +90,7 @@ const createCourses = (school, courses, createPage) => {
                 course,
                 school,
                 allCourseLectures,
-                pageTitle: course?.title
+                pageTitle: course?.title,
             },
         });
 
@@ -102,7 +102,7 @@ const createCourses = (school, courses, createPage) => {
                 course,
                 school,
                 allCourseLectures,
-                pageTitle: `Curriculum for ${course?.title}`
+                pageTitle: `Curriculum for ${course?.title}`,
             },
         });
 
@@ -127,7 +127,7 @@ const createCourses = (school, courses, createPage) => {
                         nextLecture,
                         previousLecture,
                         school,
-                        pageTitle: lecture?.title
+                        pageTitle: lecture?.title,
                     },
                 });
             }
