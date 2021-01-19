@@ -16,7 +16,7 @@ const Terms = ({ pageContext }) => {
     }
 
     return (
-        <Layout schoolThemeStyle={schoolThemeStyle}>
+        <Layout pageContext={pageContext} schoolThemeStyle={schoolThemeStyle}>
             <section className="bg-indigo-100 section-header">
                 <div className="container mx-auto lg:w-7/12">
                     <div className="py-8 md:py-12">

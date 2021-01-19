@@ -1,0 +1,37 @@
+version: 2.1
+orbs:
+  node: circleci/node@14.15.4
+workflows:
+  js-tests:
+    jobs:
+      - test
+
+executors:
+  nodejs-browsers:
+    docker:
+      - image: circleci/14.15.4-browsers
+  nodejs:
+    docker:
+      - image: circleci/14.15.4
+
+jobs:
+  test:
+    executor: nodejs
+    steps:
+      - checkout
+      - restore_cache:
+          key:
+            dotcache-cache-{{checksum ".circleci/config.yml" }}-{{ checksum "yarn.lock" }}
+      - run:
+          name: Setup Dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          key:
+            dotcache-cache-{{checksum ".circleci/config.yml" }}-{{ checksum "yarn.lock" }}
+          paths:
+            - @coursemaker/gatsby-theme-coursemaker/node_modules
+            - course_demo_site/node_modules
+      - run:
+          name: Run Front-End Test and Coverage
+          command: |
+            yarn test
