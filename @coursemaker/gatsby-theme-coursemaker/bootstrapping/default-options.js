@@ -9,6 +9,7 @@ module.exports = ({
     // replace "UA-XXXXXXXXX-X" with your own Tracking ID
     gaTrackingId = process.env.GATSBY_GA_ID || 'UA-XXXXXXXXX-X',
     useExternalMDX = true,
+    isPreview = process.env.GATSBY_IS_PREVIEW || false,
 }) => ({
     basePath,
     contentPath,
@@ -19,4 +20,5 @@ module.exports = ({
     useAuth,
     enablePayments,
     gaTrackingId,
+    isPreview,
 });

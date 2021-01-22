@@ -383,7 +383,7 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId, createContentDig
 exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
     const { createPage } = actions;
     const build_id = process.env.GATSBY_SITE_BUILD_ID;
-    const { useStrapi } = withDefaults(themeOptions);
+    const { useStrapi, isPreview } = withDefaults(themeOptions);
 
     const dataSources = {
         local: { authors: [], courses: [], school: {} },
@@ -541,10 +541,9 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                 `,
                 { build_id }
             );
-            cmsData.data.cms.siteBuild.school.useAuth = false;
-            cmsData.data.cms.siteBuild.school.enablePayments = false;
             dataSources.cms.courses = cmsData.data.cms.siteBuild.school.courses.map(normalize.normalizePrices);
             dataSources.cms.school = cmsData.data.cms.siteBuild.school;
+            dataSources.cms.school.isPreview = isPreview;
         } catch (error) {
             console.error('CMS query error');
             console.error(error);

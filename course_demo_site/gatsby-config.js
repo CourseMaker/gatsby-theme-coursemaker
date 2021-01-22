@@ -68,6 +68,7 @@ module.exports = {
                 // coursesPath: "schoolMDX/courses",
                 // authorsPath: "schoolMDX/authors",
                 useStrapi,
+                useAuth: false,
             },
         },
     ],
