@@ -644,8 +644,6 @@ const pageContextDouble = {
             },
             video_id: 'test_url',
         },
-        useAuth: false,
-        enablePayments: false,
     },
 };
 
