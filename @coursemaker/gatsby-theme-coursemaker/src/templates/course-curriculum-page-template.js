@@ -6,6 +6,7 @@ import Section from '../components/section';
 import Breadcrumbs from '../components/course-breadcrumbs';
 
 const Curriculum = ({ pageContext = {} }) => {
+    console.log(pageContext);
     const { school } = pageContext;
     const { course } = pageContext;
     const allCourseLectures = pageContext?.allCourseLectures;

@@ -77,6 +77,10 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
                 slug: {
                     type: `String!`,
                 },
+                allow_preview: {
+                    type: `Boolean`,
+                    defaultValue: false,
+                },
                 active: {
                     type: `Boolean`,
                     defaultValue: true,
@@ -353,6 +357,10 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId, createContentDig
             if (active == null) {
                 active = true;
             }
+            let { allowPreview } = node.frontmatter;
+            if (allowPreview == null) {
+                allowPreview = false;
+            }
             const fieldData = {
                 title,
                 duration: duration || videoDuration,
@@ -360,6 +368,7 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId, createContentDig
                 slug,
                 number,
                 active,
+                allow_preview: allowPreview,
             };
             createNode({
                 ...fieldData,
@@ -524,6 +533,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                                                 order
                                                 video_id
                                                 active
+                                                allow_preview
                                                 body_text
                                                 body_markdown
                                                 file_attachment {
@@ -599,6 +609,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                                         slug
                                         title
                                         active
+                                        allow_preview
                                         video_id: video
                                         order: number
                                         body

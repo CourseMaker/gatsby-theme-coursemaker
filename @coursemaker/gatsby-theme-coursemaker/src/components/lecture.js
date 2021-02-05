@@ -15,7 +15,10 @@ const Lecture = ({ lecture, size, data, slug, schoolThemeStyle }) => {
 
     // dummy data. needs to change later
     const progressVal = random(10, 100);
-    const type = 'video';
+
+    const allowPreview = data?.allow_preview;
+    const viewType = allowPreview === true ? 'Preview' : 'View';
+    const viewColor = allowPreview === true ? 'orange' : schoolThemeStyle?.primaryColor;
 
     // pathname
     const { pathname } = useLocation();
@@ -40,9 +43,9 @@ const Lecture = ({ lecture, size, data, slug, schoolThemeStyle }) => {
             {size === 'big' ? (
                 <div className="p-4 md:px-6 md:py-5">
                     <div className="flex">
-                        <div className="flex items-center left-side">
+                        <div className="flex items-center left-side pr-4">
                             <div
-                                data-type={type}
+                                data-type={viewType}
                                 className="relative w-16 h-8 bg-gray-200 border border-indigo-200 rounded lecture-file"
                             >
                                 {progressVal < 100 ? (
@@ -65,10 +68,10 @@ const Lecture = ({ lecture, size, data, slug, schoolThemeStyle }) => {
                                     await addLectureToComplete(lecture);
                                 }}
                                 to={`${lastpath === 'curriculum' ? '../lectures' : './lectures'}/${lectureSlug}`}
-                                className={`px-2 py-1 text-xs text-white bg-${schoolThemeStyle.primaryColor}-500 rounded shadow  
-                cursor-pointer transition-all duration-300 hover:bg-${schoolThemeStyle.primaryColor}-400 transition `}
+                                className={`px-2 py-1 text-xs text-white bg-${viewColor}-500 rounded shadow  
+                cursor-pointer transition-all duration-300 hover:bg-${viewColor}-400 transition `}
                             >
-                                {type === 'video' ? 'View' : 'Download'}
+                                {viewType}
                             </Link>
                         </div>
                     </div>
@@ -90,7 +93,7 @@ const Lecture = ({ lecture, size, data, slug, schoolThemeStyle }) => {
                     <div className="flex">
                         <div className="flex items-center left-side">
                             <div
-                                data-type={type}
+                                data-type={viewType}
                                 className="relative w-8 h-6 bg-gray-200 border border-indigo-200 rounded lecture-file"
                             >
                                 {progressVal === 100 && (

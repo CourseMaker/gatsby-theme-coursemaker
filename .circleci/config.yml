@@ -5,11 +5,24 @@ workflows:
   js-tests:
     jobs:
       - test
+      - deploy:
+          requires:
+            - test
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              only:
+                - master
+
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: circleci/node:14.5.0
 
 jobs:
   test:
-    docker:
-      - image: circleci/node:14.5.0
+    <<: *defaults
     steps:
       - checkout
       - restore_cache:
@@ -28,3 +41,18 @@ jobs:
           name: Run Front-End Test and Coverage
           command: |
             yarn test
+
+      - persist_to_workspace:
+          root: ~/repo
+          paths: .
+  deploy:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/repo/.npmrc
+      - run:
+          name: Publish package
+          command: npm publish
