@@ -3,16 +3,16 @@
 exports[`SchoolLandingPage renders correctly 1`] = `
 Array [
   <header
-    className="sticky top-0 z-20 shadow-md css-jmaku1-Header"
+    className="sticky top-0 z-20 shadow-md text-white bg-blue-500"
   >
     <div
       className="container mx-auto"
     >
       <div
-        className="flex flex-wrap items-center lg:h-24"
+        className="flex flex-wrap items-center"
       >
         <a
-          className="inline-flex items-center h-24 text-lg logo lg:h-auto"
+          className="inline-flex items-center h-20 text-lg md:h-24 logo"
           href="/"
         >
           <span
@@ -73,50 +73,39 @@ Array [
   </header>,
   <main>
     <section
-      className="py-8 pb-8 text-center md:pt-30"
+      className="py-16 md:py-20"
     >
       <div
         className="container"
       >
-        <h1
-          className="mb-4"
-        />
-        <h3
-          className="mb-4"
-        />
-        <p
-          className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12"
-        />
-        <a
-          className="btn btn-lg css-i9sah9-Button"
-          href="/#courses"
-          text="View Courses"
-        >
-          View Courses
-        </a>
-        <div
-          className="mt-12 scroll-to"
-        >
-          <svg
-            className="block w-6 mx-auto"
-            data-name="Layer 1"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
+        <div>
+          <h1
+            className="mb-4 text-center"
           >
-            <path
-              d="M20.59 7.66l-8.69 8.68-8.49-8.48"
-              fill="none"
-              stroke="#999"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-            />
-          </svg>
+            dsacademy2
+          </h1>
+          <h3
+            className="mb-4 text-center"
+          />
+          <p
+            className="mx-auto text-center mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12"
+          />
+          <div
+            className="text-center"
+          >
+            <a
+              className="btn text-white bg-blue-500 text-lg btn-lg"
+              href="/#courses"
+              text="View Courses"
+            >
+              View Courses
+            </a>
+          </div>
         </div>
       </div>
     </section>
     <section
-      className="pt-16 bg-gray-100 lg:pt-32"
+      className="py-16 bg-gray-200 md:py-32"
       id="video"
     >
       <div
@@ -208,7 +197,7 @@ Array [
     className="Toastify"
   />,
   <footer
-    className="py-8 text-sm css-t471a7-Footer"
+    className="py-8 text-sm"
   >
     <div
       className="container"
@@ -221,7 +210,7 @@ Array [
         >
           Powered by
           <a
-            className="font-bold css-dqoh9t-Footer"
+            className="font-bold text-blue-500"
             href="https://coursemaker.org"
           >
              
@@ -229,16 +218,14 @@ Array [
           </a>
         </p>
         <div
-          className="flex ml-auto text-gray-500 space-x-5"
+          className="flex ml-auto space-x-5 text-blue-500"
         >
           <a
-            className="css-dqoh9t-Footer"
             href="/terms"
           >
             Terms
           </a>
           <a
-            className="css-dqoh9t-Footer"
             href="/privacy"
           >
             Privacy
@@ -253,16 +240,16 @@ Array [
 exports[`SchoolLandingPage renders correctly with missing fields 1`] = `
 Array [
   <header
-    className="sticky top-0 z-20 shadow-md css-jmaku1-Header"
+    className="sticky top-0 z-20 shadow-md text-white bg-blue-500"
   >
     <div
       className="container mx-auto"
     >
       <div
-        className="flex flex-wrap items-center lg:h-24"
+        className="flex flex-wrap items-center"
       >
         <a
-          className="inline-flex items-center h-24 text-lg logo lg:h-auto"
+          className="inline-flex items-center h-20 text-lg md:h-24 logo"
           href="/"
         >
           <span
@@ -323,45 +310,34 @@ Array [
   </header>,
   <main>
     <section
-      className="py-8 pb-8 text-center md:pt-30"
+      className="py-16 md:py-20"
     >
       <div
         className="container"
       >
-        <h1
-          className="mb-4"
-        />
-        <h3
-          className="mb-4"
-        />
-        <p
-          className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12"
-        />
-        <a
-          className="btn btn-lg css-i9sah9-Button"
-          href="/#courses"
-          text="View Courses"
-        >
-          View Courses
-        </a>
-        <div
-          className="mt-12 scroll-to"
-        >
-          <svg
-            className="block w-6 mx-auto"
-            data-name="Layer 1"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
+        <div>
+          <h1
+            className="mb-4 text-center"
           >
-            <path
-              d="M20.59 7.66l-8.69 8.68-8.49-8.48"
-              fill="none"
-              stroke="#999"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-            />
-          </svg>
+            dsacademy2
+          </h1>
+          <h3
+            className="mb-4 text-center"
+          />
+          <p
+            className="mx-auto text-center mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12"
+          />
+          <div
+            className="text-center"
+          >
+            <a
+              className="btn text-white bg-blue-500 text-lg btn-lg"
+              href="/#courses"
+              text="View Courses"
+            >
+              View Courses
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -369,7 +345,7 @@ Array [
       No courses available
     </p>
     <section
-      className="py-8 text-center bg-gray-100 md:py-24"
+      className="py-16 text-center bg-gray-200 md:py-24"
       id="faqs"
     >
       <div
@@ -378,13 +354,24 @@ Array [
         <div
           className="mx-auto inner lg:w-7/12"
         >
-          <h2
-            className="mb-4 lg:mb-6"
-          >
-            test heading
-          </h2>
           <div
-            className="leading-loose text-gray-700 space-y-6"
+            className="mb-12"
+          >
+            <div
+              className="flex items-center justify-center w-20 h-20 mx-auto mb-1 bg-blue-200 rounded-full md:w-24 md:h-24 icon-wrapper"
+            >
+              <img
+                alt="Icon"
+                className="w-12 md:w-16"
+                src={Object {}}
+              />
+            </div>
+            <h2>
+              test heading
+            </h2>
+          </div>
+          <div
+            className="text-left text-gray-700 space-y-6"
           />
         </div>
       </div>
@@ -449,7 +436,7 @@ Array [
     className="Toastify"
   />,
   <footer
-    className="py-8 text-sm css-t471a7-Footer"
+    className="py-8 text-sm"
   >
     <div
       className="container"
@@ -462,7 +449,7 @@ Array [
         >
           Powered by
           <a
-            className="font-bold css-dqoh9t-Footer"
+            className="font-bold text-blue-500"
             href="https://coursemaker.org"
           >
              
@@ -470,16 +457,14 @@ Array [
           </a>
         </p>
         <div
-          className="flex ml-auto text-gray-500 space-x-5"
+          className="flex ml-auto space-x-5 text-blue-500"
         >
           <a
-            className="css-dqoh9t-Footer"
             href="/terms"
           >
             Terms
           </a>
           <a
-            className="css-dqoh9t-Footer"
             href="/privacy"
           >
             Privacy

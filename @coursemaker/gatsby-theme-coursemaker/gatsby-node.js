@@ -357,7 +357,7 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId, createContentDig
             if (active == null) {
                 active = true;
             }
-            let {allowPreview} = node.frontmatter;
+            let { allowPreview } = node.frontmatter;
             if (allowPreview == null) {
                 allowPreview = false;
             }

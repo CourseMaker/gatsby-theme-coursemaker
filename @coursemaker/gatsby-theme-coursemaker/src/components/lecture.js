@@ -17,7 +17,7 @@ const Lecture = ({ lecture, size, data, slug, schoolThemeStyle }) => {
     const progressVal = random(10, 100);
 
     const allowPreview = data?.allow_preview;
-    let viewType = allowPreview === true ? 'Preview' : 'View';
+    const viewType = allowPreview === true ? 'Preview' : 'View';
     const viewColor = allowPreview === true ? 'orange' : schoolThemeStyle?.primaryColor;
 
     // pathname
