@@ -18,7 +18,8 @@ const Lecture = ({ lecture, size, data, slug, schoolThemeStyle }) => {
 
     const allowPreview = data?.allow_preview;
     const viewType = allowPreview === true ? 'Preview' : 'View';
-    const viewColor = allowPreview === true ? 'orange' : schoolThemeStyle?.primaryColor;
+    const viewColor = allowPreview === true ? 'bg-orange-500' : 'bg-blue-500'
+    const viewHover = allowPreview === true ? 'bg-orange-400' : 'bg-blue-400'
 
     // pathname
     const { pathname } = useLocation();
@@ -68,8 +69,8 @@ const Lecture = ({ lecture, size, data, slug, schoolThemeStyle }) => {
                                     await addLectureToComplete(lecture);
                                 }}
                                 to={`${lastpath === 'curriculum' ? '../lectures' : './lectures'}/${lectureSlug}`}
-                                className={`px-2 py-1 text-xs text-white bg-${viewColor}-500 rounded shadow  
-                cursor-pointer transition-all duration-300 hover:bg-${viewColor}-400 transition `}
+                                className={`px-2 py-1 text-xs text-white ${viewColor} rounded shadow  
+                cursor-pointer transition-all duration-300 hover:${viewHover} transition `}
                             >
                                 {viewType}
                             </Link>

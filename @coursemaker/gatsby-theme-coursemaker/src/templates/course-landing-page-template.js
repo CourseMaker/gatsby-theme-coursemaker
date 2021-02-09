@@ -13,6 +13,7 @@ import ContactSection from '../components/landing_page/contact-section';
 import Icon from '../components/icon';
 import svg from '../images/icons/icon-courses.svg';
 import CTA from '../components/cta';
+import Button from "../components/button";
 
 const CourseLandingPage = ({ pageContext = {} }) => {
     const { school } = pageContext;
@@ -146,7 +147,16 @@ const CourseLandingPage = ({ pageContext = {} }) => {
                 <section id="cta" className="py-8 text-center text-white bg-gray-900 lg:py-24">
                     <div className="container">
                         <div className="mx-auto inner lg:w-6/12">
-                            <CTA cta={closingCTA} priceInfo={course?.price_info} />
+                            <div className="mt-8 btn-wrapper">
+                                <Button
+                                    text="Purchase Course"
+                                    to="./checkout"
+                                    to={closingCTA?.link}
+                                    color={closingCTA?.color}
+                                    text_color={closingCTA?.textColor}
+                                    variant="primary_orange"
+                                />
+                            </div>
                         </div>
                     </div>
                 </section>
