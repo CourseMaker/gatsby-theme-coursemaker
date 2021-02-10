@@ -19,7 +19,7 @@ const FAQSection = ({ schoolThemeStyle = { primaryColor: 'blue' }, landingPage }
                             <Icon color={schoolThemeStyle?.primaryColor} source={svg} />
                             <h2>{faqHeading}</h2>
                         </div>
-                        <div className="text-left text-gray-700 space-y-6">
+                        <div className="text-left text-gray-700 space-y-6 react-markdown">
                             <ReactMarkdown source={faqBody} />
                         </div>
                     </div>

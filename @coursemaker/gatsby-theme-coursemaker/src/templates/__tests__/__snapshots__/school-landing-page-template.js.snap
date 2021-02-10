@@ -371,7 +371,7 @@ Array [
             </h2>
           </div>
           <div
-            className="text-left text-gray-700 space-y-6"
+            className="text-left text-gray-700 space-y-6 react-markdown"
           />
         </div>
       </div>

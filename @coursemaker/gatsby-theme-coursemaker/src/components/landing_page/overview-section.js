@@ -22,7 +22,7 @@ const OverviewSection = ({ landingPage, schoolThemeStyle = { primaryColor: 'blue
                             <Icon color={schoolThemeStyle?.primaryColor} source={svg} />
                             <h2 className="">{overviewHeading}</h2>
                         </div>
-                        <div className="text-left text-gray-700 space-y-6">
+                        <div className="text-left text-gray-700 space-y-6 react-markdown">
                             <ReactMarkdown source={overviewBody} />
                         </div>
                         <div className="mt-8 btn-wrapper">
