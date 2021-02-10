@@ -15,6 +15,11 @@ ol, ul {
   color: #4299e1;
 }
 
+.react-markdown ol, .react-markdown ul  {
+  list-style: disc;
+  padding-left: 5%;
+}
+
 h1 {
   @apply text-5xl font-bold;
 }
