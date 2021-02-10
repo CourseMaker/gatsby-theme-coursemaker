@@ -6,6 +6,15 @@
   padding-right: 30px;
 }
 
+ol, ul {
+  list-style: disc;
+  padding-left: 5%;
+}
+
+.react-markdown a {
+  color: #4299e1;
+}
+
 h1 {
   @apply text-5xl font-bold;
 }

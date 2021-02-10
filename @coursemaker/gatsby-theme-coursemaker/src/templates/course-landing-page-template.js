@@ -71,7 +71,7 @@ const CourseLandingPage = ({ pageContext = {} }) => {
 
     return (
         <Layout schoolThemeStyle={schoolThemeStyle} pageContext={pageContext}>
-            <section className="py-16 md:py-20">
+            <section className="py-16 md:py-20 standard-url">
                 <div className="container">
                     {landingPage?.image && (
                         <div className="flex-wrap items-center md:flex">
