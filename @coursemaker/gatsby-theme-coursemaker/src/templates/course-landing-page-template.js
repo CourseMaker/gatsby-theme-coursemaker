@@ -14,6 +14,7 @@ import Icon from '../components/icon';
 import svg from '../images/icons/icon-courses.svg';
 import CTA from '../components/cta';
 import Button from "../components/button";
+import {Link} from "gatsby";
 
 const CourseLandingPage = ({ pageContext = {} }) => {
     const { school } = pageContext;
@@ -31,6 +32,7 @@ const CourseLandingPage = ({ pageContext = {} }) => {
     // Section 1 - Intro
     const title = course?.title;
     const subtitle = course?.subtitle;
+    console.log(pageContext)
     let initialCTA = landingPage?.initialCTA;
     if (!initialCTA) {
         initialCTA = {
@@ -80,7 +82,23 @@ const CourseLandingPage = ({ pageContext = {} }) => {
                                 <h3 className="mb-4 font-sans font-light opacity-50">{subtitle}</h3>
                                 <p className="mx-auto mb-6 text-xl font-light leading-relaxed text-gray-700 md:mb-10 lg:text-xl lg:w-7/12 xl:w-6/12" />
 
-                                <CTA cta={initialCTA} priceInfo={course?.price_info} />
+                                <div className="md:inline-flex mt-5 md:space-x-6 lg:mt-0">
+                                    <CTA cta={initialCTA} priceInfo={course?.price_info} />
+                                    {landingPage?.video_id && (
+                                        <div className="mt-6 btn-wrapper lg:flex-4">
+                                            <Link
+                                                to="#video"
+                                                className={`text-white bg-blue-500 text-lg btn btn-custom flex-nowrap`}>
+                                                <svg className={`icon-left`} viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
+                                                </svg>
+                                                Watch Promo
+                                            </Link>
+                                        </div>
+                                        )
+                                    }
+                                </div>
+
                             </div>
                             {/* left-side */}
 
