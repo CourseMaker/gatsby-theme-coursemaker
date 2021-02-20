@@ -88,7 +88,7 @@ const CourseLandingPage = ({ pageContext = {} }) => {
                                         <div className="mt-6 btn-wrapper lg:flex-4">
                                             <Link
                                                 to="#video"
-                                                className={`text-white bg-blue-500 text-lg btn btn-custom flex-nowrap`}>
+                                                className={`flex items-center text-white bg-blue-500 text-lg btn btn-custom flex-nowrap`}>
                                                 <svg className={`icon-left`} viewBox="0 0 20 20" fill="currentColor">
                                                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
                                                 </svg>
