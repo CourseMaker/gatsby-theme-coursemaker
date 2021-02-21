@@ -37,7 +37,11 @@ h3 {
 }
 
 .btn-lg {
-  @apply px-10 py-3;
+  @apply inline-block px-10 py-3 rounded-lg shadow-md cursor-pointer;
+}
+
+.btn-lg-icon {
+  @apply inline-block px-12 py-3 rounded-lg shadow-md cursor-pointer;
 }
 
 .btn-default {

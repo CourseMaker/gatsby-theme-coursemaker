@@ -464,6 +464,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                                     courses {
                                         id
                                         title
+                                        subtitle
                                         school_prices {
                                             id
                                             is_active
