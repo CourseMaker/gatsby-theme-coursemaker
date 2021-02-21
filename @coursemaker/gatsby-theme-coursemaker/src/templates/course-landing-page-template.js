@@ -59,9 +59,9 @@ const CourseLandingPage = ({ pageContext = {} }) => {
     // Section 6 - FAQ
 
     // Section 7 - CTA
-    const closingCTA = landingPage?.closingCTA;
-    if (!initialCTA) {
-        initialCTA = {
+    let closingCTA = landingPage?.closingCTA;
+    if (!closingCTA) {
+        closingCTA = {
             text: 'Purchase Course',
             color: 'orange',
             link: 'checkout',
@@ -73,7 +73,7 @@ const CourseLandingPage = ({ pageContext = {} }) => {
 
     return (
         <Layout schoolThemeStyle={schoolThemeStyle} pageContext={pageContext}>
-            <section className="py-16 md:py-20">
+            <section className="py-12 md:py-20">
                 <div className="container">
                     {landingPage?.image && (
                         <div className="flex-wrap items-center md:flex">
@@ -162,6 +162,8 @@ const CourseLandingPage = ({ pageContext = {} }) => {
 
             {<Author schoolThemeStyle={schoolThemeStyle} author_display={author_display} />}
 
+            {<ContactSection schoolThemeStyle={schoolThemeStyle} landingPage={landingPage} />}
+
             {closingCTA && (
                 <section id="cta" className="py-8 text-center text-white bg-gray-900 lg:py-24">
                     <div className="container">
@@ -180,8 +182,6 @@ const CourseLandingPage = ({ pageContext = {} }) => {
                     </div>
                 </section>
             )}
-
-            {<ContactSection schoolThemeStyle={schoolThemeStyle} landingPage={landingPage} />}
         </Layout>
     );
 };
