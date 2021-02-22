@@ -7,9 +7,9 @@ import {Link} from "gatsby";
 
 const CTA = ({ cta, priceInfo }) => {
     let ctaText = 'Get Access';
-    if (priceInfo?.product_type == 'single_course' && priceInfo?.is_active) {
+    if (priceInfo?.product_type === 'single_course' && priceInfo?.is_active) {
         ctaText = 'Purchase Course';
-    } else if (priceInfo?.product_type == 'school_membership' && priceInfo?.is_active) {
+    } else if (priceInfo?.product_type === 'school_membership' && priceInfo?.is_active) {
         ctaText = 'Purchase Membership';
     }
 
@@ -26,6 +26,14 @@ const CTA = ({ cta, priceInfo }) => {
                 )}
                 {ctaText}
             </Link>
+            {
+                priceInfo?.product_type === 'single_course' &&
+                <div>A single one off payment of {priceInfo.unit_amount_readable}</div>
+            }
+            {
+                priceInfo?.product_type === 'school_membership' &&
+                <div>A regular payment of {priceInfo.unit_amount_readable} every {priceInfo.recurring_interval}</div>
+            }
         </div>
     );
 };
