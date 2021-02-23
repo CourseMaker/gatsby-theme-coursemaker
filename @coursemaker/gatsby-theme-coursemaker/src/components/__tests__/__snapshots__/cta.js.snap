@@ -24,6 +24,12 @@ exports[`CTA renders correctly for membership purchase 1`] = `
     </svg>
     Purchase Membership
   </a>
+  <div>
+    A regular payment of 
+    $19.95
+     every 
+    month
+  </div>
 </div>
 `;
 
@@ -51,5 +57,9 @@ exports[`CTA renders correctly for one-time purchase 1`] = `
     </svg>
     Purchase Course
   </a>
+  <div>
+    A single one off payment of 
+    $19.95
+  </div>
 </div>
 `;
