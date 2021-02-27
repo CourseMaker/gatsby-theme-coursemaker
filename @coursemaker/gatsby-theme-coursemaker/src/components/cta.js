@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { jsx } from 'theme-ui';
-import Button from './button';
 import svg from "../images/icons/icon-courses.svg";
 import {Link} from "gatsby";
 
@@ -26,14 +25,6 @@ const CTA = ({ cta, priceInfo }) => {
                 )}
                 {ctaText}
             </Link>
-            {
-                priceInfo?.product_type === 'single_course' &&
-                <div>A single one off payment of {priceInfo.unit_amount_readable}</div>
-            }
-            {
-                priceInfo?.product_type === 'school_membership' &&
-                <div>A regular payment of {priceInfo.unit_amount_readable} every {priceInfo.recurring_interval}</div>
-            }
         </div>
     );
 };
