@@ -17,6 +17,8 @@ const Header = ({ school, schoolThemeStyle = { primaryColor: 'blue' } }) => {
         ['Enroll Now', '/register', 'btn btn-white'],
     ];
 
+    console.log(isAuthenticated())
+
     if (isAuthenticated()) {
         homeLinks = [
             ['Home', '/'],

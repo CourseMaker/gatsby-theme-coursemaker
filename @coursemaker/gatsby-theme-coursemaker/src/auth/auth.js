@@ -23,6 +23,7 @@ const tokens = {
 
 export const login = () => {
     if (!isBrowser) return;
+    console.log(process.env.GATSBY_AUTH0_CLIENTID)
     auth.authorize();
 };
 
@@ -55,8 +56,13 @@ export const silentAuth = (callback) => {
 };
 
 export const logout = () => {
+    if (!isBrowser) {
+        return;
+    }
     localStorage.setItem('isLoggedIn', 'false');
+    localStorage.removeItem('user');
     auth.logout();
+    window.location.href = '/'
 };
 
 export const isAuthenticated = () => {
@@ -68,7 +74,7 @@ export const isAuthenticated = () => {
         return true;
     }
 
-    return localStorage.getItem('user') !== null;
+    return localStorage.getItem('user') != null;
 };
 
 export const coursesFromJWT = () => {
