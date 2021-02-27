@@ -15,6 +15,7 @@ describe('CTA', () => {
     it('renders correctly for membership purchase', () => {
         const priceInfoSample = priceInfoDouble;
         priceInfoSample.product_type = 'school_membership';
+        priceInfoSample.recurring_interval = 'month';
         const tree = renderer.create(<CTA priceInfo={priceInfoSample} />).toJSON();
         expect(tree).toMatchSnapshot();
     });

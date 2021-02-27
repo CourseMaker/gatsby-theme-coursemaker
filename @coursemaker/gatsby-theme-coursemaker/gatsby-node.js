@@ -416,6 +416,21 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                                     external_id
                                     privacy_policy
                                     terms_and_conditions
+                                    school_prices {
+                                        id
+                                        is_active
+                                        currency
+                                        name
+                                        product_type
+                                        product_type_readable
+                                        recurring_interval
+                                        recurring_interval_count
+                                        unit_amount
+                                        unit_amount_readable
+                                        courses {
+                                            id
+                                        }
+                                    }
                                     schoolThemeStyle {
                                         primaryColor
                                         secondaryColor
@@ -552,7 +567,9 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                 `,
                 { build_id }
             );
-            dataSources.cms.courses = cmsData.data.cms.siteBuild.school.courses.map(normalize.normalizePrices);
+            dataSources.cms.courses = cmsData.data.cms.siteBuild.school.courses.map(
+                normalize.normalizeCourses(cmsData.data.cms.siteBuild.school.school_prices)
+            );
             dataSources.cms.school = cmsData.data.cms.siteBuild.school;
             dataSources.cms.school.isPreview = isPreview;
         } catch (error) {

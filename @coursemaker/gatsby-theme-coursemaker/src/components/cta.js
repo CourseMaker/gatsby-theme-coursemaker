@@ -1,15 +1,14 @@
 import React from 'react';
 
 import { jsx } from 'theme-ui';
-import Button from './button';
 import svg from "../images/icons/icon-courses.svg";
 import {Link} from "gatsby";
 
 const CTA = ({ cta, priceInfo }) => {
     let ctaText = 'Get Access';
-    if (priceInfo?.product_type == 'single_course' && priceInfo?.is_active) {
+    if (priceInfo?.product_type === 'single_course' && priceInfo?.is_active) {
         ctaText = 'Purchase Course';
-    } else if (priceInfo?.product_type == 'school_membership' && priceInfo?.is_active) {
+    } else if (priceInfo?.product_type === 'school_membership' && priceInfo?.is_active) {
         ctaText = 'Purchase Membership';
     }
 
