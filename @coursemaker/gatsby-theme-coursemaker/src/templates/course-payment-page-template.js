@@ -22,12 +22,15 @@ const CoursePaymentPage = ({ pageContext = {} }) => {
 
     let priceText = '';
     let recurrence = '';
-    if (priceInfo?.product_type == 'single_course' && priceInfo?.is_active) {
+    if (priceInfo?.product_type === 'single_course' && priceInfo?.is_active) {
         priceText = priceInfo?.unit_amount_readable;
         recurrence = 'One-time purchase of: ';
-    } else if (priceInfo?.product_type == 'school_membership' && priceInfo?.is_active) {
+    } else if (priceInfo?.product_type === 'school_membership' && priceInfo?.is_active) {
         priceText = priceInfo?.unit_amount_readable;
-        recurrence = priceInfo?.recurring_interval;
+        recurrence = 'Monthly membership price of: ';
+        if (priceInfo?.recurring_interval === 'year') {
+            recurrence = 'Annual membership price of: ';
+        }
     }
 
     return (
