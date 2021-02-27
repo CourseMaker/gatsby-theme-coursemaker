@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 import { Link } from 'gatsby';
 import { jsx } from 'theme-ui';
-import { logout, isAuthenticated } from '../auth/auth';
+import { logout, isAuthenticated, login, register } from '../auth/auth';
+
 
 const Header = ({ school, schoolThemeStyle = { primaryColor: 'blue' } }) => {
     let schoolName = '';
@@ -48,6 +49,24 @@ const Header = ({ school, schoolThemeStyle = { primaryColor: 'blue' } }) => {
                         {homeLinks.map((link, i) => {
                             let classes = '';
                             if (link[2]) classes = link[2];
+                            if (link[0] == 'Login') {
+                                return (
+                                    <li key={i}>
+                                        <Link className={classes} to={"#"} onClick={() => login()}>
+                                            {link[0]}
+                                        </Link>
+                                    </li>
+                                );
+                            }
+                            if (link[0] == 'Enroll Now') {
+                                return (
+                                    <li key={i}>
+                                        <Link className={classes} to={"#"} onClick={() => register()}>
+                                            {link[0]}
+                                        </Link>
+                                    </li>
+                                );
+                            }
                             if (link[0] == 'Logout') {
                                 return (
                                     <li key={i}>

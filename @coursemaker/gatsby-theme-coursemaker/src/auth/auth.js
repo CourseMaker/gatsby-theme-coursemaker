@@ -23,8 +23,33 @@ const tokens = {
 
 export const login = () => {
     if (!isBrowser) return;
-    console.log(process.env.GATSBY_AUTH0_CLIENTID)
-    auth.authorize();
+    if (process.env.GATSBY_ENABLE_AUTH !== 'true') {
+        return true;
+    } else {
+        auth.popup.authorize({
+            //Any additional options can go here
+        }, function (err, authResult) {
+            //do something
+            console.log(err)
+            console.log(authResult)
+        });
+    }
+};
+
+export const register = () => {
+    if (!isBrowser) return;
+    if (process.env.GATSBY_ENABLE_AUTH !== 'true') {
+        return true;
+    } else {
+        auth.popup.authorize({
+            mode: 'signUp'
+            //Any additional options can go here
+        }, function (err, authResult) {
+            //do something
+            console.log(err)
+            console.log(authResult)
+        });
+    }
 };
 
 const setSession = (cb = () => {}) => (err, authResult) => {
@@ -62,7 +87,6 @@ export const logout = () => {
     localStorage.setItem('isLoggedIn', 'false');
     localStorage.removeItem('user');
     auth.logout();
-    window.location.href = '/'
 };
 
 export const isAuthenticated = () => {
