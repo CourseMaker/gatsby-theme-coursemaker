@@ -2,12 +2,10 @@
 import React, { useState } from 'react';
 import { Link } from 'gatsby';
 import { jsx } from 'theme-ui';
-import { logout, isAuthenticated, login, getProfile } from '../auth/auth';
+import { logout, isAuthenticated, login } from '../auth/auth';
 
 
 const Header = ({ school, schoolThemeStyle = { primaryColor: 'blue' } }) => {
-    const user = getProfile()
-    console.log(user)
     let schoolName = '';
     if (school?.name) {
         schoolName = school?.name;
@@ -18,8 +16,6 @@ const Header = ({ school, schoolThemeStyle = { primaryColor: 'blue' } }) => {
         ['Courses', '/#courses'],
         ['Login', '/login'],
     ];
-
-    console.log(isAuthenticated())
 
     if (isAuthenticated()) {
         homeLinks = [
