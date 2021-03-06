@@ -1,9 +1,8 @@
 import { navigate } from 'gatsby';
 import jwtDecode from 'jwt-decode';
-import auth0 from "auth0-js"
+import auth0 from 'auth0-js';
 
 const isBrowser = typeof window !== 'undefined';
-
 
 const auth = isBrowser
     ? new auth0.WebAuth({
@@ -20,74 +19,72 @@ const tokens = {
     accessToken: false,
     idToken: false,
     expiresAt: false,
-}
+};
 
-let user = {}
+let user = {};
 
 export const isAuthenticated = () => {
     if (!isBrowser) {
         return;
     }
 
-    return localStorage.getItem("isLoggedIn") === "true"
-}
+    return localStorage.getItem('isLoggedIn') === 'true';
+};
 
 export const login = () => {
     if (!isBrowser) {
-        return
+        return;
     }
 
-    auth.authorize()
-}
+    auth.authorize();
+};
 
 export const register = () => {
     if (!isBrowser) {
-        return
+        return;
     }
 
-    auth.authorize()
-}
+    auth.authorize();
+};
 
 const setSession = (cb = () => {}) => (err, authResult) => {
     if (err) {
-        navigate("/")
-        cb()
-        return
+        navigate('/');
+        cb();
+        return;
     }
 
     if (authResult && authResult.accessToken && authResult.idToken) {
-        let expiresAt = authResult.expiresIn * 1000 + new Date().getTime()
-        tokens.accessToken = authResult.accessToken
-        tokens.idToken = authResult.idToken
-        tokens.expiresAt = expiresAt
-        user = authResult.idTokenPayload
-        localStorage.setItem("isLoggedIn", true)
-        cb()
+        const expiresAt = authResult.expiresIn * 1000 + new Date().getTime();
+        tokens.accessToken = authResult.accessToken;
+        tokens.idToken = authResult.idToken;
+        tokens.expiresAt = expiresAt;
+        user = authResult.idTokenPayload;
+        localStorage.setItem('isLoggedIn', true);
+        cb();
     }
-}
+};
 
-export const silentAuth = callback => {
-    if (!isAuthenticated()) return callback()
-    auth.checkSession({}, setSession(callback))
-}
+export const silentAuth = (callback) => {
+    if (!isAuthenticated()) return callback();
+    auth.checkSession({}, setSession(callback));
+};
 
 export const handleAuthentication = () => {
     if (!isBrowser) {
         return;
     }
 
-    auth.parseHash(setSession())
-}
+    auth.parseHash(setSession());
+};
 
-export const getProfile = () => {
-    return user
-}
+export const getProfile = () => user;
 
 export const logout = () => {
-    console.log('logout')
-    localStorage.setItem("isLoggedIn", false)
-    auth.logout()
-}
+    console.log('logout');
+    localStorage.setItem('isLoggedIn', false);
+    auth.logout();
+};
 
 export const coursesFromJWT = () => {
     const tokenString = localStorage.getItem('token');

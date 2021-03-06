@@ -3,12 +3,12 @@ import { Link } from 'gatsby';
 
 import Layout from '../components/layout';
 import Input from '../components/input';
-import { login } from '../auth/auth'
+import { login } from '../auth/auth';
 
 /* { pageContext } */
 const LoginPage = ({ pageContext }) => {
     if (process.env.GATSBY_ENABLE_AUTH === 'true') {
-        login()
+        login();
     }
 
     let schoolThemeStyle = pageContext.school?.schoolThemeStyle;

@@ -4,7 +4,6 @@ import { Link } from 'gatsby';
 import { jsx } from 'theme-ui';
 import { logout, isAuthenticated, login } from '../auth/auth';
 
-
 const Header = ({ school, schoolThemeStyle = { primaryColor: 'blue' } }) => {
     let schoolName = '';
     if (school?.name) {
@@ -49,7 +48,7 @@ const Header = ({ school, schoolThemeStyle = { primaryColor: 'blue' } }) => {
                             if (link[0] == 'Login') {
                                 return (
                                     <li key={i}>
-                                        <Link className={classes} to={"#"} onClick={() => login()}>
+                                        <Link className={classes} to="#" onClick={() => login()}>
                                             {link[0]}
                                         </Link>
                                     </li>
@@ -58,7 +57,7 @@ const Header = ({ school, schoolThemeStyle = { primaryColor: 'blue' } }) => {
                             if (link[0] == 'Enroll Now') {
                                 return (
                                     <li key={i}>
-                                        <Link className={classes} to={"#"} onClick={() => login()}>
+                                        <Link className={classes} to="#" onClick={() => login()}>
                                             {link[0]}
                                         </Link>
                                     </li>

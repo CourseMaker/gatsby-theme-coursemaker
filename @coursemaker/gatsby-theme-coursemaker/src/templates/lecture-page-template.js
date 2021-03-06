@@ -14,9 +14,9 @@ import { bakeLocalStorage, readLocalStorage } from '../helpers/storage';
 const LectureTemplate = ({ pageContext = {} }) => {
     useEffect(() => {
         if (!isAuthenticated()) {
-            login()
-            return <p>Redirecting to login...</p>
-        };
+            login();
+            return <p>Redirecting to login...</p>;
+        }
     });
     const currentCourse = pageContext.course;
     const { lecture } = pageContext;

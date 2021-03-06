@@ -16,31 +16,29 @@ const orderSections = (course) => {
 
 exports.setSectionOrder = (course) => orderSections(course);
 
-exports.normalizeCourses = (schoolPrices) => {
-    return (course) => {
-        course = orderSections(course);
-        // Filter for course purchases that contain this course
-        const coursePurchases = schoolPrices.filter((price) => {
-            return price.is_active && price.courses.map((c) => c.id).includes(course.id)
-        });
-        if(coursePurchases.length){
-            // Set the most recent coursePurchase as the price_info for the course
-            course.price_info = coursePurchases[coursePurchases.length - 1]
-            return course
-        }
-        // Filter for school memberships
-        const schoolMemberships = schoolPrices.filter(
-            (price) => price.is_active && (!price.courses || price.courses.length === 0)
-        );
-        if (schoolMemberships.length) {
-            // Set the most recent schoolMembership as the price_info for the course
-            course.price_info = schoolMemberships[schoolMemberships.length - 1]
-            return course
-        }
-        // This school has no applicable school prices configured that would allow a student to buy this course
-        course.price_info = {};
+exports.normalizeCourses = (schoolPrices) => (course) => {
+    course = orderSections(course);
+    // Filter for course purchases that contain this course
+    const coursePurchases = schoolPrices.filter(
+        (price) => price.is_active && price.courses.map((c) => c.id).includes(course.id)
+    );
+    if (coursePurchases.length) {
+        // Set the most recent coursePurchase as the price_info for the course
+        course.price_info = coursePurchases[coursePurchases.length - 1];
         return course;
-    };
+    }
+    // Filter for school memberships
+    const schoolMemberships = schoolPrices.filter(
+        (price) => price.is_active && (!price.courses || price.courses.length === 0)
+    );
+    if (schoolMemberships.length) {
+        // Set the most recent schoolMembership as the price_info for the course
+        course.price_info = schoolMemberships[schoolMemberships.length - 1];
+        return course;
+    }
+    // This school has no applicable school prices configured that would allow a student to buy this course
+    course.price_info = {};
+    return course;
 };
 
 exports.normalizeCourseLandingPage = ({ node: course }) => {
