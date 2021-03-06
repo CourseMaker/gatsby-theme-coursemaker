@@ -11,8 +11,12 @@ exports[`Header renders correctly 1`] = `
       className="flex flex-wrap items-center"
     >
       <a
+        aria-current="page"
         className="inline-flex items-center h-20 text-lg md:h-24 logo"
         href="/"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+        style={Object {}}
       >
         <span
           className="font-semibold"
@@ -27,8 +31,12 @@ exports[`Header renders correctly 1`] = `
       >
         <li>
           <a
+            aria-current="page"
             className=""
             href="/"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+            style={Object {}}
           >
             Home
           </a>
@@ -37,15 +45,20 @@ exports[`Header renders correctly 1`] = `
           <a
             className=""
             href="/courses"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
           >
             My Courses
           </a>
         </li>
         <li>
           <a
+            aria-current="page"
             className=""
             href="/"
             onClick={[Function]}
+            onMouseEnter={[Function]}
+            style={Object {}}
           >
             Logout
           </a>

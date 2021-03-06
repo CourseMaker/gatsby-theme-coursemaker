@@ -1,6 +1,6 @@
-import auth0 from 'auth0-js';
 import { navigate } from 'gatsby';
 import jwtDecode from 'jwt-decode';
+import auth0 from 'auth0-js';
 
 const isBrowser = typeof window !== 'undefined';
 
@@ -21,12 +21,41 @@ const tokens = {
     expiresAt: false,
 };
 
+let user = {};
+
+export const isAuthenticated = () => {
+    if (!isBrowser) {
+        return;
+    }
+
+    if (!process.env.GATSBY_ENABLE_AUTH !== 'true') {
+        return true;
+    }
+
+    return localStorage.getItem('isLoggedIn') === 'true';
+};
+
 export const login = () => {
-    if (!isBrowser) return;
+    if (!isBrowser) {
+        return;
+    }
+
+    auth.authorize();
+};
+
+export const register = () => {
+    if (!isBrowser) {
+        return;
+    }
+
     auth.authorize();
 };
 
 const setSession = (cb = () => {}) => (err, authResult) => {
+    if (!isBrowser) {
+        return;
+    }
+
     if (err) {
         navigate('/');
         cb();
@@ -38,15 +67,10 @@ const setSession = (cb = () => {}) => (err, authResult) => {
         tokens.accessToken = authResult.accessToken;
         tokens.idToken = authResult.idToken;
         tokens.expiresAt = expiresAt;
-        localStorage.setItem('isLoggedIn', 'true');
-        navigate('/account');
+        user = authResult.idTokenPayload;
+        localStorage.setItem('isLoggedIn', true);
         cb();
     }
-};
-
-export const handleAuthentication = () => {
-    if (!isBrowser) return;
-    auth.parseHash(setSession());
 };
 
 export const silentAuth = (callback) => {
@@ -54,21 +78,20 @@ export const silentAuth = (callback) => {
     auth.checkSession({}, setSession(callback));
 };
 
-export const logout = () => {
-    localStorage.setItem('isLoggedIn', 'false');
-    auth.logout();
-};
-
-export const isAuthenticated = () => {
+export const handleAuthentication = () => {
     if (!isBrowser) {
         return;
     }
 
-    if (process.env.GATSBY_ENABLE_AUTH !== 'true') {
-        return true;
-    }
+    auth.parseHash(setSession());
+};
 
-    return localStorage.getItem('user') !== null;
+export const getProfile = () => user;
+
+export const logout = () => {
+    console.log('logout');
+    localStorage.setItem('isLoggedIn', false);
+    auth.logout();
 };
 
 export const coursesFromJWT = () => {

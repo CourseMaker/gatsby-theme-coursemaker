@@ -2,7 +2,11 @@
 
 exports[`Button renders correctly 1`] = `
 <a
+  aria-current="page"
   className="btn text-white bg-primary-500 text-lg btn-lg"
   href="/"
+  onClick={[Function]}
+  onMouseEnter={[Function]}
+  style={Object {}}
 />
 `;

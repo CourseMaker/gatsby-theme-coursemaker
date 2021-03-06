@@ -27,11 +27,15 @@ exports[`Footer renders correctly 1`] = `
       >
         <a
           href="/terms"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
         >
           Terms
         </a>
         <a
           href="/privacy"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
         >
           Privacy
         </a>
