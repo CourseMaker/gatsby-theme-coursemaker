@@ -4,8 +4,10 @@ import { Link } from 'gatsby';
 
 import { jsx } from 'theme-ui';
 import Layout from '../components/layout';
+import { handleAuthentication } from "../auth/auth"
 
 const PaymentSuccess = () => {
+    handleAuthentication()
     const pageContext = {
         pageTitle: 'Payment Success',
         school: {
