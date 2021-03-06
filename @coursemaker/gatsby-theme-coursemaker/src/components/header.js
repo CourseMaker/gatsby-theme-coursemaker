@@ -2,9 +2,11 @@
 import React, { useState } from 'react';
 import { Link } from 'gatsby';
 import { jsx } from 'theme-ui';
-import { logout, isAuthenticated, login } from '../auth/auth';
+import { logout, isAuthenticated, login, register } from '../auth/auth';
+
 
 const Header = ({ school, schoolThemeStyle = { primaryColor: 'blue' } }) => {
+
     let schoolName = '';
     if (school?.name) {
         schoolName = school?.name;
@@ -14,7 +16,10 @@ const Header = ({ school, schoolThemeStyle = { primaryColor: 'blue' } }) => {
         ['Overview', '/#overview'],
         ['Courses', '/#courses'],
         ['Login', '/login'],
+        ['Enroll Now', '/register', 'btn btn-white'],
     ];
+
+    console.log(isAuthenticated())
 
     if (isAuthenticated()) {
         homeLinks = [
@@ -48,7 +53,7 @@ const Header = ({ school, schoolThemeStyle = { primaryColor: 'blue' } }) => {
                             if (link[0] == 'Login') {
                                 return (
                                     <li key={i}>
-                                        <Link className={classes} to="#" onClick={() => login()}>
+                                        <Link className={classes} to={link[1]} onClick={() => login()}>
                                             {link[0]}
                                         </Link>
                                     </li>
@@ -57,7 +62,7 @@ const Header = ({ school, schoolThemeStyle = { primaryColor: 'blue' } }) => {
                             if (link[0] == 'Enroll Now') {
                                 return (
                                     <li key={i}>
-                                        <Link className={classes} to="#" onClick={() => login()}>
+                                        <Link className={classes} to={link[1]} onClick={() => register()}>
                                             {link[0]}
                                         </Link>
                                     </li>
@@ -66,7 +71,7 @@ const Header = ({ school, schoolThemeStyle = { primaryColor: 'blue' } }) => {
                             if (link[0] == 'Logout') {
                                 return (
                                     <li key={i}>
-                                        <Link className={classes} to={link[1]} onClick={() => logout()}>
+                                        <Link className={classes} to={link[1]} onClick={logout}>
                                             {link[0]}
                                         </Link>
                                     </li>

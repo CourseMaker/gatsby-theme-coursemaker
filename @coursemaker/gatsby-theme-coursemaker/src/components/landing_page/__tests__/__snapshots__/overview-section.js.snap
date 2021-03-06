@@ -45,7 +45,9 @@ exports[`OverviewSection renders correctly 1`] = `
       >
         <a
           className="btn text-white bg-blue-500 text-lg btn-lg"
-          href="#curriculum"
+          href="/#curriculum"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
           text="View Curriculum"
         >
           View Curriculum
@@ -101,7 +103,9 @@ exports[`OverviewSection renders correctly with missing landing page fields 1`] 
       >
         <a
           className="btn text-white bg-blue-500 text-lg btn-lg"
-          href="#curriculum"
+          href="/#curriculum"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
           text="View Curriculum"
         >
           View Curriculum

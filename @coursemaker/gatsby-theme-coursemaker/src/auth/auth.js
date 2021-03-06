@@ -48,6 +48,10 @@ export const register = () => {
 };
 
 const setSession = (cb = () => {}) => (err, authResult) => {
+    if (!isBrowser) {
+        return;
+    }
+
     if (err) {
         navigate('/');
         cb();

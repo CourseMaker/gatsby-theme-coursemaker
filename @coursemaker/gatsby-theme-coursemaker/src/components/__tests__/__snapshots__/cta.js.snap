@@ -6,7 +6,7 @@ exports[`CTA renders correctly for membership purchase 1`] = `
 >
   <a
     className="items-center text-white bg-blue-500 text-lg btn btn-custom flex-nowrap"
-    href="./checkout"
+    href="//checkout"
     style={
       Object {
         "display": "inline-flex",
@@ -33,7 +33,7 @@ exports[`CTA renders correctly for one-time purchase 1`] = `
 >
   <a
     className="items-center text-white bg-blue-500 text-lg btn btn-custom flex-nowrap"
-    href="./checkout"
+    href="//checkout"
     style={
       Object {
         "display": "inline-flex",
