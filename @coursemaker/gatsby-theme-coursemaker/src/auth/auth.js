@@ -28,6 +28,10 @@ export const isAuthenticated = () => {
         return;
     }
 
+    if (!process.env.GATSBY_ENABLE_AUTH !== 'true') {
+        return true;
+    }
+
     return localStorage.getItem('isLoggedIn') === 'true';
 };
 

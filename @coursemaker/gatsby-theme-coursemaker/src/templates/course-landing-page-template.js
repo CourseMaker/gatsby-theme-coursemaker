@@ -32,7 +32,6 @@ const CourseLandingPage = ({ pageContext = {} }) => {
     // Section 1 - Intro
     const title = course?.title;
     const subtitle = course?.subtitle;
-    console.log(pageContext);
     let initialCTA = landingPage?.initialCTA;
     if (!initialCTA) {
         initialCTA = {

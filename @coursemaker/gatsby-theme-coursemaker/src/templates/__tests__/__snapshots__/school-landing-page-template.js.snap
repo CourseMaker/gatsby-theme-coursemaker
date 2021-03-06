@@ -32,42 +32,36 @@ Array [
         >
           <li>
             <a
+              aria-current="page"
               className=""
-              href="/#overview"
+              href="/"
               onClick={[Function]}
               onMouseEnter={[Function]}
+              style={Object {}}
             >
-              Overview
+              Home
             </a>
           </li>
           <li>
             <a
               className=""
-              href="/#courses"
+              href="/courses"
               onClick={[Function]}
               onMouseEnter={[Function]}
             >
-              Courses
+              My Courses
             </a>
           </li>
           <li>
             <a
+              aria-current="page"
               className=""
-              href="/login"
+              href="/"
               onClick={[Function]}
               onMouseEnter={[Function]}
+              style={Object {}}
             >
-              Login
-            </a>
-          </li>
-          <li>
-            <a
-              className="btn btn-white"
-              href="/register"
-              onClick={[Function]}
-              onMouseEnter={[Function]}
-            >
-              Enroll Now
+              Logout
             </a>
           </li>
         </nav>
@@ -294,42 +288,36 @@ Array [
         >
           <li>
             <a
+              aria-current="page"
               className=""
-              href="/#overview"
+              href="/"
               onClick={[Function]}
               onMouseEnter={[Function]}
+              style={Object {}}
             >
-              Overview
+              Home
             </a>
           </li>
           <li>
             <a
               className=""
-              href="/#courses"
+              href="/courses"
               onClick={[Function]}
               onMouseEnter={[Function]}
             >
-              Courses
+              My Courses
             </a>
           </li>
           <li>
             <a
+              aria-current="page"
               className=""
-              href="/login"
+              href="/"
               onClick={[Function]}
               onMouseEnter={[Function]}
+              style={Object {}}
             >
-              Login
-            </a>
-          </li>
-          <li>
-            <a
-              className="btn btn-white"
-              href="/register"
-              onClick={[Function]}
-              onMouseEnter={[Function]}
-            >
-              Enroll Now
+              Logout
             </a>
           </li>
         </nav>

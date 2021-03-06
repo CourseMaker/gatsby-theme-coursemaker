@@ -7,9 +7,6 @@ import { isAuthenticated } from '../auth/auth';
 const CoursePaymentPage = ({ pageContext = {} }) => {
     const isBrowser = typeof window !== 'undefined';
     useEffect(() => {
-        if (!isBrowser) {
-            return;
-        }
         if (!isAuthenticated()) navigate('/register');
     });
     const { course } = pageContext;
