@@ -28,7 +28,7 @@ export const isAuthenticated = () => {
         return;
     }
 
-    if (!process.env.GATSBY_ENABLE_AUTH !== 'true') {
+    if (process.env.GATSBY_ENABLE_AUTH !== 'true') {
         return true;
     }
 
@@ -106,7 +106,7 @@ export const coursesFromJWT = () => {
 export const isAuthorized = (courseID) => {
     if (!isBrowser) return;
 
-    if (!process.env.GATSBY_ENABLE_AUTH !== 'true') {
+    if (process.env.GATSBY_ENABLE_AUTH !== 'true') {
         return true;
     }
 
