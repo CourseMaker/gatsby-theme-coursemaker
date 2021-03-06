@@ -71,7 +71,7 @@ const Header = ({ school, schoolThemeStyle = { primaryColor: 'blue' } }) => {
                             if (link[0] == 'Logout') {
                                 return (
                                     <li key={i}>
-                                        <Link className={classes} to={link[1]} onClick={logout}>
+                                        <Link className={classes} to={link[1]} onClick={() => logout()}>
                                             {link[0]}
                                         </Link>
                                     </li>

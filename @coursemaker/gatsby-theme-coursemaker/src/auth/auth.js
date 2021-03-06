@@ -83,6 +83,12 @@ export const getProfile = () => {
     return user
 }
 
+export const logout = () => {
+    console.log('logout')
+    localStorage.setItem("isLoggedIn", false)
+    auth.logout()
+}
+
 export const coursesFromJWT = () => {
     const tokenString = localStorage.getItem('token');
     if (tokenString) {
