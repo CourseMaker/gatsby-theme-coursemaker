@@ -200,7 +200,6 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
                 author: {
                     type: `[AuthorsYaml]`,
                     resolve: (source, args, context) => {
-                        console.log(source)
                         courseAuthors = []
                         for (let step = 0; step < source.author.length; step++) {
                             let node = getNodesByType(`AuthorsYaml`).find((author) => author.name === source.author[step])
