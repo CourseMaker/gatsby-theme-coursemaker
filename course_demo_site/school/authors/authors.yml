@@ -3,3 +3,8 @@
   subtitle: Human
   author_image: "./assets/chris_samiullah.jpg"
   display: true
+- name: Second Author
+  bio: Test
+  subtitle: Human
+  author_image: "./assets/chris_samiullah.jpg"
+  display: true
