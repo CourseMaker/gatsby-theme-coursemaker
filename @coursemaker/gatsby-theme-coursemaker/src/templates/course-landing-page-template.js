@@ -170,7 +170,7 @@ const CourseLandingPage = ({ pageContext = {} }) => {
 
             {<FAQSection schoolThemeStyle={schoolThemeStyle} landingPage={landingPage} />}
 
-            {author_display.length > 0 && (
+            {author_display && author_display.length > 0 && (
                 author_display.map((author, index) => (
                     <Author schoolThemeStyle={schoolThemeStyle} author_display={author} />
                 ))
