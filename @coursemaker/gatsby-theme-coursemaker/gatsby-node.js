@@ -504,6 +504,21 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                                                 id
                                             }
                                         }
+                                        code_submission_template {
+                                            title
+                                            source_code
+                                            stdin
+                                            task_list  {
+                                              title
+                                              body
+                                            }
+                                            expected_output
+                                            cpu_time_limit
+                                            wall_time_limit
+                                            language_id
+                                            hints_markdown
+                                            code_execution_backend
+                                        }
                                         author_display {
                                             id
                                             title
