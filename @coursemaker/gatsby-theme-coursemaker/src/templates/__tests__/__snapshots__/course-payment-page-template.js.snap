@@ -12,8 +12,12 @@ Array [
         className="flex flex-wrap items-center"
       >
         <a
+          aria-current="page"
           className="inline-flex items-center h-20 text-lg md:h-24 logo"
           href="/"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          style={Object {}}
         >
           <span
             className="font-semibold"
@@ -28,8 +32,12 @@ Array [
         >
           <li>
             <a
+              aria-current="page"
               className=""
               href="/"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+              style={Object {}}
             >
               Home
             </a>
@@ -38,15 +46,20 @@ Array [
             <a
               className=""
               href="/courses"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
             >
               My Courses
             </a>
           </li>
           <li>
             <a
+              aria-current="page"
               className=""
               href="/"
               onClick={[Function]}
+              onMouseEnter={[Function]}
+              style={Object {}}
             >
               Logout
             </a>
@@ -191,11 +204,15 @@ Array [
         >
           <a
             href="/terms"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
           >
             Terms
           </a>
           <a
             href="/privacy"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
           >
             Privacy
           </a>
@@ -218,8 +235,12 @@ Array [
         className="flex flex-wrap items-center"
       >
         <a
+          aria-current="page"
           className="inline-flex items-center h-20 text-lg md:h-24 logo"
           href="/"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          style={Object {}}
         >
           <span
             className="font-semibold"
@@ -234,8 +255,12 @@ Array [
         >
           <li>
             <a
+              aria-current="page"
               className=""
               href="/"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+              style={Object {}}
             >
               Home
             </a>
@@ -244,15 +269,20 @@ Array [
             <a
               className=""
               href="/courses"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
             >
               My Courses
             </a>
           </li>
           <li>
             <a
+              aria-current="page"
               className=""
               href="/"
               onClick={[Function]}
+              onMouseEnter={[Function]}
+              style={Object {}}
             >
               Logout
             </a>
@@ -397,11 +427,15 @@ Array [
         >
           <a
             href="/terms"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
           >
             Terms
           </a>
           <a
             href="/privacy"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
           >
             Privacy
           </a>
@@ -424,8 +458,12 @@ Array [
         className="flex flex-wrap items-center"
       >
         <a
+          aria-current="page"
           className="inline-flex items-center h-20 text-lg md:h-24 logo"
           href="/"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          style={Object {}}
         >
           <span
             className="font-semibold"
@@ -440,8 +478,12 @@ Array [
         >
           <li>
             <a
+              aria-current="page"
               className=""
               href="/"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+              style={Object {}}
             >
               Home
             </a>
@@ -450,15 +492,20 @@ Array [
             <a
               className=""
               href="/courses"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
             >
               My Courses
             </a>
           </li>
           <li>
             <a
+              aria-current="page"
               className=""
               href="/"
               onClick={[Function]}
+              onMouseEnter={[Function]}
+              style={Object {}}
             >
               Logout
             </a>
@@ -603,11 +650,15 @@ Array [
         >
           <a
             href="/terms"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
           >
             Terms
           </a>
           <a
             href="/privacy"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
           >
             Privacy
           </a>

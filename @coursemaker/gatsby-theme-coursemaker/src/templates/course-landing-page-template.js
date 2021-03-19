@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { jsx } from 'theme-ui';
+import { Link } from 'gatsby';
 import Layout from '../components/layout';
 import Section from '../components/section';
 import Author from '../components/author';
@@ -13,8 +14,7 @@ import ContactSection from '../components/landing_page/contact-section';
 import Icon from '../components/icon';
 import svg from '../images/icons/icon-courses.svg';
 import CTA from '../components/cta';
-import Button from "../components/button";
-import {Link} from "gatsby";
+import Button from '../components/button';
 
 const CourseLandingPage = ({ pageContext = {} }) => {
     const { school } = pageContext;
@@ -32,7 +32,6 @@ const CourseLandingPage = ({ pageContext = {} }) => {
     // Section 1 - Intro
     const title = course?.title;
     const subtitle = course?.subtitle;
-    console.log(pageContext)
     let initialCTA = landingPage?.initialCTA;
     if (!initialCTA) {
         initialCTA = {
@@ -54,7 +53,13 @@ const CourseLandingPage = ({ pageContext = {} }) => {
     // Section 5 - Testimonials
 
     // Section 6 - Author(s)
-    const { author_display } = course;
+    let { author_display } = course;
+    if (author_display){
+        // TODO: harmonize strapi so that it returns a list of authors also
+        if (!author_display.length){
+            author_display = [author_display]
+        }
+    }
 
     // Section 6 - FAQ
 
@@ -88,22 +93,23 @@ const CourseLandingPage = ({ pageContext = {} }) => {
                                         <div className="mt-6 btn-wrapper lg:flex-4">
                                             <Link
                                                 to="#video"
-                                                className={`text-white bg-blue-500 text-lg btn btn-custom flex-nowrap items-center`}
-                                                style={{display: "inline-flex", textAlign: "center"}}>
-                                                {course?.price_info &&
-                                                    <svg className={`icon-left`} viewBox="0 0 20 20" fill="currentColor">
-                                                        <path fillRule="evenodd"
-                                                              d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-                                                              clipRule="evenodd"/>
+                                                className="text-white bg-blue-500 text-lg btn btn-custom flex-nowrap items-center"
+                                                style={{ display: 'inline-flex', textAlign: 'center' }}
+                                            >
+                                                {course?.price_info && (
+                                                    <svg className="icon-left" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path
+                                                            fillRule="evenodd"
+                                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                                                            clipRule="evenodd"
+                                                        />
                                                     </svg>
-                                                }
+                                                )}
                                                 Watch Promo
                                             </Link>
                                         </div>
-                                        )
-                                    }
+                                    )}
                                 </div>
-
                             </div>
                             {/* left-side */}
 
@@ -164,7 +170,11 @@ const CourseLandingPage = ({ pageContext = {} }) => {
 
             {<FAQSection schoolThemeStyle={schoolThemeStyle} landingPage={landingPage} />}
 
-            {<Author schoolThemeStyle={schoolThemeStyle} author_display={author_display} />}
+            {author_display && author_display.length > 0 && (
+                author_display.map((author, index) => (
+                    <Author schoolThemeStyle={schoolThemeStyle} author_display={author} />
+                ))
+            )}
 
             {<ContactSection schoolThemeStyle={schoolThemeStyle} landingPage={landingPage} />}
 

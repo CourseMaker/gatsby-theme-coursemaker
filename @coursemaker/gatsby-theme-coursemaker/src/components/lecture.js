@@ -18,8 +18,8 @@ const Lecture = ({ lecture, size, data, slug, schoolThemeStyle }) => {
 
     const allowPreview = data?.allow_preview;
     const viewType = allowPreview === true ? 'Preview' : 'View';
-    const viewColor = allowPreview === true ? 'bg-orange-500' : 'bg-blue-500'
-    const viewHover = allowPreview === true ? 'bg-orange-400' : 'bg-blue-400'
+    const viewColor = allowPreview === true ? 'bg-orange-500' : 'bg-blue-500';
+    const viewHover = allowPreview === true ? 'bg-orange-400' : 'bg-blue-400';
 
     // pathname
     const { pathname } = useLocation();

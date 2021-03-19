@@ -198,8 +198,17 @@ exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {
                     type: `String`,
                 },
                 author: {
-                    type: `AuthorsYaml!`,
-                    resolve: (source) => getNodesByType(`AuthorsYaml`).find((author) => author.name === source.author),
+                    type: `[AuthorsYaml]`,
+                    resolve: (source, args, context) => {
+                        courseAuthors = []
+                        for (let step = 0; step < source.author.length; step++) {
+                            let node = getNodesByType(`AuthorsYaml`).find((author) => author.name === source.author[step])
+                            if (node){
+                                courseAuthors.push(node)
+                            }
+                        }
+                        return courseAuthors;
+                    }
                 },
                 excerpt: {
                     type: `String`,

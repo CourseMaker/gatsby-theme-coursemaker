@@ -5,6 +5,7 @@ import Checkout from '../components/checkout';
 import { isAuthenticated } from '../auth/auth';
 
 const CoursePaymentPage = ({ pageContext = {} }) => {
+    const isBrowser = typeof window !== 'undefined';
     useEffect(() => {
         if (!isAuthenticated()) navigate('/register');
     });
