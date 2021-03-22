@@ -56,7 +56,11 @@ const SEO = ({ pageContext = defaultFields }) => {
             <meta content="summary_large_image" name="twitter:card" />
             <meta content={pageTitleFull} name="twitter:text:title" />
             {realCanonical && <meta content={realCanonical} property="og:url" />}
-            {realCanonical && <meta content={realCanonical} name="twitter:url" />}
+            {realCanonical && (<>
+                <meta name="twitter:title" content="CourseMaker | Make Online Courses" />
+                <meta name="twitter:image" content="https://coursemaker.org/coursemaker_twitter_card.png" />
+                <meta name="twitter:description" content="The online course builder for technical course authors." />
+            </>)}
             {realCanonical && <link rel="canonical" href={realCanonical} />}
 
             <meta content="1024" name="twitter:image:width" />
