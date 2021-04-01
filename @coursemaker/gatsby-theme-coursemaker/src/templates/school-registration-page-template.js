@@ -3,13 +3,9 @@ import { Link } from 'gatsby';
 
 import Layout from '../components/layout';
 import Input from '../components/input';
-import { register } from '../auth/auth';
 
 /* { pageContext } */
 const RegistrationPage = ({ pageContext }) => {
-    if (process.env.GATSBY_ENABLE_AUTH === 'true') {
-        register();
-    }
     let schoolThemeStyle = pageContext.school?.schoolThemeStyle;
     if (!schoolThemeStyle) {
         schoolThemeStyle = {

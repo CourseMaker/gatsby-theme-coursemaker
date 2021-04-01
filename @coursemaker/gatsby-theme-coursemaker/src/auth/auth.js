@@ -1,17 +1,17 @@
+import auth0 from 'auth0-js';
 import { navigate } from 'gatsby';
 import jwtDecode from 'jwt-decode';
-import auth0 from 'auth0-js';
 
 const isBrowser = typeof window !== 'undefined';
 
 const auth = isBrowser
     ? new auth0.WebAuth({
-          domain: process.env.GATSBY_AUTH0_DOMAIN || '',
-          clientID: process.env.GATSBY_AUTH0_CLIENTID || '',
-          redirectUri: process.env.GATSBY_AUTH0_CALLBACK || '',
-          responseType: 'token id_token',
-          scope: 'openid profile email',
-      })
+        domain: process.env.GATSBY_AUTH0_DOMAIN || '',
+        clientID: process.env.GATSBY_AUTH0_CLIENTID || '',
+        redirectUri: process.env.GATSBY_AUTH0_CALLBACK || '',
+        responseType: 'token id_token',
+        scope: 'openid profile email',
+    })
     : {};
 
 // insert after auth const
@@ -21,41 +21,12 @@ const tokens = {
     expiresAt: false,
 };
 
-let user = {};
-
-export const isAuthenticated = () => {
-    if (!isBrowser) {
-        return;
-    }
-
-    if (process.env.GATSBY_ENABLE_AUTH !== 'true') {
-        return true;
-    }
-
-    return localStorage.getItem('isLoggedIn') === 'true';
-};
-
 export const login = () => {
-    if (!isBrowser) {
-        return;
-    }
-
-    auth.authorize();
-};
-
-export const register = () => {
-    if (!isBrowser) {
-        return;
-    }
-
+    if (!isBrowser) return;
     auth.authorize();
 };
 
 const setSession = (cb = () => {}) => (err, authResult) => {
-    if (!isBrowser) {
-        return;
-    }
-
     if (err) {
         navigate('/');
         cb();
@@ -67,10 +38,15 @@ const setSession = (cb = () => {}) => (err, authResult) => {
         tokens.accessToken = authResult.accessToken;
         tokens.idToken = authResult.idToken;
         tokens.expiresAt = expiresAt;
-        user = authResult.idTokenPayload;
-        localStorage.setItem('isLoggedIn', true);
+        localStorage.setItem('isLoggedIn', 'true');
+        navigate('/account');
         cb();
     }
+};
+
+export const handleAuthentication = () => {
+    if (!isBrowser) return;
+    auth.parseHash(setSession());
 };
 
 export const silentAuth = (callback) => {
@@ -78,20 +54,21 @@ export const silentAuth = (callback) => {
     auth.checkSession({}, setSession(callback));
 };
 
-export const handleAuthentication = () => {
+export const logout = () => {
+    localStorage.setItem('isLoggedIn', 'false');
+    auth.logout();
+};
+
+export const isAuthenticated = () => {
     if (!isBrowser) {
         return;
     }
 
-    auth.parseHash(setSession());
-};
+    if (process.env.GATSBY_ENABLE_AUTH !== 'true') {
+        return true;
+    }
 
-export const getProfile = () => user;
-
-export const logout = () => {
-    console.log('logout');
-    localStorage.setItem('isLoggedIn', false);
-    auth.logout();
+    return localStorage.getItem('user') !== null;
 };
 
 export const coursesFromJWT = () => {
@@ -106,7 +83,7 @@ export const coursesFromJWT = () => {
 export const isAuthorized = (courseID) => {
     if (!isBrowser) return;
 
-    if (process.env.GATSBY_ENABLE_AUTH !== 'true') {
+    if (!process.env.GATSBY_ENABLE_AUTH !== 'true') {
         return true;
     }
 
