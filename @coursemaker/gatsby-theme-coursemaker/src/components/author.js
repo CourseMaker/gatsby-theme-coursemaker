@@ -24,7 +24,7 @@ const Author = ({ author_display }) => {
                                 className="block object-cover h-40 mx-auto rounded-full author-photo"
                                 fluid={authorImage}
                                 alt="cover image"
-                                imgStyle={{ objectPosition: 'center', objectFit: 'contain' }}
+                                imgStyle={{ objectPosition: 'center', objectFit: 'cover' }}
                             />
                         </div>
                         <div className="w-full mt-8 md:pl-12 lg:pl-16 md:mt-0">
