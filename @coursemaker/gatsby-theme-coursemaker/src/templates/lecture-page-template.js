@@ -8,15 +8,12 @@ import Markdown from '../helpers/StrapiMarkdown/Markdown';
 import LayoutLecture from '../components/layout-lecture';
 import Breadcrumbs from '../components/course-breadcrumbs';
 import Video from '../components/video';
-import { isAuthenticated, login } from '../auth/auth';
+import { isAuthorized } from '../auth/auth';
 import { bakeLocalStorage, readLocalStorage } from '../helpers/storage';
 
 const LectureTemplate = ({ pageContext = {} }) => {
     useEffect(() => {
-        if (!isAuthenticated()) {
-            login();
-            return <p>Redirecting to login...</p>;
-        }
+        if (!isAuthorized(pageContext.course.id)) navigate(`/courses${pageContext.course.slug}checkout`);
     });
     const currentCourse = pageContext.course;
     const { lecture } = pageContext;

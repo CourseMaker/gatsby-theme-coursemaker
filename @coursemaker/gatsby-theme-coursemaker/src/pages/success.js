@@ -9,7 +9,7 @@ import { handleAuthentication } from '../auth/auth';
 const PaymentSuccess = () => {
     handleAuthentication();
     const pageContext = {
-        pageTitle: 'Login Success',
+        pageTitle: 'Payment Success',
         school: {
             name: '',
             subtitle: '',
@@ -18,7 +18,7 @@ const PaymentSuccess = () => {
     return (
         <Layout pageContext={pageContext}>
             <div className="container">
-                <h1>Login Success!</h1>
+                <h1>Payment Success!</h1>
                 <Link
                     to="/courses"
                     sx={{
