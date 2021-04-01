@@ -12,11 +12,20 @@ const defaultFields = {
 };
 
 const SEO = ({ pageContext = defaultFields }) => {
+    const school = pageContext?.school;
     const siteTitle = pageContext?.school?.name;
     const siteDescription = pageContext?.school?.subtitle;
     const pageTitle = pageContext?.pageTitle;
     const pageTitleFull = pageTitle ? `${siteTitle}: ${pageTitle}` : siteTitle;
     const location = typeof window !== 'undefined' ? window.location : '';
+    let socialImage= '';
+    // if there is just one course, use the course image
+    if (school?.courses?.length === 1){
+        socialImage = school?.courses[0]?.course_landing_page?.image.url;
+    } else if (school?.courses?.length > 1) {
+        socialImage = school?.landing_page?.image.url;
+    }
+
     let realCanonical = null;
     let siteUrl = '';
     if (process.env.GATSBY_USE_STRAPI === 'true') {
@@ -39,13 +48,10 @@ const SEO = ({ pageContext = defaultFields }) => {
             <meta content="width=device-width,initial-scale=1.0,user-scalable=yes" name="viewport" />
 
             <meta content={siteTitle} name="apple-mobile-web-app-title" />
-            <meta content={pageTitleFull} property="og:title" />
-            <meta content={pageTitleFull} name="twitter:title" />
             <title>{pageTitleFull}</title>
 
             <meta content={siteDescription} name="description" />
             <meta content={siteDescription} property="og:description" />
-            <meta content={siteDescription} name="twitter:description" />
 
             <meta content="yes" name="apple-mobile-web-app-capable" />
             <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style" />
@@ -53,11 +59,21 @@ const SEO = ({ pageContext = defaultFields }) => {
 
             <meta content="website" property="og:type" />
             <meta content={siteTitle} property="og:site_name" />
-            <meta content="summary_large_image" name="twitter:card" />
-            <meta content={pageTitleFull} name="twitter:text:title" />
             {realCanonical && <meta content={realCanonical} property="og:url" />}
             {realCanonical && <meta content={realCanonical} name="twitter:url" />}
             {realCanonical && <link rel="canonical" href={realCanonical} />}
+
+            {/* OpenGraph tags - includes LinkedIn */}
+            <meta property="og:title" content={siteTitle} />
+            <meta property="og:description" content={siteDescription} />
+            <meta property="og:image" content={socialImage} />
+
+            {/* Twitter Card tags */}
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:title" content={siteTitle} />
+            <meta name="twitter:description" content={siteDescription} />
+            <meta name="twitter:image" content={socialImage} />
+
 
             <meta content="1024" name="twitter:image:width" />
             <meta content="512" name="twitter:image:height" />
