@@ -21,9 +21,9 @@ const SEO = ({ pageContext = defaultFields }) => {
     let socialImage= '';
     // if there is just one course, use the course image
     if (school?.courses?.length === 1){
-        socialImage = school?.courses[0]?.course_landing_page?.image.url;
+        socialImage = school?.courses[0]?.course_landing_page?.image?.url;
     } else if (school?.courses?.length > 1) {
-        socialImage = school?.landing_page?.image.url;
+        socialImage = school?.landing_page?.image?.url;
     }
 
     let realCanonical = null;
