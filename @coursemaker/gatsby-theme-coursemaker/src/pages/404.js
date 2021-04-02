@@ -3,6 +3,8 @@ import { Link } from 'gatsby';
 
 import Layout from '../components/layout';
 
+const browser = typeof window !== "undefined" && window;
+
 const NotFoundPage = () => {
     const pageContext = {
         pageTitle: 'Not Found',
@@ -11,7 +13,7 @@ const NotFoundPage = () => {
             subtitle: '',
         },
     };
-    return (
+    return ( browser && (
         <Layout pageContext={pageContext}>
             <div className="container">
                 <h1>404 Error</h1>
@@ -19,6 +21,7 @@ const NotFoundPage = () => {
                 <Link to="/">Go back to the homepage</Link>
             </div>
         </Layout>
+        )
     );
 };
 
