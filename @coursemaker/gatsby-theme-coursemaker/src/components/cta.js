@@ -7,7 +7,17 @@ import svg from '../images/icons/icon-courses.svg';
 const CTA = ({ cta, priceInfo }) => {
     let ctaText = 'Get Access';
     if (priceInfo?.product_type === 'single_course' && priceInfo?.is_active) {
-        ctaText = 'Purchase Course';
+        let unitAmountReadable = "";
+        let unitAmount;
+        if (priceInfo?.unit_amount_readable && priceInfo?.unit_amount ){
+            unitAmount = priceInfo?.unit_amount / 100
+            if (unitAmount.toString().split('.')[1] === "00"){
+                unitAmount = unitAmount.toString().split('.')[0]
+            }
+            unitAmountReadable = "($" + unitAmount + ")";
+
+        }
+        ctaText = `Purchase Course ${unitAmountReadable}`;
     } else if (priceInfo?.product_type === 'school_membership' && priceInfo?.is_active) {
         ctaText = 'Purchase Membership';
     }
