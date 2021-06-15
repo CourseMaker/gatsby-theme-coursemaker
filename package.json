@@ -1,51 +1,51 @@
 {
-  "private": true,
-  "scripts": {
-    "clean": "yarn workspace course_demo_site gatsby clean && yarn workspace @coursemaker/gatsby-theme-coursemaker gatsby clean",
-    "local": "GATSBY_EXPERIMENTAL_LAZY_DEVJS=true yarn workspace course_demo_site gatsby develop",
-    "clean_local": "yarn workspace course_demo_site gatsby clean && yarn workspace @coursemaker/gatsby-theme-coursemaker gatsby clean && GATSBY_EXPERIMENTAL_LAZY_DEVJS=true yarn workspace course_demo_site gatsby develop",
-    "build": "yarn workspace course_demo_site gatsby build",
-    "test": "jest",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
-  },
-  "eslintIgnore": [
-    "**/node_modules/",
-    "**/public/",
-    "**/.cache/",
-    "**/build/"
-  ],
-  "lint-staged": {
-    "*.js": [
-      "eslint --fix"
-    ],
-    "*.{css,scss,json,html,yaml}": [
-      "prettier --write"
-    ],
-    "*.{css,scss}": [
-      "stylelint --fix"
-    ]
-  },
-  "devDependencies": {
-    "babel-eslint": "^10.1.0",
-    "eslint": "^7.11.0",
-    "eslint-plugin-html": "^6.1.1",
-    "eslint-config-airbnb": "^18.0.1",
-    "eslint-plugin-prettier": "^3.2.0",
-    "eslint-config-prettier": "^6.5.0",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jest": "^24.1.0",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.16.0",
-    "eslint-plugin-react-hooks": "^4.1.2",
-    "prettier": "^2.0.5",
-    "eslint-config-wesbos": "^1.0.1"
-  },
-  "resolutions": {
-    "graphql": "github:coursemaker/graphql-js#disable-validation-dist"
-  },
-  "workspaces": [
-    "@coursemaker/gatsby-theme-coursemaker",
-    "course_demo_site"
-  ]
+	"private": true,
+	"scripts": {
+		"clean": "yarn workspace course_demo_site gatsby clean && yarn workspace @coursemaker/gatsby-theme-coursemaker gatsby clean",
+		"local": "yarn workspace course_demo_site gatsby develop",
+		"clean_local": "yarn workspace course_demo_site gatsby clean && yarn workspace @coursemaker/gatsby-theme-coursemaker gatsby clean && yarn workspace course_demo_site gatsby develop",
+		"build": "yarn workspace course_demo_site gatsby build",
+		"test": "jest",
+		"lint": "eslint .",
+		"lint:fix": "eslint . --fix"
+	},
+	"eslintIgnore": [
+		"**/node_modules/",
+		"**/public/",
+		"**/.cache/",
+		"**/build/"
+	],
+	"lint-staged": {
+		"*.js": [
+			"eslint --fix"
+		],
+		"*.{css,scss,json,html,yaml}": [
+			"prettier --write"
+		],
+		"*.{css,scss}": [
+			"stylelint --fix"
+		]
+	},
+	"devDependencies": {
+		"babel-eslint": "^10.1.0",
+		"eslint": "^7.11.0",
+		"eslint-plugin-html": "^6.1.1",
+		"eslint-config-airbnb": "^18.0.1",
+		"eslint-plugin-prettier": "^3.2.0",
+		"eslint-config-prettier": "^6.5.0",
+		"eslint-plugin-import": "^2.18.2",
+		"eslint-plugin-jest": "^24.1.0",
+		"eslint-plugin-jsx-a11y": "^6.2.3",
+		"eslint-plugin-react": "^7.16.0",
+		"eslint-plugin-react-hooks": "^4.1.2",
+		"prettier": "^2.0.5",
+		"eslint-config-wesbos": "^1.0.1"
+	},
+	"resolutions": {
+		"graphql": "github:coursemaker/graphql-js#disable-validation-dist"
+	},
+	"workspaces": [
+		"@coursemaker/gatsby-theme-coursemaker",
+		"course_demo_site"
+	]
 }
