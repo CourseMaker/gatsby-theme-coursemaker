@@ -38,13 +38,15 @@ const Header = ({ school, schoolThemeStyle = { primaryColor: "blue" } }) => {
 		>
 			<div className="container mx-auto">
 				<div className="flex flex-wrap items-center">
-					<img
-						src={school.logo.url}
-						alt=""
-						width="60px"
-						height="60px"
-						className="mr-4"
-					/>
+					{school?.logo && (
+						<img
+							src={school.logo?.url}
+							alt=""
+							width="60px"
+							height="60px"
+							className="mr-4"
+						/>
+					)}
 					<Link
 						className="inline-flex items-center h-20 text-lg md:h-24 logo"
 						to="/"
