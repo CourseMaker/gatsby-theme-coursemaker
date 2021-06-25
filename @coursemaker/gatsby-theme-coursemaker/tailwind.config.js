@@ -39,4 +39,15 @@ module.exports = {
             backgroundColor: ['even'],
         },
     },
+    purge: [
+        './src/**/*.html',
+        './src/**/*.vue',
+        './src/**/*.js',
+        './node_modules/@coursemaker/**/*.html',
+        './node_modules/@coursemaker/**/*.vue',
+        './node_modules/@coursemaker/**/*.js',
+        './node_modules/gatsby-plugin-*/**/*.html',
+        './node_modules/gatsby-plugin-*/**/*.vue',
+        './node_modules/gatsby-plugin-*/**/*.js',
+    ],
 };
