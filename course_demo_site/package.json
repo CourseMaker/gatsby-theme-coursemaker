@@ -12,8 +12,8 @@
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
   },
   "dependencies": {
-    "@coursemaker/gatsby-theme-coursemaker": "0.5.3",
-    "gatsby": "^3.7.2",
+    "@coursemaker/gatsby-theme-coursemaker": "0.6.1",
+    "gatsby": "^3.8.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "stripe": "^8.155.0",
