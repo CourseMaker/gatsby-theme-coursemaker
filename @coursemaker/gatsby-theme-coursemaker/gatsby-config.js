@@ -199,7 +199,7 @@ module.exports = (themeOptions) => {
                     name: options.authorsPath,
                 },
             },
-            `gatsby-transformer-sharp`,
+            `gatsby-plugin-image`,
             'gatsby-plugin-sharp',
             {
                 resolve: `gatsby-plugin-manifest`,
@@ -213,6 +213,7 @@ module.exports = (themeOptions) => {
                     icon: `./favicon.png`,
                 },
             },
+            `gatsby-transformer-sharp`,
             {
                 resolve: `gatsby-plugin-postcss`,
                 options: {

@@ -625,13 +625,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                                 video_id: videoID
                                 image: courseImage {
                                     childImageSharp {
-                                        fluid(maxWidth: 500, quality: 100) {
-                                            base64
-                                            aspectRatio
-                                            src
-                                            srcSet
-                                            sizes
-                                        }
+                                        gatsbyImageData(layout: FIXED)
                                     }
                                 }
                                 overviewHeading
@@ -673,13 +667,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                                     display
                                     photo: author_image {
                                         childImageSharp {
-                                            fluid(maxWidth: 500, quality: 100) {
-                                                base64
-                                                aspectRatio
-                                                src
-                                                srcSet
-                                                sizes
-                                            }
+                                            gatsbyImageData(layout: FIXED)
                                         }
                                     }
                                 }
