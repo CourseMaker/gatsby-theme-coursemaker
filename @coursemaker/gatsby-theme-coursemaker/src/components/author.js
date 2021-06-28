@@ -32,7 +32,7 @@ const Author = ({ author_display }) => {
                             <h3>{author_display.title}</h3>
                             <p className="mb-6 text-xl font-light text-gray-600">{author_display.subtitle}</p>
                             <div className="mb-4 leading-loose text-gray-700 md:mb-6 space-y-5">
-                                <ReactMarkdown source={author_display.description} />
+                                <ReactMarkdown>{author_display.description}</ReactMarkdown>
                             </div>
                         </div>
                     </div>

@@ -9,6 +9,7 @@ const Card = ({ course, paid = false, schoolThemeStyle = { primaryColor: 'blue' 
         slug = `${slug}curriculum`;
     }
     const courseAuthor = course.author_display?.title || '';
+    console.log('courseAuthor: ', courseAuthor);
     let courseImage;
     if (course?.landing_page?.image == null || course?.landing_page?.image?.url == '') {
         // default

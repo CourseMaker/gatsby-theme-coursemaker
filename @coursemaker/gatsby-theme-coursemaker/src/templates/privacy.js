@@ -28,7 +28,7 @@ const Privacy = ({ pageContext }) => {
             <section className="py-12 md:py-16">
                 <div className="container mx-auto lg:w-7/12">
                     <article className="leading-relaxed space-y-5">
-                        <ReactMarkdown source={privacy_policy} />
+                        <ReactMarkdown>{privacy_policy}</ReactMarkdown>
                     </article>
                 </div>
             </section>
