@@ -67,7 +67,6 @@
 		"gatsby-transformer-remark": "^4.5.0",
 		"gatsby-transformer-sharp": "^3.8.0",
 		"gatsby-transformer-yaml": "^3.8.0",
-		"graphql": "github:getcoursemaker/graphql-js#disable-validation-dist",
 		"jwt-decode": "^3.0.0",
 		"katex": "^0.13.11",
 		"koa": "^2.13.1",

@@ -1,6 +1,4 @@
 const withDefaults = require(`./bootstrapping/default-options`);
-const { buildClientSchema } = require('graphql');
-const fs = require('fs');
 
 require('dotenv').config();
 
@@ -254,10 +252,6 @@ const strapiPluginOrFake = () => {
                 fetchOptions: {},
                 // refetch interval in seconds
                 refetchInterval: 20,
-                createSchema: async () => {
-                    const json = JSON.parse(fs.readFileSync(`${__dirname}/introspection.json`));
-                    return buildClientSchema(json.data);
-                },
             },
         };
     return false;

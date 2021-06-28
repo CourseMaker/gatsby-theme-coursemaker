@@ -624,14 +624,10 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                                 initialCTALink
                                 initialCTATextColor
                                 video_id: videoID
-                                image: courseImage {
-                                    childImageSharp {
-                                        fluid(maxWidth: 500, quality: 100) {
-                                            base64
-                                            aspectRatio
-                                            src
-                                            srcSet
-                                            sizes
+                                frontmatter {
+                                    image: courseImage {
+                                        childImageSharp {
+                                            gatsbyImageData(width: 500, quality: 100)
                                         }
                                     }
                                 }
@@ -720,7 +716,6 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                 }
             `
         );
-        // console.log('localData:', JSON.stringify(localData, null, 3));
         dataSources.local.school = localData.data.site.siteMetadata;
         // this order matters
         dataSources.local.courses = localData.data.allCourse.edges.map(normalize.setSectionOrder);

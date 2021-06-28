@@ -14,6 +14,12 @@ const orderSections = (course) => {
     return course;
 };
 
+function normalizeCourseLocalImage(course) {
+    return {
+        image: course.frontmatter.image,
+    };
+}
+
 exports.setSectionOrder = (course) => orderSections(course);
 
 exports.normalizeCourses = (schoolPrices) => (course) => {
@@ -81,7 +87,10 @@ exports.normalizeCourseLandingPage = ({ node: course }) => {
     landing_page.closingCTA.textColor = course?.closingCTATextColor;
 
     course.landing_page = landing_page;
-    return course;
+    return {
+        ...course,
+        ...normalizeCourseLocalImage(course),
+    };
 };
 
 module.exports.local = {

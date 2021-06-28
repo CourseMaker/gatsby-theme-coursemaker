@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import Img from 'gatsby-image';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import ReactMarkdown from 'react-markdown';
 
