@@ -1,4 +1,7 @@
 const withDefaults = require(`./bootstrapping/default-options`);
+const { buildClientSchema } = require('graphql');
+const fs = require('fs');
+
 require('dotenv').config();
 
 module.exports = (themeOptions) => {
@@ -43,39 +46,38 @@ module.exports = (themeOptions) => {
             },
         },
         plugins: [
-            !mdxOtherwiseConfigured &&
-                legacyConfigureMdxFlag && {
-                    resolve: `gatsby-plugin-mdx`,
-                    options: {
-                        extensions: [`.mdx`, `.md`],
-                        gatsbyRemarkPlugins: [
-                            {
-                                resolve: `gatsby-remark-images`,
-                                options: {
-                                    maxWidth: 1380,
-                                    linkImagesToOriginal: false,
-                                },
+            {
+                resolve: `gatsby-plugin-mdx`,
+                options: {
+                    extensions: [`.mdx`, `.md`],
+                    gatsbyRemarkPlugins: [
+                        {
+                            resolve: `gatsby-remark-images`,
+                            options: {
+                                maxWidth: 1380,
+                                linkImagesToOriginal: false,
                             },
-                            {
-                                resolve: `gatsby-remark-katex`,
-                                options: {
-                                    strict: `ignore`,
-                                },
+                        },
+                        {
+                            resolve: `gatsby-remark-katex`,
+                            options: {
+                                strict: `ignore`,
                             },
-                            // {
-                            //   resolve: 'gatsby-remark-graph',
-                            //   options: {
-                            //     // this is the language in your code-block that triggers mermaid parsing
-                            //     language: 'mermaid', // default
-                            //     theme: 'default' // could also be dark, forest, or neutral
-                            //   }
-                            // },
-                            { resolve: `gatsby-remark-copy-linked-files` },
-                            { resolve: `gatsby-remark-smartypants` },
-                        ],
-                        remarkPlugins: [require(`remark-slug`)],
-                    },
+                        },
+                        // {
+                        //   resolve: 'gatsby-remark-graph',
+                        //   options: {
+                        //     // this is the language in your code-block that triggers mermaid parsing
+                        //     language: 'mermaid', // default
+                        //     theme: 'default' // could also be dark, forest, or neutral
+                        //   }
+                        // },
+                        { resolve: `gatsby-remark-copy-linked-files` },
+                        { resolve: `gatsby-remark-smartypants` },
+                    ],
+                    remarkPlugins: [require(`remark-slug`)],
                 },
+            },
             {
                 resolve: 'gatsby-transformer-remark',
                 options: {
@@ -232,6 +234,7 @@ module.exports = (themeOptions) => {
 const cmsAuth = require(`./src/auth/cms-auth`);
 
 const enable_strapi = () => {
+    console.log('process.env.GATSBY_USE_STRAPI', process.env.GATSBY_USE_STRAPI);
     if (process.env.GATSBY_USE_STRAPI) return process.env.GATSBY_USE_STRAPI !== 'false';
     return false;
 };
@@ -251,6 +254,10 @@ const strapiPluginOrFake = () => {
                 fetchOptions: {},
                 // refetch interval in seconds
                 refetchInterval: 20,
+                createSchema: async () => {
+                    const json = JSON.parse(fs.readFileSync(`${__dirname}/introspection.json`));
+                    return buildClientSchema(json.data);
+                },
             },
         };
     return false;

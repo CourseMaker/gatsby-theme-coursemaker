@@ -4,6 +4,7 @@ import slugify from 'slugify';
 
 const Card = ({ course, paid = false, schoolThemeStyle = { primaryColor: 'blue' } }) => {
     let slug = course.slug ? course.slug : `/${slugify(course.title, { strict: true, lower: true })}`;
+    console.log('course: ', course);
 
     if (paid == true) {
         slug = `${slug}curriculum`;

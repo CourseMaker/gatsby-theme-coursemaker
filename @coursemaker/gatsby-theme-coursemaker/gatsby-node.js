@@ -252,6 +252,7 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId, createContentDig
 
     const { createNode, createParentChildLink } = actions;
 
+    // console.log('node.internal.type: ', node.internal.type);
     // Make sure it's an MDX node
     if (node.internal.type !== `Mdx`) return;
 
@@ -625,7 +626,13 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                                 video_id: videoID
                                 image: courseImage {
                                     childImageSharp {
-                                        gatsbyImageData(layout: FIXED)
+                                        fluid(maxWidth: 500, quality: 100) {
+                                            base64
+                                            aspectRatio
+                                            src
+                                            srcSet
+                                            sizes
+                                        }
                                     }
                                 }
                                 overviewHeading
@@ -667,7 +674,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                                     display
                                     photo: author_image {
                                         childImageSharp {
-                                            gatsbyImageData(layout: FIXED)
+                                            gatsbyImageData(width: 500, quality: 100)
                                         }
                                     }
                                 }
@@ -713,6 +720,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
                 }
             `
         );
+        // console.log('localData:', JSON.stringify(localData, null, 3));
         dataSources.local.school = localData.data.site.siteMetadata;
         // this order matters
         dataSources.local.courses = localData.data.allCourse.edges.map(normalize.setSectionOrder);
@@ -726,7 +734,6 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
             dataSources.local.school.landing_page.image = dataSources.local.courses[0]?.landing_page?.image;
         }
     } catch (error) {
-        console.log('error: ', error);
         reporter.panic('error loading docs', error);
     }
 
