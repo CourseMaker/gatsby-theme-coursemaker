@@ -9121,6 +9121,13 @@ gatsby-plugin-gdpr-cookies@^1.0.7:
     react-ga "^3.1.2"
     universal-cookie "^4.0.4"
 
+gatsby-plugin-gdpr-cookies@~2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-gdpr-cookies/-/gatsby-plugin-gdpr-cookies-2.0.6.tgz#4e108a0505c0ce656bc7e1762f9ceadf8c6561e2"
+  integrity sha512-dy/RzCeorkcyaWatbxZ1xgFOR60QKzDCxWOoBHBx2mjfw+Oslmz7osekZIz3bciJztgp24esQ7xMsxvDwoZsIA==
+  dependencies:
+    "@babel/runtime" "^7.11.2"
+
 gatsby-plugin-google-analytics@^2.3.13:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-google-analytics/-/gatsby-plugin-google-analytics-2.6.0.tgz#6fd6a8bdb4eb2adc2cc88687f9fb3b334787cbe9"

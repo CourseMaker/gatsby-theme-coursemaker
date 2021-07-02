@@ -176,7 +176,7 @@ module.exports = (themeOptions) => {
                         anonymize: true, // default
                     },
                     googleTagManager: {
-                        trackingId: options.gaTrackingId, // leave empty if you want to disable the tracker
+                        trackingId: '', // leave empty if you want to disable the tracker
                         cookieName: 'gatsby-gdpr-google-tagmanager', // default
                         dataLayerName: 'dataLayer', // default
                     },
