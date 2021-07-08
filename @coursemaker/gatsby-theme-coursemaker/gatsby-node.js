@@ -39,7 +39,22 @@ const mdxResolverPassthrough = (fieldName) => async (source, args, context, info
     });
 };
 
-exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
+exports.onCreateWebpackConfig = ({ stage, loaders, actions, plugins }) => {
+    let customConfig = {
+        resolve: {
+            modules: ['node_modules', 'src'],
+            fallback: { crypto: false, fs: false },
+            alias: {
+                path: require.resolve('path-browserify'),
+            },
+        },
+    };
+    if (stage === 'build-javascript' || stage === 'develop') {
+        customConfig = {
+            ...customConfig,
+            plugins: [plugins.provide({ process: 'process/browser' })],
+        };
+    }
     if (stage === 'build-html') {
         /*
          * During the build step, `auth0-js` will break because it relies on
@@ -48,7 +63,8 @@ exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
          * during the build. (See `src/utils/auth.js` to see how we prevent this
          * from breaking the app.)
          */
-        actions.setWebpackConfig({
+        customConfig = {
+            ...customConfig,
             module: {
                 rules: [
                     {
@@ -57,8 +73,9 @@ exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
                     },
                 ],
             },
-        });
+        };
     }
+    actions.setWebpackConfig(customConfig);
 };
 
 exports.createSchemaCustomization = ({ getNodesByType, actions, schema }) => {

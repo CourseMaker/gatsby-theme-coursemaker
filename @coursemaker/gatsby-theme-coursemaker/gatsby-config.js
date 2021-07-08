@@ -44,38 +44,39 @@ module.exports = (themeOptions) => {
             },
         },
         plugins: [
-            {
-                resolve: `gatsby-plugin-mdx`,
-                options: {
-                    extensions: [`.mdx`, `.md`],
-                    gatsbyRemarkPlugins: [
-                        {
-                            resolve: `gatsby-remark-images`,
-                            options: {
-                                maxWidth: 1380,
-                                linkImagesToOriginal: false,
+            !mdxOtherwiseConfigured &&
+                legacyConfigureMdxFlag && {
+                    resolve: `gatsby-plugin-mdx`,
+                    options: {
+                        extensions: [`.mdx`, `.md`],
+                        gatsbyRemarkPlugins: [
+                            {
+                                resolve: `gatsby-remark-images`,
+                                options: {
+                                    maxWidth: 1380,
+                                    linkImagesToOriginal: false,
+                                },
                             },
-                        },
-                        {
-                            resolve: `gatsby-remark-katex`,
-                            options: {
-                                strict: `ignore`,
+                            {
+                                resolve: `gatsby-remark-katex`,
+                                options: {
+                                    strict: `ignore`,
+                                },
                             },
-                        },
-                        // {
-                        //   resolve: 'gatsby-remark-graph',
-                        //   options: {
-                        //     // this is the language in your code-block that triggers mermaid parsing
-                        //     language: 'mermaid', // default
-                        //     theme: 'default' // could also be dark, forest, or neutral
-                        //   }
-                        // },
-                        { resolve: `gatsby-remark-copy-linked-files` },
-                        { resolve: `gatsby-remark-smartypants` },
-                    ],
-                    remarkPlugins: [require(`remark-slug`)],
+                            // {
+                            //   resolve: 'gatsby-remark-graph',
+                            //   options: {
+                            //     // this is the language in your code-block that triggers mermaid parsing
+                            //     language: 'mermaid', // default
+                            //     theme: 'default' // could also be dark, forest, or neutral
+                            //   }
+                            // },
+                            { resolve: `gatsby-remark-copy-linked-files` },
+                            { resolve: `gatsby-remark-smartypants` },
+                        ],
+                        remarkPlugins: [require(`remark-slug`)],
+                    },
                 },
-            },
             {
                 resolve: 'gatsby-transformer-remark',
                 options: {

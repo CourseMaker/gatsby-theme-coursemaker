@@ -16,7 +16,6 @@ const _mapProps = (props) => ({
         math: (opts) => <BlockMath math={opts.value} />,
         inlineMath: (opts) => <InlineMath math={opts.value} />,
     },
-    children: props.source,
 });
 
 const Markdown = (props) => (
