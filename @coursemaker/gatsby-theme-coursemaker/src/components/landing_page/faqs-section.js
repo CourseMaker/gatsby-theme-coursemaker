@@ -20,7 +20,7 @@ const FAQSection = ({ schoolThemeStyle = { primaryColor: 'blue' }, landingPage }
                             <h2>{faqHeading}</h2>
                         </div>
                         <div className="text-left text-gray-700 space-y-6 react-markdown">
-                            <ReactMarkdown source={faqBody} />
+                            <ReactMarkdown>{faqBody}</ReactMarkdown>
                         </div>
                     </div>
                 </div>

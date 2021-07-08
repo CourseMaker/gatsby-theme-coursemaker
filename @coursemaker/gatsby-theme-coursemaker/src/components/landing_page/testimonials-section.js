@@ -20,7 +20,7 @@ const TestimonialsSection = ({ schoolThemeStyle = { primaryColor: 'blue' }, land
                             <h2>{testimonialsHeading}</h2>
                         </div>
                         <div className="text-left text-gray-700 space-y-6 react-markdown">
-                            <ReactMarkdown source={testimonialsBody} />
+                            <ReactMarkdown>{testimonialsBody}</ReactMarkdown>
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,5 @@
 const withDefaults = require(`./bootstrapping/default-options`);
+
 require('dotenv').config();
 
 module.exports = (themeOptions) => {
@@ -199,7 +200,7 @@ module.exports = (themeOptions) => {
                     name: options.authorsPath,
                 },
             },
-            `gatsby-transformer-sharp`,
+            `gatsby-plugin-image`,
             'gatsby-plugin-sharp',
             {
                 resolve: `gatsby-plugin-manifest`,
@@ -213,6 +214,7 @@ module.exports = (themeOptions) => {
                     icon: `./favicon.png`,
                 },
             },
+            `gatsby-transformer-sharp`,
             {
                 resolve: `gatsby-plugin-postcss`,
                 options: {
@@ -231,6 +233,7 @@ module.exports = (themeOptions) => {
 const cmsAuth = require(`./src/auth/cms-auth`);
 
 const enable_strapi = () => {
+    console.log('process.env.GATSBY_USE_STRAPI', process.env.GATSBY_USE_STRAPI);
     if (process.env.GATSBY_USE_STRAPI) return process.env.GATSBY_USE_STRAPI !== 'false';
     return false;
 };

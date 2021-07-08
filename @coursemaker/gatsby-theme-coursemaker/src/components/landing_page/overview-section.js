@@ -23,7 +23,7 @@ const OverviewSection = ({ landingPage, schoolThemeStyle = { primaryColor: 'blue
                             <h2 className="">{overviewHeading}</h2>
                         </div>
                         <div className="text-left text-gray-700 space-y-6 react-markdown">
-                            <ReactMarkdown source={overviewBody} />
+                            <ReactMarkdown>{overviewBody}</ReactMarkdown>
                         </div>
                         <div className="mt-8 btn-wrapper">
                             {overviewCTA?.link && overviewCTA?.color && (

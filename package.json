@@ -42,7 +42,8 @@
 		"eslint-config-wesbos": "^1.0.1"
 	},
 	"resolutions": {
-		"graphql": "github:coursemaker/graphql-js#disable-validation-dist"
+		"webpack": "^5.24.2",
+		"remark-math": "3.0.1"
 	},
 	"workspaces": [
 		"@coursemaker/gatsby-theme-coursemaker",

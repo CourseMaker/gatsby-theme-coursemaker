@@ -15,7 +15,6 @@ import ContactSection from '../components/landing_page/contact-section';
 const SchoolLandingPage = ({ pageContext }) => {
     const school = pageContext?.school;
     const passedCourses = pageContext?.courses;
-    console.log(pageContext);
 
     const landingPage = school?.landing_page;
     let schoolThemeStyle = school?.schoolThemeStyle;

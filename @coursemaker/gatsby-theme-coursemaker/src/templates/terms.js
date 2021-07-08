@@ -28,7 +28,7 @@ const Terms = ({ pageContext }) => {
             <section className="py-12 md:py-16">
                 <div className="container mx-auto lg:w-7/12">
                     <article className="leading-relaxed space-y-5">
-                        <ReactMarkdown source={terms_and_conditions} />
+                        <ReactMarkdown>{terms_and_conditions}</ReactMarkdown>
                     </article>
                 </div>
             </section>

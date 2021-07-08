@@ -1,10 +1,11 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import Img from 'gatsby-image';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import ReactMarkdown from 'react-markdown';
 
 /* ...props */
 const Author = ({ author_display }) => {
+    console.log('author_display: ', author_display);
     let authorImage;
     if (author_display?.photo == null)
         // default
@@ -20,9 +21,9 @@ const Author = ({ author_display }) => {
                 <div className="container">
                     <div className="lg:items-center md:inline-flex lg:px-16 justify-content-center">
                         <div className="md:flex">
-                            <Img
+                            <GatsbyImage
                                 className="block object-cover h-40 mx-auto rounded-full author-photo"
-                                fluid={authorImage}
+                                image={getImage(author_display.photo)}
                                 alt="cover image"
                                 imgStyle={{ objectPosition: 'center', objectFit: 'cover' }}
                             />
@@ -31,7 +32,7 @@ const Author = ({ author_display }) => {
                             <h3>{author_display.title}</h3>
                             <p className="mb-6 text-xl font-light text-gray-600">{author_display.subtitle}</p>
                             <div className="mb-4 leading-loose text-gray-700 md:mb-6 space-y-5">
-                                <ReactMarkdown source={author_display.description} />
+                                <ReactMarkdown>{author_display.description}</ReactMarkdown>
                             </div>
                         </div>
                     </div>

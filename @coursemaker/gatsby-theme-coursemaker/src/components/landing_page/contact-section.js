@@ -20,7 +20,7 @@ const ContactSection = ({ schoolThemeStyle = { primaryColor: 'blue' }, landingPa
                             <h2>{contactHeading}</h2>
                         </div>
                         <div className="text-left text-gray-700 space-y-6 react-markdown">
-                            <ReactMarkdown source={contactBody} />
+                            <ReactMarkdown>{contactBody}</ReactMarkdown>
                         </div>
                         <div className="mt-8 btn-wrapper" />
                     </div>
