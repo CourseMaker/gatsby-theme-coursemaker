@@ -3,7 +3,7 @@ import Card from './card';
 import Icon from './icon';
 import svg from '../images/icons/icon-courses.svg';
 
-const Courses = ({ courses, paid = false, schoolThemeStyle = { primaryColor: 'blue' } }) => {
+const Courses = ({ courses, preEnrolledCourses = [], paid = false, schoolThemeStyle = { primaryColor: 'blue' } }) => {
     if (!courses) return <p>No courses available</p>;
 
     return (
@@ -22,6 +22,16 @@ const Courses = ({ courses, paid = false, schoolThemeStyle = { primaryColor: 'bl
                                 paid={paid}
                                 key={`course__${course.id}`}
                             />
+                        ))}
+
+                        {preEnrolledCourses && preEnrolledCourses.length > 0 && preEnrolledCourses.map((course) => (
+                          <Card
+                            schoolThemeStyle={schoolThemeStyle}
+                            course={course}
+                            paid={paid}
+                            key={`course__${course.id}`}
+                            isPreEnrolledCourses={preEnrolledCourses.length !== 0}
+                          />
                         ))}
                     </div>
                 </div>

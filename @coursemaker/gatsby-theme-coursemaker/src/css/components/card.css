@@ -1,0 +1,47 @@
+.pre-enrolled-courses {
+    position: relative;
+    text-align: center;
+}
+
+.pre-enrolled-courses .body-content {
+    filter: blur(9px);
+}
+
+.pre-enrolled-courses .paragraph-1 {
+    font-size: 40px;
+    color: #000000cc;
+}
+
+.pre-enrolled-courses .paragraph-2 {
+    font-size: 17px;
+    color: #000000c9;
+}
+
+#overlay {
+    font-family: 'Circular-Loom', sans-serif;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #80808042;
+    height: 100%;
+    width: 100%;
+    display: block;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    white-space: pre-wrap;
+    padding: 70px;
+}
+
+@media (min-width: 768px) {
+    .md\:w-24 {
+        height: 8rem;
+        width: 8rem;
+    }
+
+    .md\:w-16 {
+        width: 5rem;
+    }
+}
