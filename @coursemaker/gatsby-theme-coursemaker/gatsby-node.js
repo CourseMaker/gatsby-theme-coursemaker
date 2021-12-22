@@ -601,6 +601,10 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
 												code_submission_template {
 													title
 													source_code
+													code_files {
+														path
+														source_code
+													}
 													stdin
 													task_list {
 														title
@@ -612,6 +616,7 @@ exports.createPages = async ({ actions, graphql, reporter }, themeOptions) => {
 													language_id
 													hints_markdown
 													code_execution_backend
+													student_editable_file_path
 												}
 											}
 										}
